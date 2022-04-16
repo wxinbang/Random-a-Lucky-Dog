@@ -1,0 +1,2 @@
+MainPackage=C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Release\抽人_1.0.4.0_x64.msix
+SymbolPackage=C:\Users\wxinb\Documents\GitHub\抽人\obj\x64\Release\Symbols\抽人_1.0.4.0_x64.appxsym
