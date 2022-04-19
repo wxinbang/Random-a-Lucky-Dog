@@ -483,3 +483,5 @@ C:\Users\wxinb\Documents\GitHub\抽人\obj\x64\Release\ilc\intermediate\抽人.M
 C:\Users\wxinb\Documents\GitHub\抽人\obj\x64\Release\ilc\intermediate\抽人.McgInterop\PInvoke.g.cs
 C:\Users\wxinb\Documents\GitHub\抽人\obj\x64\Release\ilc\intermediate\抽人.McgInterop\SafeTypes.g.cs
 C:\Users\wxinb\Documents\GitHub\抽人\obj\x64\Release\ilc\intermediate\抽人.McgInterop\SharedStubs.g.cs
+C:\Users\admin\Documents\have a try\select-lucky-dog\obj\x64\Release\抽人.exe
+C:\Users\admin\Documents\have a try\select-lucky-dog\obj\x64\Release\抽人.pdb

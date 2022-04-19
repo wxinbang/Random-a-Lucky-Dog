@@ -9,13 +9,179 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="318" Width="506">
 
     <Grid>
-        <TextBox x:Name="resultBox" HorizontalAlignment="Left" Margin="65,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" BorderThickness="0,0,0,0" TextAlignment="Left"/>
-        <ToggleSwitch x:Name="whetherMark" Header="标记" Margin="65,158,0,0" VerticalAlignment="Top" OffContent="否" OnContent="是" Toggled="whetherMark_Toggled"/>
-        <Button x:Name="randomButton" Content="抽" Margin="0,94,0,0" VerticalAlignment="Top" Click="randomButton_Click" HorizontalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBox x:Name="resultBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" BorderThickness="2,2,2,2" TextAlignment="Left" IsReadOnly="True"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                
+            </Grid>
+
+            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="randomButton" Content="抽" VerticalAlignment="Top" Click="randomButton_Click" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:Name="selectDataSetButton" Content="选择数据集" VerticalAlignment="Top" Click="selectDataSetButton_Click"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:Name="connectDataSet" Content="连接数据集" VerticalAlignment="Top" Click="connectDataSet_Click"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </Grid>
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top" Click="praiseButton_Click"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ToggleSwitch x:Name="whetherMark" Header="标记" VerticalAlignment="Top" OffContent="否" OnContent="是" Toggled="whetherMark_Toggled"/>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </Grid>
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <TextBox x:Name="versionInformationBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Build 1.0.0.0.prealpha.220405-1005" VerticalAlignment="Top" FontSize="6" BorderThickness="0,0,0,0" TextAlignment="Right" IsReadOnly="True"/>
+        </Grid>
+    </Grid>
+    
+<!--
+    <StackPanel Orientation="Vertical" >
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox x:Name="resultBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" BorderThickness="0,0,0,0" TextAlignment="Left" IsReadOnly="True"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                 To create this sample, add/change the following properties onto the code for the base example above: 
+
+                <ListView SelectionMode="Single" />
+               <DataTemplate x:Key="ContactListViewTemplate" x:DataType="local1:Contact">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse x:Name="Ellipse"
+                    Grid.RowSpan="2"
+                    Width ="32"
+                    Height="32"
+                    Margin="6"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Column="1"
+                    Text="{x:Bind Name}"
+                    x:Phase="1"
+                    Style="{ThemeResource BaseTextBlockStyle}"
+                    Margin="12,6,0,0"/>
+                        <TextBlock  Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{x:Bind Company}"
+                    x:Phase="2"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Margin="12,0,0,6"/>
+                    </Grid>
+                </DataTemplate>
+
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="randomButton" Content="抽" VerticalAlignment="Top" Click="randomButton_Click" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button x:Name="connectDataSet" Content="连接数据集" VerticalAlignment="Top" Click="connectDataSet_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top" Click="praiseButton_Click"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <ToggleSwitch x:Name="whetherMark" Header="标记" VerticalAlignment="Top" OffContent="否" OnContent="是" Toggled="whetherMark_Toggled"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+-->
+<!--
+    <Grid>
+        <TextBox x:Name="resultBox" HorizontalAlignment="Left" Margin="65,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" BorderThickness="0,0,0,0" TextAlignment="Left" IsReadOnly="True"/>
         <Button x:Name="selectDataSetButton" Content="选择数据集" Margin="356,181,0,0" VerticalAlignment="Top" Click="selectDataSetButton_Click"/>
-        <Button x:Name="praiseButton" Content="表扬一下" Margin="318,94,0,0" VerticalAlignment="Top" Click="praiseButton_Click"/>
-        <TextBox x:Name="versionInformationBox" HorizontalAlignment="Left" Margin="395,302,0,0" TextWrapping="Wrap" Text="Build 1.0.0.0.prealpha.220405-1005" VerticalAlignment="Top" FontSize="6" BorderThickness="0,0,0,0" TextAlignment="Right" Height="16" Width="111"/>
-        <Button x:Name="connectDataSet" Content="连接数据集" Margin="237,181,0,0" VerticalAlignment="Top" Click="connectDataSet_Click"/>
+        <TextBox x:Name="versionInformationBox" HorizontalAlignment="Left" Margin="395,302,0,0" TextWrapping="Wrap" Text="Build 1.0.0.0.prealpha.220405-1005" VerticalAlignment="Top" FontSize="6" BorderThickness="0,0,0,0" TextAlignment="Right" Height="16" Width="111" IsReadOnly="True"/>
 
     </Grid>
+-->
 </Page>

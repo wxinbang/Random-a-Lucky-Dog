@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wxinb\\Documents\\GitHub\\抽人\\抽人.csproj": {}
+    "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\抽人.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wxinb\\Documents\\GitHub\\抽人\\抽人.csproj": {
+    "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\抽人.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wxinb\\Documents\\GitHub\\抽人\\抽人.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\抽人.csproj",
         "projectName": "抽人",
-        "projectPath": "C:\\Users\\wxinb\\Documents\\GitHub\\抽人\\抽人.csproj",
-        "packagesPath": "C:\\Users\\wxinb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wxinb\\Documents\\GitHub\\抽人\\obj\\",
+        "projectPath": "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\抽人.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -19,7 +19,7 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\wxinb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,7 +28,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\wxinb\\Downloads": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
