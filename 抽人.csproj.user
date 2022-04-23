@@ -5,14 +5,14 @@
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
     <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
-    <Source>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</Source>
-    <SmallTileSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</SmallTileSource>
-    <MediumTileSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</MediumTileSource>
-    <WideTileSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</WideTileSource>
-    <LargeTileSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</LargeTileSource>
-    <AppIconSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</AppIconSource>
-    <SplashScreenSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</SplashScreenSource>
-    <BadgeLogoSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</BadgeLogoSource>
-    <PackageLogoSource>C:\Users\wxinb\Documents\GitHub\select-lucky-dog\icon.png</PackageLogoSource>
+    <Source>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</Source>
+    <SmallTileSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</SmallTileSource>
+    <MediumTileSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</MediumTileSource>
+    <WideTileSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</WideTileSource>
+    <LargeTileSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</LargeTileSource>
+    <AppIconSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</AppIconSource>
+    <SplashScreenSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</SplashScreenSource>
+    <BadgeLogoSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</BadgeLogoSource>
+    <PackageLogoSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</PackageLogoSource>
   </PropertyGroup>
 </Project>

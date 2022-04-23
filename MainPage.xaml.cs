@@ -26,7 +26,7 @@ namespace 抽人
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Dictionary<int,Student> studentDictionary=new Dictionary<int, Student>();
+        Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
 #if(DEBUG)
         string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900
 #else
@@ -36,10 +36,10 @@ namespace 抽人
         int timesOfVersionTextTapped = 0;
         bool whetherJoinInsiderPreviewProgram;
 
-        int timesOfPraise =0;
+        int timesOfPraise = 0;
         int studentNumber;
         int sumOfStudent;
-        bool finishedMark=false;
+        bool finishedMark = false;
         bool mark = false;
 
         string DataSetPath;
@@ -54,7 +54,7 @@ namespace 抽人
 
         string readableFilePath;
 
-// 加入初始化时读写配置文件
+        // 加入初始化时读写配置文件
 
         public MainPage()
         {
@@ -115,12 +115,12 @@ namespace 抽人
             if (file != null)
             {
                 readableFilePath = readableFolderPath + @"\" + file.Name;
-                DataSetPath= file.Path;
+                DataSetPath = file.Path;
                 //if (StorageFile.)File.Delete(readableFilePath);
-                await file.CopyAsync(readableFolderPath,file.Name,NameCollisionOption.ReplaceExisting);
+                await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
 
                 // Application now has read/write access to the picked file
-                
+
             }
             else
             {
@@ -130,7 +130,7 @@ namespace 抽人
 
         private void whetherMark_Toggled(object sender, RoutedEventArgs e)
         {
-            mark=whetherMark.IsOn;
+            mark = whetherMark.IsOn;
             //加用户决定
             if (studentNumber != 0) studentDictionary[studentNumber].StudentStatus = mark ? Status.going : Status.unfinished;
         }
@@ -155,35 +155,35 @@ namespace 抽人
             //StreamReader sr = new StreamReader(readableFilePath);
 
             IList<string> contents = await FileIO.ReadLinesAsync(file);
-            sumOfStudent=contents.ToArray().Length;
+            sumOfStudent = contents.ToArray().Length;
 
-            bool[] checkId=new bool[sumOfStudent];
-            for(int j=0;j<sumOfStudent;j++)
+            bool[] checkId = new bool[sumOfStudent];
+            for (int j = 0; j < sumOfStudent; j++)
             {
-//创建一个动态bool数组checkId并全部初始化为false
+                //创建一个动态bool数组checkId并全部初始化为false
 
                 string[] studentData = new string[4];
                 studentData = DealWithStudentData(contents[j]);
 
-                Student Somebody=new Student() { Id=Convert.ToInt32(studentData[0]),Name=studentData[1],IsMarked=true,StudentStatus=ConvertStatus(studentData[3])};
+                Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], IsMarked = true, StudentStatus = ConvertStatus(studentData[3]) };
                 //sumOfStudent++;
                 //contents.RemoveAt(0);
 
                 if (Somebody.StudentStatus == Status.unfinished) unfinishedNumber++;
-                checkId[Somebody.Id-1] = true;
+                checkId[Somebody.Id - 1] = true;
                 studentDictionary.Add(Somebody.Id, Somebody);
             }
 
             //sr.Close();
 
             int i = 0;
-            while ((i < sumOfStudent)&&(checkId[i] == true)) i++;
+            while ((i < sumOfStudent) && (checkId[i] == true)) i++;
             if (i == sumOfStudent) resultBox.Text = "连接完成";
             else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
-            else resultBox.Text = "编号为" + i+1.ToString ()+ "的人出现问题";
+            else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
         }
 
-        public string[] DealWithStudentData (string dataLine)
+        public string[] DealWithStudentData(string dataLine)
         {
             string[] studentData = new string[4];
 
@@ -199,12 +199,12 @@ namespace 抽人
             int dataLineLenth = dataLine.Length, i = 0;
             char[] DataArray = dataLine.ToCharArray();
 
-            while (i<dataLineLenth&&DataArray[i] != ' ' && DataArray[i] != '\t')
+            while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
             {
                 studentData[0] += DataArray[i];
                 i++;
             }
-            while (i < dataLineLenth && (DataArray[i] == ' '||DataArray[i] == '\t')) i++;
+            while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
 
             while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
             {
@@ -245,12 +245,12 @@ namespace 抽人
             else if (status == Status.finished) return "finished";
             else if (status == Status.suspended) return "suspended";
             else return "error";
-}
+        }
 
         private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
         {
             timesOfVersionTextTapped++;
-            if(timesOfVersionTextTapped == 5)
+            if (timesOfVersionTextTapped == 5)
             {
                 CheckWhetherJoinInsiderPreviewProgram();
             }
@@ -283,7 +283,7 @@ namespace 抽人
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile dataFile = await localFolder.CreateFileAsync("dataFile.txt",CreationCollisionOption.OpenIfExists);
+            StorageFile dataFile = await localFolder.CreateFileAsync("dataFile.txt", CreationCollisionOption.OpenIfExists);
 
             if (dataFile != null)
             {
@@ -291,13 +291,13 @@ namespace 抽人
                 {
                     IList<string> data = await FileIO.ReadLinesAsync(dataFile);
                     string dataLine;
-                    string dataItem="";
-                    string dataValue="";
+                    string dataItem = "";
+                    string dataValue = "";
                     int dataLength = data.Count;
                     int dataLineLength;
-                    int i = 0,j=0;
+                    int i = 0, j = 0;
 
-                    while (i<dataLength)
+                    while (i < dataLength)
                     {
                         dataLine = data[i];
                         dataLineLength = dataLine.Length;
@@ -329,23 +329,60 @@ namespace 抽人
                     }
                 }
             }
-            else ;//创建文件失败
+            else;//创建文件失败
         }
 
-        private async void WriteDictionaryToFile(Dictionary<string ,string> dictionary,string file)
+        private async void WriteDictionaryToFile(Dictionary<string, string> dictionary, string file)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile storageFile = await localFolder.GetFileAsync(file);
 
-            foreach(string key in dictionary.Keys)
+            foreach (string key in dictionary.Keys)
             {
-                string output = key + " " + dictionary[key]+"\n";
-                await FileIO.WriteTextAsync(storageFile,output);
+                string output = key + " " + dictionary[key] + "\n";
+                await FileIO.WriteTextAsync(storageFile, output);
             }
 
         }
-    }
 
+        private async void ReadFileToDictionary(string fileName, Dictionary<string, string> dictionary)
+        {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+
+            IList<string> data = await FileIO.ReadLinesAsync(file);
+            int dataSum = data.Count;
+            int i = 0;
+
+            int dataLineLength;
+            int j = 0;
+            char[] dataLineChar;
+            string resultKey = "";
+            string resultValue = "";
+
+            foreach (string dataLine in data)
+            {
+                dataLineLength = dataLine.Length;
+                i = 0;
+                j = 0;
+
+                dataLineChar = dataLine.ToCharArray();
+
+                while (dataLineChar[j] != ' ')
+                {
+                    resultKey += dataLineChar[j];
+                    j++;
+                }
+                j++;
+                while (j < dataLineLength)
+                {
+                    resultValue += dataLineChar[j];
+                    j++;
+                }
+                dictionary[resultKey] = resultValue;
+            }
+        }
+    }
     class Student
     {
         public int Id { get; set; }
