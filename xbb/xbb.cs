@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace xbb
 {
-    public class Class1
+    public class xbb
     {
     }
 }

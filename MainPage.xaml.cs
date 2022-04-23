@@ -29,12 +29,13 @@ namespace 抽人
         Dictionary<int,Student> studentDictionary=new Dictionary<int, Student>();
 #if(DEBUG)
         string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900
-        //bool whetherDeveloping = true;
 #else
         string version = "1.0.4-Beta";
-        //bool whetherDeveloping = false;
 #endif
-       
+
+        int timesOfVersionTextTapped = 0;
+        bool whetherJoinInsiderPreviewProgram;
+
         int timesOfPraise =0;
         int studentNumber;
         int sumOfStudent;
@@ -49,6 +50,7 @@ namespace 抽人
 
         int unfinishedNumber;
         StorageFile file;
+        Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
 
         string readableFilePath;
 
@@ -144,7 +146,6 @@ namespace 抽人
 
             ContentDialogResult result = await whetherMarkDialog.ShowAsync();
         }
-
 
         private async void connectDataSet_Click(object sender, RoutedEventArgs e)
         {
@@ -246,7 +247,103 @@ namespace 抽人
             else return "error";
 }
 
+        private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            timesOfVersionTextTapped++;
+            if(timesOfVersionTextTapped == 5)
+            {
+                CheckWhetherJoinInsiderPreviewProgram();
+            }
 
+        }
+        private async void CheckWhetherJoinInsiderPreviewProgram()
+        {
+            ContentDialog invalidPraise = new ContentDialog
+            {
+                Title = "体验新功能",
+                Content = "这会让你体验到更多的新特性和新特性（自行体会），确定？",
+                PrimaryButtonText = "来！搞！",
+                CloseButtonText = "不了"
+            };
+
+            ContentDialogResult result = await invalidPraise.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                StorageFile dataFile = await localFolder.GetFileAsync("dataFile.txt");
+                if (dataDictionary.ContainsKey("whetherJoinInsiderPreviewProgream"))
+                {
+                    dataDictionary["whetherJoinInsiderPreviewProgram"] = "true";
+                    //要求重启并将数据写入文件
+                }
+                else await FileIO.AppendTextAsync(dataFile, "whetherJoinInsiderPreviewProgram true");
+            }
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile dataFile = await localFolder.CreateFileAsync("dataFile.txt",CreationCollisionOption.OpenIfExists);
+
+            if (dataFile != null)
+            {
+                try
+                {
+                    IList<string> data = await FileIO.ReadLinesAsync(dataFile);
+                    string dataLine;
+                    string dataItem="";
+                    string dataValue="";
+                    int dataLength = data.Count;
+                    int dataLineLength;
+                    int i = 0,j=0;
+
+                    while (i<dataLength)
+                    {
+                        dataLine = data[i];
+                        dataLineLength = dataLine.Length;
+                        char[] dataLineChar = dataLine.ToCharArray();
+
+                        while (dataLineChar[j] != ' ')
+                        {
+                            dataItem += dataLineChar[i];
+                            j++;
+                        }
+                        j++;
+                        while (j < dataLineLength)
+                        {
+                            dataValue += dataLineChar[j];
+                            j++;
+                        }
+
+                        dataDictionary.Add(dataItem, dataValue);
+                        i++;
+                    }
+                }
+                catch (IOException ex)
+                {
+                    // Get information from the exception, then throw
+                    // the info to the parent method.
+                    if (ex.Source != null)
+                    {
+                        resultBox.Text = "IOException source: " + ex.Source;
+                    }
+                }
+            }
+            else ;//创建文件失败
+        }
+
+        private async void WriteDictionaryToFile(Dictionary<string ,string> dictionary,string file)
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile storageFile = await localFolder.GetFileAsync(file);
+
+            foreach(string key in dictionary.Keys)
+            {
+                string output = key + " " + dictionary[key]+"\n";
+                await FileIO.WriteTextAsync(storageFile,output);
+            }
+
+        }
     }
 
     class Student
@@ -257,7 +354,7 @@ namespace 抽人
         public Status StudentStatus { get; set; }
     }
 
-     public enum Status //状态
+    public enum Status //状态
     {
         unfinished,
         going,//进行中
