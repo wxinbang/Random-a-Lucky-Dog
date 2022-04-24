@@ -7,7 +7,7 @@
 
   有关程序包清单文件的详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=241727
  -->
-  <Identity Name="xbb.select.the.lucky.dog" Publisher="CN=xbb" Version="1.0.4.0" ProcessorArchitecture="x64" />
+  <Identity Name="xbb.select.the.lucky.dog" Publisher="CN=xbb" Version="2.1.7.0" ProcessorArchitecture="x64" />
   <mp:PhoneIdentity PhoneProductId="e5b49317-48e0-4174-ad3e-6f70a31c89b0" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>抽人</DisplayName>
@@ -34,9 +34,6 @@
       </uap:VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
   <Extensions>
     <Extension Category="windows.activatableClass.inProcessServer">
       <InProcessServer>

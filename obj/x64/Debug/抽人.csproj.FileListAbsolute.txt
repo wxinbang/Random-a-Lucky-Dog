@@ -223,3 +223,8 @@ C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Debug\qualifiers.txt.int
 C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_637669541380000000.json
+C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\xbb.dll
+C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\xbb.pdb
+C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\xbb.pri
+C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Debug\xbb.pri.xml
+C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\Core\ForBundle\AppxManifest.xml

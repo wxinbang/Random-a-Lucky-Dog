@@ -43,5 +43,6 @@ System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken
 System.Threading, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
 System.Threading.Tasks, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
 WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+xbb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 抽人, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 抽人.McgInterop, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

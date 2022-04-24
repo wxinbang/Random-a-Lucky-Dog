@@ -6,7 +6,7 @@
     <autoResourcePackage qualifier="DXFeatureLevel" />
     <omitSchemaFromResourcePacks />
   </packaging>
-  <index root="\" startIndexAt="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Release\ilc\resources.pri">
+  <index root="\" startIndexAt="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\ilc\resources.pri">
     <default>
       <qualifier name="Language" value="zh-CN" />
       <qualifier name="Contrast" value="standard" />

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using xbb;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -28,9 +29,9 @@ namespace 抽人
     {
         Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
 #if(DEBUG)
-        string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900
+        string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900 220424-2138
 #else
-        string version = "1.0.4-Beta";
+        string version = "2.1.7-Beta";
 #endif
 
         int timesOfVersionTextTapped = 0;
@@ -156,6 +157,7 @@ namespace 抽人
 
             IList<string> contents = await FileIO.ReadLinesAsync(file);
             sumOfStudent = contents.ToArray().Length;
+            dealWithStudentDataProgressBar.Maximum = sumOfStudent;
 
             bool[] checkId = new bool[sumOfStudent];
             for (int j = 0; j < sumOfStudent; j++)
@@ -172,6 +174,7 @@ namespace 抽人
                 if (Somebody.StudentStatus == Status.unfinished) unfinishedNumber++;
                 checkId[Somebody.Id - 1] = true;
                 studentDictionary.Add(Somebody.Id, Somebody);
+                dealWithStudentDataProgressBar.Value = j + 1;
             }
 
             //sr.Close();
@@ -282,121 +285,7 @@ namespace 抽人
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile dataFile = await localFolder.CreateFileAsync("dataFile.txt", CreationCollisionOption.OpenIfExists);
-
-            if (dataFile != null)
-            {
-                try
-                {
-                    IList<string> data = await FileIO.ReadLinesAsync(dataFile);
-                    string dataLine;
-                    string dataItem = "";
-                    string dataValue = "";
-                    int dataLength = data.Count;
-                    int dataLineLength;
-                    int i = 0, j = 0;
-
-                    while (i < dataLength)
-                    {
-                        dataLine = data[i];
-                        dataLineLength = dataLine.Length;
-                        char[] dataLineChar = dataLine.ToCharArray();
-
-                        while (dataLineChar[j] != ' ')
-                        {
-                            dataItem += dataLineChar[i];
-                            j++;
-                        }
-                        j++;
-                        while (j < dataLineLength)
-                        {
-                            dataValue += dataLineChar[j];
-                            j++;
-                        }
-
-                        dataDictionary.Add(dataItem, dataValue);
-                        i++;
-                    }
-                }
-                catch (IOException ex)
-                {
-                    // Get information from the exception, then throw
-                    // the info to the parent method.
-                    if (ex.Source != null)
-                    {
-                        resultBox.Text = "IOException source: " + ex.Source;
-                    }
-                }
-            }
-            else;//创建文件失败
-        }
-
-        private async void WriteDictionaryToFile(Dictionary<string, string> dictionary, string file)
-        {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile storageFile = await localFolder.GetFileAsync(file);
-
-            foreach (string key in dictionary.Keys)
-            {
-                string output = key + " " + dictionary[key] + "\n";
-                await FileIO.WriteTextAsync(storageFile, output);
-            }
 
         }
-
-        private async void ReadFileToDictionary(string fileName, Dictionary<string, string> dictionary)
-        {
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
-
-            IList<string> data = await FileIO.ReadLinesAsync(file);
-            int dataSum = data.Count;
-            int i = 0;
-
-            int dataLineLength;
-            int j = 0;
-            char[] dataLineChar;
-            string resultKey = "";
-            string resultValue = "";
-
-            foreach (string dataLine in data)
-            {
-                dataLineLength = dataLine.Length;
-                i = 0;
-                j = 0;
-
-                dataLineChar = dataLine.ToCharArray();
-
-                while (dataLineChar[j] != ' ')
-                {
-                    resultKey += dataLineChar[j];
-                    j++;
-                }
-                j++;
-                while (j < dataLineLength)
-                {
-                    resultValue += dataLineChar[j];
-                    j++;
-                }
-                dictionary[resultKey] = resultValue;
-            }
-        }
-    }
-    class Student
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsMarked { get; set; }
-        public Status StudentStatus { get; set; }
-    }
-
-    public enum Status //状态
-    {
-        unfinished,
-        going,//进行中
-        finished,
-        suspended,//暂停的
-        error
     }
 }
