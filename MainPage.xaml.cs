@@ -28,6 +28,7 @@ namespace 抽人
     public sealed partial class MainPage : Page
     {
         Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
+        Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
 #if(DEBUG)
         string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900 220424-2138
 #else
@@ -35,14 +36,12 @@ namespace 抽人
 #endif
 
         int timesOfVersionTextTapped = 0;
-        bool whetherJoinInsiderPreviewProgram;
 
         int timesOfPraise = 0;
         int studentNumber;
         int sumOfStudent;
         bool finishedMark = false;
         bool mark = false;
-
         string DataSetPath;
         string IdString;
         string NameString;
@@ -51,9 +50,9 @@ namespace 抽人
 
         int unfinishedNumber;
         StorageFile file;
-        Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
 
         string readableFilePath;
+        bool whetherJoInsiderPreviewProgram;
 
         // 加入初始化时读写配置文件
 
@@ -119,7 +118,7 @@ namespace 抽人
                 DataSetPath = file.Path;
                 //if (StorageFile.)File.Delete(readableFilePath);
                 await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
-
+                DealWithDictionary.WriteToDictionary(dataDictionary, "fileName", file.Name);
                 // Application now has read/write access to the picked file
 
             }
@@ -131,6 +130,8 @@ namespace 抽人
 
         private void whetherMark_Toggled(object sender, RoutedEventArgs e)
         {
+            DealWithDictionary.WriteDictionaryToDataFile(dataDictionary);
+            resultBox.Text = "OK";
             mark = whetherMark.IsOn;
             //加用户决定
             if (studentNumber != 0) studentDictionary[studentNumber].StudentStatus = mark ? Status.going : Status.unfinished;
@@ -148,8 +149,16 @@ namespace 抽人
             ContentDialogResult result = await whetherMarkDialog.ShowAsync();
         }
 
-        private async void connectDataSet_Click(object sender, RoutedEventArgs e)
+        private void connectDataSet_Click(object sender, RoutedEventArgs e)
         {
+            ConnetDataSet(file.Name);
+        }
+
+        private async void ConnetDataSet(string fileName)
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file= await localFolder.GetFileAsync(fileName);
+
             string line;//定义读取行
             sumOfStudent = 0;
 
@@ -165,9 +174,9 @@ namespace 抽人
                 //创建一个动态bool数组checkId并全部初始化为false
 
                 string[] studentData = new string[4];
-                studentData = DealWithStudentData(contents[j]);
+                studentData = DealWithData.DealWithStudentData(contents[j]);
 
-                Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], IsMarked = true, StudentStatus = ConvertStatus(studentData[3]) };
+                Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], IsMarked = true, StudentStatus = DealWithData.ConvertStatus(studentData[3]) };
                 //sumOfStudent++;
                 //contents.RemoveAt(0);
 
@@ -184,70 +193,6 @@ namespace 抽人
             if (i == sumOfStudent) resultBox.Text = "连接完成";
             else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
             else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
-        }
-
-        public string[] DealWithStudentData(string dataLine)
-        {
-            string[] studentData = new string[4];
-
-            dataLine.Trim();
-
-            /*
-            studentData[0].Trim();
-            studentData[1].Trim();
-            studentData[2].Trim();
-            studentData[3].Trim();//简化
-            */
-
-            int dataLineLenth = dataLine.Length, i = 0;
-            char[] DataArray = dataLine.ToCharArray();
-
-            while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-            {
-                studentData[0] += DataArray[i];
-                i++;
-            }
-            while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
-
-            while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-            {
-                studentData[1] += DataArray[i];
-                i++;
-            }
-            while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
-
-            while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-            {
-                studentData[2] += DataArray[i];
-                i++;
-            }
-            while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
-
-            while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-            {
-                studentData[3] += DataArray[i];
-                i++;
-            }
-            return studentData;//记得简化
-        }
-
-        public Status ConvertStatus(string status)
-        {
-            if ((status == "unfinished") || (status == "")) return Status.unfinished;
-            else if (status == "going") return Status.going;
-            else if (status == "finished") return Status.finished;
-            else if (status == "suspended") return Status.suspended;
-            else if (status == "error") return Status.error;
-            else return Status.unfinished;
-        }
-
-        public string ConvertStatus(Status status)
-        {
-            if (status == Status.unfinished) return "unfinished";
-            else if (status == Status.going) return "going";
-            else if (status == Status.finished) return "finished";
-            else if (status == Status.suspended) return "suspended";
-            else return "error";
         }
 
         private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -272,6 +217,7 @@ namespace 抽人
             ContentDialogResult result = await invalidPraise.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
+                /*
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 StorageFile dataFile = await localFolder.GetFileAsync("dataFile.txt");
                 if (dataDictionary.ContainsKey("whetherJoinInsiderPreviewProgream"))
@@ -280,12 +226,17 @@ namespace 抽人
                     //要求重启并将数据写入文件
                 }
                 else await FileIO.AppendTextAsync(dataFile, "whetherJoinInsiderPreviewProgram true");
+                */
+                DealWithDictionary.WriteToDictionary(dataDictionary, "whetherJoinInsiderPreviewProgram", "True");
             }
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-
+            DealWithDictionary.ReadDataFileToDictionary(dataDictionary);
+            string TrueOrFalse = DealWithDictionary.ReadFromDicionary(dataDictionary, "whetherJoinInsiderPreviewProgram");
+            whetherJoInsiderPreviewProgram = TrueOrFalse == "-1" ? false : Convert.ToBoolean(TrueOrFalse);
+            if (DealWithDictionary.ReadFromDicionary(dataDictionary, "fileName") != "-1") ConnetDataSet(DealWithDictionary.ReadFromDicionary(dataDictionary,"fileName"));
         }
     }
 }
