@@ -1,1 +1,1 @@
-C:\Users\admin\source\wxinbang\select-lucky-dog\AppPackages\抽人_2.1.7.0_Test\抽人_2.1.7.0_x64.msixbundle
+C:\Users\admin\source\wxinbang\select-lucky-dog\AppPackages\抽人_2.2.10.0_Test\抽人_2.2.10.0_x64.msixbundle

@@ -53,12 +53,12 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='9' x:Name="selectDataSetButton" Content="选择数据集" 
+                        <Button x:ConnectionId='10' x:Name="selectDataSetButton" Content="选择数据集" 
                                 VerticalAlignment="Top"                                  />
                     </Grid>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='8' x:Name="connectDataSet" Content="连接数据集" 
+                        <Button x:ConnectionId='9' x:Name="connectDataSet" Content="连接数据集" 
                                 VerticalAlignment="Top"                             />
                     </Grid>
                 </Grid>
@@ -74,13 +74,13 @@
                     </Grid>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='7' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
+                        <Button x:ConnectionId='8' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
                                                           />
                     </Grid>
                 </Grid>
 
                 <Grid Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <ToggleSwitch x:ConnectionId='6' x:Name="whetherMark" Header="标记" VerticalAlignment="Top" 
+                    <ToggleSwitch x:ConnectionId='7' x:Name="whetherMark" Header="标记" VerticalAlignment="Top" 
                                   OffContent="否" OnContent="是"                              />
                 </Grid>
 
@@ -90,9 +90,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Button x:ConnectionId='6' Grid.Column="0" x:Name="layOutButton" Content="导出数据集" HorizontalAlignment="Center" VerticalAlignment="Center"                           />
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
 

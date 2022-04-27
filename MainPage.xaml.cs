@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 //using System.Data;
 //using System.Data.OleDb;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using xbb;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
@@ -30,9 +23,9 @@ namespace 抽人
         Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
         Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
 #if(DEBUG)
-        string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900 220424-2138
+        string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203
 #else
-        string version = "2.1.7-Beta";
+        string version = "2.2.10-Beta";
 #endif
 
         int timesOfVersionTextTapped = 0;
@@ -46,6 +39,7 @@ namespace 抽人
         string IdString;
         string NameString;
         string StatueString;
+        string fileName;
         string MarkString;
 
         int unfinishedNumber;
@@ -130,23 +124,38 @@ namespace 抽人
 
         private void whetherMark_Toggled(object sender, RoutedEventArgs e)
         {
-            DealWithDictionary.WriteDictionaryToDataFile(dataDictionary);
-            resultBox.Text = "OK";
-            mark = whetherMark.IsOn;
+            if (whetherMark.IsOn == true) CheckWhetherMark();
+            else
+            {
+                mark = whetherMark.IsOn;
+                DealWithSettings.WriteSettings("mark",mark ? "True" : "False");
+            }
             //加用户决定
-            if (studentNumber != 0) studentDictionary[studentNumber].StudentStatus = mark ? Status.going : Status.unfinished;
+            //if (studentNumber != 0) studentDictionary[studentNumber].StudentStatus = mark ? Status.going : Status.unfinished;
         }
 
-        private static async void CheckWhetherMark()
+        private async void CheckWhetherMark()
         {
             ContentDialog whetherMarkDialog = new ContentDialog
             {
                 Title = "再次确认",
                 Content = @"以后的人都要标记状态为“进行中”？",//记得改双引号
-                CloseButtonText = "别了吧"
+                CloseButtonText = "别了吧",
+                PrimaryButtonText = "是的"                
             };
 
             ContentDialogResult result = await whetherMarkDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                mark = true;
+                DealWithSettings.WriteSettings("mark", "True");
+            }
+            else
+            {
+                mark = false;
+                whetherMark.IsOn = false;
+                DealWithSettings.WriteSettings("mark", "False");
+            }
         }
 
         private void connectDataSet_Click(object sender, RoutedEventArgs e)
@@ -157,7 +166,7 @@ namespace 抽人
         private async void ConnetDataSet(string fileName)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile file= await localFolder.GetFileAsync(fileName);
+            StorageFile file = await localFolder.GetFileAsync(fileName);
 
             string line;//定义读取行
             sumOfStudent = 0;
@@ -193,6 +202,8 @@ namespace 抽人
             if (i == sumOfStudent) resultBox.Text = "连接完成";
             else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
             else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
+            //DealWithDictionary.WriteToDictionary(dataDictionary,"fileName",fileName);
+            DealWithSettings.WriteSettings("fileName", fileName);
         }
 
         private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -215,28 +226,33 @@ namespace 抽人
             };
 
             ContentDialogResult result = await invalidPraise.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                /*
-                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                StorageFile dataFile = await localFolder.GetFileAsync("dataFile.txt");
-                if (dataDictionary.ContainsKey("whetherJoinInsiderPreviewProgream"))
-                {
-                    dataDictionary["whetherJoinInsiderPreviewProgram"] = "true";
-                    //要求重启并将数据写入文件
-                }
-                else await FileIO.AppendTextAsync(dataFile, "whetherJoinInsiderPreviewProgram true");
-                */
-                DealWithDictionary.WriteToDictionary(dataDictionary, "whetherJoinInsiderPreviewProgram", "True");
-            }
+            if (result == ContentDialogResult.Primary) DealWithSettings.WriteSettings("whetherJoinInsiderPreviewProgram", "True");
+            else DealWithSettings.WriteSettings("whetherJoinInsiderPreviewProgram", "False");
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            /*
             DealWithDictionary.ReadDataFileToDictionary(dataDictionary);
+
             string TrueOrFalse = DealWithDictionary.ReadFromDicionary(dataDictionary, "whetherJoinInsiderPreviewProgram");
             whetherJoInsiderPreviewProgram = TrueOrFalse == "-1" ? false : Convert.ToBoolean(TrueOrFalse);
             if (DealWithDictionary.ReadFromDicionary(dataDictionary, "fileName") != "-1") ConnetDataSet(DealWithDictionary.ReadFromDicionary(dataDictionary,"fileName"));
+            */
+            if (DealWithSettings.ReadSettings("fileName") != null)
+            {
+                ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
+                fileName=DealWithSettings.ReadSettings("fileName");
+
+            }
+            if (DealWithSettings.ReadSettings("whetherJoinInsiderPreviewProgram") != "True") layOutButton.Visibility = Visibility.Collapsed;
+            if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
+        }
+
+        private void layOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
+            
         }
     }
 }

@@ -90,9 +90,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Button Grid.Column="0" x:Name="layOutButton" Content="导出数据集" HorizontalAlignment="Center" VerticalAlignment="Center" Click="layOutButton_Click"/>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
 

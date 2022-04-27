@@ -1,6 +1,6 @@
-MainPackage=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.1.7.0_x64.msix
-SymbolPackage=C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Release\Symbols\抽人_2.1.7.0_x64.appxsym
-ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.1.7.0_scale-100.msix
-ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.1.7.0_scale-125.msix
-ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.1.7.0_scale-150.msix
-ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.1.7.0_scale-400.msix
+MainPackage=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.2.10.0_x64.msix
+SymbolPackage=C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Release\Symbols\抽人_2.2.10.0_x64.appxsym
+ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.2.10.0_scale-100.msix
+ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.2.10.0_scale-125.msix
+ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.2.10.0_scale-150.msix
+ResourcePack=C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Release\抽人_2.2.10.0_scale-400.msix

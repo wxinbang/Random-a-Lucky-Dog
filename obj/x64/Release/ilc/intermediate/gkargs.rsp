@@ -3,6 +3,6 @@
 /Lib:"C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Release\ilc\in"
 /Lib:"C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.net.native.compiler\2.2.11-rel-30601-02\tools\x64\ilc\lib\Private"
 /WinMD:"C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Release\ilc\in\WinMetadata\Windows.winmd"
-/VSTelemetrySessionSettings:"{\"IsOptedIn\":true,\"HostName\":\"Dev14\",\"AppInsightsInstrumentationKey\":\"f144292e-e3b2-4011-ac90-20e5c03fbce5\",\"AsimovInstrumentationKey\":\"AIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70\",\"AppId\":1001,\"UserId\":\"6b98b2f3-df7e-4024-8df8-dbdb1d29c055\",\"Id\":\"5cdae16b-bd56-48af-b8c3-63b8270ff699\",\"ProcessStartTime\":637864045627482867,\"BucketFiltersToEnableWatsonForFaults\":[],\"BucketFiltersToAddDumpsToFaults\":[]}"
+/VSTelemetrySessionSettings:"{\"IsOptedIn\":true,\"HostName\":\"Dev14\",\"AppInsightsInstrumentationKey\":\"f144292e-e3b2-4011-ac90-20e5c03fbce5\",\"AsimovInstrumentationKey\":\"AIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70\",\"AppId\":1001,\"UserId\":\"6b98b2f3-df7e-4024-8df8-dbdb1d29c055\",\"Id\":\"36d6f738-4297-4f40-8692-e70862437f94\",\"ProcessStartTime\":637866484026443146,\"BucketFiltersToEnableWatsonForFaults\":[],\"BucketFiltersToAddDumpsToFaults\":[]}"
 /RdXmlPath:"C:\Users\admin\.nuget\packages\microsoft.net.native.compiler\2.2.11-rel-30601-02\tools\LibraryXML"
 /RunOnlyPreDR
