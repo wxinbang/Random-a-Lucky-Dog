@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page x:ConnectionId='1'
     x:Class="抽人.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,17 +6,117 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="318" Width="506">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+                        >
 
     <Grid>
-        <TextBox x:ConnectionId='2' x:Name="resultBox" HorizontalAlignment="Left" Margin="65,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" BorderThickness="0,0,0,0" TextAlignment="Left"/>
-        <ToggleSwitch x:ConnectionId='3' x:Name="whetherMark" Header="标记" Margin="65,158,0,0" VerticalAlignment="Top" OffContent="否" OnContent="是"                              />
-        <Button x:ConnectionId='4' x:Name="randomButton" Content="抽" Margin="0,94,0,0" VerticalAlignment="Top"                            HorizontalAlignment="Center"/>
-        <Button x:ConnectionId='5' x:Name="selectDataSetButton" Content="选择数据集" Margin="356,181,0,0" VerticalAlignment="Top"                                  />
-        <Button x:ConnectionId='6' x:Name="praiseButton" Content="表扬一下" Margin="318,94,0,0" VerticalAlignment="Top"                           />
-        <TextBox x:ConnectionId='7' x:Name="versionInformationBox" HorizontalAlignment="Left" Margin="395,302,0,0" TextWrapping="Wrap" Text="Build 1.0.0.0.prealpha.220405-1005" VerticalAlignment="Top" FontSize="6" BorderThickness="0,0,0,0" TextAlignment="Right" Height="16" Width="111"/>
-        <Button x:ConnectionId='8' x:Name="connectDataSet" Content="连接数据集" Margin="237,181,0,0" VerticalAlignment="Top"                             />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
 
+        <TextBox x:ConnectionId='2' x:Name="resultBox" Margin="30,30,30,30" 
+                 BorderThickness="5,5,5,5"
+                 TextWrapping="Wrap" VerticalAlignment="Center" 
+                 TextAlignment="Center" 
+                 IsReadOnly="True" FontSize="48" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            </Grid>
+
+            <Button x:ConnectionId='5' Grid.Column="1" x:Name="randomButton" Content="抽" 
+                    VerticalAlignment="Center"                            
+                    HorizontalAlignment="Center" FontSize="36" 
+                    BorderThickness="14,12,14,12"/>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:ConnectionId='9' x:Name="selectDataSetButton" Content="选择数据集" 
+                                VerticalAlignment="Top"                                  />
+                    </Grid>
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:ConnectionId='8' x:Name="connectDataSet" Content="连接数据集" 
+                                VerticalAlignment="Top"                             />
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </Grid>
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button x:ConnectionId='7' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
+                                                          />
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <ToggleSwitch x:ConnectionId='6' x:Name="whetherMark" Header="标记" VerticalAlignment="Top" 
+                                  OffContent="否" OnContent="是"                              />
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </Grid>
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ProgressBar x:ConnectionId='3' Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
+                         Margin="30,0,30,0" />
+
+            <TextBlock x:ConnectionId='4' Grid.Column="1" x:Name="versionInformationBox" 
+                       HorizontalAlignment="Right" TextWrapping="NoWrap" 
+                       Text="" VerticalAlignment="Center" 
+                       FontSize="8" TextAlignment="Right" 
+                                                            
+                       />
+        </Grid>
     </Grid>
 </Page>
 

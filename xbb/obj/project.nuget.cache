@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "dgSpecHash": "bIgX0nxM7cFwsA/1Ln/H+e+tpjDIcQz8Y2Se5ep6czT8K8mI4GGFUVcOq0GcPPG4l/wNztjTCgl+sQ+QoVVA4g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\admin\\source\\wxinbang\\select-lucky-dog\\xbb\\xbb.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.net.native.compiler\\2.2.11-rel-30601-02\\microsoft.net.native.compiler.2.2.11-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.net.uwpcoreruntimesdk\\2.2.13\\microsoft.net.uwpcoreruntimesdk.2.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.0\\microsoft.netcore.platforms.2.1.0.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.universalwindowsplatform\\6.2.13\\microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.compiler\\2.2.11-rel-30601-02\\runtime.win10-arm.microsoft.net.native.compiler.2.2.11-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.sharedlibrary\\2.2.8-rel-30601-02\\runtime.win10-arm.microsoft.net.native.sharedlibrary.2.2.8-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\\2.2.13\\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk.2.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-arm.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm64-aot.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-arm64-aot.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm64.microsoft.net.native.compiler\\2.2.11-rel-30601-02\\runtime.win10-arm64.microsoft.net.native.compiler.2.2.11-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-arm64.microsoft.net.native.sharedlibrary\\2.2.8-rel-30601-02\\runtime.win10-arm64.microsoft.net.native.sharedlibrary.2.2.8-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x64-aot.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-x64-aot.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x64.microsoft.net.native.compiler\\2.2.11-rel-30601-02\\runtime.win10-x64.microsoft.net.native.compiler.2.2.11-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x64.microsoft.net.native.sharedlibrary\\2.2.8-rel-30601-02\\runtime.win10-x64.microsoft.net.native.sharedlibrary.2.2.8-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\\2.2.13\\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk.2.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-x64.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x86-aot.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-x86-aot.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x86.microsoft.net.native.compiler\\2.2.11-rel-30601-02\\runtime.win10-x86.microsoft.net.native.compiler.2.2.11-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x86.microsoft.net.native.sharedlibrary\\2.2.8-rel-30601-02\\runtime.win10-x86.microsoft.net.native.sharedlibrary.2.2.8-rel-30601-02.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\\2.2.13\\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk.2.2.13.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\\6.2.13\\runtime.win10-x86.microsoft.netcore.universalwindowsplatform.6.2.13.nupkg.sha512"
+  ],
+  "logs": []
+}

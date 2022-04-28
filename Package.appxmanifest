@@ -9,7 +9,7 @@
   <Identity
     Name="xbb.select.the.lucky.dog"
     Publisher="CN=xbb"
-    Version="1.0.4.0" />
+    Version="2.1.7.0" />
 
   <mp:PhoneIdentity PhoneProductId="e5b49317-48e0-4174-ad3e-6f70a31c89b0" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -37,13 +37,12 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="抽人"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badgeAndTileText"/>
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
-
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

@@ -197,3 +197,4 @@ System.Xml.XmlSerializer.dll                          : 4.6.30316.01
 System.Xml.XPath.dll                                  : 4.6.30316.01
 System.Xml.XPath.XDocument.dll                        : 4.6.30316.01
 WindowsBase.dll                                       : 4.6.30316.1
+xbb.dll                                               : 1.0.0.0

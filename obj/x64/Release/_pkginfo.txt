@@ -1,1 +1,1 @@
-C:\Users\wxinb\Documents\GitHub\抽人\AppPackages\抽人_1.0.4.0_Test\抽人_1.0.4.0_x64.msixbundle
+C:\Users\admin\source\wxinbang\select-lucky-dog\AppPackages\抽人_2.1.7.0_Test\抽人_2.1.7.0_x64.msixbundle

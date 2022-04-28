@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>XBB的便携式电脑</Machine>
-    <WindowsUser>xbb</WindowsUser>
+    <Machine>CONTOSO-0XA0331</Machine>
+    <WindowsUser>admin</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
@@ -10,7 +10,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>e5b49317-48e0-4174-ad3e-6f70a31c89b0</PackageIdentityName>
     <PackageIdentityPublisher>CN=xbb</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\wxinb\Documents\GitHub\抽人\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\admin\source\wxinbang\select-lucky-dog\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,149 +18,398 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>F8B51FE9ECDCFCFD0538F004ACA8157F51F5E47E717B58C9829A67184CB21AE1</RegisteredManifestChecksum>
-    <RegisteredPackageMoniker>e5b49317-48e0-4174-ad3e-6f70a31c89b0_1.0.0.0_x64__vdkdzkn37dp1g</RegisteredPackageMoniker>
-    <RegisteredUserModeAppID>e5b49317-48e0-4174-ad3e-6f70a31c89b0_vdkdzkn37dp1g!App</RegisteredUserModeAppID>
-    <RegisteredPackageID>e5b49317-48e0-4174-ad3e-6f70a31c89b0</RegisteredPackageID>
+    <LayoutDir>C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\AppX</LayoutDir>
+    <RegisteredManifestChecksum>3A93D57EB9DBFD07B52C25110537C6CFBF67C17EDEDAE22092D9D3914F65FE6F</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>xbb.select.the.lucky.dog_2.1.7.0_x64__vdkdzkn37dp1g</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>xbb.select.the.lucky.dog_vdkdzkn37dp1g!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>xbb.select.the.lucky.dog</RegisteredPackageID>
     <RegisteredPackagePublisher>CN=xbb</RegisteredPackagePublisher>
-    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <RegisteredVersion>2.1.7.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-04-15T13:30:02.211</Modified>
+      <Modified>2022-04-26T11:13:31.591</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\抽人.exe">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\抽人.exe">
       <PackagePath>entrypoint\抽人.exe</PackagePath>
-      <Modified>2022-04-15T13:30:01.645</Modified>
+      <Modified>2022-04-26T11:13:29.455</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.13\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
+    <AppxPackagedFile Include="C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.13\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
-      <Modified>2021-10-09T22:49:06.000</Modified>
+      <Modified>2021-10-10T06:49:06.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\xbb\bin\x64\Debug\xbb.dll">
+      <PackagePath>xbb.dll</PackagePath>
+      <Modified>2022-04-26T11:13:22.457</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.22000.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2021-09-11T10:48:58.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2022-04-01T12:48:03.888</Modified>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\BadgeLogo.scale-100.png">
+      <PackagePath>Assets\BadgeLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.400</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\BadgeLogo.scale-125.png">
+      <PackagePath>Assets\BadgeLogo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.407</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\BadgeLogo.scale-150.png">
+      <PackagePath>Assets\BadgeLogo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.415</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\BadgeLogo.scale-200.png">
+      <PackagePath>Assets\BadgeLogo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.423</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\BadgeLogo.scale-400.png">
+      <PackagePath>Assets\BadgeLogo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.437</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\LargeTile.scale-100.png">
+      <PackagePath>Assets\LargeTile.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.358</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\LargeTile.scale-125.png">
+      <PackagePath>Assets\LargeTile.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.383</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\LargeTile.scale-150.png">
+      <PackagePath>Assets\LargeTile.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.415</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\LargeTile.scale-200.png">
+      <PackagePath>Assets\LargeTile.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.465</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\LargeTile.scale-400.png">
+      <PackagePath>Assets\LargeTile.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.644</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SmallTile.scale-100.png">
+      <PackagePath>Assets\SmallTile.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.025</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SmallTile.scale-125.png">
+      <PackagePath>Assets\SmallTile.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.037</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SmallTile.scale-150.png">
+      <PackagePath>Assets\SmallTile.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.047</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SmallTile.scale-200.png">
+      <PackagePath>Assets\SmallTile.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.057</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SmallTile.scale-400.png">
+      <PackagePath>Assets\SmallTile.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.077</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.883</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SplashScreen.scale-125.png">
+      <PackagePath>Assets\SplashScreen.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.922</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SplashScreen.scale-150.png">
+      <PackagePath>Assets\SplashScreen.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.975</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SplashScreen.scale-400.png">
+      <PackagePath>Assets\SplashScreen.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.392</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square150x150Logo.scale-100.png">
+      <PackagePath>Assets\Square150x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.087</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square150x150Logo.scale-125.png">
+      <PackagePath>Assets\Square150x150Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.099</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square150x150Logo.scale-150.png">
+      <PackagePath>Assets\Square150x150Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.112</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square150x150Logo.scale-400.png">
+      <PackagePath>Assets\Square150x150Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.178</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png">
+      <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.785</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png">
+      <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.793</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png">
+      <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.855</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png">
+      <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.800</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png">
+      <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.808</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-16.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.739</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-256.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.778</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-unplated_targetsize-32.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-32.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.753</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-48.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.760</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.scale-100.png">
+      <PackagePath>Assets\Square44x44Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.652</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.scale-125.png">
+      <PackagePath>Assets\Square44x44Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.659</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.scale-150.png">
+      <PackagePath>Assets\Square44x44Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.666</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.scale-400.png">
+      <PackagePath>Assets\Square44x44Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.686</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.targetsize-16.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-16.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.693</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.targetsize-24.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-24.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.700</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.targetsize-256.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-256.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.733</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.targetsize-32.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-32.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.706</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.targetsize-48.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-48.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.716</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.444</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\StoreLogo.scale-125.png">
+      <PackagePath>Assets\StoreLogo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.451</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\StoreLogo.scale-150.png">
+      <PackagePath>Assets\StoreLogo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.459</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\StoreLogo.scale-200.png">
+      <PackagePath>Assets\StoreLogo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.468</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\StoreLogo.scale-400.png">
+      <PackagePath>Assets\StoreLogo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:46.482</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Wide310x150Logo.scale-100.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.192</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Wide310x150Logo.scale-125.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.207</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Wide310x150Logo.scale-150.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.227</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Wide310x150Logo.scale-400.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2022-04-23T13:03:45.338</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2022-02-20T11:18:14.864</Modified>
+      <Modified>2022-04-23T10:09:49.635</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-02-20T11:18:14.871</Modified>
+      <Modified>2022-04-23T13:03:46.064</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-02-20T11:18:14.873</Modified>
+      <Modified>2022-04-23T13:03:45.130</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-02-20T11:18:14.875</Modified>
+      <Modified>2022-04-23T13:03:45.674</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-02-20T11:18:14.877</Modified>
+      <Modified>2022-04-23T13:03:45.746</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\StoreLogo.png">
-      <PackagePath>Assets\StoreLogo.png</PackagePath>
-      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-02-20T11:18:14.878</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-02-20T11:18:14.881</Modified>
+      <Modified>2022-04-23T13:03:45.255</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\抽人.xr.xml">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2022-04-23T10:09:49.644</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\抽人.xr.xml">
       <PackagePath>抽人.xr.xml</PackagePath>
-      <Modified>2022-04-13T11:04:13.373</Modified>
+      <Modified>2022-04-23T12:54:26.929</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2022-04-15T13:30:01.554</Modified>
+      <Modified>2022-04-26T11:13:29.288</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2022-04-15T13:30:01.554</Modified>
+      <Modified>2022-04-26T11:13:29.289</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.22000.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2021-09-11T14:28:18.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2022-04-05T01:15:51.431</Modified>
+      <Modified>2022-04-25T13:29:02.796</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\wxinb\Documents\GitHub\抽人\bin\x64\Debug\Core\抽人.exe">
+    <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\Core\抽人.exe">
       <PackagePath>抽人.exe</PackagePath>
-      <Modified>2022-04-15T13:30:02.209</Modified>
+      <Modified>2022-04-26T11:13:31.583</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
-    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\admin\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
       <Name>Microsoft.NET.CoreRuntime.2.2</Name>
       <Version>2.2.30527.2</Version>
       <Architecture>x86</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.2.2, MinVersion = 2.2.30527.2, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\admin\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
       <Name>Microsoft.NET.CoreRuntime.2.2</Name>
       <Version>2.2.30527.2</Version>
       <Architecture>x64</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.2.2, MinVersion = 2.2.30527.2, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\admin\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx">
       <Name>Microsoft.NET.CoreRuntime.2.2</Name>
       <Version>2.2.30527.2</Version>
       <Architecture>arm</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreRuntime.2.2, MinVersion = 2.2.30527.2, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\admin\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreRuntime.2.2.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\admin\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
       <Name>Microsoft.NET.CoreFramework.Debug.2.2</Name>
       <Version>2.2.30316.1</Version>
       <Architecture>x86</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreFramework.Debug.2.2, MinVersion = 2.2.30316.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\admin\.nuget\packages\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
       <Name>Microsoft.NET.CoreFramework.Debug.2.2</Name>
       <Version>2.2.30316.1</Version>
       <Architecture>x64</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreFramework.Debug.2.2, MinVersion = 2.2.30316.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
-    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
+    <ResolvedSDKReference Include="C:\Users\admin\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx">
       <Name>Microsoft.NET.CoreFramework.Debug.2.2</Name>
       <Version>2.2.30316.1</Version>
       <Architecture>arm</Architecture>
       <FrameworkIdentity>Name = Microsoft.NET.CoreFramework.Debug.2.2, MinVersion = 2.2.30316.1, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
-      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
+      <AppxLocation>C:\Users\admin\.nuget\packages\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\2.2.13\build\..\tools\Appx\Microsoft.NET.CoreFramework.Debug.2.2.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
