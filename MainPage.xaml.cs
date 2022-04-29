@@ -165,6 +165,7 @@ namespace 抽人
 
         private async void ConnetDataSet(string fileName)
         {
+            studentDictionary.Clear();
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFolder.GetFileAsync(fileName);
 

@@ -19,24 +19,24 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>3A93D57EB9DBFD07B52C25110537C6CFBF67C17EDEDAE22092D9D3914F65FE6F</RegisteredManifestChecksum>
-    <RegisteredPackageMoniker>xbb.select.the.lucky.dog_2.1.7.0_x64__vdkdzkn37dp1g</RegisteredPackageMoniker>
+    <RegisteredManifestChecksum>3762D392105BF889786F6A93BAECB6B838B43E14D22867C28C1B2D53EACCDE71</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>xbb.select.the.lucky.dog_2.2.10.0_x64__vdkdzkn37dp1g</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>xbb.select.the.lucky.dog_vdkdzkn37dp1g!App</RegisteredUserModeAppID>
     <RegisteredPackageID>xbb.select.the.lucky.dog</RegisteredPackageID>
     <RegisteredPackagePublisher>CN=xbb</RegisteredPackagePublisher>
-    <RegisteredVersion>2.1.7.0</RegisteredVersion>
+    <RegisteredVersion>2.2.10.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
     <AppXManifest Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-04-27T13:58:17.511</Modified>
+      <Modified>2022-04-29T09:53:02.362</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\抽人.exe">
       <PackagePath>entrypoint\抽人.exe</PackagePath>
-      <Modified>2022-04-27T13:58:15.903</Modified>
+      <Modified>2022-04-29T09:53:00.158</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\admin\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.13\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
@@ -339,11 +339,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2022-04-27T13:58:15.774</Modified>
+      <Modified>2022-04-29T09:52:59.931</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2022-04-27T13:58:15.774</Modified>
+      <Modified>2022-04-29T09:52:59.932</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.22000.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -351,11 +351,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2022-04-25T13:29:02.796</Modified>
+      <Modified>2022-04-29T09:39:43.061</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\admin\source\wxinbang\select-lucky-dog\bin\x64\Debug\Core\抽人.exe">
       <PackagePath>抽人.exe</PackagePath>
-      <Modified>2022-04-27T13:58:17.491</Modified>
+      <Modified>2022-04-29T09:53:02.315</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

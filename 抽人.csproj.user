@@ -4,7 +4,7 @@
     <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
-    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
     <Source>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</Source>
     <SmallTileSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</SmallTileSource>
     <MediumTileSource>C:\Users\admin\source\wxinbang\select-lucky-dog\icon.png</MediumTileSource>
