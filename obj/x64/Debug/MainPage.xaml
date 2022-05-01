@@ -5,35 +5,58 @@
     xmlns:local="using:抽人"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
-                        >
+                        
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    >
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:ConnectionId='2' x:Name="resultBox" Margin="30,30,30,30" 
+        <muxc:InfoBar x:ConnectionId='2' Grid.Row="0" x:Name="InfoBar" IsOpen="True" Severity="Warning" Title="预览模式"
+                      IsClosable="False"
+                      Message="你正处在预览模式下，其中出现的新功能未经测试，可能包含导致应用异常退出的重大缺陷。">
+            <muxc:InfoBar.ActionButton>
+                <Button Content="更多选项">
+                    <Button.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem x:ConnectionId='16' Text="反馈问题"                              />
+                            <MenuFlyoutItem x:ConnectionId='17' Text="退出功能预览模式（需要手动重启应用）"                          />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </muxc:InfoBar.ActionButton>
+        </muxc:InfoBar>
+
+         <TextBox x:ConnectionId='3' Grid.Row="1" x:Name="resultBox" Margin="30,30,30,30" 
                  BorderThickness="5,5,5,5"
                  TextWrapping="Wrap" VerticalAlignment="Center" 
-                 TextAlignment="Center" 
+                 TextAlignment="Center"
                  IsReadOnly="True" FontSize="48" />
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid Grid.Column="0">
+                <ListView x:ConnectionId='15' x:Name="HistoryView" BorderThickness="1" 
+                          />
+                <!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                ItemTemplate="{StaticResource ContactListViewTemplate}"-->
 
             </Grid>
 
-            <Button x:ConnectionId='5' Grid.Column="1" x:Name="randomButton" Content="抽" 
+            <Button x:ConnectionId='6' Grid.Column="1" x:Name="randomButton" Content="抽" 
                     VerticalAlignment="Center"                            
                     HorizontalAlignment="Center" FontSize="36" 
                     BorderThickness="14,12,14,12"/>
@@ -53,12 +76,12 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='10' x:Name="selectDataSetButton" Content="选择数据集" 
+                        <Button x:ConnectionId='14' x:Name="selectDataSetButton" Content="选择数据集" 
                                 VerticalAlignment="Top"                                  />
                     </Grid>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='9' x:Name="connectDataSet" Content="连接数据集" 
+                        <Button x:ConnectionId='13' x:Name="connectDataSet" Content="连接数据集" 
                                 VerticalAlignment="Top"                             />
                     </Grid>
                 </Grid>
@@ -74,14 +97,23 @@
                     </Grid>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='8' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
+                        <Button x:ConnectionId='12' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
                                                           />
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <ToggleSwitch x:ConnectionId='7' x:Name="whetherMark" Header="标记" VerticalAlignment="Top" 
-                                  OffContent="否" OnContent="是"                              />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ToggleSwitch x:ConnectionId='11' Grid.Column="0" x:Name="whetherMark" Header="标记" VerticalAlignment="Center" 
+                                  OffContent="否" OnContent="是"                              
+                                  HorizontalAlignment="Center"/>
+
+
+
                 </Grid>
 
                 <Grid Grid.Row="3">
@@ -90,25 +122,30 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:ConnectionId='6' Grid.Column="0" x:Name="layOutButton" Content="导出数据集" HorizontalAlignment="Center" VerticalAlignment="Center"                           />
+                    <Button x:ConnectionId='7' Grid.Column="0" x:Name="layOutDataSetButton" Content="导出数据集" HorizontalAlignment="Center" VerticalAlignment="Center"                           />
 
-                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-
-                    </Grid>
+                    <Button x:ConnectionId='8' Grid.Column="1" x:Name="layOutFlyoutButton" Content="导出" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button.Flyout >
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:ConnectionId='9' Text="数据集"                            />
+                                <MenuFlyoutItem x:ConnectionId='10' Text="用户数据"                             />
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ProgressBar x:ConnectionId='3' Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
+            <ProgressBar x:ConnectionId='4' Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
                          Margin="30,0,30,0" />
 
-            <TextBlock x:ConnectionId='4' Grid.Column="1" x:Name="versionInformationBox" 
+            <TextBlock x:ConnectionId='5' Grid.Column="1" x:Name="versionInformationBox" 
                        HorizontalAlignment="Right" TextWrapping="NoWrap" 
                        Text="" VerticalAlignment="Center" 
                        FontSize="8" TextAlignment="Right" 

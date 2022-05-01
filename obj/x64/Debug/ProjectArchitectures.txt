@@ -1,2 +1,2 @@
-C:\Users\admin\source\wxinbang\select-lucky-dog\xbb\xbb.csproj;x64
-C:\Users\admin\source\wxinbang\select-lucky-dog\抽人.csproj;x64
+C:\Users\wxinb\Documents\GitHub\select-lucky-dog\xbb\xbb.csproj;x64
+C:\Users\wxinb\Documents\GitHub\select-lucky-dog\抽人.csproj;x64
