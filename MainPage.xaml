@@ -112,6 +112,17 @@
                                   OffContent="否" OnContent="是" Toggled="whetherMark_Toggled"
                                   HorizontalAlignment="Center"/>
 
+                    <Button Grid.Column="1" x:Name="DeleteButton" HorizontalAlignment="Center"
+                            VerticalAlignment="Center" Content="清理">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="日志文件" Click="DeleteLogFile_Click"/>
+                                <MenuFlyoutItem Text="已导入的数据集" Click="DeleteDataSet_Click"/>
+                                <MenuFlyoutItem Text="用户数据" Click="DeleteUserData_Click"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+
 
 
                 </Grid>
@@ -142,7 +153,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ProgressBar Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
+            <muxc:ProgressBar Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
                          Margin="30,0,30,0" />
 
             <TextBlock Grid.Column="1" x:Name="versionInformationBox" 

@@ -61,6 +61,7 @@ namespace 抽人
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
             if (DealWithSettings.ReadSettings("fileName") != null)
             {
                 ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
@@ -72,8 +73,10 @@ namespace 抽人
                 layOutDataSetButton.Visibility = Visibility.Collapsed;
                 layOutFlyoutButton.Visibility = Visibility.Collapsed;
                 HistoryView.Visibility = Visibility.Collapsed;
+                DeleteButton.Visibility = Visibility.Collapsed;
             }
             if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
+            DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
         }
 
         private void randomButton_Click(object sender, RoutedEventArgs e)
@@ -84,11 +87,11 @@ namespace 抽人
                 Random randomStudent = new Random();
 
                 do studentNumber = randomStudent.Next(1, sumOfStudent + 1);
-                while (studentDictionary[studentNumber].StudentStatus != Status.unfinished);
+                while (studentDictionary[studentNumber].StudentStatus != StudentStatus.unfinished);
 
                 resultBox.Text = studentDictionary[studentNumber].Name;
 
-                if (mark) studentDictionary[studentNumber].StudentStatus = Status.going;
+                if (mark) studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
             }
             else resultBox.Text = "已经全部抽过了";//提示全部做过
         }
@@ -206,7 +209,7 @@ namespace 抽人
 
                 Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], StudentStatus = DealWithData.ConvertStatus(studentData[2]) };
 
-                if (Somebody.StudentStatus == Status.unfinished) unfinishedNumber++;
+                if (Somebody.StudentStatus == StudentStatus.unfinished) unfinishedNumber++;
 
                 try
                 {
@@ -309,6 +312,21 @@ namespace 抽人
         }
 
         private void LayoutUserData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteDataSet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteUserData_Click(object sender, RoutedEventArgs e)
         {
 
         }

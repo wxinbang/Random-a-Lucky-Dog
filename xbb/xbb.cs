@@ -12,10 +12,10 @@ namespace xbb
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsMarked { get; set; }
-        public Status StudentStatus { get; set; }
+        public StudentStatus StudentStatus { get; set; }
     }
 
-    public enum Status //状态
+    public enum StudentStatus //状态
     {
         unfinished,
         going,//进行中
@@ -23,6 +23,28 @@ namespace xbb
         suspended,//暂停的
         error
     }
+
+    public enum TaskStatus
+    {
+        Trying,
+        Completed,
+        Failed,
+        Unknown
+    }
+
+    public static class DealWithLogs
+    {
+        public static async void CreateLog(string content,TaskStatus status)
+        {
+            StorageFolder logFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("logs", CreationCollisionOption.OpenIfExists);
+            StorageFile logFile=await logFolder.CreateFileAsync(DateTime.Now.ToString("yyyy-MM-dd")+".txt", CreationCollisionOption.OpenIfExists);
+            await FileIO.AppendTextAsync(logFile, DateTime.Now.TimeOfDay.ToString()+"\t"+status.ToString()+"\t"+content+"\n");
+            logFile = null;
+        }
+         
+        //public static string ConvertStatus(TaskStatus status)
+    }
+    
     public static class DealWithDictionary
     {
         public static void WriteToDictionary(Dictionary<string, string> dataDictionary, string key, string value)
@@ -134,22 +156,22 @@ namespace xbb
             return studentData;//记得简化
         }
 
-        public static Status ConvertStatus(string status)
+        public static StudentStatus ConvertStatus(string status)
         {
-            if ((status == "unfinished") || (status == "")) return Status.unfinished;
-            else if (status == "going") return Status.going;
-            else if (status == "finished") return Status.finished;
-            else if (status == "suspended") return Status.suspended;
-            else if (status == "error") return Status.error;
-            else return Status.unfinished;
+            if ((status == "unfinished") || (status == "")) return StudentStatus.unfinished;
+            else if (status == "going") return StudentStatus.going;
+            else if (status == "finished") return StudentStatus.finished;
+            else if (status == "suspended") return StudentStatus.suspended;
+            else if (status == "error") return StudentStatus.error;
+            else return StudentStatus.unfinished;
         }
 
-        public static string ConvertStatus(Status status)
+        public static string ConvertStatus(StudentStatus status)
         {
-            if (status == Status.unfinished) return "unfinished";
-            else if (status == Status.going) return "going";
-            else if (status == Status.finished) return "finished";
-            else if (status == Status.suspended) return "suspended";
+            if (status == StudentStatus.unfinished) return "unfinished";
+            else if (status == StudentStatus.going) return "going";
+            else if (status == StudentStatus.finished) return "finished";
+            else if (status == StudentStatus.suspended) return "suspended";
             else return "error";
         }
 
