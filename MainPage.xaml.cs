@@ -59,9 +59,9 @@ namespace 抽人
             versionInformationBox.Text = version;
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
+            //DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
             if (DealWithSettings.ReadSettings("fileName") != null)
             {
                 ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
@@ -76,13 +76,14 @@ namespace 抽人
                 DeleteButton.Visibility = Visibility.Collapsed;
             }
             if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
-            DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
+            //DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
         }
 
         private void randomButton_Click(object sender, RoutedEventArgs e)
         {
             if (unfinishedNumber != 0)
             {
+                DealWithLogs.CreateLog("RandomStudent", xbb.TaskStatus.Trying);
 
                 Random randomStudent = new Random();
 
@@ -90,8 +91,14 @@ namespace 抽人
                 while (studentDictionary[studentNumber].StudentStatus != StudentStatus.unfinished);
 
                 resultBox.Text = studentDictionary[studentNumber].Name;
+                DealWithLogs.CreateLog("RandomStudent:" + resultBox.Text, xbb.TaskStatus.Completed);
 
-                if (mark) studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
+                if (mark)
+                {
+                    studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
+
+                    DealWithLogs.CreateLog("MarkStudent", xbb.TaskStatus.Completed);
+                }
             }
             else resultBox.Text = "已经全部抽过了";//提示全部做过
         }
@@ -180,11 +187,14 @@ namespace 抽人
 
         private void connectDataSet_Click(object sender, RoutedEventArgs e)
         {
+            DealWithLogs.CreateLog("ConnectDataSetButton_Click", xbb.TaskStatus.Completed);
             ConnetDataSet(file.Name);
         }
 
         private async void ConnetDataSet(string fileName)
         {
+            DealWithLogs.CreateLog("ConnectDataSet_" + fileName, xbb.TaskStatus.Trying);
+
             studentDictionary.Clear();
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFolder.GetFileAsync(fileName);
@@ -210,6 +220,7 @@ namespace 抽人
                 Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], StudentStatus = DealWithData.ConvertStatus(studentData[2]) };
 
                 if (Somebody.StudentStatus == StudentStatus.unfinished) unfinishedNumber++;
+                if(Somebody.StudentStatus == StudentStatus.going)Somebody.StudentStatus = StudentStatus.finished;
 
                 try
                 {
@@ -242,6 +253,7 @@ namespace 抽人
             else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
             //DealWithDictionary.WriteToDictionary(dataDictionary,"fileName",fileName);
             DealWithSettings.WriteSettings("fileName", fileName);
+            DealWithLogs.CreateLog("ConnectDataSet_" + fileName, xbb.TaskStatus.Completed);
         }
 
         private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -327,6 +339,11 @@ namespace 抽人
         }
 
         private void DeleteUserData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LayoutLogs_Click(object sender, RoutedEventArgs e)
         {
 
         }

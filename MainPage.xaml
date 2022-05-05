@@ -140,6 +140,7 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Text="数据集" Click="LayoutDataSet_Click"/>
                                 <MenuFlyoutItem Text="用户数据" Click="LayoutUserData_Click"/>
+                                <MenuFlyoutItem Text="日志文件" Click="LayoutLogs_Click"/>
                             </MenuFlyout>
                         </Button.Flyout>
                     </Button>

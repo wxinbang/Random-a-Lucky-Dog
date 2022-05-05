@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,15 +35,17 @@ namespace xbb
 
     public static class DealWithLogs
     {
-        public static async void CreateLog(string content,TaskStatus status)
+        public static async Task CreateLog(string content,TaskStatus status)
         {
             StorageFolder logFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("logs", CreationCollisionOption.OpenIfExists);
             StorageFile logFile=await logFolder.CreateFileAsync(DateTime.Now.ToString("yyyy-MM-dd")+".txt", CreationCollisionOption.OpenIfExists);
-            await FileIO.AppendTextAsync(logFile, DateTime.Now.TimeOfDay.ToString()+"\t"+status.ToString()+"\t"+content+"\n");
-            logFile = null;
+            await FileIO.AppendTextAsync(logFile, DateTime.Now.TimeOfDay.ToString()+"    "+status.ToString()+"    "+content+"\n");
         }
-         
-        //public static string ConvertStatus(TaskStatus status)
+        
+        public static async void LayoutLogs(StorageFile file,string resultBoxText)
+        {
+
+        }
     }
     
     public static class DealWithDictionary
@@ -185,14 +188,21 @@ namespace xbb
     {
         public static string ReadSettings(string settingKey)
         {
+            DealWithLogs.CreateLog("ReadSettings_" + settingKey, TaskStatus.Trying);
             ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
-            return setting.Values[settingKey] as string;
+            
+            string settingValue = setting.Values[settingKey] as string;
+            
+            DealWithLogs.CreateLog("ReadSdttings_" + settingKey +":" +(settingValue != null ? settingValue : "null"), TaskStatus.Completed);
+            return settingValue;
         }
 
         public static void WriteSettings(string settingKey,string settingValue)
         {
+            DealWithLogs.CreateLog("WriteSettings_" + settingKey + ":" + settingValue, TaskStatus.Trying);
             ApplicationDataContainer setting =ApplicationData.Current.LocalSettings;
             setting.Values[settingKey]=settingValue;
+            DealWithLogs.CreateLog("WriteSettings_" + settingKey + ":" + settingValue, TaskStatus.Completed);
         }
     }
 }
