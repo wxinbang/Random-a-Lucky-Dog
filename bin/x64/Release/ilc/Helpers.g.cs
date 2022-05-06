@@ -767,8 +767,7 @@ namespace __Interop
 		internal static int StdCall__7(
 					global::System.IntPtr pfn, 
 					void* pthis, 
-					void* arg0, 
-					void* arg1)
+					int arg0)
 		{
 			// This method is implemented elsewhere in the toolchain
 			return 0;
@@ -777,13 +776,23 @@ namespace __Interop
 		internal static int StdCall__8(
 					global::System.IntPtr pfn, 
 					void* pthis, 
+					void* arg0, 
+					void* arg1)
+		{
+			// This method is implemented elsewhere in the toolchain
+			return 0;
+		}
+
+		internal static int StdCall__9(
+					global::System.IntPtr pfn, 
+					void* pthis, 
 					global::System.Runtime.InteropServices.WindowsRuntime.EventRegistrationToken arg0)
 		{
 			// This method is implemented elsewhere in the toolchain
 			return 0;
 		}
 
-		internal static void HasThisCall__9<TArg0>(
+		internal static void HasThisCall__10<TArg0>(
 					object __this, 
 					global::System.IntPtr pfn, 
 					object arg0, 
@@ -792,7 +801,7 @@ namespace __Interop
 			// This method is implemented elsewhere in the toolchain
 		}
 
-		internal static int StdCall__10(
+		internal static int StdCall__11(
 					global::System.IntPtr pfn, 
 					void* pthis, 
 					global::System.IntPtr arg0, 
@@ -803,7 +812,7 @@ namespace __Interop
 			return 0;
 		}
 
-		internal static void HasThisCall__11<TArg0, TArg1>(
+		internal static void HasThisCall__12<TArg0, TArg1>(
 					object __this, 
 					global::System.IntPtr pfn, 
 					TArg0 arg0, 
@@ -812,7 +821,7 @@ namespace __Interop
 			// This method is implemented elsewhere in the toolchain
 		}
 
-		internal static int StdCall__12(
+		internal static int StdCall__13(
 					global::System.IntPtr pfn, 
 					void* pthis)
 		{
@@ -820,7 +829,7 @@ namespace __Interop
 			return 0;
 		}
 
-		internal static int StdCall__13(
+		internal static int StdCall__14(
 					global::System.IntPtr pfn, 
 					void* pthis, 
 					global::Windows.Foundation.Point arg0, 
@@ -831,7 +840,7 @@ namespace __Interop
 			return 0;
 		}
 
-		internal static int StdCall__14(
+		internal static int StdCall__15(
 					global::System.IntPtr pfn, 
 					void* pthis, 
 					int arg0, 
@@ -841,7 +850,7 @@ namespace __Interop
 			return 0;
 		}
 
-		internal static int StdCall__15(
+		internal static int StdCall__16(
 					global::System.IntPtr pfn, 
 					void* pthis, 
 					global::Windows.Foundation.Point arg0, 
@@ -851,7 +860,7 @@ namespace __Interop
 			return 0;
 		}
 
-		internal static int StdCall__16(
+		internal static int StdCall__17(
 					global::System.IntPtr pfn, 
 					void* pthis, 
 					uint arg0, 
@@ -862,20 +871,11 @@ namespace __Interop
 			return 0;
 		}
 
-		internal static int StdCall__17(
+		internal static int StdCall__18(
 					global::System.IntPtr pfn, 
 					void* pthis, 
 					global::System.Runtime.InteropServices.HSTRING arg0, 
 					void* arg1)
-		{
-			// This method is implemented elsewhere in the toolchain
-			return 0;
-		}
-
-		internal static int StdCall__18(
-					global::System.IntPtr pfn, 
-					void* pthis, 
-					int arg0)
 		{
 			// This method is implemented elsewhere in the toolchain
 			return 0;
@@ -2705,21 +2705,31 @@ namespace __Interop
 
 		#if false
 		[global::Internal.PreInitializedAddrOfDelegate]
-		public delegate object AddrOfTarget123(global::System.__ComObject a0);
+		public delegate void AddrOfTarget123(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.Collections.IObservableMap<string, object> a1, 
+					global::Windows.Foundation.Collections.IMapChangedEventArgs<string> a2);
 
 		#endif
 
 
 		#if false
 		[global::Internal.PreInitializedAddrOfDelegate]
-		public delegate object AddrOfTarget124(object a0);
+		public delegate object AddrOfTarget124(global::System.__ComObject a0);
 
 		#endif
 
 
 		#if false
 		[global::Internal.PreInitializedAddrOfDelegate]
-		public delegate int AddrOfTarget125(
+		public delegate object AddrOfTarget125(object a0);
+
+		#endif
+
+
+		#if false
+		[global::Internal.PreInitializedAddrOfDelegate]
+		public delegate int AddrOfTarget126(
 					ref global::Windows.UI.Xaml.Markup.XmlnsDefinition a0, 
 					out global::Windows.UI.Xaml.Markup.XmlnsDefinition__Impl.UnsafeType a1);
 
@@ -2728,7 +2738,7 @@ namespace __Interop
 
 		#if false
 		[global::Internal.PreInitializedAddrOfDelegate]
-		public delegate int AddrOfTarget126(
+		public delegate int AddrOfTarget127(
 					ref global::Windows.UI.Xaml.Markup.XmlnsDefinition__Impl.UnsafeType a0, 
 					out global::Windows.UI.Xaml.Markup.XmlnsDefinition a1);
 
@@ -2737,7 +2747,7 @@ namespace __Interop
 
 		#if false
 		[global::Internal.PreInitializedAddrOfDelegate]
-		public delegate void AddrOfTarget127(ref global::Windows.UI.Xaml.Markup.XmlnsDefinition__Impl.UnsafeType a0);
+		public delegate void AddrOfTarget128(ref global::Windows.UI.Xaml.Markup.XmlnsDefinition__Impl.UnsafeType a0);
 
 		#endif
 	}

@@ -7,7 +7,7 @@
 
   有关程序包清单文件的详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=241727
  -->
-  <Identity Name="xbb.select.the.lucky.dog" Publisher="CN=xbb" Version="2.1.7.0" ProcessorArchitecture="x64" />
+  <Identity Name="xbb.select.the.lucky.dog" Publisher="CN=xbb" Version="2.2.10.0" ProcessorArchitecture="x64" />
   <mp:PhoneIdentity PhoneProductId="e5b49317-48e0-4174-ad3e-6f70a31c89b0" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>抽人</DisplayName>
@@ -52,7 +52,7 @@
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v5.0" />
     <build:Item Name="VisualStudio" Version="17.0" />
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2022" />
-    <build:Item Name="OperatingSystem" Version="10.0.22606.1000 (WinBuild.160101.0800)" />
+    <build:Item Name="OperatingSystem" Version="10.0.22610.1000 (WinBuild.160101.0800)" />
     <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="17.0.32318.288" />
     <build:Item Name="ProjectGUID" Value="{E0CC96AB-95BA-4530-A83E-051574751DC8}" />
     <build:Item Name="ilc.exe" Version="2.2.30601.02 built by: PROJECTNREL" />

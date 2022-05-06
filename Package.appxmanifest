@@ -9,7 +9,7 @@
   <Identity
     Name="xbb.select.the.lucky.dog"
     Publisher="CN=xbb"
-    Version="2.1.7.0" />
+    Version="2.2.10.0" />
 
   <mp:PhoneIdentity PhoneProductId="e5b49317-48e0-4174-ad3e-6f70a31c89b0" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

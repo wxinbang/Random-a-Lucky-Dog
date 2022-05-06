@@ -32,7 +32,7 @@ namespace xbb
             else dataDictionary.Add(key, value);
         }
 
-        public static string ReadFromDicionary(Dictionary<string,string>dictonary,string key)
+        public static string ReadFromDicionary(Dictionary<string, string> dictonary, string key)
         {
             if (dictonary.ContainsKey(key)) return dictonary[key];
             else return "-1";
@@ -40,6 +40,7 @@ namespace xbb
 
         public static async void ReadDataFileToDictionary(Dictionary<string, string> dictionary)
         {
+            /*
             StorageFolder folder = ApplicationData.Current.LocalFolder;
             StorageFile file = await folder.CreateFileAsync("data.txt", CreationCollisionOption.OpenIfExists);
 
@@ -57,12 +58,13 @@ namespace xbb
 
                 dictionary.Add(resultKey, resultValue);
             }
+            */
         }
 
         public static async void WriteDictionaryToDataFile(Dictionary<string, string> dictionary)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile storageFile = await localFolder.CreateFileAsync("data.txt",CreationCollisionOption.ReplaceExisting);
+            StorageFile storageFile = await localFolder.CreateFileAsync("data.txt", CreationCollisionOption.ReplaceExisting);
 
             string output;
             foreach (string key in dictionary.Keys)
@@ -73,7 +75,16 @@ namespace xbb
 
         }
 
-        
+        public static async void WriteDictionaryToFile(Dictionary<int ,Student>dictionary,string fileName)
+        {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            StorageFile file=await folder.CreateFileAsync("After-"+fileName, CreationCollisionOption.ReplaceExisting);
+
+            foreach (Student student in dictionary.Values)
+            {
+                await FileIO.AppendTextAsync(file, student.Id.ToString() + " " + student.Name + " " + student.IsMarked.ToString() + " " + DealWithData.ConvertStatus(student.StudentStatus)+"\n");
+            }
+        }
     }
 
     public static class DealWithData
@@ -132,7 +143,7 @@ namespace xbb
             else if (status == "error") return Status.error;
             else return Status.unfinished;
         }
-        
+
         public static string ConvertStatus(Status status)
         {
             if (status == Status.unfinished) return "unfinished";
@@ -145,6 +156,21 @@ namespace xbb
         public static void ConnectDataSet()
         {
 
+        }
+    }
+
+    public static class DealWithSettings
+    {
+        public static string ReadSettings(string settingKey)
+        {
+            ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
+            return setting.Values[settingKey] as string;
+        }
+
+        public static void WriteSettings(string settingKey,string settingValue)
+        {
+            ApplicationDataContainer setting =ApplicationData.Current.LocalSettings;
+            setting.Values[settingKey]=settingValue;
         }
     }
 }
