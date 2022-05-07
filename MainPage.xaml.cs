@@ -33,17 +33,13 @@ namespace 抽人
 
         int timesOfVersionTextTapped = 0;
 
-        int timesOfPraise = 0;
         int studentNumber;
         int sumOfStudent;
-        bool finishedMark = false;
         bool mark = false;
         string DataSetPath;
-        string IdString;
-        string NameString;
-        string StatueString;
+
         string fileName;
-        string MarkString;
+
 
         int unfinishedNumber;
         StorageFile file;
@@ -70,7 +66,7 @@ namespace 抽人
             if (DealWithSettings.ReadSettings("joinProgram") != "True")
             {
                 InfoBar.IsOpen = false;
-                layOutDataSetButton.Visibility = Visibility.Collapsed;
+                //layOutDataSetButton.Visibility = Visibility.Collapsed;
                 layOutFlyoutButton.Visibility = Visibility.Collapsed;
                 HistoryView.Visibility = Visibility.Collapsed;
                 DeleteButton.Visibility = Visibility.Collapsed;
@@ -83,21 +79,16 @@ namespace 抽人
         {
             if (unfinishedNumber != 0)
             {
-                DealWithLogs.CreateLog("RandomStudent", xbb.TaskStatus.Trying);
-
                 Random randomStudent = new Random();
 
                 do studentNumber = randomStudent.Next(1, sumOfStudent + 1);
                 while (studentDictionary[studentNumber].StudentStatus != StudentStatus.unfinished);
 
                 resultBox.Text = studentDictionary[studentNumber].Name;
-                DealWithLogs.CreateLog("RandomStudent:" + resultBox.Text, xbb.TaskStatus.Completed);
 
                 if (mark)
                 {
                     studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
-
-                    DealWithLogs.CreateLog("MarkStudent", xbb.TaskStatus.Completed);
                 }
             }
             else resultBox.Text = "已经全部抽过了";//提示全部做过
@@ -140,7 +131,6 @@ namespace 抽人
                 readableFilePath = readableFolderPath + @"\" + file.Name;
                 DataSetPath = file.Path;
                 await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
-                DealWithDictionary.WriteToDictionary(dataDictionary, "fileName", file.Name);
                 // Application now has read/write access to the picked file
 
             }
@@ -187,19 +177,15 @@ namespace 抽人
 
         private void connectDataSet_Click(object sender, RoutedEventArgs e)
         {
-            DealWithLogs.CreateLog("ConnectDataSetButton_Click", xbb.TaskStatus.Completed);
             ConnetDataSet(file.Name);
         }
 
         private async void ConnetDataSet(string fileName)
         {
-            DealWithLogs.CreateLog("ConnectDataSet_" + fileName, xbb.TaskStatus.Trying);
-
             studentDictionary.Clear();
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFolder.GetFileAsync(fileName);
 
-            string line;//定义读取行
             sumOfStudent = 0;
             unfinishedNumber = 0;
 
@@ -248,12 +234,13 @@ namespace 抽人
 
             }
             while ((i < sumOfStudent) && (checkId[i] == true)) i++;
-            if (i == sumOfStudent) resultBox.Text = "连接完成";
+            if (i == sumOfStudent)
+            {
+                resultBox.Text = "连接完成";
+                DealWithSettings.WriteSettings("fileName", fileName);
+            }
             else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
             else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
-            //DealWithDictionary.WriteToDictionary(dataDictionary,"fileName",fileName);
-            DealWithSettings.WriteSettings("fileName", fileName);
-            DealWithLogs.CreateLog("ConnectDataSet_" + fileName, xbb.TaskStatus.Completed);
         }
 
         private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -286,15 +273,6 @@ namespace 抽人
             else DealWithSettings.WriteSettings("joinProgram", "False");
         }
 
-
-        private void layOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
-
-            var saver = new FileSavePicker();
-
-        }
-
         private async Task ComposeEmail()
         {
             var emailMessage = new EmailMessage();
@@ -320,7 +298,9 @@ namespace 抽人
 
         private void LayoutDataSet_Click(object sender, RoutedEventArgs e)
         {
+            DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
 
+            var saver = new FileSavePicker();
         }
 
         private void LayoutUserData_Click(object sender, RoutedEventArgs e)

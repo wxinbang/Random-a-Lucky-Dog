@@ -27,8 +27,8 @@
                 <Button Content="更多选项">
                     <Button.Flyout>
                         <MenuFlyout Placement="Bottom">
-                            <MenuFlyoutItem x:ConnectionId='21' Text="反馈问题"                              />
-                            <MenuFlyoutItem x:ConnectionId='22' Text="退出功能预览模式（需要手动重启应用）"                          />
+                            <MenuFlyoutItem x:ConnectionId='20' Text="反馈问题"                              />
+                            <MenuFlyoutItem x:ConnectionId='21' Text="退出功能预览模式（需要手动重启应用）"                          />
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
@@ -49,7 +49,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <ListView x:ConnectionId='20' x:Name="HistoryView" BorderThickness="1" 
+                <ListView x:ConnectionId='19' x:Name="HistoryView" BorderThickness="1" 
                           />
                 <!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
                 ItemTemplate="{StaticResource ContactListViewTemplate}"-->
@@ -76,12 +76,12 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='19' x:Name="selectDataSetButton" Content="选择数据集" 
+                        <Button x:ConnectionId='18' x:Name="selectDataSetButton" Content="选择数据集" 
                                 VerticalAlignment="Top"                                  />
                     </Grid>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='18' x:Name="connectDataSet" Content="连接数据集" 
+                        <Button x:ConnectionId='17' x:Name="connectDataSet" Content="连接数据集" 
                                 VerticalAlignment="Top"                             />
                     </Grid>
                 </Grid>
@@ -97,7 +97,7 @@
                     </Grid>
 
                     <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:ConnectionId='17' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
+                        <Button x:ConnectionId='16' x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
                                                           />
                     </Grid>
                 </Grid>
@@ -108,17 +108,17 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ToggleSwitch x:ConnectionId='12' Grid.Column="0" x:Name="whetherMark" Header="标记" VerticalAlignment="Center" 
+                    <ToggleSwitch x:ConnectionId='11' Grid.Column="0" x:Name="whetherMark" Header="标记" VerticalAlignment="Center" 
                                   OffContent="否" OnContent="是"                              
                                   HorizontalAlignment="Center"/>
 
-                    <Button x:ConnectionId='13' Grid.Column="1" x:Name="DeleteButton" HorizontalAlignment="Center"
+                    <Button x:ConnectionId='12' Grid.Column="1" x:Name="DeleteButton" HorizontalAlignment="Center"
                             VerticalAlignment="Center" Content="清理">
                         <Button.Flyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem x:ConnectionId='14' Text="日志文件"                            />
-                                <MenuFlyoutItem x:ConnectionId='15' Text="已导入的数据集"                            />
-                                <MenuFlyoutItem x:ConnectionId='16' Text="用户数据"                             />
+                                <MenuFlyoutItem x:ConnectionId='13' Text="日志文件"                            />
+                                <MenuFlyoutItem x:ConnectionId='14' Text="已导入的数据集"                            />
+                                <MenuFlyoutItem x:ConnectionId='15' Text="用户数据"                             />
                             </MenuFlyout>
                         </Button.Flyout>
                     </Button>
@@ -133,14 +133,14 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:ConnectionId='7' Grid.Column="0" x:Name="layOutDataSetButton" Content="导出数据集" HorizontalAlignment="Center" VerticalAlignment="Center"                           />
+                    <Button Grid.Column="0" />
 
-                    <Button x:ConnectionId='8' Grid.Column="1" x:Name="layOutFlyoutButton" Content="导出" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:ConnectionId='7' Grid.Column="1" x:Name="layOutFlyoutButton" Content="导出" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button.Flyout >
                             <MenuFlyout>
-                                <MenuFlyoutItem x:ConnectionId='9' Text="数据集"                            />
-                                <MenuFlyoutItem x:ConnectionId='10' Text="用户数据"                             />
-                                <MenuFlyoutItem x:ConnectionId='11' Text="日志文件"                         />
+                                <MenuFlyoutItem x:ConnectionId='8' Text="数据集"                            />
+                                <MenuFlyoutItem x:ConnectionId='9' Text="用户数据"                             />
+                                <MenuFlyoutItem x:ConnectionId='10' Text="日志文件"                         />
                             </MenuFlyout>
                         </Button.Flyout>
                     </Button>

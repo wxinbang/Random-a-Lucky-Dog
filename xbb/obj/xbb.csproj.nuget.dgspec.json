@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\xbb\\xbb.csproj": {}
+    "C:\\Users\\wxinb\\Documents\\GitHub\\select-lucky-dog\\xbb\\xbb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\xbb\\xbb.csproj": {
+    "C:\\Users\\wxinb\\Documents\\GitHub\\select-lucky-dog\\xbb\\xbb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\xbb\\xbb.csproj",
+        "projectUniqueName": "C:\\Users\\wxinb\\Documents\\GitHub\\select-lucky-dog\\xbb\\xbb.csproj",
         "projectName": "xbb",
-        "projectPath": "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\xbb\\xbb.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\Documents\\have a try\\select-lucky-dog\\xbb\\obj\\",
+        "projectPath": "C:\\Users\\wxinb\\Documents\\GitHub\\select-lucky-dog\\xbb\\xbb.csproj",
+        "packagesPath": "C:\\Users\\wxinb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wxinb\\Documents\\GitHub\\select-lucky-dog\\xbb\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -19,7 +19,7 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wxinb\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,6 +28,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\wxinb\\Downloads": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

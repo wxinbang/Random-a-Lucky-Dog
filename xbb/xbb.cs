@@ -188,21 +188,17 @@ namespace xbb
     {
         public static string ReadSettings(string settingKey)
         {
-            DealWithLogs.CreateLog("ReadSettings_" + settingKey, TaskStatus.Trying);
             ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
             
             string settingValue = setting.Values[settingKey] as string;
             
-            DealWithLogs.CreateLog("ReadSdttings_" + settingKey +":" +(settingValue != null ? settingValue : "null"), TaskStatus.Completed);
             return settingValue;
         }
 
         public static void WriteSettings(string settingKey,string settingValue)
         {
-            DealWithLogs.CreateLog("WriteSettings_" + settingKey + ":" + settingValue, TaskStatus.Trying);
             ApplicationDataContainer setting =ApplicationData.Current.LocalSettings;
             setting.Values[settingKey]=settingValue;
-            DealWithLogs.CreateLog("WriteSettings_" + settingKey + ":" + settingValue, TaskStatus.Completed);
         }
     }
 }
