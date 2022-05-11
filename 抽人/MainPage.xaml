@@ -50,12 +50,12 @@
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0">
-                <ListView x:Name="HistoryView" BorderThickness="20" Margin="40"
+                <ListView x:Name="HistoryView" Margin="30"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:Student">
                             <StackPanel>
-                                <TextBlock Text="11111111"/>
+                                <TextBlock Text="{x:Bind Name}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

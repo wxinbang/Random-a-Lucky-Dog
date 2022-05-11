@@ -90,6 +90,7 @@ namespace 抽人
                 if (mark)
                 {
                     studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
+                    listOfGoingStudent.Add(studentDictionary[studentNumber]);
                 }
             }
             else resultBox.Text = "已经全部抽过了";//提示全部做过
