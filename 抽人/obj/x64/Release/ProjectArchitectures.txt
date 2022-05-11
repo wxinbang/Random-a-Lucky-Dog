@@ -1,2 +1,0 @@
-C:\Users\admin\source\wxinbang\select-lucky-dog\xbb\xbb.csproj;neutral
-C:\Users\admin\source\wxinbang\select-lucky-dog\抽人.csproj;x64
