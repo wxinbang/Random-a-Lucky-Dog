@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Email;
 using Windows.Storage;
@@ -18,316 +17,345 @@ using xbb;
 
 namespace 抽人
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
-        //Dictionary <int, Student> randomableStudent = new Dictionary<int, Student>();
-        ObservableCollection<Student> listOfGoingStudent=new ObservableCollection<Student>();
+	/// <summary>
+	/// 可用于自身或导航至 Frame 内部的空白页。
+	/// </summary>
+	public sealed partial class MainPage : Page
+	{
+		//Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
+
+		List<Student> studentList=new List<Student>();
+
+		ObservableCollection<Student> listOfUnfinishedStudent = new ObservableCollection<Student>();
+
+		ObservableCollection<Student> listOfGoingStudent=new ObservableCollection<Student>();
+
 #if(DEBUG)
-        string version = "Build 3.3.10.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203 220430-2200
+		string version = "Build 3.3.10.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203 220430-2200
 #else
-        string version = "2.2.10-Beta";
+		string version = "2.2.10-Beta";
 #endif
 
-        int timesOfVersionTextTapped = 0;
+		Random randomStudent = new Random();
 
-        int studentNumber;
-        int sumOfStudent;
-        bool mark = false;
-        string DataSetPath;
+		int timesOfVersionTextTapped = 0;
 
-        string fileName;
+		int studentNumber;
+		int sumOfStudent;
+		bool mark = false;
+		string DataSetPath;
+
+		string fileName;
 
 
-        int unfinishedNumber;
-        StorageFile file;
+		int unfinishedNumber;
+		StorageFile file;
 
-        string readableFilePath;
-        bool whetherJoInsiderPreviewProgram;
+		string readableFilePath;
+		bool whetherJoInsiderPreviewProgram;
 
-        // 加入初始化时读写配置文件
+		// 加入初始化时读写配置文件
 
-        public MainPage()
-        {
-            this.InitializeComponent();
-            versionInformationBox.Text = version;
-        }
+		public MainPage()
+		{
+			this.InitializeComponent();
+			versionInformationBox.Text = version;
+		}
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            //DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
-            if (DealWithSettings.ReadSettings("fileName") != null)
-            {
-                ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
-                fileName = DealWithSettings.ReadSettings("fileName");
-            }
-            if (DealWithSettings.ReadSettings("joinProgram") != "True")
-            {
-                InfoBar.IsOpen = false;
-                //layOutDataSetButton.Visibility = Visibility.Collapsed;
-                layOutFlyoutButton.Visibility = Visibility.Collapsed;
-                HistoryView.Visibility = Visibility.Collapsed;
-                DeleteButton.Visibility = Visibility.Collapsed;
-            }
-            if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
-            //DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
-        }
+		private async void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
+			if (DealWithSettings.ReadSettings("fileName") != null)
+			{
+				ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
+				fileName = DealWithSettings.ReadSettings("fileName");
+			}
+			if (DealWithSettings.ReadSettings("joinProgram") != "True")
+			{
+				InfoBar.IsOpen = false;
+				//layOutDataSetButton.Visibility = Visibility.Collapsed;
+				layOutFlyoutButton.Visibility = Visibility.Collapsed;
+				HistoryView.Visibility = Visibility.Collapsed;
+				DeleteButton.Visibility = Visibility.Collapsed;
+			}
+			if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
+			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
+		}
 
-        private void randomButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (unfinishedNumber != 0)
-            {
-                Random randomStudent = new Random();
+		private void randomButton_Click(object sender, RoutedEventArgs e)
+		{
+			HistoryView.ItemsSource = listOfGoingStudent;
 
-                do studentNumber = randomStudent.Next(1, sumOfStudent + 1);
-                while (studentDictionary[studentNumber].StudentStatus != StudentStatus.unfinished);
+			if (listOfUnfinishedStudent.Count!=0)
+			{
+				studentNumber = randomStudent.Next(0, listOfUnfinishedStudent.Count);
 
-                resultBox.Text = studentDictionary[studentNumber].Name;
+				resultBox.Text = listOfUnfinishedStudent[studentNumber].Name;
 
-                if (mark)
-                {
-                    studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
-                    listOfGoingStudent.Add(studentDictionary[studentNumber]);
-                }
-            }
-            else resultBox.Text = "已经全部抽过了";//提示全部做过
-        }
+				if (mark)
+				{
+					listOfGoingStudent.Add(studentList[studentNumber]);
 
-        private void praiseButton_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayInvalidPraise();
-        }
+					listOfUnfinishedStudent.RemoveAt(studentNumber);
+				}
+			}
+			else resultBox.Text = "已经全部抽过了";//提示全部做过
+		}
 
-        private static async void DisplayInvalidPraise()
-        {
-            ContentDialog invalidPraise = new ContentDialog
-            {
-                Title = "小小的提示",
-                Content = "这玩意没用",
-                CloseButtonText = "行"
-            };
+		private void praiseButton_Click(object sender, RoutedEventArgs e)
+		{
+			DisplayInvalidPraise();
+		}
 
-            ContentDialogResult result = await invalidPraise.ShowAsync();
-        }
+		private static async void DisplayInvalidPraise()
+		{
+			ContentDialog invalidPraise = new ContentDialog
+			{
+				Title = "小小的提示",
+				Content = "这玩意没用",
+				CloseButtonText = "行"
+			};
 
-        private async void selectDataSetButton_Click(object sender, RoutedEventArgs e)
-        {
-            unfinishedNumber = 0;
-            studentNumber = 0;
+			ContentDialogResult result = await invalidPraise.ShowAsync();
+		}
 
-            var picker = new FileOpenPicker();
-            picker.ViewMode = PickerViewMode.List;
-            picker.SuggestedStartLocation = PickerLocationId.Desktop;
-            picker.FileTypeFilter.Add(".txt");//记得检查
+		private async void selectDataSetButton_Click(object sender, RoutedEventArgs e)
+		{
+			unfinishedNumber = 0;
+			studentNumber = 0;
 
-            file = await picker.PickSingleFileAsync();
+			var picker = new FileOpenPicker();
+			picker.ViewMode = PickerViewMode.List;
+			picker.SuggestedStartLocation = PickerLocationId.Desktop;
+			picker.FileTypeFilter.Add(".txt");//记得检查
 
-            var readableFolderPath = ApplicationData.Current.LocalFolder;
-            //readableFilePath=readableFolderPath+@"\"+file.Name;
+			file = await picker.PickSingleFileAsync();
 
-            if (file != null)
-            {
-                readableFilePath = readableFolderPath + @"\" + file.Name;
-                DataSetPath = file.Path;
-                await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
-                // Application now has read/write access to the picked file
+			var readableFolderPath = ApplicationData.Current.LocalFolder;
+			//readableFilePath=readableFolderPath+@"\"+file.Name;
 
-            }
-            else
-            {
-                this.resultBox.Text = "Operation cancelled.";
-            }
-        }
+			if (file != null)
+			{
+				readableFilePath = readableFolderPath + @"\" + file.Name;
+				DataSetPath = file.Path;
+				await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
+				resultBox.Text = "已选择：" + file.Name;
+				// Application now has read/write access to the picked file
 
-        private void whetherMark_Toggled(object sender, RoutedEventArgs e)
-        {
-            if (whetherMark.IsOn == true) CheckWhetherMark();
-            else
-            {
-                mark = whetherMark.IsOn;
-                DealWithSettings.WriteSettings("mark", mark ? "True" : "False");
-            }
-        }
+			}
+			else
+			{
+				this.resultBox.Text = "操作已取消";
+			}
+		}
 
-        private async void CheckWhetherMark()
-        {
-            ContentDialog whetherMarkDialog = new ContentDialog
-            {
-                Title = "再次确认",
-                Content = @"以后的人都要标记状态为“进行中”？",
-                CloseButtonText = "别了吧",
-                PrimaryButtonText = "是的",
-                DefaultButton=ContentDialogButton.Primary
-            };
+		private void whetherMark_Toggled(object sender, RoutedEventArgs e)
+		{
+			if (whetherMark.IsOn == true) CheckWhetherMark();
+			else
+			{
+				mark = whetherMark.IsOn;
+				DealWithSettings.WriteSettings("mark", mark ? "True" : "False");
+			}
+		}
 
-            ContentDialogResult result = await whetherMarkDialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                mark = true;
-                DealWithSettings.WriteSettings("mark", "True");
-            }
-            else
-            {
-                mark = false;
-                whetherMark.IsOn = false;
-                DealWithSettings.WriteSettings("mark", "False");
-            }
-        }
+		private async void CheckWhetherMark()
+		{
+			ContentDialog whetherMarkDialog = new ContentDialog
+			{
+				Title = "再次确认",
+				Content = @"以后的人都要标记状态为“进行中”？",
+				CloseButtonText = "别了吧",
+				PrimaryButtonText = "是的",
+				DefaultButton=ContentDialogButton.Primary
+			};
 
-        private void connectDataSet_Click(object sender, RoutedEventArgs e)
-        {
-            ConnetDataSet(file.Name);
-        }
+			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
+			if (result == ContentDialogResult.Primary)
+			{
+				mark = true;
+				DealWithSettings.WriteSettings("mark", "True");
+			}
+			else
+			{
+				mark = false;
+				whetherMark.IsOn = false;
+				DealWithSettings.WriteSettings("mark", "False");
+			}
+		}
 
-        private async void ConnetDataSet(string fileName)
-        {
-            studentDictionary.Clear();
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile file = await localFolder.GetFileAsync(fileName);
+		private void connectDataSet_Click(object sender, RoutedEventArgs e)
+		{
+			ConnetDataSet(file.Name);
+		}
 
-            sumOfStudent = 0;
-            unfinishedNumber = 0;
+		private async void ConnetDataSet(string fileName)
+		{
+			studentList.Clear();
+			listOfGoingStudent.Clear();
+			listOfUnfinishedStudent.Clear();
 
-            //StreamReader sr = new StreamReader(readableFilePath);
+			HistoryView.ItemsSource = studentList;
 
-            IList<string> contents = await FileIO.ReadLinesAsync(file);
-            sumOfStudent = contents.ToArray().Length;
-            dealWithStudentDataProgressBar.Maximum = sumOfStudent;
+			StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+			StorageFile file = await localFolder.GetFileAsync(fileName);
 
-            bool[] checkId = new bool[sumOfStudent];
-            for (int j = 0; j < sumOfStudent; j++)
-            {
-                //创建一个动态bool数组checkId并全部初始化为false
+			sumOfStudent = 0;
+			unfinishedNumber = 0;
 
-                string[] studentData = new string[3];
-                studentData = DealWithData.DealWithStudentData(contents[j]);
+			//StreamReader sr = new StreamReader(readableFilePath);
 
-                Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], StudentStatus = DealWithData.ConvertStatus(studentData[2]) };
+			IList<string> contents = await FileIO.ReadLinesAsync(file);
+			sumOfStudent = contents.ToArray().Length;
+			dealWithStudentDataProgressBar.Maximum = sumOfStudent;
 
-                if (Somebody.StudentStatus == StudentStatus.unfinished) unfinishedNumber++;
-                if(Somebody.StudentStatus == StudentStatus.going)Somebody.StudentStatus = StudentStatus.finished;
+			bool[] checkId = new bool[sumOfStudent];
+			for (int j = 0; j < sumOfStudent; j++)
+			{
+				//创建一个动态bool数组checkId并全部初始化为false
 
-                try
-                {
-                    checkId[Somebody.Id - 1] = true;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    resultBox.Text = "编号 " + Somebody.Id.ToString() + " ";
-                }
-                studentDictionary.Add(Somebody.Id, Somebody);
-                dealWithStudentDataProgressBar.Value = j + 1;
-            }
+				string[] studentData = new string[3];
+				studentData = DealWithData.DealWithStudentData(contents[j]);
 
-            int i = 0;
-            try
-            {
-                for (; i < sumOfStudent; i++)
-                {
+				Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2])};
 
-                }
+				if (Somebody.StudentStatus == StudentStatus.unfinished)
+				{
+					unfinishedNumber++;
+					listOfUnfinishedStudent.Add(Somebody);
+				}
+				else if (Somebody.StudentStatus == StudentStatus.going)
+				{
+					Somebody.StudentStatus = StudentStatus.finished;
+					listOfGoingStudent.Add(Somebody);
+				}
 
-            }
-            catch (ArgumentOutOfRangeException)
-            {
+				/*
+				try
+				{
+					checkId[Somebody.Id - 1] = true;
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					resultBox.Text = "编号 " + Somebody.Id.ToString() + " ";
+				}
+				*/
+				//studentDictionary.Add(Somebody.Id, Somebody);
+				studentList.Add(Somebody);
+				dealWithStudentDataProgressBar.Value = j + 1;
+			}
 
-            }
-            while ((i < sumOfStudent) && (checkId[i] == true)) i++;
-            if (i == sumOfStudent)
-            {
-                resultBox.Text = "连接完成";
-                DealWithSettings.WriteSettings("fileName", fileName);
-            }
-            else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
-            else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
-        }
+			int i = 0;
+			try
+			{
+				for (; i < sumOfStudent; i++)
+				{
 
-        private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            timesOfVersionTextTapped++;
-            if (timesOfVersionTextTapped == 5)
-            {
-                CheckJoinProgram();
-            }
+				}
 
-        }
-        private async void CheckJoinProgram()
-        {
-            ContentDialog invalidPraise = new ContentDialog
-            {
-                Title = "体验新功能",
-                Content = "这会让你体验到更多的新特性和新特性（自行体会），确定？",
-                PrimaryButtonText = "来！搞！（将重启应用）",
-                CloseButtonText = "不了",
-                DefaultButton = ContentDialogButton.Primary
-            };
+			}
+			catch (ArgumentOutOfRangeException)
+			{
 
-            ContentDialogResult result = await invalidPraise.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                DealWithSettings.WriteSettings("joinProgram", "True");
-                AppRestartFailureReason restartFailureReason = await CoreApplication.RequestRestartAsync(string.Empty);
-                resultBox.Text = Convert.ToString(restartFailureReason);
-            }
-            else DealWithSettings.WriteSettings("joinProgram", "False");
-        }
+			}
+			while ((i < sumOfStudent) && (checkId[i] == true)) i++;
+			if (i == sumOfStudent)
+			{
+				resultBox.Text = "连接完成："+fileName;
+				DealWithSettings.WriteSettings("fileName", fileName);
+			}
+			else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
+			else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
+		}
 
-        private async Task ComposeEmail()
-        {
-            var emailMessage = new EmailMessage();
-            emailMessage.Body = "于"+DateTime.Now.ToString()+"发现问题：";
+		private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
+		{
+			timesOfVersionTextTapped++;
+			if (timesOfVersionTextTapped == 5)
+			{
+				CheckJoinProgram();
+			}
 
-            var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
-            emailMessage.To.Add(emailRecipient);
-            emailMessage.Subject = "软件反馈";
+		}
+		private async void CheckJoinProgram()
+		{
+			ContentDialog invalidPraise = new ContentDialog
+			{
+				Title = "体验新功能",
+				Content = "这会让你体验到更多的新特性和新特性（自行体会），确定？",
+				PrimaryButtonText = "来！搞！（将重启应用）",
+				CloseButtonText = "不了",
+				DefaultButton = ContentDialogButton.Primary
+			};
 
-            await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-        }
+			ContentDialogResult result = await invalidPraise.ShowAsync();
+			if (result == ContentDialogResult.Primary)
+			{
+				DealWithSettings.WriteSettings("joinProgram", "True");
+				AppRestartFailureReason restartFailureReason = await CoreApplication.RequestRestartAsync(string.Empty);
+				resultBox.Text = Convert.ToString(restartFailureReason);
+			}
+			else DealWithSettings.WriteSettings("joinProgram", "False");
+		}
 
-        private async void SendEmailButton_Click(object sender, RoutedEventArgs e)
-        {
-            await ComposeEmail();
-        }
+		private async Task ComposeEmail()
+		{
+			var emailMessage = new EmailMessage();
+			emailMessage.Body = "于"+DateTime.Now.ToString()+"发现问题：";
 
-        private void ExitProgram_Click(object sender, RoutedEventArgs e)
-        {
-            DealWithSettings.WriteSettings("joinProgram", "False");
-            InfoBar.IsOpen = false;
-        }
+			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
+			emailMessage.To.Add(emailRecipient);
+			emailMessage.Subject = "软件反馈";
 
-        private void LayoutDataSet_Click(object sender, RoutedEventArgs e)
-        {
-            DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
+			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
+		}
 
-            var saver = new FileSavePicker();
-        }
+		private async void SendEmailButton_Click(object sender, RoutedEventArgs e)
+		{
+			await ComposeEmail();
+		}
 
-        private void LayoutUserData_Click(object sender, RoutedEventArgs e)
-        {
+		private void ExitProgram_Click(object sender, RoutedEventArgs e)
+		{
+			DealWithSettings.WriteSettings("joinProgram", "False");
+			InfoBar.IsOpen = false;
+		}
 
-        }
+		private void LayoutDataSet_Click(object sender, RoutedEventArgs e)
+		{
+			//DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
 
-        private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
-        {
+			var saver = new FileSavePicker();
+		}
 
-        }
+		private void LayoutUserData_Click(object sender, RoutedEventArgs e)
+		{
 
-        private void DeleteDataSet_Click(object sender, RoutedEventArgs e)
-        {
+		}
 
-        }
+		private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
+		{
 
-        private void DeleteUserData_Click(object sender, RoutedEventArgs e)
-        {
+		}
 
-        }
+		private void DeleteDataSet_Click(object sender, RoutedEventArgs e)
+		{
 
-        private void LayoutLogs_Click(object sender, RoutedEventArgs e)
-        {
+		}
 
-        }
-    }
+		private void DeleteUserData_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void LayoutLogs_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
 }

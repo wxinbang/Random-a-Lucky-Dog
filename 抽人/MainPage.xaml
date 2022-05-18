@@ -6,8 +6,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
-    xmlns:data="using:xbb"
-    mc:Ignorable="d"
+	xmlns:data="using:xbb"
+	mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
 	Loaded="Page_Loaded"
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
@@ -50,16 +50,16 @@
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0">
-                <ListView x:Name="HistoryView" Margin="30"
+				<ListView x:Name="HistoryView" Margin="30"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="data:Student">
-                            <StackPanel>
-                                <TextBlock Text="{x:Bind Name}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+					<ListView.ItemTemplate>
+						<DataTemplate x:DataType="data:Student">
+							<StackPanel>
+								<TextBlock Text="{x:Bind Name}"/>
+							</StackPanel>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
 				<!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
 				ItemTemplate="{StaticResource ContactListViewTemplate}"-->
 
@@ -142,7 +142,14 @@
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
-					<Button Grid.Column="0" />
+					<Button Grid.Column="0" Content="操作" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<Button.Flyout>
+							<MenuFlyout>
+								<MenuFlyoutItem Text="标记完成" Click="MenuFlyoutItem_Click"/>
+								<MenuFlyoutItem Text=""/>
+							</MenuFlyout>
+						</Button.Flyout>
+					</Button>
 
 					<Button Grid.Column="1" x:Name="layOutFlyoutButton" Content="导出" HorizontalAlignment="Center" VerticalAlignment="Center">
 						<Button.Flyout >
