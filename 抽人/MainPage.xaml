@@ -13,7 +13,7 @@
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
 	>
 
-	<Grid>
+	<Grid AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
@@ -44,26 +44,38 @@
 
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="2*"/>
 				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="1.5*"/>
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0">
-				<ListView x:Name="HistoryView" Margin="30"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <AutoSuggestBox Grid.Row="0" x:Name="StudentSuggestBox" 
+                                PlaceholderText="键入要查询的名字" Margin="30,10,10,10"
+                                TextChanged="StudentSuggestBox_TextChanged" QueryIcon="Find" 
+                                QuerySubmitted="StudentSuggestBox_QuerySubmitted" 
+                                SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
+
+                <ListView Grid.Row="1" x:Name="HistoryView" Margin="30,10,10,10"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
 					<ListView.ItemTemplate>
 						<DataTemplate x:DataType="data:Student">
-							<StackPanel>
-								<TextBlock Text="{x:Bind Name}"/>
-							</StackPanel>
-						</DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind Name}"/>
+                                <muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
+                            </StackPanel>
+                        </DataTemplate>
 					</ListView.ItemTemplate>
 				</ListView>
 				<!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
 				ItemTemplate="{StaticResource ContactListViewTemplate}"-->
 
-			</Grid>
+            </Grid>
 
 			<Button Grid.Column="1" x:Name="randomButton" Content="抽" 
 					VerticalAlignment="Center" Click="randomButton_Click" 
@@ -142,10 +154,10 @@
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
-					<Button Grid.Column="0" Content="操作" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Button Grid.Column="0" x:Name="OperateStudent" Content="操作" HorizontalAlignment="Center" VerticalAlignment="Center">
 						<Button.Flyout>
 							<MenuFlyout>
-								<MenuFlyoutItem Text="标记完成" Click="MenuFlyoutItem_Click"/>
+								<MenuFlyoutItem Text="标记完成" Click="MarkFinished_Click"/>
 								<MenuFlyoutItem Text=""/>
 							</MenuFlyout>
 						</Button.Flyout>

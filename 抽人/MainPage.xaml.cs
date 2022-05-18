@@ -24,13 +24,15 @@ namespace 抽人
 	{
 		//Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
 
-		List<Student> studentList=new List<Student>();
+		List<Student> studentList = new List<Student>();
 
 		ObservableCollection<Student> listOfUnfinishedStudent = new ObservableCollection<Student>();
 
-		ObservableCollection<Student> listOfGoingStudent=new ObservableCollection<Student>();
+		ObservableCollection<Student> listOfGoingStudent = new ObservableCollection<Student>();
 
-#if(DEBUG)
+		SortedList<int, Student> lastGoingStudent = new SortedList<int, Student>();
+
+#if (DEBUG)
 		string version = "Build 3.3.10.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203 220430-2200
 #else
 		string version = "2.2.10-Beta";
@@ -62,7 +64,7 @@ namespace 抽人
 			versionInformationBox.Text = version;
 		}
 
-		private async void Page_Loaded(object sender, RoutedEventArgs e)
+		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
 			if (DealWithSettings.ReadSettings("fileName") != null)
@@ -77,6 +79,9 @@ namespace 抽人
 				layOutFlyoutButton.Visibility = Visibility.Collapsed;
 				HistoryView.Visibility = Visibility.Collapsed;
 				DeleteButton.Visibility = Visibility.Collapsed;
+				OperateStudent.Visibility = Visibility.Collapsed;
+				StudentSuggestBox.Visibility = Visibility.Collapsed;
+
 			}
 			if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
@@ -85,18 +90,25 @@ namespace 抽人
 		private void randomButton_Click(object sender, RoutedEventArgs e)
 		{
 			HistoryView.ItemsSource = listOfGoingStudent;
+			dealWithStudentDataProgressBar.Maximum = listOfGoingStudent.Count + listOfUnfinishedStudent.Count;
 
-			if (listOfUnfinishedStudent.Count!=0)
+			if (listOfUnfinishedStudent.Count != 0)
 			{
-				studentNumber = randomStudent.Next(0, listOfUnfinishedStudent.Count);
-
-				resultBox.Text = listOfUnfinishedStudent[studentNumber].Name;
-
 				if (mark)
 				{
-					listOfGoingStudent.Add(studentList[studentNumber]);
-
+					studentNumber = randomStudent.Next(0, listOfUnfinishedStudent.Count);
+					resultBox.Text = listOfUnfinishedStudent[studentNumber].Name;
+					listOfGoingStudent.Insert(0, listOfUnfinishedStudent[studentNumber]);
+					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
 					listOfUnfinishedStudent.RemoveAt(studentNumber);
+					dealWithStudentDataProgressBar.Value = listOfGoingStudent.Count;
+				}
+				else
+				{
+					do studentNumber = randomStudent.Next(0, studentList.Count);
+					while (studentList[studentNumber].StudentStatus == StudentStatus.suspended);
+
+					resultBox.Text = studentList[studentNumber].Name;
 				}
 			}
 			else resultBox.Text = "已经全部抽过了";//提示全部做过
@@ -167,7 +179,7 @@ namespace 抽人
 				Content = @"以后的人都要标记状态为“进行中”？",
 				CloseButtonText = "别了吧",
 				PrimaryButtonText = "是的",
-				DefaultButton=ContentDialogButton.Primary
+				DefaultButton = ContentDialogButton.Primary
 			};
 
 			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
@@ -194,16 +206,12 @@ namespace 抽人
 			studentList.Clear();
 			listOfGoingStudent.Clear();
 			listOfUnfinishedStudent.Clear();
+			lastGoingStudent.Clear();
 
-			HistoryView.ItemsSource = studentList;
+			HistoryView.ItemsSource = listOfGoingStudent;
 
 			StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 			StorageFile file = await localFolder.GetFileAsync(fileName);
-
-			sumOfStudent = 0;
-			unfinishedNumber = 0;
-
-			//StreamReader sr = new StreamReader(readableFilePath);
 
 			IList<string> contents = await FileIO.ReadLinesAsync(file);
 			sumOfStudent = contents.ToArray().Length;
@@ -217,55 +225,29 @@ namespace 抽人
 				string[] studentData = new string[3];
 				studentData = DealWithData.DealWithStudentData(contents[j]);
 
-				Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2])};
+				Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]) };
 
 				if (Somebody.StudentStatus == StudentStatus.unfinished)
 				{
-					unfinishedNumber++;
 					listOfUnfinishedStudent.Add(Somebody);
 				}
 				else if (Somebody.StudentStatus == StudentStatus.going)
 				{
-					Somebody.StudentStatus = StudentStatus.finished;
-					listOfGoingStudent.Add(Somebody);
+					lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
+					//listOfGoingStudent.Add(Somebody);
 				}
 
-				/*
-				try
-				{
-					checkId[Somebody.Id - 1] = true;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					resultBox.Text = "编号 " + Somebody.Id.ToString() + " ";
-				}
-				*/
-				//studentDictionary.Add(Somebody.Id, Somebody);
 				studentList.Add(Somebody);
 				dealWithStudentDataProgressBar.Value = j + 1;
 			}
 
-			int i = 0;
-			try
+			foreach (var someBody in lastGoingStudent)
 			{
-				for (; i < sumOfStudent; i++)
-				{
-
-				}
-
+				listOfGoingStudent.Insert(0, someBody.Value);
 			}
-			catch (ArgumentOutOfRangeException)
-			{
 
-			}
-			while ((i < sumOfStudent) && (checkId[i] == true)) i++;
-			if (i == sumOfStudent)
-			{
-				resultBox.Text = "连接完成："+fileName;
-				DealWithSettings.WriteSettings("fileName", fileName);
-			}
-			else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
-			else resultBox.Text = "编号为" + i + 1.ToString() + "的人出现问题";
+			resultBox.Text = "连接完成：" + fileName;
+			DealWithSettings.WriteSettings("fileName", fileName);
 		}
 
 		private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -301,7 +283,7 @@ namespace 抽人
 		private async Task ComposeEmail()
 		{
 			var emailMessage = new EmailMessage();
-			emailMessage.Body = "于"+DateTime.Now.ToString()+"发现问题：";
+			emailMessage.Body = "于" + DateTime.Now.ToString() + "发现问题：";
 
 			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
 			emailMessage.To.Add(emailRecipient);
@@ -353,7 +335,32 @@ namespace 抽人
 
 		}
 
-		private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+		private void MarkFinished_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+		{
+			StudentSuggestBox.ItemsSource=studentList.Where(p=>p.Name.StartsWith(sender.Text)).Select(p=>p.Name).ToList();
+		}
+
+		private void StudentSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+		{
+
+		}
+
+		private void StudentSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+		{
+
+		}
+
+		private void Grid_DragOver(object sender, DragEventArgs e)
+		{
+
+		}
+
+		private void Grid_Drop(object sender, DragEventArgs e)
 		{
 
 		}
