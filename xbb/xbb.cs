@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -173,6 +174,22 @@ namespace xbb
 			else if (status == StudentStatus.finished) return "finished";
 			else if (status == StudentStatus.suspended) return "suspended";
 			else return "error";
+		}
+
+
+		public static void SortStudentData(ref ObservableCollection<Student> data)
+		{
+			for (int i = 0; i < data.Count; i++)
+			{
+				data[i].OrderOfGoing = data.Count - i;
+			}
+		}
+
+		public static async void LayoutData(StorageFile file,List<Student> students)
+		{
+			//StorageFolder folder = ApplicationData.Current.LocalFolder;
+			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+			foreach (Student student in students) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.OrderOfGoing== 0 ? "\n" : student.OrderOfGoing.ToString() + "\r\n"));
 		}
 	}
 

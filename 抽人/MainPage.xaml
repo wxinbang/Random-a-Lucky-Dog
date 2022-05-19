@@ -50,32 +50,32 @@
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
 
-                <AutoSuggestBox Grid.Row="0" x:Name="StudentSuggestBox" 
-                                PlaceholderText="键入要查询的名字" Margin="30,10,10,10"
-                                TextChanged="StudentSuggestBox_TextChanged" QueryIcon="Find" 
-                                QuerySubmitted="StudentSuggestBox_QuerySubmitted" 
-                                SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
+				<AutoSuggestBox Grid.Row="0" x:Name="StudentSuggestBox" 
+								PlaceholderText="键入名字" Margin="30,10,10,10"
+								TextChanged="StudentSuggestBox_TextChanged"
+								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
 
-                <ListView Grid.Row="1" x:Name="HistoryView" Margin="30,10,10,10"
+				<ListView Grid.Row="1" x:Name="HistoryView" Margin="30,10,10,10"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
 					<ListView.ItemTemplate>
 						<DataTemplate x:DataType="data:Student">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind Name}"/>
-                                <muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
-                            </StackPanel>
-                        </DataTemplate>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{x:Bind Name}"/>
+
+								<muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
+							</StackPanel>
+						</DataTemplate>
 					</ListView.ItemTemplate>
 				</ListView>
 				<!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
 				ItemTemplate="{StaticResource ContactListViewTemplate}"-->
 
-            </Grid>
+			</Grid>
 
 			<Button Grid.Column="1" x:Name="randomButton" Content="抽" 
 					VerticalAlignment="Center" Click="randomButton_Click" 

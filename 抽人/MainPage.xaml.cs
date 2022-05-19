@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Provider;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -29,6 +30,8 @@ namespace 抽人
 		ObservableCollection<Student> listOfUnfinishedStudent = new ObservableCollection<Student>();
 
 		ObservableCollection<Student> listOfGoingStudent = new ObservableCollection<Student>();
+
+		List<Student> listOfFinishedStudent = new List<Student>();
 
 		SortedList<int, Student> lastGoingStudent = new SortedList<int, Student>();
 
@@ -182,6 +185,7 @@ namespace 抽人
 				DefaultButton = ContentDialogButton.Primary
 			};
 
+
 			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
 			if (result == ContentDialogResult.Primary)
 			{
@@ -207,6 +211,7 @@ namespace 抽人
 			listOfGoingStudent.Clear();
 			listOfUnfinishedStudent.Clear();
 			lastGoingStudent.Clear();
+			listOfFinishedStudent.Clear();
 
 			HistoryView.ItemsSource = listOfGoingStudent;
 
@@ -235,6 +240,10 @@ namespace 抽人
 				{
 					lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
 					//listOfGoingStudent.Add(Somebody);
+				}
+				else if (Somebody.StudentStatus == StudentStatus.finished)
+				{
+					listOfFinishedStudent.Add(Somebody);
 				}
 
 				studentList.Add(Somebody);
@@ -303,11 +312,58 @@ namespace 抽人
 			InfoBar.IsOpen = false;
 		}
 
-		private void LayoutDataSet_Click(object sender, RoutedEventArgs e)
+		private async void LayoutDataSet_Click(object sender, RoutedEventArgs e)
 		{
-			//DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
+			List<Student>updatedList=SumDataSets(studentList,listOfUnfinishedStudent,listOfGoingStudent,lastGoingStudent);
+			string afterFileName = "After-" + fileName;
+			//DealWithData.LayoutData(afterFileName, updatedList);
 
-			var saver = new FileSavePicker();
+			var savePicker = new FileSavePicker();
+			savePicker.SuggestedStartLocation =PickerLocationId.Desktop;
+			// Dropdown of file types the user can save the file as
+			savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+			// Default file name if the user does not type one in or select a file to replace
+			savePicker.SuggestedFileName = "After"+fileName;
+
+			StorageFile file = await savePicker.PickSaveFileAsync();
+			//StorageFile updatedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(afterFileName);
+			if (file != null)
+			{
+				// Prevent updates to the remote version of the file until
+				// we finish making changes and call CompleteUpdatesAsync.
+				CachedFileManager.DeferUpdates(file);
+				// write to file
+				DealWithData.LayoutData(file, updatedList);
+				// Let Windows know that we're finished changing the file so
+				// the other app can update the remote version of the file.
+				// Completing updates may require Windows to ask for user input.
+				FileUpdateStatus status =await CachedFileManager.CompleteUpdatesAsync(file);
+				if (status == FileUpdateStatus.Complete)
+				{
+					this.resultBox.Text = "File " + file.Name + " was saved.";
+				}
+				else
+				{
+					this.resultBox.Text = "File " + file.Name + " couldn't be saved.";
+				}
+			}
+			else
+			{
+				this.resultBox.Text = "Operation cancelled.";
+			}
+		}
+
+		public static List<Student> SumDataSets(List<Student> students,ObservableCollection<Student> unfinished,ObservableCollection<Student>going, SortedList<int,Student> finished)
+		{
+			List<Student> returnList=new List<Student>();
+			foreach (Student student in students)
+			{
+				if (unfinished.Contains(student)) returnList.Add(unfinished[unfinished.IndexOf(student)]);
+				else if (going.Contains(student)) returnList.Add(going[going.IndexOf(student)]);
+				else if (finished.ContainsValue(student)) returnList.Add(finished[finished.IndexOfValue(student)]);
+				else returnList.Add(students[students.IndexOf(student)]);
+			}
+			return returnList;
 		}
 
 		private void LayoutUserData_Click(object sender, RoutedEventArgs e)
@@ -337,17 +393,20 @@ namespace 抽人
 
 		private void MarkFinished_Click(object sender, RoutedEventArgs e)
 		{
-
+			if(HistoryView.SelectedItem != null)
+			{
+				listOfGoingStudent.Remove((Student)HistoryView.SelectedItem);
+				listOfFinishedStudent.Add((Student)HistoryView.SelectedItem);
+				DealWithData.SortStudentData(ref listOfGoingStudent);
+				HistoryView.ItemsSource=null;
+				HistoryView.ItemsSource = listOfGoingStudent;
+			}
 		}
 
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{
-			StudentSuggestBox.ItemsSource=studentList.Where(p=>p.Name.StartsWith(sender.Text)).Select(p=>p.Name).ToList();
-		}
-
-		private void StudentSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-		{
-
+			if(sender.Text!="")StudentSuggestBox.ItemsSource=studentList.Where(p=>p.Name.Contains(sender.Text)).Select(p=>p.Name).ToList();
+			else StudentSuggestBox.ItemsSource=null;
 		}
 
 		private void StudentSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
