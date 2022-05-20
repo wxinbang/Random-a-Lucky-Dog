@@ -323,7 +323,7 @@ namespace 抽人
 			// Dropdown of file types the user can save the file as
 			savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
 			// Default file name if the user does not type one in or select a file to replace
-			savePicker.SuggestedFileName = "After"+fileName;
+			savePicker.SuggestedFileName = afterFileName;
 
 			StorageFile file = await savePicker.PickSaveFileAsync();
 			//StorageFile updatedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(afterFileName);
@@ -333,6 +333,7 @@ namespace 抽人
 				// we finish making changes and call CompleteUpdatesAsync.
 				CachedFileManager.DeferUpdates(file);
 				// write to file
+				await FileIO.WriteTextAsync(file, "");
 				DealWithData.LayoutData(file, updatedList);
 				// Let Windows know that we're finished changing the file so
 				// the other app can update the remote version of the file.
