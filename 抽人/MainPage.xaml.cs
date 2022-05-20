@@ -25,13 +25,13 @@ namespace 抽人
 	{
 		//Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
 
-		List<Student> studentList = new List<Student>();
+		ObservableCollection<Student> studentList = new ObservableCollection<Student>();
 
 		ObservableCollection<Student> listOfUnfinishedStudent = new ObservableCollection<Student>();
 
 		ObservableCollection<Student> listOfGoingStudent = new ObservableCollection<Student>();
 
-		List<Student> listOfFinishedStudent = new List<Student>();
+		ObservableCollection<Student> listOfFinishedStudent = new ObservableCollection<Student>();
 
 		SortedList<int, Student> lastGoingStudent = new SortedList<int, Student>();
 
@@ -99,8 +99,11 @@ namespace 抽人
 			{
 				if (mark)
 				{
-					studentNumber = randomStudent.Next(0, listOfUnfinishedStudent.Count);
+					do studentNumber = randomStudent.Next(0, listOfUnfinishedStudent.Count);
+					while (listOfUnfinishedStudent[studentNumber].StudentStatus == StudentStatus.suspended);
+
 					resultBox.Text = listOfUnfinishedStudent[studentNumber].Name;
+					listOfUnfinishedStudent[studentNumber].StudentStatus = StudentStatus.going;
 					listOfGoingStudent.Insert(0, listOfUnfinishedStudent[studentNumber]);
 					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
 					listOfUnfinishedStudent.RemoveAt(studentNumber);
@@ -218,46 +221,54 @@ namespace 抽人
 			StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 			StorageFile file = await localFolder.GetFileAsync(fileName);
 
-			IList<string> contents = await FileIO.ReadLinesAsync(file);
-			sumOfStudent = contents.ToArray().Length;
-			dealWithStudentDataProgressBar.Maximum = sumOfStudent;
-
-			bool[] checkId = new bool[sumOfStudent];
-			for (int j = 0; j < sumOfStudent; j++)
+			try
 			{
-				//创建一个动态bool数组checkId并全部初始化为false
+				IList<string> contents = await FileIO.ReadLinesAsync(file);
+				sumOfStudent = contents.ToArray().Length;
+				dealWithStudentDataProgressBar.Maximum = sumOfStudent;
 
-				string[] studentData = new string[3];
-				studentData = DealWithData.DealWithStudentData(contents[j]);
-
-				Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]) };
-
-				if (Somebody.StudentStatus == StudentStatus.unfinished)
+				bool[] checkId = new bool[sumOfStudent];
+				for (int j = 0; j < sumOfStudent; j++)
 				{
-					listOfUnfinishedStudent.Add(Somebody);
-				}
-				else if (Somebody.StudentStatus == StudentStatus.going)
-				{
-					lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
-					//listOfGoingStudent.Add(Somebody);
-				}
-				else if (Somebody.StudentStatus == StudentStatus.finished)
-				{
-					listOfFinishedStudent.Add(Somebody);
+					//创建一个动态bool数组checkId并全部初始化为false
+
+					string[] studentData = new string[3];
+					studentData = DealWithData.DealWithStudentData(contents[j]);
+
+					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]) };
+
+					if (Somebody.StudentStatus == StudentStatus.unfinished)
+					{
+						listOfUnfinishedStudent.Add(Somebody);
+					}
+					else if (Somebody.StudentStatus == StudentStatus.going)
+					{
+						lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
+						//listOfGoingStudent.Add(Somebody);
+					}
+					else if (Somebody.StudentStatus == StudentStatus.finished)
+					{
+						listOfFinishedStudent.Add(Somebody);
+					}
+
+					studentList.Add(Somebody);
+					dealWithStudentDataProgressBar.Value = j + 1;
 				}
 
-				studentList.Add(Somebody);
-				dealWithStudentDataProgressBar.Value = j + 1;
+				foreach (var someBody in lastGoingStudent)
+				{
+					listOfGoingStudent.Insert(0, someBody.Value);
+				}
+
+				resultBox.Text = "连接完成：" + fileName;
+				DealWithSettings.WriteSettings("fileName", fileName);
 			}
-
-			foreach (var someBody in lastGoingStudent)
+			catch (ArgumentOutOfRangeException)
 			{
-				listOfGoingStudent.Insert(0, someBody.Value);
+				resultBox.Text = "路径出现中文，请重新选择";
 			}
-
-			resultBox.Text = "连接完成：" + fileName;
-			DealWithSettings.WriteSettings("fileName", fileName);
 		}
+
 
 		private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
 		{
@@ -314,7 +325,7 @@ namespace 抽人
 
 		private async void LayoutDataSet_Click(object sender, RoutedEventArgs e)
 		{
-			List<Student>updatedList=SumDataSets(studentList,listOfUnfinishedStudent,listOfGoingStudent,lastGoingStudent);
+			List<Student>updatedList=SumDataSets(studentList,listOfUnfinishedStudent,listOfGoingStudent,listOfFinishedStudent);
 			string afterFileName = "After-" + fileName;
 			//DealWithData.LayoutData(afterFileName, updatedList);
 
@@ -354,14 +365,14 @@ namespace 抽人
 			}
 		}
 
-		public static List<Student> SumDataSets(List<Student> students,ObservableCollection<Student> unfinished,ObservableCollection<Student>going, SortedList<int,Student> finished)
+		public static List<Student> SumDataSets(ObservableCollection<Student> students,ObservableCollection<Student> unfinished,ObservableCollection<Student>going, ObservableCollection<Student> finished)
 		{
 			List<Student> returnList=new List<Student>();
 			foreach (Student student in students)
 			{
 				if (unfinished.Contains(student)) returnList.Add(unfinished[unfinished.IndexOf(student)]);
 				else if (going.Contains(student)) returnList.Add(going[going.IndexOf(student)]);
-				else if (finished.ContainsValue(student)) returnList.Add(finished[finished.IndexOfValue(student)]);
+				else if (finished.Contains(student)) returnList.Add(finished[finished.IndexOf(student)]);
 				else returnList.Add(students[students.IndexOf(student)]);
 			}
 			return returnList;
@@ -396,8 +407,9 @@ namespace 抽人
 		{
 			if(HistoryView.SelectedItem != null)
 			{
-				listOfGoingStudent.Remove((Student)HistoryView.SelectedItem);
+				listOfGoingStudent[listOfGoingStudent.IndexOf((Student)HistoryView.SelectedItem)].StudentStatus = StudentStatus.finished;
 				listOfFinishedStudent.Add((Student)HistoryView.SelectedItem);
+				listOfGoingStudent.Remove((Student)HistoryView.SelectedItem);
 				DealWithData.SortStudentData(ref listOfGoingStudent);
 				HistoryView.ItemsSource=null;
 				HistoryView.ItemsSource = listOfGoingStudent;
@@ -421,6 +433,11 @@ namespace 抽人
 		}
 
 		private void Grid_Drop(object sender, DragEventArgs e)
+		{
+
+		}
+
+		private void Save_Click(object sender, RoutedEventArgs e)
 		{
 
 		}

@@ -189,7 +189,7 @@ namespace xbb
 		{
 			//StorageFolder folder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-			foreach (Student student in students) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.OrderOfGoing== 0 ? "\n" : student.OrderOfGoing.ToString() + "\r\n"));
+			foreach (Student student in students) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus==StudentStatus.going ? student.OrderOfGoing.ToString() + "\n":"\n"));
 		}
 	}
 

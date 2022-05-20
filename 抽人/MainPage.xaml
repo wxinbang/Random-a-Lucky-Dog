@@ -60,18 +60,64 @@
 								TextChanged="StudentSuggestBox_TextChanged"
 								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
 
-				<ListView Grid.Row="1" x:Name="HistoryView" Margin="30,10,10,10"
-						  ItemsSource="{x:Bind listOfGoingStudent}">
-					<ListView.ItemTemplate>
-						<DataTemplate x:DataType="data:Student">
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="{x:Bind Name}"/>
+                <Pivot Grid.Row="1" Margin="30,10,10,10">
+                    <PivotItem Header="全部">
+                        <ListView x:Name="AllView" 
+						  ItemsSource="{x:Bind studentList}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:Student">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind Name}"/>
+                                        <!--muxc:InfoBadge /-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
-								<muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
-							</StackPanel>
-						</DataTemplate>
-					</ListView.ItemTemplate>
-				</ListView>
+                    </PivotItem>
+                    <PivotItem Header="进行中">
+                        <ListView x:Name="HistoryView"
+						  ItemsSource="{x:Bind listOfGoingStudent}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:Student">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind Name}"/>
+                                        <muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </PivotItem>
+                    <PivotItem Header="已完成">
+                        <ListView x:Name="FinishedView" 
+						  ItemsSource="{x:Bind listOfFinishedStudent}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:Student">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind Name}"/>
+                                        <!--muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </PivotItem>
+                    <PivotItem Header="未完成">
+                        <ListView x:Name="UnfinishedView" 
+						  ItemsSource="{x:Bind listOfUnfinishedStudent}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:Student">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{x:Bind Name}"/>
+                                        <!--muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </PivotItem>
+                </Pivot>
+
 				<!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
 				ItemTemplate="{StaticResource ContactListViewTemplate}"-->
 
@@ -158,7 +204,7 @@
 						<Button.Flyout>
 							<MenuFlyout>
 								<MenuFlyoutItem Text="标记完成" Click="MarkFinished_Click"/>
-								<MenuFlyoutItem Text=""/>
+								<MenuFlyoutItem Text="保存" Click="Save_Click"/>
 							</MenuFlyout>
 						</Button.Flyout>
 					</Button>
