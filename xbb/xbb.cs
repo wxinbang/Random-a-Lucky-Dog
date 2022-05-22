@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -14,6 +14,7 @@ namespace xbb
 		public string Name { get; set; }
 		public StudentStatus StudentStatus { get; set; }
 		public int OrderOfGoing { get; set; }
+public int OrderInList{get;set;}
 	}
 
 	public enum StudentStatus //状态
@@ -185,11 +186,11 @@ namespace xbb
 			}
 		}
 
-		public static async void LayoutData(StorageFile file,List<Student> students)
+		public static async void LayoutData(StorageFile file,SortedList<int,Student> students)
 		{
 			//StorageFolder folder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-			foreach (Student student in students) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus==StudentStatus.going ? student.OrderOfGoing.ToString() + "\n":"\n"));
+			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus==StudentStatus.going ? student.OrderOfGoing.ToString() + "\n":"\n"));
 		}
 	}
 

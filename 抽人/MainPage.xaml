@@ -23,9 +23,9 @@
 
 		<muxc:InfoBar Grid.Row="0" x:Name="InfoBar" IsOpen="True" Severity="Error" Title="预览模式"
 					  IsClosable="False"
-					  Message="你正处在预览模式下，其中出现的新功能可能无效或包含重大缺陷，不建议将此模式应用到生产环境中。">
+					  Message="新功能仅供测试，可能无效或包含重大缺陷。">
 			<muxc:InfoBar.ActionButton>
-				<Button Content="更多选项">
+				<Button x:Name="MoreButton" Content="更多选项">
 					<Button.Flyout>
 						<MenuFlyout Placement="Bottom">
 							<MenuFlyoutItem Text="反馈问题" Click="SendEmailButton_Click"/>
@@ -44,9 +44,9 @@
 
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3*"/>
 				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="1.5*"/>
+				<ColumnDefinition Width="3*"/>
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0">
@@ -60,8 +60,11 @@
 								TextChanged="StudentSuggestBox_TextChanged"
 								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
 
-                <Pivot Grid.Row="1" Margin="30,10,10,10">
-                    <PivotItem Header="全部">
+                <Pivot x:Name="Views" Grid.Row="1"  Margin="30,0,0,0" >
+                    <PivotItem x:Name="All">
+                        <PivotItem.Header>
+                            <TextBlock Text="全部" FontSize="18"/>
+                        </PivotItem.Header>
                         <ListView x:Name="AllView" 
 						  ItemsSource="{x:Bind studentList}">
                             <ListView.ItemTemplate>
@@ -75,7 +78,10 @@
                         </ListView>
 
                     </PivotItem>
-                    <PivotItem Header="进行中">
+                    <PivotItem x:Name="Going">
+                        <PivotItem.Header>
+                            <TextBlock Text="进行中" FontSize="18"/>
+                        </PivotItem.Header>
                         <ListView x:Name="HistoryView"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
                             <ListView.ItemTemplate>
@@ -88,7 +94,10 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </PivotItem>
-                    <PivotItem Header="已完成">
+                    <PivotItem x:Name="Finished">
+                        <PivotItem.Header>
+                            <TextBlock Text="已完成" FontSize="18"/>
+                        </PivotItem.Header>
                         <ListView x:Name="FinishedView" 
 						  ItemsSource="{x:Bind listOfFinishedStudent}">
                             <ListView.ItemTemplate>
@@ -102,7 +111,10 @@
                         </ListView>
 
                     </PivotItem>
-                    <PivotItem Header="未完成">
+                    <PivotItem x:Name="Unfinished">
+                        <PivotItem.Header>
+                            <TextBlock Text="未完成" FontSize="18"/>
+                        </PivotItem.Header>
                         <ListView x:Name="UnfinishedView" 
 						  ItemsSource="{x:Bind listOfUnfinishedStudent}">
                             <ListView.ItemTemplate>
@@ -128,7 +140,7 @@
 					HorizontalAlignment="Center" FontSize="36" 
 					BorderThickness="14,12,14,12"/>
 
-			<Grid Grid.Column="2">
+			<Grid Grid.Column="2" Margin="0,0,30,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="*"/>
@@ -177,7 +189,7 @@
 
 					<ToggleSwitch Grid.Column="0" x:Name="whetherMark" Header="标记" VerticalAlignment="Center" 
 								  OffContent="否" OnContent="是" Toggled="whetherMark_Toggled"
-								  HorizontalAlignment="Center"/>
+								  HorizontalAlignment="Center" Margin="0,0,-100,0"/>
 
 					<Button Grid.Column="1" x:Name="DeleteButton" HorizontalAlignment="Center"
 							VerticalAlignment="Center" Content="清理">

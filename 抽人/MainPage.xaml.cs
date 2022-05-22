@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -55,6 +57,8 @@ namespace 抽人
 
 		int unfinishedNumber;
 		StorageFile file;
+		StorageFolder dataSetFolder;
+		StorageFolder saveFolder;
 
 		string readableFilePath;
 		bool whetherJoInsiderPreviewProgram;
@@ -67,20 +71,24 @@ namespace 抽人
 			versionInformationBox.Text = version;
 		}
 
-		private void Page_Loaded(object sender, RoutedEventArgs e)
+		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
+			dataSetFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("DataSets", CreationCollisionOption.OpenIfExists);
+			saveFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Saves", CreationCollisionOption.OpenIfExists);
+
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
 			if (DealWithSettings.ReadSettings("fileName") != null)
 			{
+				if(DealWithSettings.ReadSettings("saved")!="true")file=dataSetFolder.GetFileAsync
 				ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
 				fileName = DealWithSettings.ReadSettings("fileName");
 			}
 			if (DealWithSettings.ReadSettings("joinProgram") != "True")
-			{
+			{ 
 				InfoBar.IsOpen = false;
 				//layOutDataSetButton.Visibility = Visibility.Collapsed;
 				layOutFlyoutButton.Visibility = Visibility.Collapsed;
-				HistoryView.Visibility = Visibility.Collapsed;
+				Views.Visibility = Visibility.Collapsed;
 				DeleteButton.Visibility = Visibility.Collapsed;
 				OperateStudent.Visibility = Visibility.Collapsed;
 				StudentSuggestBox.Visibility = Visibility.Collapsed;
@@ -149,14 +157,13 @@ namespace 抽人
 
 			file = await picker.PickSingleFileAsync();
 
-			var readableFolderPath = ApplicationData.Current.LocalFolder;
+			//var readableFolderPath = ApplicationData.Current.LocalFolder;
 			//readableFilePath=readableFolderPath+@"\"+file.Name;
-
 			if (file != null)
 			{
-				readableFilePath = readableFolderPath + @"\" + file.Name;
-				DataSetPath = file.Path;
-				await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
+				//readableFilePath = readableFolderPath + @"\" + file.Name;
+				//DataSetPath = file.Path;
+				await file.CopyAsync(dataSetFolder, file.Name, NameCollisionOption.ReplaceExisting);
 				resultBox.Text = "已选择：" + file.Name;
 				// Application now has read/write access to the picked file
 
@@ -205,10 +212,10 @@ namespace 抽人
 
 		private void connectDataSet_Click(object sender, RoutedEventArgs e)
 		{
-			ConnetDataSet(file.Name);
+			ConnetDataSet(file);
 		}
 
-		private async void ConnetDataSet(string fileName)
+		private async void ConnetDataSet(StorageFile file)
 		{
 			studentList.Clear();
 			listOfGoingStudent.Clear();
@@ -218,8 +225,8 @@ namespace 抽人
 
 			HistoryView.ItemsSource = listOfGoingStudent;
 
-			StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-			StorageFile file = await localFolder.GetFileAsync(fileName);
+			//StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+			//StorageFile file = await dataSetFolder.GetFileAsync(fileName);
 
 			try
 			{
@@ -235,7 +242,7 @@ namespace 抽人
 					string[] studentData = new string[3];
 					studentData = DealWithData.DealWithStudentData(contents[j]);
 
-					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]) };
+					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = j };
 
 					if (Somebody.StudentStatus == StudentStatus.unfinished)
 					{
@@ -263,9 +270,9 @@ namespace 抽人
 				resultBox.Text = "连接完成：" + fileName;
 				DealWithSettings.WriteSettings("fileName", fileName);
 			}
-			catch (ArgumentOutOfRangeException)
+			catch (Exception e)
 			{
-				resultBox.Text = "路径出现中文，请重新选择";
+				resultBox.Text = e.ToString();
 			}
 		}
 
@@ -276,6 +283,7 @@ namespace 抽人
 			if (timesOfVersionTextTapped == 5)
 			{
 				CheckJoinProgram();
+				timesOfVersionTextTapped = 0;
 			}
 
 		}
@@ -320,17 +328,19 @@ namespace 抽人
 		private void ExitProgram_Click(object sender, RoutedEventArgs e)
 		{
 			DealWithSettings.WriteSettings("joinProgram", "False");
-			InfoBar.IsOpen = false;
+			InfoBar.Severity = InfoBarSeverity.Success;
+			InfoBar.Message = "已退出预览模式，请尽快重启";
+			MoreButton.Visibility = Visibility.Collapsed;
 		}
 
 		private async void LayoutDataSet_Click(object sender, RoutedEventArgs e)
 		{
-			List<Student>updatedList=SumDataSets(studentList,listOfUnfinishedStudent,listOfGoingStudent,listOfFinishedStudent);
+			SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 			string afterFileName = "After-" + fileName;
 			//DealWithData.LayoutData(afterFileName, updatedList);
 
 			var savePicker = new FileSavePicker();
-			savePicker.SuggestedStartLocation =PickerLocationId.Desktop;
+			savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
 			// Dropdown of file types the user can save the file as
 			savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
 			// Default file name if the user does not type one in or select a file to replace
@@ -349,7 +359,7 @@ namespace 抽人
 				// Let Windows know that we're finished changing the file so
 				// the other app can update the remote version of the file.
 				// Completing updates may require Windows to ask for user input.
-				FileUpdateStatus status =await CachedFileManager.CompleteUpdatesAsync(file);
+				FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
 				if (status == FileUpdateStatus.Complete)
 				{
 					this.resultBox.Text = "File " + file.Name + " was saved.";
@@ -365,16 +375,22 @@ namespace 抽人
 			}
 		}
 
-		public static List<Student> SumDataSets(ObservableCollection<Student> students,ObservableCollection<Student> unfinished,ObservableCollection<Student>going, ObservableCollection<Student> finished)
+		public static SortedList<int, Student> SumDataSets(ObservableCollection<Student> students, ObservableCollection<Student> unfinished, ObservableCollection<Student> going, ObservableCollection<Student> finished)
 		{
-			List<Student> returnList=new List<Student>();
-			foreach (Student student in students)
-			{
-				if (unfinished.Contains(student)) returnList.Add(unfinished[unfinished.IndexOf(student)]);
-				else if (going.Contains(student)) returnList.Add(going[going.IndexOf(student)]);
-				else if (finished.Contains(student)) returnList.Add(finished[finished.IndexOf(student)]);
-				else returnList.Add(students[students.IndexOf(student)]);
-			}
+			SortedList<int, Student> returnList = new SortedList<int, Student>();
+			/*
+						foreach (Student student in students)
+						{
+							if (unfinished.Contains(student)) returnList.Add(unfinished[unfinished.IndexOf(student)]);
+							else if (going.Contains(student)) returnList.Add(going[going.IndexOf(student)]);
+							else if (finished.Contains(student)) returnList.Add(finished[finished.IndexOf(student)]);
+							else returnList.Add(students[students.IndexOf(student)]);
+						}
+			*/
+			foreach (Student student in going) returnList.Add(student.OrderInList, student);
+			foreach (Student student in unfinished) returnList.Add(student.OrderInList, student);
+			foreach (Student student in finished) returnList.Add(student.OrderInList, student);
+			for (int i = 0; i < students.Count(); i++) if (!returnList.ContainsKey (i)) returnList.Add(i, students[i]);
 			return returnList;
 		}
 
@@ -405,41 +421,66 @@ namespace 抽人
 
 		private void MarkFinished_Click(object sender, RoutedEventArgs e)
 		{
-			if(HistoryView.SelectedItem != null)
+			if (HistoryView.SelectedItem != null)
 			{
 				listOfGoingStudent[listOfGoingStudent.IndexOf((Student)HistoryView.SelectedItem)].StudentStatus = StudentStatus.finished;
 				listOfFinishedStudent.Add((Student)HistoryView.SelectedItem);
 				listOfGoingStudent.Remove((Student)HistoryView.SelectedItem);
 				DealWithData.SortStudentData(ref listOfGoingStudent);
-				HistoryView.ItemsSource=null;
+				HistoryView.ItemsSource = null;
 				HistoryView.ItemsSource = listOfGoingStudent;
 			}
 		}
 
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{
-			if(sender.Text!="")StudentSuggestBox.ItemsSource=studentList.Where(p=>p.Name.Contains(sender.Text)).Select(p=>p.Name).ToList();
-			else StudentSuggestBox.ItemsSource=null;
+			if (sender.Text != "") StudentSuggestBox.ItemsSource = studentList.Where(p => p.Name.Contains(sender.Text)).Select(p => p.Name).ToList();
+			else StudentSuggestBox.ItemsSource = null;
 		}
 
 		private void StudentSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
-
+			Student student = studentList.Where(p => p.Name == args.SelectedItem).Select(p => p).ToList()[0];
+			if (listOfGoingStudent.Contains(student))
+			{
+				Views.SelectedItem = Going;
+				HistoryView.SelectedItem = student;
+				HistoryView.ScrollIntoView(student);
+			}
+			else if (listOfFinishedStudent.Contains(student))
+			{
+				Views.SelectedItem = Finished;
+				FinishedView.SelectedItem = student;
+				FinishedView.ScrollIntoView(student);
+			}
+			else if (listOfUnfinishedStudent.Contains(student))
+			{
+				Views.SelectedItem= Unfinished;
+				UnfinishedView.SelectedItem = student;
+				UnfinishedView.ScrollIntoView(student);
+			}
+			else
+			{
+				Views.SelectedItem = All;
+				AllView.SelectedItem = student;
+				AllView.ScrollIntoView(student);
+			}
 		}
 
-		private void Grid_DragOver(object sender, DragEventArgs e)
-		{
+			private void Grid_DragOver(object sender, DragEventArgs e)
+			{
+				e.AcceptedOperation = DataPackageOperation.Copy;
 
-		}
+			}
 
-		private void Grid_Drop(object sender, DragEventArgs e)
-		{
+			private void Grid_Drop(object sender, DragEventArgs e)
+			{
 
-		}
+			}
 
-		private void Save_Click(object sender, RoutedEventArgs e)
-		{
+			private void Save_Click(object sender, RoutedEventArgs e)
+			{
 
+			}
 		}
 	}
-}
