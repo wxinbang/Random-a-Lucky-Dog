@@ -79,12 +79,13 @@ namespace 抽人
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
 			if (DealWithSettings.ReadSettings("fileName") != null)
 			{
-				if(DealWithSettings.ReadSettings("saved")!="true")file=dataSetFolder.GetFileAsync
-				ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
+				if (DealWithSettings.ReadSettings("saved") != "true") file = await dataSetFolder.GetFileAsync(DealWithSettings.ReadSettings("fileName"));
+				else file = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings("fileName"));
+				ConnectDataSet(file);
 				fileName = DealWithSettings.ReadSettings("fileName");
 			}
 			if (DealWithSettings.ReadSettings("joinProgram") != "True")
-			{ 
+			{
 				InfoBar.IsOpen = false;
 				//layOutDataSetButton.Visibility = Visibility.Collapsed;
 				layOutFlyoutButton.Visibility = Visibility.Collapsed;
@@ -172,6 +173,7 @@ namespace 抽人
 			{
 				this.resultBox.Text = "操作已取消";
 			}
+			DealWithSettings.WriteSettings("saved", "");
 		}
 
 		private void whetherMark_Toggled(object sender, RoutedEventArgs e)
@@ -212,10 +214,10 @@ namespace 抽人
 
 		private void connectDataSet_Click(object sender, RoutedEventArgs e)
 		{
-			ConnetDataSet(file);
+			ConnectDataSet(file);
 		}
 
-		private async void ConnetDataSet(StorageFile file)
+		private async void ConnectDataSet(StorageFile file)
 		{
 			studentList.Clear();
 			listOfGoingStudent.Clear();
@@ -267,8 +269,8 @@ namespace 抽人
 					listOfGoingStudent.Insert(0, someBody.Value);
 				}
 
-				resultBox.Text = "连接完成：" + fileName;
-				DealWithSettings.WriteSettings("fileName", fileName);
+				resultBox.Text = "连接完成：" + file.Name;
+				DealWithSettings.WriteSettings("fileName", file.Name);
 			}
 			catch (Exception e)
 			{
@@ -390,7 +392,7 @@ namespace 抽人
 			foreach (Student student in going) returnList.Add(student.OrderInList, student);
 			foreach (Student student in unfinished) returnList.Add(student.OrderInList, student);
 			foreach (Student student in finished) returnList.Add(student.OrderInList, student);
-			for (int i = 0; i < students.Count(); i++) if (!returnList.ContainsKey (i)) returnList.Add(i, students[i]);
+			for (int i = 0; i < students.Count(); i++) if (!returnList.ContainsKey(i)) returnList.Add(i, students[i]);
 			return returnList;
 		}
 
@@ -440,7 +442,7 @@ namespace 抽人
 
 		private void StudentSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
-			Student student = studentList.Where(p => p.Name == args.SelectedItem).Select(p => p).ToList()[0];
+			Student student = studentList.Where(p => p.Name == args.SelectedItem.ToString()).Select(p => p).ToList()[0];
 			if (listOfGoingStudent.Contains(student))
 			{
 				Views.SelectedItem = Going;
@@ -455,7 +457,7 @@ namespace 抽人
 			}
 			else if (listOfUnfinishedStudent.Contains(student))
 			{
-				Views.SelectedItem= Unfinished;
+				Views.SelectedItem = Unfinished;
 				UnfinishedView.SelectedItem = student;
 				UnfinishedView.ScrollIntoView(student);
 			}
@@ -467,20 +469,41 @@ namespace 抽人
 			}
 		}
 
-			private void Grid_DragOver(object sender, DragEventArgs e)
+		private void Grid_DragOver(object sender, DragEventArgs e)
+		{
+			e.AcceptedOperation = DataPackageOperation.Copy;
+
+			e.DragUIOverride.Caption="拖入以导入";
+			e.DragUIOverride.IsCaptionVisible = true;
+			e.DragUIOverride.IsContentVisible = true;
+			e.DragUIOverride.IsGlyphVisible = true;
+		}
+
+		private async void Grid_Drop(object sender, DragEventArgs e)
+		{
+			if (e.DataView.Contains(StandardDataFormats.StorageItems))
 			{
-				e.AcceptedOperation = DataPackageOperation.Copy;
-
-			}
-
-			private void Grid_Drop(object sender, DragEventArgs e)
-			{
-
-			}
-
-			private void Save_Click(object sender, RoutedEventArgs e)
-			{
-
+				var items=await e.DataView.GetStorageItemsAsync();
+				if (items.Any())
+				{
+					//if( (items[0]as StorageFile).ContentType == "text/txt")
+					{
+						ConnectDataSet(items[0] as StorageFile);
+					}
+				}
 			}
 		}
+
+		private async void Save_Click(object sender, RoutedEventArgs e)
+		{
+			file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
+			SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+			await FileIO.WriteTextAsync(file, "");
+			DealWithData.LayoutData(file, updatedList);
+
+			DealWithSettings.WriteSettings("saved", "true");
+			DealWithSettings.WriteSettings("fileName", file.Name);
+			resultBox.Text = "保存成功";
+		}
 	}
+}

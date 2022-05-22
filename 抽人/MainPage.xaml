@@ -11,6 +11,7 @@
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
 	Loaded="Page_Loaded"
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop"
 	>
 
 	<Grid AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
@@ -36,11 +37,11 @@
 			</muxc:InfoBar.ActionButton>
 		</muxc:InfoBar>
 
-		 <TextBox Grid.Row="1" x:Name="resultBox" Margin="30,30,30,30" 
-				 BorderThickness="5,5,5,5"
+		 <TextBox Grid.Row="1" x:Name="resultBox" Margin="30,10,30,10" 
+				 BorderThickness="0"
 				 TextWrapping="Wrap" VerticalAlignment="Center" 
 				 TextAlignment="Center"
-				 IsReadOnly="True" FontSize="48" />
+				 IsReadOnly="True" FontSize="36" />
 
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
@@ -56,7 +57,7 @@
 				</Grid.RowDefinitions>
 
 				<AutoSuggestBox Grid.Row="0" x:Name="StudentSuggestBox" 
-								PlaceholderText="键入名字" Margin="30,10,10,10"
+								PlaceholderText="键入名字" Margin="30,0,10,0"
 								TextChanged="StudentSuggestBox_TextChanged"
 								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
 
