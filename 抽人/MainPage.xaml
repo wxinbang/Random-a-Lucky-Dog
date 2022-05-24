@@ -83,7 +83,7 @@
                         <PivotItem.Header>
                             <TextBlock Text="进行中" FontSize="18"/>
                         </PivotItem.Header>
-                        <ListView x:Name="HistoryView"
+                        <ListView x:Name="GoingView"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="data:Student">
@@ -217,7 +217,8 @@
 						<Button.Flyout>
 							<MenuFlyout>
 								<MenuFlyoutItem Text="标记完成" Click="MarkFinished_Click"/>
-								<MenuFlyoutItem Text="保存" Click="Save_Click"/>
+                                <MenuFlyoutItem Text="标记未完成" Click="MarkUnfinished_Click"/>
+                                <MenuFlyoutItem Text="保存" Click="Save_Click"/>
 							</MenuFlyout>
 						</Button.Flyout>
 					</Button>

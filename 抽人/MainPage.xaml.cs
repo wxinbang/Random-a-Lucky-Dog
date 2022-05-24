@@ -101,7 +101,7 @@ namespace 抽人
 
 		private void randomButton_Click(object sender, RoutedEventArgs e)
 		{
-			HistoryView.ItemsSource = listOfGoingStudent;
+			GoingView.ItemsSource = listOfGoingStudent;
 			dealWithStudentDataProgressBar.Maximum = listOfGoingStudent.Count + listOfUnfinishedStudent.Count;
 
 			if (listOfUnfinishedStudent.Count != 0)
@@ -225,7 +225,7 @@ namespace 抽人
 			lastGoingStudent.Clear();
 			listOfFinishedStudent.Clear();
 
-			HistoryView.ItemsSource = listOfGoingStudent;
+			GoingView.ItemsSource = listOfGoingStudent;
 
 			//StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await dataSetFolder.GetFileAsync(fileName);
@@ -272,9 +272,9 @@ namespace 抽人
 				resultBox.Text = "连接完成：" + file.Name;
 				DealWithSettings.WriteSettings("fileName", file.Name);
 			}
-			catch (Exception e)
+			catch
 			{
-				resultBox.Text = e.ToString();
+				resultBox.Text = ToString();
 			}
 		}
 
@@ -423,14 +423,14 @@ namespace 抽人
 
 		private void MarkFinished_Click(object sender, RoutedEventArgs e)
 		{
-			if (HistoryView.SelectedItem != null)
+			if (GoingView.SelectedItem != null)
 			{
-				listOfGoingStudent[listOfGoingStudent.IndexOf((Student)HistoryView.SelectedItem)].StudentStatus = StudentStatus.finished;
-				listOfFinishedStudent.Add((Student)HistoryView.SelectedItem);
-				listOfGoingStudent.Remove((Student)HistoryView.SelectedItem);
+				listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.finished;
+				listOfFinishedStudent.Add((Student)GoingView.SelectedItem);
+				listOfGoingStudent.Remove((Student)GoingView.SelectedItem);
 				DealWithData.SortStudentData(ref listOfGoingStudent);
-				HistoryView.ItemsSource = null;
-				HistoryView.ItemsSource = listOfGoingStudent;
+				GoingView.ItemsSource = null;
+				GoingView.ItemsSource = listOfGoingStudent;
 			}
 		}
 
@@ -446,8 +446,8 @@ namespace 抽人
 			if (listOfGoingStudent.Contains(student))
 			{
 				Views.SelectedItem = Going;
-				HistoryView.SelectedItem = student;
-				HistoryView.ScrollIntoView(student);
+				GoingView.SelectedItem = student;
+				GoingView.ScrollIntoView(student);
 			}
 			else if (listOfFinishedStudent.Contains(student))
 			{
@@ -472,6 +472,7 @@ namespace 抽人
 		private void Grid_DragOver(object sender, DragEventArgs e)
 		{
 			e.AcceptedOperation = DataPackageOperation.Copy;
+			
 
 			e.DragUIOverride.Caption="拖入以导入";
 			e.DragUIOverride.IsCaptionVisible = true;
@@ -488,6 +489,9 @@ namespace 抽人
 				{
 					//if( (items[0]as StorageFile).ContentType == "text/txt")
 					{
+						StorageFile file = items[0] as StorageFile;
+						await file.CopyAsync(dataSetFolder, file.Name, NameCollisionOption.ReplaceExisting);
+
 						ConnectDataSet(items[0] as StorageFile);
 					}
 				}
@@ -505,5 +509,33 @@ namespace 抽人
 			DealWithSettings.WriteSettings("fileName", file.Name);
 			resultBox.Text = "保存成功";
 		}
+
+		private async void MarkUnfinished_Click(object sender, RoutedEventArgs e)
+		{
+			if (await DealWithIdentity.VerifyIdentity())
+			{
+				if (GoingView.SelectedItem != null)
+				{
+					listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
+					listOfUnfinishedStudent.Add((Student)GoingView.SelectedItem);
+					listOfGoingStudent.Remove((Student)GoingView.SelectedItem);
+					DealWithData.SortStudentData(ref listOfGoingStudent);
+					GoingView.ItemsSource = null;
+					GoingView.ItemsSource = listOfGoingStudent;
+				}
+				else if (FinishedView.SelectedItem != null)
+				{
+					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
+					listOfUnfinishedStudent.Add((Student)FinishedView.SelectedItem);
+					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
+					//DealWithData.SortStudentData(ref listOfGoingStudent);
+					//GoingView.ItemsSource = null;
+					//GoingView.ItemsSource = listOfGoingStudent;
+				}
+
+			}
+			else resultBox.Text = "没有所需要的权限";
+		}
 	}
 }
+ 
