@@ -59,9 +59,12 @@ namespace 抽人
 		StorageFile file;
 		StorageFolder dataSetFolder;
 		StorageFolder saveFolder;
+		Exception ex;
 
 		string readableFilePath;
 		bool whetherJoInsiderPreviewProgram;
+
+		DispatcherTimer timer = new DispatcherTimer();
 
 		// 加入初始化时读写配置文件
 
@@ -73,6 +76,10 @@ namespace 抽人
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
+			timer.Interval = new TimeSpan(0, 0, 0,1);
+			timer.Tick += Timer_Tick;
+			timer.Start();
+
 			dataSetFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("DataSets", CreationCollisionOption.OpenIfExists);
 			saveFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Saves", CreationCollisionOption.OpenIfExists);
 
@@ -96,9 +103,15 @@ namespace 抽人
 
 			}
 			if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
+			if (DealWithSettings.ReadSettings("LastestError") != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
 		}
 
+		private async void Timer_Tick(object sender, object e)
+		{
+			if (await DealWithIdentity.VerifyIdentity()) IdentifyInfo.Visibility = Visibility.Visible;
+			else IdentifyInfo.Visibility = Visibility.Collapsed;
+		}
 		private void randomButton_Click(object sender, RoutedEventArgs e)
 		{
 			GoingView.ItemsSource = listOfGoingStudent;
@@ -187,11 +200,6 @@ namespace 抽人
 
 		private async void ConnectDataSet(StorageFile file)
 		{
-			studentList.Clear();
-			listOfGoingStudent.Clear();
-			listOfUnfinishedStudent.Clear();
-			lastGoingStudent.Clear();
-			listOfFinishedStudent.Clear();
 
 			GoingView.ItemsSource = listOfGoingStudent;
 
@@ -200,19 +208,25 @@ namespace 抽人
 
 			try
 			{
+				studentList.Clear();
+				listOfGoingStudent.Clear();
+				listOfUnfinishedStudent.Clear();
+				lastGoingStudent.Clear();
+				listOfFinishedStudent.Clear();
+
 				IList<string> contents = await FileIO.ReadLinesAsync(file);
 				sumOfStudent = contents.ToArray().Length;
 				dealWithStudentDataProgressBar.Maximum = sumOfStudent;
 
 				bool[] checkId = new bool[sumOfStudent];
-				for (int j = 0; j < sumOfStudent; j++)
+				foreach(string content in contents)
 				{
 					//创建一个动态bool数组checkId并全部初始化为false
 
 					string[] studentData = new string[3];
-					studentData = DealWithData.DealWithStudentData(contents[j]);
+					studentData = DealWithData.DealWithStudentData(content);
 
-					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = j };
+					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = contents.IndexOf(content) };
 
 					if (Somebody.StudentStatus == StudentStatus.unfinished)
 					{
@@ -229,7 +243,7 @@ namespace 抽人
 					}
 
 					studentList.Add(Somebody);
-					dealWithStudentDataProgressBar.Value = j + 1;
+					dealWithStudentDataProgressBar.Value =contents.IndexOf(content)+ 1;
 				}
 
 				foreach (var someBody in lastGoingStudent)
@@ -240,10 +254,12 @@ namespace 抽人
 				resultBox.Text = "连接完成：" + file.Name;
 				DealWithSettings.WriteSettings("fileName", file.Name);
 			}
-			catch(Exception ex)
+			catch(Exception exc)
 			{
-				await ContentDialogs.ThrowException(ex);
+				ex = exc;
+				//DealWithSettings.WriteSettings("LastestError", await ContentDialogs.ThrowException(ex));
 			}
+			if(ex!= null)DealWithSettings.WriteSettings("LastestError", await ContentDialogs.ThrowException(ex));
 		}
 
 
@@ -305,44 +321,49 @@ namespace 抽人
 
 		private async void LayoutDataSet_Click(object sender, RoutedEventArgs e)
 		{
-			SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
-			string afterFileName = "After-" + fileName;
-			//DealWithData.LayoutData(afterFileName, updatedList);
-
-			var savePicker = new FileSavePicker();
-			savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-			// Dropdown of file types the user can save the file as
-			savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-			// Default file name if the user does not type one in or select a file to replace
-			savePicker.SuggestedFileName = afterFileName;
-
-			StorageFile file = await savePicker.PickSaveFileAsync();
-			//StorageFile updatedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(afterFileName);
-			if (file != null)
+			if (await DealWithIdentity.VerifyIdentity())
 			{
-				// Prevent updates to the remote version of the file until
-				// we finish making changes and call CompleteUpdatesAsync.
-				CachedFileManager.DeferUpdates(file);
-				// write to file
-				await FileIO.WriteTextAsync(file, "");
-				DealWithData.LayoutData(file, updatedList);
-				// Let Windows know that we're finished changing the file so
-				// the other app can update the remote version of the file.
-				// Completing updates may require Windows to ask for user input.
-				FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-				if (status == FileUpdateStatus.Complete)
+				SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+				string afterFileName = "After-" + fileName;
+				//DealWithData.LayoutData(afterFileName, updatedList);
+
+				var savePicker = new FileSavePicker();
+				savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
+				// Dropdown of file types the user can save the file as
+				savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+				// Default file name if the user does not type one in or select a file to replace
+				savePicker.SuggestedFileName = afterFileName;
+
+				StorageFile file = await savePicker.PickSaveFileAsync();
+				//StorageFile updatedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(afterFileName);
+				if (file != null)
 				{
-					this.resultBox.Text = "File " + file.Name + " was saved.";
+					// Prevent updates to the remote version of the file until
+					// we finish making changes and call CompleteUpdatesAsync.
+					CachedFileManager.DeferUpdates(file);
+					// write to file
+					await FileIO.WriteTextAsync(file, "");
+					DealWithData.LayoutData(file, updatedList);
+					// Let Windows know that we're finished changing the file so
+					// the other app can update the remote version of the file.
+					// Completing updates may require Windows to ask for user input.
+					FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
+					if (status == FileUpdateStatus.Complete)
+					{
+						this.resultBox.Text = "File " + file.Name + " was saved.";
+					}
+					else
+					{
+						this.resultBox.Text = "File " + file.Name + " couldn't be saved.";
+					}
 				}
 				else
 				{
-					this.resultBox.Text = "File " + file.Name + " couldn't be saved.";
+					this.resultBox.Text = "Operation cancelled.";
 				}
 			}
-			else
-			{
-				this.resultBox.Text = "Operation cancelled.";
-			}
+			else resultBox.Text = "没有所需要的权限";
+
 		}
 
 		public static SortedList<int, Student> SumDataSets(ObservableCollection<Student> students, ObservableCollection<Student> unfinished, ObservableCollection<Student> going, ObservableCollection<Student> finished)
@@ -389,9 +410,9 @@ namespace 抽人
 
 		}
 
-		private void MarkFinished_Click(object sender, RoutedEventArgs e)
+		private async void MarkFinished_Click(object sender, RoutedEventArgs e)
 		{
-			if (GoingView.SelectedItem != null)
+			if (await DealWithIdentity.VerifyIdentity() && GoingView.SelectedItem != null)
 			{
 				listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.finished;
 				listOfFinishedStudent.Add((Student)GoingView.SelectedItem);
@@ -400,6 +421,7 @@ namespace 抽人
 				GoingView.ItemsSource = null;
 				GoingView.ItemsSource = listOfGoingStudent;
 			}
+			else if (await DealWithIdentity.VerifyIdentity() == false) resultBox.Text = "权限不足";
 		}
 
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -468,14 +490,19 @@ namespace 抽人
 
 		private async void Save_Click(object sender, RoutedEventArgs e)
 		{
-			file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
-			SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
-			await FileIO.WriteTextAsync(file, "");
-			DealWithData.LayoutData(file, updatedList);
+			if (await DealWithIdentity.VerifyIdentity())
+			{
+				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
+				SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+				await FileIO.WriteTextAsync(file, "");
+				DealWithData.LayoutData(file, updatedList);
 
-			DealWithSettings.WriteSettings("saved", "true");
-			DealWithSettings.WriteSettings("fileName", file.Name);
-			resultBox.Text = "保存成功";
+				DealWithSettings.WriteSettings("saved", "true");
+				DealWithSettings.WriteSettings("fileName", file.Name);
+				resultBox.Text = "保存成功";
+			}
+			else resultBox.Text = "没有所需要的权限";
+
 		}
 
 		private async void MarkUnfinished_Click(object sender, RoutedEventArgs e)
@@ -503,6 +530,11 @@ namespace 抽人
 
 			}
 			else resultBox.Text = "没有所需要的权限";
+		}
+
+		private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }

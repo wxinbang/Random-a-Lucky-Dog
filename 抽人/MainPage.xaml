@@ -11,10 +11,11 @@
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
 	Loaded="Page_Loaded"
 	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
-    AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop"
+    
 	>
 
-	<Grid AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
+
+    <Grid AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
@@ -229,7 +230,8 @@
 								<MenuFlyoutItem Text="数据集" Click="LayoutDataSet_Click"/>
 								<MenuFlyoutItem Text="用户数据" Click="LayoutUserData_Click"/>
 								<MenuFlyoutItem Text="日志文件" Click="LayoutLogs_Click"/>
-							</MenuFlyout>
+                                <MenuFlyoutItem Text="身份文件" Click="LayoutIdentityFile_Click"/>
+                            </MenuFlyout>
 						</Button.Flyout>
 					</Button>
 				</Grid>
@@ -238,14 +240,15 @@
 
 		<Grid Grid.Row="3">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 
 			<muxc:ProgressBar Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
 						 Margin="30,0,30,0" />
 
-			<TextBlock Grid.Column="1" x:Name="versionInformationBox" 
+            <muxc:InfoBadge Grid.Column="1" x:Name="IdentifyInfo" Visibility="Collapsed" Style="{StaticResource SuccessDotInfoBadgeStyle}"/>
+            <TextBlock Grid.Column="1" x:Name="versionInformationBox" 
 					   HorizontalAlignment="Right" TextWrapping="NoWrap" 
 					   Text="" VerticalAlignment="Center" 
 					   FontSize="8" TextAlignment="Right" 

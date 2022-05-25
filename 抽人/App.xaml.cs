@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using xbb;
 
 namespace 抽人
 {
@@ -30,14 +31,28 @@ namespace 抽人
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+			UnhandledException += App_UnhandledException;
         }
 
-        /// <summary>
-        /// 在应用程序由最终用户正常启动时进行调用。
-        /// 将在启动应用程序以打开特定文件等情况下使用。
-        /// </summary>
-        /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+		private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+		{
+			e.Handled= true;
+			ContentDialog ErrorDialog = new ContentDialog
+			{
+				Title = "我们这边出了错",
+				Content = "问题如下：" + e.ToString(),
+				CloseButtonText = "好吧"
+			};
+
+			ContentDialogResult result = await ErrorDialog.ShowAsync();
+		}
+
+		/// <summary>
+		/// 在应用程序由最终用户正常启动时进行调用。
+		/// 将在启动应用程序以打开特定文件等情况下使用。
+		/// </summary>
+		/// <param name="e">有关启动请求和过程的详细信息。</param>
+		protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 

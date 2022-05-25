@@ -154,33 +154,22 @@ namespace xbb
 		public static async Task<bool> VerifyIdentity()
 		{
 			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
-			if (Folders.Count > 0)
+			try
 			{
 				foreach (var folder in Folders)
 				{
-					try
+					var file = await folder.GetFileAsync("IdentityFile.txt");
+					IList<string> contents = await FileIO.ReadLinesAsync(file);
+					using (SHA256 sha256Hash = SHA256.Create())
 					{
-						var file = await folder.GetFileAsync("IdentityFile.txt");
-						IList<string> contents = await FileIO.ReadLinesAsync(file);
-						using (SHA256 sha256Hash = SHA256.Create())
-						{
-							string hash = GetHash(sha256Hash, "User:" + contents[0]);
-							Debug.WriteLine(hash);
-							if (hash == contents[1]) return true;
-							else return false;
-							//MD5 mD5 = new MD5CryptoServiceProvider();
-							//byte[] Identity = Encoding.UTF8.GetBytes("User:" + contents[0]);
-							//var IdentityHash =mD5.ComputeHash(Identity);
-							//byte[] content = Encoding.UTF8.GetBytes(contents[1]);
-							//if (content == IdentityHash) return true;
-							//else return false;
-						}
+						string hash = GetHash(sha256Hash, "User:" + contents[0]);
+						Debug.WriteLine(hash);
+						if (hash == contents[1]) return true;
 					}
-					catch {; }
 				}
-				return false;
 			}
-			else return false;
+			catch {; }
+			return false;
 		}
 
 		private static string GetHash(HashAlgorithm hashAlgorithm, string input)
@@ -242,16 +231,17 @@ namespace xbb
 			}
 		}
 
-		public static async Task ThrowException(Exception e)
+		public static async Task<string> ThrowException(Exception e)
 		{
 			ContentDialog ErrorDialog = new ContentDialog
 			{
 				Title = "我们这边出了错",
-				Content = "问题如下："+e.ToString(),
+				Content = "问题如下：" + e.ToString(),
 				CloseButtonText = "好吧"
 			};
 
 			ContentDialogResult result = await ErrorDialog.ShowAsync();
+			return e.ToString();
 		}
 	}
 }
