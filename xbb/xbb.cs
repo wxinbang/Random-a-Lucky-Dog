@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 
 namespace xbb
 {
@@ -17,7 +18,7 @@ namespace xbb
 		public string Name { get; set; }
 		public StudentStatus StudentStatus { get; set; }
 		public int OrderOfGoing { get; set; }
-public int OrderInList{get;set;}
+		public int OrderInList { get; set; }
 	}
 
 	public enum StudentStatus //状态
@@ -39,84 +40,18 @@ public int OrderInList{get;set;}
 
 	public static class DealWithLogs
 	{
-		public static async Task CreateLog(string content,TaskStatus status)
+		public static async Task CreateLog(string content, TaskStatus status)
 		{
 			StorageFolder logFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("logs", CreationCollisionOption.OpenIfExists);
-			StorageFile logFile=await logFolder.CreateFileAsync(DateTime.Now.ToString("yyyy-MM-dd")+".txt", CreationCollisionOption.OpenIfExists);
-			await FileIO.AppendTextAsync(logFile, DateTime.Now.TimeOfDay.ToString()+"    "+status.ToString()+"    "+content+"\n");
+			StorageFile logFile = await logFolder.CreateFileAsync(DateTime.Now.ToString("yyyy-MM-dd") + ".txt", CreationCollisionOption.OpenIfExists);
+			await FileIO.AppendTextAsync(logFile, DateTime.Now.TimeOfDay.ToString() + "    " + status.ToString() + "    " + content + "\n");
 		}
-		
-		public static async void LayoutLogs(StorageFile file,string resultBoxText)
+
+		public static async void LayoutLogs(StorageFile file, string resultBoxText)
 		{
 
 		}
 	}
-	
-	
-	//public static class DealWithDictionary
-	//{
-	//	public static void WriteToDictionary(Dictionary<string, string> dataDictionary, string key, string value)
-	//	{
-	//		StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-	//		if (dataDictionary.ContainsKey(key)) dataDictionary[key] = value;
-	//		else dataDictionary.Add(key, value);
-	//	}
-
-	//	public static string ReadFromDicionary(Dictionary<string, string> dictonary, string key)
-	//	{
-	//		if (dictonary.ContainsKey(key)) return dictonary[key];
-	//		else return "-1";
-	//	}
-
-	//	public static async void ReadDataFileToDictionary(Dictionary<string, string> dictionary)
-	//	{
-	//		/*
-	//		StorageFolder folder = ApplicationData.Current.LocalFolder;
-	//		StorageFile file = await folder.CreateFileAsync("data.txt", CreationCollisionOption.OpenIfExists);
-
-	//		IList<string> data = await FileIO.ReadLinesAsync(file);
-
-	//		int positionOfSpace;
-	//		string resultKey;
-	//		string resultValue;
-
-	//		foreach (string dataLine in data)
-	//		{
-	//			positionOfSpace = dataLine.IndexOf(' ');
-	//			resultKey = dataLine.Substring(0, positionOfSpace);
-	//			resultValue = dataLine.Substring(positionOfSpace + 1);
-
-	//			dictionary.Add(resultKey, resultValue);
-	//		}
-	//		*/
-	//	}
-
-	//	public static async void WriteDictionaryToDataFile(Dictionary<string, string> dictionary)
-	//	{
-	//		StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-	//		StorageFile storageFile = await localFolder.CreateFileAsync("data.txt", CreationCollisionOption.ReplaceExisting);
-
-	//		string output;
-	//		foreach (string key in dictionary.Keys)
-	//		{
-	//			output = key + " " + dictionary[key] + "\n";
-	//			await FileIO.WriteTextAsync(storageFile, output);
-	//		}
-
-	//	}
-
-	//	public static async void WriteDictionaryToFile(Dictionary<int ,Student>dictionary,string fileName)
-	//	{
-	//		StorageFolder folder = ApplicationData.Current.LocalFolder;
-	//		StorageFile file=await folder.CreateFileAsync("After-"+fileName, CreationCollisionOption.ReplaceExisting);
-
-	//		foreach (Student student in dictionary.Values)
-	//		{
-	//			await FileIO.AppendTextAsync(file, student.Name + " " +  DealWithData.ConvertStatus(student.StudentStatus)+student.OrderOfGoing+"\n");
-	//		}
-	//	}
-	//}
-
 
 	public static class DealWithData
 	{
@@ -189,11 +124,11 @@ public int OrderInList{get;set;}
 			}
 		}
 
-		public static async void LayoutData(StorageFile file,SortedList<int,Student> students)
+		public static async void LayoutData(StorageFile file, SortedList<int, Student> students)
 		{
 			//StorageFolder folder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus==StudentStatus.going ? student.OrderOfGoing.ToString() + "\n":"\n"));
+			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus == StudentStatus.going ? student.OrderOfGoing.ToString() + "\n" : "\n"));
 		}
 	}
 
@@ -202,15 +137,15 @@ public int OrderInList{get;set;}
 		public static string ReadSettings(string settingKey)
 		{
 			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
-			
+
 			string settingValue = setting.Values[settingKey] as string;
 			return settingValue;
 		}
 
-		public static void WriteSettings(string settingKey,string settingValue)
+		public static void WriteSettings(string settingKey, string settingValue)
 		{
-			ApplicationDataContainer setting =ApplicationData.Current.LocalSettings;
-			setting.Values[settingKey]=settingValue;
+			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
+			setting.Values[settingKey] = settingValue;
 		}
 	}
 
@@ -241,8 +176,9 @@ public int OrderInList{get;set;}
 							//else return false;
 						}
 					}
-					catch { ; }
-				}return false;
+					catch {; }
+				}
+				return false;
 			}
 			else return false;
 		}
@@ -271,6 +207,51 @@ public int OrderInList{get;set;}
 
 	public static class ContentDialogs
 	{
+		public static async void DisplayInvalidPraise()
+		{
+			ContentDialog invalidPraise = new ContentDialog
+			{
+				Title = "小小的提示",
+				Content = "这玩意没用",
+				CloseButtonText = "行"
+			};
 
+			ContentDialogResult result = await invalidPraise.ShowAsync();
+		}
+		public static async Task<bool> CheckWhetherMark()
+		{
+			ContentDialog whetherMarkDialog = new ContentDialog
+			{
+				Title = "再次确认",
+				Content = @"以后的人都要标记状态为“进行中”？",
+				CloseButtonText = "别了吧",
+				PrimaryButtonText = "是的",
+				DefaultButton = ContentDialogButton.Primary
+			};
+
+			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
+			if (result == ContentDialogResult.Primary)
+			{
+				DealWithSettings.WriteSettings("mark", "True");
+				return true;
+			}
+			else
+			{
+				DealWithSettings.WriteSettings("mark", "False");
+				return false;
+			}
+		}
+
+		public static async Task ThrowException(Exception e)
+		{
+			ContentDialog ErrorDialog = new ContentDialog
+			{
+				Title = "我们这边出了错",
+				Content = "问题如下："+e.ToString(),
+				CloseButtonText = "好吧"
+			};
+
+			ContentDialogResult result = await ErrorDialog.ShowAsync();
+		}
 	}
 }

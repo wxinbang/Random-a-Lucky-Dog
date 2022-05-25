@@ -131,20 +131,9 @@ namespace 抽人
 
 		private void praiseButton_Click(object sender, RoutedEventArgs e)
 		{
-			DisplayInvalidPraise();
+			ContentDialogs.DisplayInvalidPraise();
 		}
 
-		private static async void DisplayInvalidPraise()
-		{
-			ContentDialog invalidPraise = new ContentDialog
-			{
-				Title = "小小的提示",
-				Content = "这玩意没用",
-				CloseButtonText = "行"
-			};
-
-			ContentDialogResult result = await invalidPraise.ShowAsync();
-		}
 
 		private async void selectDataSetButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -176,9 +165,13 @@ namespace 抽人
 			DealWithSettings.WriteSettings("saved", "");
 		}
 
-		private void whetherMark_Toggled(object sender, RoutedEventArgs e)
+		private async void whetherMark_Toggled(object sender, RoutedEventArgs e)
 		{
-			if (whetherMark.IsOn == true) CheckWhetherMark();
+			if (whetherMark.IsOn == true)
+			{
+				mark = await ContentDialogs.CheckWhetherMark();
+				whetherMark.IsOn = mark;
+			}
 			else
 			{
 				mark = whetherMark.IsOn;
@@ -186,31 +179,6 @@ namespace 抽人
 			}
 		}
 
-		private async void CheckWhetherMark()
-		{
-			ContentDialog whetherMarkDialog = new ContentDialog
-			{
-				Title = "再次确认",
-				Content = @"以后的人都要标记状态为“进行中”？",
-				CloseButtonText = "别了吧",
-				PrimaryButtonText = "是的",
-				DefaultButton = ContentDialogButton.Primary
-			};
-
-
-			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
-			if (result == ContentDialogResult.Primary)
-			{
-				mark = true;
-				DealWithSettings.WriteSettings("mark", "True");
-			}
-			else
-			{
-				mark = false;
-				whetherMark.IsOn = false;
-				DealWithSettings.WriteSettings("mark", "False");
-			}
-		}
 
 		private void connectDataSet_Click(object sender, RoutedEventArgs e)
 		{
@@ -272,9 +240,9 @@ namespace 抽人
 				resultBox.Text = "连接完成：" + file.Name;
 				DealWithSettings.WriteSettings("fileName", file.Name);
 			}
-			catch
+			catch(Exception ex)
 			{
-				resultBox.Text = ToString();
+				await ContentDialogs.ThrowException(ex);
 			}
 		}
 
