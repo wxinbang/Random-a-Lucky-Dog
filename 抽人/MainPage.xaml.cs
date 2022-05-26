@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
@@ -37,11 +38,7 @@ namespace 抽人
 
 		SortedList<int, Student> lastGoingStudent = new SortedList<int, Student>();
 
-#if (DEBUG)
-		string version = "Build 3.3.10.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203 220430-2200
-#else
-		string version = "2.2.10-Beta";
-#endif
+		string version = string.Format("{0}.{1}.{2}.{3}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
 
 		Random randomStudent = new Random();
 
@@ -71,12 +68,15 @@ namespace 抽人
 		public MainPage()
 		{
 			this.InitializeComponent();
+#if (DEBUG)
+			version += ".vNext";
+#endif
 			versionInformationBox.Text = version;
 		}
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-			timer.Interval = new TimeSpan(0, 0, 0,1);
+			timer.Interval = new TimeSpan(0, 0, 0, 1);
 			timer.Tick += Timer_Tick;
 			timer.Start();
 
@@ -150,8 +150,8 @@ namespace 抽人
 
 		private async void selectDataSetButton_Click(object sender, RoutedEventArgs e)
 		{
-			unfinishedNumber = 0;
-			studentNumber = 0;
+			//unfinishedNumber = 0;
+			//studentNumber = 0;
 
 			var picker = new FileOpenPicker();
 			picker.ViewMode = PickerViewMode.List;
@@ -160,16 +160,10 @@ namespace 抽人
 
 			file = await picker.PickSingleFileAsync();
 
-			//var readableFolderPath = ApplicationData.Current.LocalFolder;
-			//readableFilePath=readableFolderPath+@"\"+file.Name;
 			if (file != null)
 			{
-				//readableFilePath = readableFolderPath + @"\" + file.Name;
-				//DataSetPath = file.Path;
 				await file.CopyAsync(dataSetFolder, file.Name, NameCollisionOption.ReplaceExisting);
 				resultBox.Text = "已选择：" + file.Name;
-				// Application now has read/write access to the picked file
-
 			}
 			else
 			{
@@ -200,12 +194,6 @@ namespace 抽人
 
 		private async void ConnectDataSet(StorageFile file)
 		{
-
-			GoingView.ItemsSource = listOfGoingStudent;
-
-			//StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-			//StorageFile file = await dataSetFolder.GetFileAsync(fileName);
-
 			try
 			{
 				studentList.Clear();
@@ -215,51 +203,33 @@ namespace 抽人
 				listOfFinishedStudent.Clear();
 
 				IList<string> contents = await FileIO.ReadLinesAsync(file);
-				sumOfStudent = contents.ToArray().Length;
+				//sumOfStudent = contents.ToArray().Length;
 				dealWithStudentDataProgressBar.Maximum = sumOfStudent;
 
-				bool[] checkId = new bool[sumOfStudent];
-				foreach(string content in contents)
+				//bool[] checkId = new bool[sumOfStudent];
+				foreach (string content in contents)
 				{
-					//创建一个动态bool数组checkId并全部初始化为false
-
-					string[] studentData = new string[3];
-					studentData = DealWithData.DealWithStudentData(content);
+					string[] studentData = DealWithData.DealWithStudentData(content);
 
 					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = contents.IndexOf(content) };
 
-					if (Somebody.StudentStatus == StudentStatus.unfinished)
-					{
-						listOfUnfinishedStudent.Add(Somebody);
-					}
-					else if (Somebody.StudentStatus == StudentStatus.going)
-					{
-						lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
-						//listOfGoingStudent.Add(Somebody);
-					}
-					else if (Somebody.StudentStatus == StudentStatus.finished)
-					{
-						listOfFinishedStudent.Add(Somebody);
-					}
+					if (Somebody.StudentStatus == StudentStatus.unfinished) listOfUnfinishedStudent.Add(Somebody);
+					else if (Somebody.StudentStatus == StudentStatus.going) lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
+					else if (Somebody.StudentStatus == StudentStatus.finished) listOfFinishedStudent.Add(Somebody);
 
 					studentList.Add(Somebody);
-					dealWithStudentDataProgressBar.Value =contents.IndexOf(content)+ 1;
+					dealWithStudentDataProgressBar.Value = contents.IndexOf(content) + 1;
 				}
 
-				foreach (var someBody in lastGoingStudent)
-				{
-					listOfGoingStudent.Insert(0, someBody.Value);
-				}
+				foreach (var someBody in lastGoingStudent) listOfGoingStudent.Insert(0, someBody.Value);
 
 				resultBox.Text = "连接完成：" + file.Name;
 				DealWithSettings.WriteSettings("fileName", file.Name);
 			}
-			catch(Exception exc)
+			catch (Exception ex)
 			{
-				ex = exc;
-				//DealWithSettings.WriteSettings("LastestError", await ContentDialogs.ThrowException(ex));
+				ContentDialogs.ThrowException(ex.ToString());
 			}
-			if(ex!= null)DealWithSettings.WriteSettings("LastestError", await ContentDialogs.ThrowException(ex));
 		}
 
 
@@ -268,47 +238,15 @@ namespace 抽人
 			timesOfVersionTextTapped++;
 			if (timesOfVersionTextTapped == 5)
 			{
-				CheckJoinProgram();
+				ContentDialogs.CheckJoinProgram();
 				timesOfVersionTextTapped = 0;
 			}
 
 		}
-		private async void CheckJoinProgram()
+
+		private void SendEmailButton_Click(object sender, RoutedEventArgs e)
 		{
-			ContentDialog invalidPraise = new ContentDialog
-			{
-				Title = "体验新功能",
-				Content = "这会让你体验到更多的新特性和新特性（自行体会），确定？",
-				PrimaryButtonText = "来！搞！（将重启应用）",
-				CloseButtonText = "不了",
-				DefaultButton = ContentDialogButton.Primary
-			};
-
-			ContentDialogResult result = await invalidPraise.ShowAsync();
-			if (result == ContentDialogResult.Primary)
-			{
-				DealWithSettings.WriteSettings("joinProgram", "True");
-				AppRestartFailureReason restartFailureReason = await CoreApplication.RequestRestartAsync(string.Empty);
-				resultBox.Text = Convert.ToString(restartFailureReason);
-			}
-			else DealWithSettings.WriteSettings("joinProgram", "False");
-		}
-
-		private async Task ComposeEmail()
-		{
-			var emailMessage = new EmailMessage();
-			emailMessage.Body = "于" + DateTime.Now.ToString() + "发现问题：";
-
-			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
-			emailMessage.To.Add(emailRecipient);
-			emailMessage.Subject = "软件反馈";
-
-			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-		}
-
-		private async void SendEmailButton_Click(object sender, RoutedEventArgs e)
-		{
-			await ComposeEmail();
+			ContentDialogs.ComposeEmail();
 		}
 
 		private void ExitProgram_Click(object sender, RoutedEventArgs e)
@@ -323,66 +261,29 @@ namespace 抽人
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+				Save_Click(sender, e, false);
+				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				string afterFileName = "After-" + fileName;
-				//DealWithData.LayoutData(afterFileName, updatedList);
 
 				var savePicker = new FileSavePicker();
 				savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-				// Dropdown of file types the user can save the file as
-				savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-				// Default file name if the user does not type one in or select a file to replace
+				savePicker.FileTypeChoices.Add("文本文件", new List<string>() { ".txt" });
 				savePicker.SuggestedFileName = afterFileName;
 
 				StorageFile file = await savePicker.PickSaveFileAsync();
-				//StorageFile updatedFile = await ApplicationData.Current.LocalFolder.GetFileAsync(afterFileName);
 				if (file != null)
 				{
-					// Prevent updates to the remote version of the file until
-					// we finish making changes and call CompleteUpdatesAsync.
 					CachedFileManager.DeferUpdates(file);
-					// write to file
 					await FileIO.WriteTextAsync(file, "");
 					DealWithData.LayoutData(file, updatedList);
-					// Let Windows know that we're finished changing the file so
-					// the other app can update the remote version of the file.
-					// Completing updates may require Windows to ask for user input.
 					FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-					if (status == FileUpdateStatus.Complete)
-					{
-						this.resultBox.Text = "File " + file.Name + " was saved.";
-					}
-					else
-					{
-						this.resultBox.Text = "File " + file.Name + " couldn't be saved.";
-					}
+					if (status == FileUpdateStatus.Complete) this.resultBox.Text = "文件 " + file.Name + " 已被保存";
+					else this.resultBox.Text = "文件 " + file.Name + " 未被保存";
 				}
-				else
-				{
-					this.resultBox.Text = "Operation cancelled.";
-				}
+				else this.resultBox.Text = "操作已取消";
 			}
-			else resultBox.Text = "没有所需要的权限";
+			else ContentDialogs.ThrowException("没有所需要的权限", false);
 
-		}
-
-		public static SortedList<int, Student> SumDataSets(ObservableCollection<Student> students, ObservableCollection<Student> unfinished, ObservableCollection<Student> going, ObservableCollection<Student> finished)
-		{
-			SortedList<int, Student> returnList = new SortedList<int, Student>();
-			/*
-						foreach (Student student in students)
-						{
-							if (unfinished.Contains(student)) returnList.Add(unfinished[unfinished.IndexOf(student)]);
-							else if (going.Contains(student)) returnList.Add(going[going.IndexOf(student)]);
-							else if (finished.Contains(student)) returnList.Add(finished[finished.IndexOf(student)]);
-							else returnList.Add(students[students.IndexOf(student)]);
-						}
-			*/
-			foreach (Student student in going) returnList.Add(student.OrderInList, student);
-			foreach (Student student in unfinished) returnList.Add(student.OrderInList, student);
-			foreach (Student student in finished) returnList.Add(student.OrderInList, student);
-			for (int i = 0; i < students.Count(); i++) if (!returnList.ContainsKey(i)) returnList.Add(i, students[i]);
-			return returnList;
 		}
 
 		private void LayoutUserData_Click(object sender, RoutedEventArgs e)
@@ -421,7 +322,8 @@ namespace 抽人
 				GoingView.ItemsSource = null;
 				GoingView.ItemsSource = listOfGoingStudent;
 			}
-			else if (await DealWithIdentity.VerifyIdentity() == false) resultBox.Text = "权限不足";
+			else if (await DealWithIdentity.VerifyIdentity() == false) ContentDialogs.ThrowException("没有所需要的权限", false);
+
 		}
 
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -461,10 +363,10 @@ namespace 抽人
 
 		private void Grid_DragOver(object sender, DragEventArgs e)
 		{
-			e.AcceptedOperation = DataPackageOperation.Copy;
-			
+			e.AcceptedOperation = DataPackageOperation.Link;
 
-			e.DragUIOverride.Caption="拖入以导入";
+
+			e.DragUIOverride.Caption = "拖入以导入";
 			e.DragUIOverride.IsCaptionVisible = true;
 			e.DragUIOverride.IsContentVisible = true;
 			e.DragUIOverride.IsGlyphVisible = true;
@@ -474,7 +376,7 @@ namespace 抽人
 		{
 			if (e.DataView.Contains(StandardDataFormats.StorageItems))
 			{
-				var items=await e.DataView.GetStorageItemsAsync();
+				var items = await e.DataView.GetStorageItemsAsync();
 				if (items.Any())
 				{
 					//if( (items[0]as StorageFile).ContentType == "text/txt")
@@ -493,7 +395,7 @@ namespace 抽人
 			if (await DealWithIdentity.VerifyIdentity())
 			{
 				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
-				SortedList<int, Student> updatedList = SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				await FileIO.WriteTextAsync(file, "");
 				DealWithData.LayoutData(file, updatedList);
 
@@ -501,7 +403,22 @@ namespace 抽人
 				DealWithSettings.WriteSettings("fileName", file.Name);
 				resultBox.Text = "保存成功";
 			}
-			else resultBox.Text = "没有所需要的权限";
+			else ContentDialogs.ThrowException("没有所需要的权限", false);
+		}
+		private async void Save_Click(object sender, RoutedEventArgs e, bool showResult = true)
+		{
+			if (await DealWithIdentity.VerifyIdentity())
+			{
+				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
+				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+				await FileIO.WriteTextAsync(file, "");
+				DealWithData.LayoutData(file, updatedList);
+
+				DealWithSettings.WriteSettings("saved", "true");
+				DealWithSettings.WriteSettings("fileName", file.Name);
+				if (showResult) resultBox.Text = "保存成功";
+			}
+			else if (showResult) ContentDialogs.ThrowException("没有所需要的权限", false);
 
 		}
 
@@ -523,13 +440,10 @@ namespace 抽人
 					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
 					listOfUnfinishedStudent.Add((Student)FinishedView.SelectedItem);
 					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
-					//DealWithData.SortStudentData(ref listOfGoingStudent);
-					//GoingView.ItemsSource = null;
-					//GoingView.ItemsSource = listOfGoingStudent;
 				}
 
 			}
-			else resultBox.Text = "没有所需要的权限";
+			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
 
 		private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
@@ -538,4 +452,3 @@ namespace 抽人
 		}
 	}
 }
- 

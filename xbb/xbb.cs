@@ -8,6 +8,8 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
@@ -130,6 +132,17 @@ namespace xbb
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
 			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus == StudentStatus.going ? student.OrderOfGoing.ToString() + "\n" : "\n"));
 		}
+
+		public static SortedList<int, Student> SumDataSets(ObservableCollection<Student> students, ObservableCollection<Student> unfinished, ObservableCollection<Student> going, ObservableCollection<Student> finished)
+		{
+			SortedList<int, Student> returnList = new SortedList<int, Student>();
+			foreach (Student student in going) returnList.Add(student.OrderInList, student);
+			foreach (Student student in unfinished) returnList.Add(student.OrderInList, student);
+			foreach (Student student in finished) returnList.Add(student.OrderInList, student);
+			for (int i = 0; i < students.Count(); i++) if (!returnList.ContainsKey(i)) returnList.Add(i, students[i]);
+			return returnList;
+		}
+
 	}
 
 	public static class DealWithSettings
@@ -231,17 +244,65 @@ namespace xbb
 			}
 		}
 
-		public static async Task<string> ThrowException(Exception e)
+		public static async void ThrowException(string exception,bool sendEmail=true)
 		{
 			ContentDialog ErrorDialog = new ContentDialog
 			{
-				Title = "我们这边出了错",
-				Content = "问题如下：" + e.ToString(),
-				CloseButtonText = "好吧"
+				Title = "Oops!",
+				Content = "发生了问题：" + exception,
+				CloseButtonText = "好吧",
+				DefaultButton = ContentDialogButton.Primary
 			};
 
+			if (sendEmail) ErrorDialog.PrimaryButtonText = "去反馈";
+
 			ContentDialogResult result = await ErrorDialog.ShowAsync();
-			return e.ToString();
+			if (sendEmail&&result == ContentDialogResult.Primary) ComposeEmail(exception.ToString());
 		}
+
+		public static async void CheckJoinProgram()
+		{
+			ContentDialog invalidPraise = new ContentDialog
+			{
+				Title = "体验新功能",
+				Content = "这会让你体验到更多的新特性和新特性（自行体会），确定？",
+				PrimaryButtonText = "来！搞！（将重启应用）",
+				CloseButtonText = "不了",
+				DefaultButton = ContentDialogButton.Primary
+			};
+
+			ContentDialogResult result = await invalidPraise.ShowAsync();
+			if (result == ContentDialogResult.Primary)
+			{
+				DealWithSettings.WriteSettings("joinProgram", "True");
+				await CoreApplication.RequestRestartAsync(string.Empty);
+			}
+			else DealWithSettings.WriteSettings("joinProgram", "False");
+		}
+
+		public static async void ComposeEmail()
+		{
+			var emailMessage = new EmailMessage();
+			emailMessage.Body = "";
+
+			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
+			emailMessage.To.Add(emailRecipient);
+			emailMessage.Subject = "软件反馈";
+
+			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
+		}
+		public static async void ComposeEmail(string exception)
+		{
+			var emailMessage = new EmailMessage();
+			emailMessage.Body = "于" + DateTime.Now.ToString() + "出现问题：" + exception;
+
+			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
+			emailMessage.To.Add(emailRecipient);
+			emailMessage.Subject = "软件崩溃";
+
+			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
+		}
+
+
 	}
 }

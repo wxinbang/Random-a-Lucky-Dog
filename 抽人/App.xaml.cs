@@ -34,17 +34,10 @@ namespace 抽人
 			UnhandledException += App_UnhandledException;
         }
 
-		private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+		private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
 		{
 			e.Handled= true;
-			ContentDialog ErrorDialog = new ContentDialog
-			{
-				Title = "我们这边出了错",
-				Content = "问题如下：" + e.ToString(),
-				CloseButtonText = "好吧"
-			};
-
-			ContentDialogResult result = await ErrorDialog.ShowAsync();
+			ContentDialogs.ThrowException(e.ToString());
 		}
 
 		/// <summary>
