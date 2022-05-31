@@ -167,21 +167,25 @@ namespace xbb
 		public static async Task<bool> VerifyIdentity()
 		{
 			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
-			try
+			//try
 			{
 				foreach (var folder in Folders)
 				{
-					var file = await folder.GetFileAsync("IdentityFile.txt");
-					IList<string> contents = await FileIO.ReadLinesAsync(file);
-					using (SHA256 sha256Hash = SHA256.Create())
+					try
 					{
-						string hash = GetHash(sha256Hash, "User:" + contents[0]);
-						Debug.WriteLine(hash);
-						if (hash == contents[1]) return true;
+						var file = await folder.GetFileAsync("IdentityFile.txt");
+						IList<string> contents = await FileIO.ReadLinesAsync(file);
+						using (SHA256 sha256Hash = SHA256.Create())
+						{
+							string hash = GetHash(sha256Hash, "User:" + contents[0]);
+							Debug.WriteLine(hash);
+							if (hash == contents[1]) return true;
+						}
 					}
+					catch {; }
 				}
 			}
-			catch {; }
+			//catch {; }
 			return false;
 		}
 
