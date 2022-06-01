@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -33,6 +34,7 @@ namespace 抽人
             this.Suspending += OnSuspending;
 			UnhandledException += App_UnhandledException;
         }
+
 
 		private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
 		{
@@ -78,7 +80,7 @@ namespace 抽人
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
-            }
+			}
         }
 
         /// <summary>

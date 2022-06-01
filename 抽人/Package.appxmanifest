@@ -52,6 +52,6 @@
 
   <Capabilities>
     <uap:Capability Name="removableStorage"/>
-    <rescap:Capability Name="confirmAppClose"/>
+    <!--rescap:Capability Name="confirmAppClose"/-->
   </Capabilities>
 </Package>
