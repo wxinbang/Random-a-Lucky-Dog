@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Data;
-//using System.Data.OleDb;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Contacts;
+using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -21,9 +23,10 @@ namespace 抽人
     public sealed partial class MainPage : Page
     {
         Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
+        //Dictionary <int, Student> randomableStudent = new Dictionary<int, Student>();
         Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
 #if(DEBUG)
-        string version = "Build 1.0.4.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203
+        string version = "Build 3.3.10.0.prealpha.220405-1012";//220413-1900 220424-2138 220427-2203 220430-2200
 #else
         string version = "2.2.10-Beta";
 #endif
@@ -53,8 +56,27 @@ namespace 抽人
         public MainPage()
         {
             this.InitializeComponent();
-
             versionInformationBox.Text = version;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
+            if (DealWithSettings.ReadSettings("fileName") != null)
+            {
+                ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
+                fileName = DealWithSettings.ReadSettings("fileName");
+            }
+            if (DealWithSettings.ReadSettings("joinProgram") != "True")
+            {
+                InfoBar.IsOpen = false;
+                layOutDataSetButton.Visibility = Visibility.Collapsed;
+                layOutFlyoutButton.Visibility = Visibility.Collapsed;
+                HistoryView.Visibility = Visibility.Collapsed;
+                DeleteButton.Visibility = Visibility.Collapsed;
+            }
+            if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
+            DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
         }
 
         private void randomButton_Click(object sender, RoutedEventArgs e)
@@ -65,11 +87,11 @@ namespace 抽人
                 Random randomStudent = new Random();
 
                 do studentNumber = randomStudent.Next(1, sumOfStudent + 1);
-                while (studentDictionary[studentNumber].StudentStatus != Status.unfinished);
+                while (studentDictionary[studentNumber].StudentStatus != StudentStatus.unfinished);
 
                 resultBox.Text = studentDictionary[studentNumber].Name;
 
-                if (mark) studentDictionary[studentNumber].StudentStatus = Status.going;
+                if (mark) studentDictionary[studentNumber].StudentStatus = StudentStatus.going;
             }
             else resultBox.Text = "已经全部抽过了";//提示全部做过
         }
@@ -110,7 +132,6 @@ namespace 抽人
             {
                 readableFilePath = readableFolderPath + @"\" + file.Name;
                 DataSetPath = file.Path;
-                //if (StorageFile.)File.Delete(readableFilePath);
                 await file.CopyAsync(readableFolderPath, file.Name, NameCollisionOption.ReplaceExisting);
                 DealWithDictionary.WriteToDictionary(dataDictionary, "fileName", file.Name);
                 // Application now has read/write access to the picked file
@@ -128,10 +149,8 @@ namespace 抽人
             else
             {
                 mark = whetherMark.IsOn;
-                DealWithSettings.WriteSettings("mark",mark ? "True" : "False");
+                DealWithSettings.WriteSettings("mark", mark ? "True" : "False");
             }
-            //加用户决定
-            //if (studentNumber != 0) studentDictionary[studentNumber].StudentStatus = mark ? Status.going : Status.unfinished;
         }
 
         private async void CheckWhetherMark()
@@ -139,9 +158,10 @@ namespace 抽人
             ContentDialog whetherMarkDialog = new ContentDialog
             {
                 Title = "再次确认",
-                Content = @"以后的人都要标记状态为“进行中”？",//记得改双引号
+                Content = @"以后的人都要标记状态为“进行中”？",
                 CloseButtonText = "别了吧",
-                PrimaryButtonText = "是的"                
+                PrimaryButtonText = "是的",
+                DefaultButton=ContentDialogButton.Primary
             };
 
             ContentDialogResult result = await whetherMarkDialog.ShowAsync();
@@ -165,11 +185,13 @@ namespace 抽人
 
         private async void ConnetDataSet(string fileName)
         {
+            studentDictionary.Clear();
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFolder.GetFileAsync(fileName);
 
             string line;//定义读取行
             sumOfStudent = 0;
+            unfinishedNumber = 0;
 
             //StreamReader sr = new StreamReader(readableFilePath);
 
@@ -182,22 +204,38 @@ namespace 抽人
             {
                 //创建一个动态bool数组checkId并全部初始化为false
 
-                string[] studentData = new string[4];
+                string[] studentData = new string[3];
                 studentData = DealWithData.DealWithStudentData(contents[j]);
 
-                Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], IsMarked = true, StudentStatus = DealWithData.ConvertStatus(studentData[3]) };
-                //sumOfStudent++;
-                //contents.RemoveAt(0);
+                Student Somebody = new Student() { Id = Convert.ToInt32(studentData[0]), Name = studentData[1], StudentStatus = DealWithData.ConvertStatus(studentData[2]) };
 
-                if (Somebody.StudentStatus == Status.unfinished) unfinishedNumber++;
-                checkId[Somebody.Id - 1] = true;
+                if (Somebody.StudentStatus == StudentStatus.unfinished) unfinishedNumber++;
+
+                try
+                {
+                    checkId[Somebody.Id - 1] = true;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    resultBox.Text = "编号 " + Somebody.Id.ToString() + " ";
+                }
                 studentDictionary.Add(Somebody.Id, Somebody);
                 dealWithStudentDataProgressBar.Value = j + 1;
             }
 
-            //sr.Close();
-
             int i = 0;
+            try
+            {
+                for (; i < sumOfStudent; i++)
+                {
+
+                }
+
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+
+            }
             while ((i < sumOfStudent) && (checkId[i] == true)) i++;
             if (i == sumOfStudent) resultBox.Text = "连接完成";
             else if (sumOfStudent == 0) resultBox.Text = "人数为0或1 无法继续操作";
@@ -211,48 +249,86 @@ namespace 抽人
             timesOfVersionTextTapped++;
             if (timesOfVersionTextTapped == 5)
             {
-                CheckWhetherJoinInsiderPreviewProgram();
+                CheckJoinProgram();
             }
 
         }
-        private async void CheckWhetherJoinInsiderPreviewProgram()
+        private async void CheckJoinProgram()
         {
             ContentDialog invalidPraise = new ContentDialog
             {
                 Title = "体验新功能",
                 Content = "这会让你体验到更多的新特性和新特性（自行体会），确定？",
-                PrimaryButtonText = "来！搞！",
-                CloseButtonText = "不了"
+                PrimaryButtonText = "来！搞！（将重启应用）",
+                CloseButtonText = "不了",
+                DefaultButton = ContentDialogButton.Primary
             };
 
             ContentDialogResult result = await invalidPraise.ShowAsync();
-            if (result == ContentDialogResult.Primary) DealWithSettings.WriteSettings("whetherJoinInsiderPreviewProgram", "True");
-            else DealWithSettings.WriteSettings("whetherJoinInsiderPreviewProgram", "False");
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            /*
-            DealWithDictionary.ReadDataFileToDictionary(dataDictionary);
-
-            string TrueOrFalse = DealWithDictionary.ReadFromDicionary(dataDictionary, "whetherJoinInsiderPreviewProgram");
-            whetherJoInsiderPreviewProgram = TrueOrFalse == "-1" ? false : Convert.ToBoolean(TrueOrFalse);
-            if (DealWithDictionary.ReadFromDicionary(dataDictionary, "fileName") != "-1") ConnetDataSet(DealWithDictionary.ReadFromDicionary(dataDictionary,"fileName"));
-            */
-            if (DealWithSettings.ReadSettings("fileName") != null)
+            if (result == ContentDialogResult.Primary)
             {
-                ConnetDataSet(DealWithSettings.ReadSettings("fileName"));
-                fileName=DealWithSettings.ReadSettings("fileName");
-
+                DealWithSettings.WriteSettings("joinProgram", "True");
+                AppRestartFailureReason restartFailureReason = await CoreApplication.RequestRestartAsync(string.Empty);
+                resultBox.Text = Convert.ToString(restartFailureReason);
             }
-            if (DealWithSettings.ReadSettings("whetherJoinInsiderPreviewProgram") != "True") layOutButton.Visibility = Visibility.Collapsed;
-            if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
+            else DealWithSettings.WriteSettings("joinProgram", "False");
         }
+
 
         private void layOutButton_Click(object sender, RoutedEventArgs e)
         {
             DealWithDictionary.WriteDictionaryToFile(studentDictionary, fileName);
-            
+
+            var saver = new FileSavePicker();
+
+        }
+
+        private async Task ComposeEmail()
+        {
+            var emailMessage = new EmailMessage();
+            emailMessage.Body = "于"+DateTime.Now.ToString()+"发现问题：";
+
+            var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
+            emailMessage.To.Add(emailRecipient);
+            emailMessage.Subject = "软件反馈";
+
+            await EmailManager.ShowComposeNewEmailAsync(emailMessage);
+        }
+
+        private async void SendEmailButton_Click(object sender, RoutedEventArgs e)
+        {
+            await ComposeEmail();
+        }
+
+        private void ExitProgram_Click(object sender, RoutedEventArgs e)
+        {
+            DealWithSettings.WriteSettings("joinProgram", "False");
+            InfoBar.IsOpen = false;
+        }
+
+        private void LayoutDataSet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LayoutUserData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteDataSet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteUserData_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
