@@ -39,7 +39,7 @@ namespace 抽人
 		private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
 		{
 			e.Handled= true;
-			ContentDialogs.ThrowException(e.ToString());
+			ContentDialogs.ThrowException(e.Message);
 		}
 
 		/// <summary>

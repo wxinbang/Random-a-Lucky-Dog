@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,9 +13,13 @@ using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using xbb;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
@@ -72,10 +77,14 @@ namespace 抽人
 			version += ".vNext";
 #endif
 			versionInformationBox.Text = version;
+
+			CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+			Window.Current.SetTitleBar(AppTitleBar);
 		}
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
+			if (DealWithSettings.ReadSettings("DisplayMode") == null|| DealWithSettings.ReadSettings("DisplayMode") == "true") DisplayMode.IsOn = true;
 			timer.Interval = new TimeSpan(0, 0, 0, 1);
 			timer.Tick += Timer_Tick;
 			timer.Start();
@@ -124,23 +133,38 @@ namespace 抽人
 					do studentNumber = randomStudent.Next(0, listOfUnfinishedStudent.Count);
 					while (listOfUnfinishedStudent[studentNumber].StudentStatus == StudentStatus.suspended);
 
-					resultBox.Text = listOfUnfinishedStudent[studentNumber].Name;
-					listOfUnfinishedStudent[studentNumber].StudentStatus = StudentStatus.going;
-					listOfGoingStudent.Insert(0, listOfUnfinishedStudent[studentNumber]);
-					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
-					listOfUnfinishedStudent.RemoveAt(studentNumber);
-					dealWithStudentDataProgressBar.Value = listOfGoingStudent.Count;
+					var Animationlist = RandomAnimation.KeyFrames;
+					foreach (var item in Animationlist) item.Value = studentList[randomStudent.Next(studentList.Count)].Name;
+					Storyboard.Begin();
 				}
 				else
 				{
 					do studentNumber = randomStudent.Next(0, studentList.Count);
 					while (studentList[studentNumber].StudentStatus == StudentStatus.suspended);
 
+					var Animationlist = RandomAnimation.KeyFrames;
+					foreach (var item in Animationlist) item.Value = studentList[randomStudent.Next(studentList.Count)].Name;
+					Storyboard.Begin();
+
 					resultBox.Text = studentList[studentNumber].Name;
 				}
 			}
 			else resultBox.Text = "已经全部抽过了";//提示全部做过
 		}
+		private void Storyboard_Completed(object sender, object e)
+		{
+			if (mark)
+			{
+				resultBox.Text = listOfUnfinishedStudent[studentNumber].Name;
+				listOfUnfinishedStudent[studentNumber].StudentStatus = StudentStatus.going;
+				listOfGoingStudent.Insert(0, listOfUnfinishedStudent[studentNumber]);
+				listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+				listOfUnfinishedStudent.RemoveAt(studentNumber);
+				dealWithStudentDataProgressBar.Value = listOfGoingStudent.Count;
+				RefreshListNumber();
+			}
+		}
+
 
 		private void praiseButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -224,6 +248,7 @@ namespace 抽人
 				foreach (var someBody in lastGoingStudent) listOfGoingStudent.Insert(0, someBody.Value);
 
 				resultBox.Text = "连接完成：" + file.Name;
+				RefreshListNumber();
 				DealWithSettings.WriteSettings("fileName", file.Name);
 			}
 			catch (Exception ex)
@@ -296,14 +321,21 @@ namespace 抽人
 
 		}
 
-		private void DeleteDataSet_Click(object sender, RoutedEventArgs e)
+		private async void DeleteDataSet_Click(object sender, RoutedEventArgs e)
 		{
-
+			var ToDeleteItems = await dataSetFolder.GetItemsAsync();
+			foreach (var item in ToDeleteItems) await item.DeleteAsync();
+			ToDeleteItems = await saveFolder.GetItemsAsync();
+			foreach (var item in ToDeleteItems) await item.DeleteAsync();
+			DealWithSettings.DeleteSettings("fileName");
+			DealWithSettings.DeleteSettings("saved");
+			resultBox.Text = "删除完成";
 		}
 
 		private void DeleteUserData_Click(object sender, RoutedEventArgs e)
 		{
-
+			DealWithSettings.DeleteSettings();
+			resultBox.Text = "删除完成";
 		}
 
 		private void LayoutLogs_Click(object sender, RoutedEventArgs e)
@@ -313,14 +345,29 @@ namespace 抽人
 
 		private async void MarkFinished_Click(object sender, RoutedEventArgs e)
 		{
-			if (await DealWithIdentity.VerifyIdentity() && GoingView.SelectedItem != null)
+			if (await DealWithIdentity.VerifyIdentity())
 			{
-				listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.finished;
-				listOfFinishedStudent.Add((Student)GoingView.SelectedItem);
-				listOfGoingStudent.Remove((Student)GoingView.SelectedItem);
-				DealWithData.SortStudentData(ref listOfGoingStudent);
-				GoingView.ItemsSource = null;
-				GoingView.ItemsSource = listOfGoingStudent;
+				if (Views.SelectedItem == GoingView && GoingView.SelectedItem != null)
+				{
+					listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.finished;
+					listOfFinishedStudent.Add((Student)GoingView.SelectedItem);
+					listOfGoingStudent.Remove((Student)GoingView.SelectedItem);
+					DealWithData.SortStudentData(ref listOfGoingStudent);
+					GoingView.ItemsSource = null;
+					GoingView.ItemsSource = listOfGoingStudent;
+				}
+				else if (Views.SelectedItem == UnfinishedView && UnfinishedView.SelectedItem != null)
+				{
+					listOfUnfinishedStudent[listOfUnfinishedStudent.IndexOf((Student)UnfinishedView.SelectedItem)].StudentStatus = StudentStatus.finished;
+					listOfFinishedStudent.Add((Student)UnfinishedView.SelectedItem);
+					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
+				}
+				else if (Views.SelectedItem == AllView && AllView.SelectedItem != null)
+				{
+					studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.finished;
+					studentList.Add((Student)AllView.SelectedItem);
+				}
+				RefreshListNumber();
 			}
 			else if (await DealWithIdentity.VerifyIdentity() == false) ContentDialogs.ThrowException("没有所需要的权限", false);
 
@@ -426,7 +473,7 @@ namespace 抽人
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				if (GoingView.SelectedItem != null)
+				if (Views.SelectedItem == GoingView && GoingView.SelectedItem != null)
 				{
 					listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
 					listOfUnfinishedStudent.Add((Student)GoingView.SelectedItem);
@@ -435,13 +482,13 @@ namespace 抽人
 					GoingView.ItemsSource = null;
 					GoingView.ItemsSource = listOfGoingStudent;
 				}
-				else if (FinishedView.SelectedItem != null)
+				else if (Views.SelectedItem == FinishedView && FinishedView.SelectedItem != null)
 				{
 					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
 					listOfUnfinishedStudent.Add((Student)FinishedView.SelectedItem);
 					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
 				}
-
+				RefreshListNumber();
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
@@ -449,6 +496,76 @@ namespace 抽人
 		private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+		private void RefreshListNumber()
+		{
+			AllNumber.Value = studentList.Count;
+			GoingNumber.Value = listOfGoingStudent.Count;
+			FinishedNumber.Value = listOfFinishedStudent.Count;
+			UnfinishedNumber.Value = listOfUnfinishedStudent.Count;
+		}
+
+		private async void MarkGoing_Click(object sender, RoutedEventArgs e)
+		{
+			if (await DealWithIdentity.VerifyIdentity())
+			{
+				if (Views.SelectedItem == FinishedView && FinishedView.SelectedItem != null)
+				{
+					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.going;
+					listOfGoingStudent.Insert(0, (Student)FinishedView.SelectedItem);
+					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
+				}
+				else if (Views.SelectedItem == UnfinishedView && UnfinishedView.SelectedItem != null)
+				{
+					listOfUnfinishedStudent[listOfUnfinishedStudent.IndexOf((Student)UnfinishedView.SelectedItem)].StudentStatus = StudentStatus.going;
+					listOfGoingStudent.Insert(0, (Student)UnfinishedView.SelectedItem);
+					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
+				}
+				else if (Views.SelectedItem == AllView && AllView.SelectedItem != null)
+				{
+					studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.going;
+					listOfGoingStudent.Insert(0, (Student)AllView.SelectedItem);
+					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+				}
+				RefreshListNumber();
+			}
+			else ContentDialogs.ThrowException("没有所需要的权限", false);
+
+		}
+
+		private void DisplayMode_Toggled(object sender, RoutedEventArgs e)
+		{
+			if (DisplayMode.IsOn)
+			{
+				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, false);
+				BackgroundGrid.Background = (Brush)Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"];
+				DealWithSettings.WriteSettings("DisplayMode", "true");
+				//ExtendAcrylicIntoTitleBar();
+			}
+			else
+			{
+				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, true);
+				BackgroundGrid.Background = null;
+				DealWithSettings.WriteSettings("DisplayMode", "false");
+				//ExtendAcrylicIntoTitleBar();
+			}
+		}
+		private void ExtendAcrylicIntoTitleBar()
+		{
+			ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+			titleBar.ButtonBackgroundColor = Colors.Transparent;
+			titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+		}
+
+		private async void IdentifyInfo_Tapped(object sender, TappedRoutedEventArgs e)
+		{
+			if(await ContentDialogs.VerifyImportantIdentity())
+			{
+				IdentifyInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
+			}
 		}
 	}
 }

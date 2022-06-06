@@ -160,6 +160,17 @@ namespace xbb
 			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
 			setting.Values[settingKey] = settingValue;
 		}
+
+		public static void DeleteSettings(string settingKey)
+		{
+			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
+			setting.Values.Remove(settingKey);
+		}
+		public static void DeleteSettings()
+		{
+			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
+			setting.Values.Clear();
+		}
 	}
 
 	public static class DealWithIdentity
@@ -167,46 +178,52 @@ namespace xbb
 		public static async Task<bool> VerifyIdentity()
 		{
 			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
-			//try
+			foreach (var folder in Folders)
 			{
-				foreach (var folder in Folders)
+				try
 				{
-					try
+					var file = await folder.GetFileAsync("IdentityFile");
+					IList<string> contents = await FileIO.ReadLinesAsync(file);
+					using (SHA256 sha256Hash = SHA256.Create())
 					{
-						var file = await folder.GetFileAsync("IdentityFile.txt");
-						IList<string> contents = await FileIO.ReadLinesAsync(file);
-						using (SHA256 sha256Hash = SHA256.Create())
-						{
-							string hash = GetHash(sha256Hash, "User:" + contents[0]);
-							Debug.WriteLine(hash);
-							if (hash == contents[1]) return true;
-						}
+						string hash = GetHash(sha256Hash, "User:" + contents[0]);
+						Debug.WriteLine(hash);
+						if (hash == contents[1]) return true;
 					}
-					catch {; }
 				}
+				catch {; }
 			}
-			//catch {; }
+			return false;
+		}
+		public static async Task<bool> VerifyIdentity(string password)
+		{
+			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
+			foreach (var folder in Folders)
+			{
+				try
+				{
+					var file = await folder.GetFileAsync("IdentityFile");
+					IList<string> contents = await FileIO.ReadLinesAsync(file);
+					using (SHA256 sha256Hash = SHA256.Create())
+					{
+						string hash = GetHash(sha256Hash, contents[1]+".Password:" + password);
+						Debug.WriteLine(hash);
+						if (hash == contents[2]) return true;
+					}
+				}
+				catch {; }
+			}
 			return false;
 		}
 
 		private static string GetHash(HashAlgorithm hashAlgorithm, string input)
 		{
-
-			// Convert the input string to a byte array and compute the hash.
 			byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
 
-			// Create a new Stringbuilder to collect the bytes
-			// and create a string.
 			var sBuilder = new StringBuilder();
 
-			// Loop through each byte of the hashed data
-			// and format each one as a hexadecimal string.
-			for (int i = 0; i < data.Length; i++)
-			{
-				sBuilder.Append(data[i].ToString("x2"));
-			}
+			for (int i = 0; i < data.Length; i++) sBuilder.Append(data[i].ToString("x2"));
 
-			// Return the hexadecimal string.
 			return sBuilder.ToString();
 		}
 	}
@@ -248,7 +265,7 @@ namespace xbb
 			}
 		}
 
-		public static async void ThrowException(string exception,bool sendEmail=true)
+		public static async void ThrowException(string exception, bool sendEmail = true)
 		{
 			ContentDialog ErrorDialog = new ContentDialog
 			{
@@ -261,7 +278,7 @@ namespace xbb
 			if (sendEmail) ErrorDialog.PrimaryButtonText = "去反馈";
 
 			ContentDialogResult result = await ErrorDialog.ShowAsync();
-			if (sendEmail&&result == ContentDialogResult.Primary) ComposeEmail(exception.ToString());
+			if (sendEmail && result == ContentDialogResult.Primary) ComposeEmail(exception.ToString());
 		}
 
 		public static async void CheckJoinProgram()
@@ -307,6 +324,24 @@ namespace xbb
 			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
 		}
 
-
+		public static async Task<bool> VerifyImportantIdentity(bool checkAgain = false)
+		{
+			var passwordBox = new PasswordBox { PlaceholderText = checkAgain ? "刚才好像输错了" : "请输入密码" };
+			ContentDialog contentDialog = new ContentDialog
+			{
+				Title = "再次确认身份",
+				Content = passwordBox,
+				PrimaryButtonText = "验证",
+				CloseButtonText = "取消",
+				DefaultButton = ContentDialogButton.Primary
+			};
+			var result = await contentDialog.ShowAsync();
+			if (result == ContentDialogResult.Primary)
+			{
+				if (await DealWithIdentity.VerifyIdentity(passwordBox.Password)) return true;
+				else await VerifyImportantIdentity(true);
+			}
+			return false;
+		}
 	}
 }
