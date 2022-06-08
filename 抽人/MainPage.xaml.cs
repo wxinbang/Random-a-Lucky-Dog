@@ -31,8 +31,6 @@ namespace 抽人
 	/// </summary>
 	public sealed partial class MainPage : Page
 	{
-		//Dictionary<int, Student> studentDictionary = new Dictionary<int, Student>();
-
 		ObservableCollection<Student> studentList = new ObservableCollection<Student>();
 
 		ObservableCollection<Student> listOfUnfinishedStudent = new ObservableCollection<Student>();
@@ -68,13 +66,14 @@ namespace 抽人
 
 		DispatcherTimer timer = new DispatcherTimer();
 
-		// 加入初始化时读写配置文件
+		bool importantIdentity;
 
 		public MainPage()
 		{
 			this.InitializeComponent();
 #if (DEBUG)
 			version += ".vNext";
+			AppTitleTextBlock.Text += " - Developing";
 #endif
 			versionInformationBox.Text = version;
 
@@ -84,7 +83,7 @@ namespace 抽人
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (DealWithSettings.ReadSettings("DisplayMode") == null|| DealWithSettings.ReadSettings("DisplayMode") == "true") DisplayMode.IsOn = true;
+			if (DealWithSettings.ReadSettings(SettingKey.DisplayMode) == null|| DealWithSettings.ReadSettings(SettingKey.DisplayMode) == "true") DisplayMode.IsOn = true;
 			timer.Interval = new TimeSpan(0, 0, 0, 1);
 			timer.Tick += Timer_Tick;
 			timer.Start();
@@ -93,14 +92,14 @@ namespace 抽人
 			saveFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Saves", CreationCollisionOption.OpenIfExists);
 
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
-			if (DealWithSettings.ReadSettings("fileName") != null)
+			if (DealWithSettings.ReadSettings(SettingKey.fileName) != null)
 			{
-				if (DealWithSettings.ReadSettings("saved") != "true") file = await dataSetFolder.GetFileAsync(DealWithSettings.ReadSettings("fileName"));
-				else file = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings("fileName"));
+				if (DealWithSettings.ReadSettings(SettingKey.saved) != "true") file = await dataSetFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
+				else file = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
 				ConnectDataSet(file);
-				fileName = DealWithSettings.ReadSettings("fileName");
+				fileName = DealWithSettings.ReadSettings(SettingKey.fileName);
 			}
-			if (DealWithSettings.ReadSettings("joinProgram") != "True")
+			if (DealWithSettings.ReadSettings(SettingKey.joinProgram) != "true")
 			{
 				InfoBar.IsOpen = false;
 				//layOutDataSetButton.Visibility = Visibility.Collapsed;
@@ -111,11 +110,10 @@ namespace 抽人
 				StudentSuggestBox.Visibility = Visibility.Collapsed;
 
 			}
-			if (DealWithSettings.ReadSettings("mark") == "True") whetherMark.IsOn = true;
-			if (DealWithSettings.ReadSettings("LastestError") != null) ;
+			if (DealWithSettings.ReadSettings(SettingKey. mark) == "true") whetherMark.IsOn = true;
+			if (DealWithSettings.ReadSettings(SettingKey.LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
 		}
-
 		private async void Timer_Tick(object sender, object e)
 		{
 			if (await DealWithIdentity.VerifyIdentity()) IdentifyInfo.Visibility = Visibility.Visible;
@@ -164,14 +162,10 @@ namespace 抽人
 				RefreshListNumber();
 			}
 		}
-
-
 		private void praiseButton_Click(object sender, RoutedEventArgs e)
 		{
 			ContentDialogs.DisplayInvalidPraise();
 		}
-
-
 		private async void selectDataSetButton_Click(object sender, RoutedEventArgs e)
 		{
 			//unfinishedNumber = 0;
@@ -193,29 +187,12 @@ namespace 抽人
 			{
 				this.resultBox.Text = "操作已取消";
 			}
-			DealWithSettings.WriteSettings("saved", "");
+			DealWithSettings.DeleteSettings(SettingKey.saved);
 		}
-
-		private async void whetherMark_Toggled(object sender, RoutedEventArgs e)
-		{
-			if (whetherMark.IsOn == true)
-			{
-				mark = await ContentDialogs.CheckWhetherMark();
-				whetherMark.IsOn = mark;
-			}
-			else
-			{
-				mark = whetherMark.IsOn;
-				DealWithSettings.WriteSettings("mark", mark ? "True" : "False");
-			}
-		}
-
-
 		private void connectDataSet_Click(object sender, RoutedEventArgs e)
 		{
 			ConnectDataSet(file);
 		}
-
 		private async void ConnectDataSet(StorageFile file)
 		{
 			try
@@ -249,15 +226,26 @@ namespace 抽人
 
 				resultBox.Text = "连接完成：" + file.Name;
 				RefreshListNumber();
-				DealWithSettings.WriteSettings("fileName", file.Name);
+				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
 			}
 			catch (Exception ex)
 			{
 				ContentDialogs.ThrowException(ex.ToString());
 			}
 		}
-
-
+		private async void whetherMark_Toggled(object sender, RoutedEventArgs e)
+		{
+			if (whetherMark.IsOn == true)
+			{
+				mark = await ContentDialogs.CheckWhetherMark();
+				whetherMark.IsOn = mark;
+			}
+			else
+			{
+				mark = whetherMark.IsOn;
+				DealWithSettings.WriteSettings(SettingKey.mark, mark ? "true" : "False");
+			}
+		}
 		private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
 		{
 			timesOfVersionTextTapped++;
@@ -268,20 +256,17 @@ namespace 抽人
 			}
 
 		}
-
 		private void SendEmailButton_Click(object sender, RoutedEventArgs e)
 		{
 			ContentDialogs.ComposeEmail();
 		}
-
 		private void ExitProgram_Click(object sender, RoutedEventArgs e)
 		{
-			DealWithSettings.WriteSettings("joinProgram", "False");
+			DealWithSettings.WriteSettings(SettingKey.joinProgram, "False");
 			InfoBar.Severity = InfoBarSeverity.Success;
 			InfoBar.Message = "已退出预览模式，请尽快重启";
 			MoreButton.Visibility = Visibility.Collapsed;
 		}
-
 		private async void LayoutDataSet_Click(object sender, RoutedEventArgs e)
 		{
 			if (await DealWithIdentity.VerifyIdentity())
@@ -310,75 +295,42 @@ namespace 抽人
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 
 		}
-
 		private void LayoutUserData_Click(object sender, RoutedEventArgs e)
 		{
 
 		}
+		private void LayoutLogs_Click(object sender, RoutedEventArgs e)
+		{
 
+		}
+		private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 		private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
 		{
 
 		}
-
 		private async void DeleteDataSet_Click(object sender, RoutedEventArgs e)
 		{
 			var ToDeleteItems = await dataSetFolder.GetItemsAsync();
 			foreach (var item in ToDeleteItems) await item.DeleteAsync();
 			ToDeleteItems = await saveFolder.GetItemsAsync();
 			foreach (var item in ToDeleteItems) await item.DeleteAsync();
-			DealWithSettings.DeleteSettings("fileName");
-			DealWithSettings.DeleteSettings("saved");
+			DealWithSettings.DeleteSettings(SettingKey.fileName);
+			DealWithSettings.DeleteSettings(SettingKey.saved);
 			resultBox.Text = "删除完成";
 		}
-
 		private void DeleteUserData_Click(object sender, RoutedEventArgs e)
 		{
 			DealWithSettings.DeleteSettings();
 			resultBox.Text = "删除完成";
 		}
-
-		private void LayoutLogs_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private async void MarkFinished_Click(object sender, RoutedEventArgs e)
-		{
-			if (await DealWithIdentity.VerifyIdentity())
-			{
-				if (Views.SelectedItem == GoingView && GoingView.SelectedItem != null)
-				{
-					listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.finished;
-					listOfFinishedStudent.Add((Student)GoingView.SelectedItem);
-					listOfGoingStudent.Remove((Student)GoingView.SelectedItem);
-					DealWithData.SortStudentData(ref listOfGoingStudent);
-					GoingView.ItemsSource = null;
-					GoingView.ItemsSource = listOfGoingStudent;
-				}
-				else if (Views.SelectedItem == UnfinishedView && UnfinishedView.SelectedItem != null)
-				{
-					listOfUnfinishedStudent[listOfUnfinishedStudent.IndexOf((Student)UnfinishedView.SelectedItem)].StudentStatus = StudentStatus.finished;
-					listOfFinishedStudent.Add((Student)UnfinishedView.SelectedItem);
-					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
-				}
-				else if (Views.SelectedItem == AllView && AllView.SelectedItem != null)
-				{
-					studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.finished;
-					studentList.Add((Student)AllView.SelectedItem);
-				}
-				RefreshListNumber();
-			}
-			else if (await DealWithIdentity.VerifyIdentity() == false) ContentDialogs.ThrowException("没有所需要的权限", false);
-
-		}
-
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{
 			if (sender.Text != "") StudentSuggestBox.ItemsSource = studentList.Where(p => p.Name.Contains(sender.Text)).Select(p => p.Name).ToList();
 			else StudentSuggestBox.ItemsSource = null;
 		}
-
 		private void StudentSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
 			Student student = studentList.Where(p => p.Name == args.SelectedItem.ToString()).Select(p => p).ToList()[0];
@@ -407,7 +359,6 @@ namespace 抽人
 				AllView.ScrollIntoView(student);
 			}
 		}
-
 		private void Grid_DragOver(object sender, DragEventArgs e)
 		{
 			e.AcceptedOperation = DataPackageOperation.Link;
@@ -418,7 +369,6 @@ namespace 抽人
 			e.DragUIOverride.IsContentVisible = true;
 			e.DragUIOverride.IsGlyphVisible = true;
 		}
-
 		private async void Grid_Drop(object sender, DragEventArgs e)
 		{
 			if (e.DataView.Contains(StandardDataFormats.StorageItems))
@@ -436,18 +386,17 @@ namespace 抽人
 				}
 			}
 		}
-
 		private async void Save_Click(object sender, RoutedEventArgs e)
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
+				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName), CreationCollisionOption.OpenIfExists);
 				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				await FileIO.WriteTextAsync(file, "");
 				DealWithData.LayoutData(file, updatedList);
 
-				DealWithSettings.WriteSettings("saved", "true");
-				DealWithSettings.WriteSettings("fileName", file.Name);
+				DealWithSettings.WriteSettings(SettingKey.saved, "true");
+				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
 				resultBox.Text = "保存成功";
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
@@ -456,24 +405,54 @@ namespace 抽人
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings("fileName"), CreationCollisionOption.OpenIfExists);
+				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName), CreationCollisionOption.OpenIfExists);
 				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				await FileIO.WriteTextAsync(file, "");
 				DealWithData.LayoutData(file, updatedList);
 
-				DealWithSettings.WriteSettings("saved", "true");
-				DealWithSettings.WriteSettings("fileName", file.Name);
+				DealWithSettings.WriteSettings(SettingKey.saved, "true");
+				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
 				if (showResult) resultBox.Text = "保存成功";
 			}
 			else if (showResult) ContentDialogs.ThrowException("没有所需要的权限", false);
 
 		}
+		private async void MarkFinished_Click(object sender, RoutedEventArgs e)
+		{
+			if (await DealWithIdentity.VerifyIdentity())
+			{
+				if (Views.SelectedItem == Going && GoingView.SelectedItem != null)
+				{
+					listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.finished;
+					listOfFinishedStudent.Add((Student)GoingView.SelectedItem);
+					listOfGoingStudent.Remove((Student)GoingView.SelectedItem);
+					DealWithData.SortStudentData(ref listOfGoingStudent);
+					GoingView.ItemsSource = null;
+					GoingView.ItemsSource = listOfGoingStudent;
+				}
+				else if (Views.SelectedItem == Unfinished && UnfinishedView.SelectedItem != null)
+				{
+					listOfUnfinishedStudent[listOfUnfinishedStudent.IndexOf((Student)UnfinishedView.SelectedItem)].StudentStatus = StudentStatus.finished;
+					listOfFinishedStudent.Add((Student)UnfinishedView.SelectedItem);
+					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
+				}
+				else ContentDialogs.ThrowException("暂时进行不了这样的操作",false);
+				//else if (Views.SelectedItem == All && AllView.SelectedItem != null)
+				//{
+				//	studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.finished;
+				//	listOfFinishedStudent.Add((Student)AllView.SelectedItem);
+				//	listOfUnfinishedStudent.Remove((Student)AllView.SelectedItem);//检查！！！
+				//}
+				RefreshListNumber();
+			}
+			else if (await DealWithIdentity.VerifyIdentity() == false) ContentDialogs.ThrowException("没有所需要的权限", false);
 
+		}
 		private async void MarkUnfinished_Click(object sender, RoutedEventArgs e)
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				if (Views.SelectedItem == GoingView && GoingView.SelectedItem != null)
+				if (Views.SelectedItem == Going && GoingView.SelectedItem != null)
 				{
 					listOfGoingStudent[listOfGoingStudent.IndexOf((Student)GoingView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
 					listOfUnfinishedStudent.Add((Student)GoingView.SelectedItem);
@@ -482,22 +461,47 @@ namespace 抽人
 					GoingView.ItemsSource = null;
 					GoingView.ItemsSource = listOfGoingStudent;
 				}
-				else if (Views.SelectedItem == FinishedView && FinishedView.SelectedItem != null)
+				else if (Views.SelectedItem == Finished && FinishedView.SelectedItem != null)
 				{
 					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.unfinished;
 					listOfUnfinishedStudent.Add((Student)FinishedView.SelectedItem);
 					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
 				}
+				else ContentDialogs.ThrowException("暂时进行不了这样的操作",false);
 				RefreshListNumber();
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
-
-		private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
+		private async void MarkGoing_Click(object sender, RoutedEventArgs e)
 		{
+			if (await DealWithIdentity.VerifyIdentity())
+			{
+				if (Views.SelectedItem == Finished && FinishedView.SelectedItem != null)
+				{
+					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.going;
+					listOfGoingStudent.Insert(0, (Student)FinishedView.SelectedItem);
+					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
+				}
+				else if (Views.SelectedItem == Unfinished && UnfinishedView.SelectedItem != null)
+				{
+					listOfUnfinishedStudent[listOfUnfinishedStudent.IndexOf((Student)UnfinishedView.SelectedItem)].StudentStatus = StudentStatus.going;
+					listOfGoingStudent.Insert(0, (Student)UnfinishedView.SelectedItem);
+					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
+				}
+				else ContentDialogs.ThrowException("暂时进行不了这样的操作",false);
+				//else if (Views.SelectedItem == All && AllView.SelectedItem != null)
+				//{
+				//	studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.going;
+				//	listOfGoingStudent.Insert(0, (Student)AllView.SelectedItem);
+				//	listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
+				//}
+				RefreshListNumber();
+			}
+			else ContentDialogs.ThrowException("没有所需要的权限", false);
 
 		}
-
 		private void RefreshListNumber()
 		{
 			AllNumber.Value = studentList.Count;
@@ -505,51 +509,20 @@ namespace 抽人
 			FinishedNumber.Value = listOfFinishedStudent.Count;
 			UnfinishedNumber.Value = listOfUnfinishedStudent.Count;
 		}
-
-		private async void MarkGoing_Click(object sender, RoutedEventArgs e)
-		{
-			if (await DealWithIdentity.VerifyIdentity())
-			{
-				if (Views.SelectedItem == FinishedView && FinishedView.SelectedItem != null)
-				{
-					listOfFinishedStudent[listOfFinishedStudent.IndexOf((Student)FinishedView.SelectedItem)].StudentStatus = StudentStatus.going;
-					listOfGoingStudent.Insert(0, (Student)FinishedView.SelectedItem);
-					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
-					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
-				}
-				else if (Views.SelectedItem == UnfinishedView && UnfinishedView.SelectedItem != null)
-				{
-					listOfUnfinishedStudent[listOfUnfinishedStudent.IndexOf((Student)UnfinishedView.SelectedItem)].StudentStatus = StudentStatus.going;
-					listOfGoingStudent.Insert(0, (Student)UnfinishedView.SelectedItem);
-					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
-					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
-				}
-				else if (Views.SelectedItem == AllView && AllView.SelectedItem != null)
-				{
-					studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.going;
-					listOfGoingStudent.Insert(0, (Student)AllView.SelectedItem);
-					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
-				}
-				RefreshListNumber();
-			}
-			else ContentDialogs.ThrowException("没有所需要的权限", false);
-
-		}
-
 		private void DisplayMode_Toggled(object sender, RoutedEventArgs e)
 		{
 			if (DisplayMode.IsOn)
 			{
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, false);
 				BackgroundGrid.Background = (Brush)Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"];
-				DealWithSettings.WriteSettings("DisplayMode", "true");
+				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "true");
 				//ExtendAcrylicIntoTitleBar();
 			}
 			else
 			{
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, true);
 				BackgroundGrid.Background = null;
-				DealWithSettings.WriteSettings("DisplayMode", "false");
+				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "false");
 				//ExtendAcrylicIntoTitleBar();
 			}
 		}
@@ -559,7 +532,6 @@ namespace 抽人
 			titleBar.ButtonBackgroundColor = Colors.Transparent;
 			titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 		}
-
 		private async void IdentifyInfo_Tapped(object sender, TappedRoutedEventArgs e)
 		{
 			if(await ContentDialogs.VerifyImportantIdentity())

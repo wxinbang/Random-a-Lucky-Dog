@@ -11,12 +11,12 @@
     x:Name="mainPage"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
 	Loaded="Page_Loaded"
-	muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+	muxc:BackdropMaterial.ApplyToRootOrPageBackground="true"
 	>
 
     <Page.Resources>
         <Storyboard x:Name="Storyboard" Completed="Storyboard_Completed">
-            <ObjectAnimationUsingKeyFrames x:Name="RandomAnimation" EnableDependentAnimation="True" Storyboard.TargetName="resultBox" Storyboard.TargetProperty="Text">
+            <ObjectAnimationUsingKeyFrames x:Name="RandomAnimation" EnableDependentAnimation="true" Storyboard.TargetName="resultBox" Storyboard.TargetProperty="Text">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.0"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.1"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.2"/>
@@ -43,11 +43,11 @@
                Text="抽人" 
                Style="{StaticResource CaptionTextBlockStyle}" 
                VerticalAlignment="Center"
-               Margin="18,8,0,0"
-               Height="32"/>
+               Margin="18,10,0,0"
+               Height="24"/>
         </Grid>
 
-        <Grid Grid.Row="1" AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
+        <Grid Grid.Row="1" AllowDrop="true" DragOver="Grid_DragOver" Drop="Grid_Drop">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -55,7 +55,7 @@
                 <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
 
-            <muxc:InfoBar Grid.Row="0" x:Name="InfoBar" IsOpen="True" Severity="Error" Title="预览模式"
+            <muxc:InfoBar Grid.Row="0" x:Name="InfoBar" IsOpen="true" Severity="Error" Title="预览模式"
 					  IsClosable="False"
 					  Message="新功能仅供测试，可能无效或包含重大缺陷。">
                 <muxc:InfoBar.ActionButton>
@@ -74,7 +74,7 @@
 				 BorderThickness="0"
 				 TextWrapping="Wrap" VerticalAlignment="Center" 
 				 TextAlignment="Center"
-				 IsReadOnly="True" FontSize="36" />
+				 IsReadOnly="true" FontSize="36" />
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>

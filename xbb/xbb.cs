@@ -21,6 +21,8 @@ namespace xbb
 		public StudentStatus StudentStatus { get; set; }
 		public int OrderOfGoing { get; set; }
 		public int OrderInList { get; set; }
+
+		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going? OrderOfGoing.ToString() + "\n" : "\n");
 	}
 
 	public enum StudentStatus //状态
@@ -31,6 +33,12 @@ namespace xbb
 		suspended,//暂停的
 		error
 	}
+
+	public enum SettingKey
+	{
+		mark,joinProgram,DisplayMode,fileName,saved,LastestError
+	}
+
 
 	public enum TaskStatus
 	{
@@ -130,7 +138,7 @@ namespace xbb
 		{
 			//StorageFolder folder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.Name + "\t" + ConvertStatus(student.StudentStatus) + "\t" + (student.StudentStatus == StudentStatus.going ? student.OrderOfGoing.ToString() + "\n" : "\n"));
+			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.ToString());
 		}
 
 		public static SortedList<int, Student> SumDataSets(ObservableCollection<Student> students, ObservableCollection<Student> unfinished, ObservableCollection<Student> going, ObservableCollection<Student> finished)
@@ -147,24 +155,24 @@ namespace xbb
 
 	public static class DealWithSettings
 	{
-		public static string ReadSettings(string settingKey)
+		public static string ReadSettings(SettingKey settingKey)
 		{
 			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
 
-			string settingValue = setting.Values[settingKey] as string;
+			string settingValue = setting.Values[settingKey.ToString()] as string;
 			return settingValue;
 		}
 
-		public static void WriteSettings(string settingKey, string settingValue)
+		public static void WriteSettings(SettingKey settingKey, string settingValue)
 		{
 			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
-			setting.Values[settingKey] = settingValue;
+			setting.Values[settingKey.ToString()] = settingValue;
 		}
 
-		public static void DeleteSettings(string settingKey)
+		public static void DeleteSettings(SettingKey settingKey)
 		{
 			ApplicationDataContainer setting = ApplicationData.Current.LocalSettings;
-			setting.Values.Remove(settingKey);
+			setting.Values.Remove(settingKey.ToString());
 		}
 		public static void DeleteSettings()
 		{
@@ -255,12 +263,12 @@ namespace xbb
 			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
 			if (result == ContentDialogResult.Primary)
 			{
-				DealWithSettings.WriteSettings("mark", "True");
+				DealWithSettings.WriteSettings(SettingKey.mark,"true");
 				return true;
 			}
 			else
 			{
-				DealWithSettings.WriteSettings("mark", "False");
+				DealWithSettings.WriteSettings(SettingKey.mark, "false");
 				return false;
 			}
 		}
@@ -270,7 +278,7 @@ namespace xbb
 			ContentDialog ErrorDialog = new ContentDialog
 			{
 				Title = "Oops!",
-				Content = "发生了问题：" + exception,
+				Content = (sendEmail? "发生了问题：" : "") + exception,
 				CloseButtonText = "好吧",
 				DefaultButton = ContentDialogButton.Primary
 			};
@@ -295,10 +303,10 @@ namespace xbb
 			ContentDialogResult result = await invalidPraise.ShowAsync();
 			if (result == ContentDialogResult.Primary)
 			{
-				DealWithSettings.WriteSettings("joinProgram", "True");
+				DealWithSettings.WriteSettings(SettingKey.joinProgram, "true");
 				await CoreApplication.RequestRestartAsync(string.Empty);
 			}
-			else DealWithSettings.WriteSettings("joinProgram", "False");
+			else DealWithSettings.WriteSettings(SettingKey.joinProgram, "false");
 		}
 
 		public static async void ComposeEmail()

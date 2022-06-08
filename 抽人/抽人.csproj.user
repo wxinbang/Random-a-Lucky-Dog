@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <RemoteDebugMachine>DESKTOP-PRRO28Q</RemoteDebugMachine>
-    <AuthenticationMode>Universal</AuthenticationMode>
+    <AuthenticationMode>Windows</AuthenticationMode>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>
 </Project>
