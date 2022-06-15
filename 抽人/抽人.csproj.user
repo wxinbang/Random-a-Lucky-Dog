@@ -13,4 +13,8 @@
     <DoNotLaunchApp>false</DoNotLaunchApp>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PreRelease|x64'">
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    <RemoteDebugMachine>DESKTOP-PRRO28Q</RemoteDebugMachine>
+  </PropertyGroup>
 </Project>

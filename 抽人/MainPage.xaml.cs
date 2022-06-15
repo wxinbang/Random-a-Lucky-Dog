@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -68,11 +69,13 @@ namespace 抽人
 
 		bool importantIdentity;
 
+		readonly long maxGCMemory = 255000000;
+
 		public MainPage()
 		{
 			this.InitializeComponent();
 #if (DEBUG)
-			if (GC.TryStartNoGCRegion(100000000))
+			if (GC.TryStartNoGCRegion(maxGCMemory))
 			{
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
@@ -542,8 +545,12 @@ namespace 抽人
 		}
 		private void OpenGC_Click(object sender, RoutedEventArgs e)
 		{
-			GC.EndNoGCRegion();
-			GCInfo.Style = (Style)Application.Current.Resources["SuccessDotInfoBadgeStyle"];
+			if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion)
+			{
+				GC.EndNoGCRegion();
+				GCInfo.Style = (Style)Application.Current.Resources["SuccessDotInfoBadgeStyle"];
+				ContentDialogs.ThrowException("已开启GC", false);
+			}
 		}
 
 		private void GCNow_Click(object sender, RoutedEventArgs e)
@@ -553,7 +560,7 @@ namespace 抽人
 
 		private void CloseGC_Click(object sender, RoutedEventArgs e)
 		{
-			if (GC.TryStartNoGCRegion(100000000))
+			if (GC.TryStartNoGCRegion(maxGCMemory))
 			{
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
