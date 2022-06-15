@@ -72,8 +72,16 @@ namespace 抽人
 		{
 			this.InitializeComponent();
 #if (DEBUG)
+			if (GC.TryStartNoGCRegion(100000000))
+			{
+				ContentDialogs.ThrowException("已关闭GC", false);
+				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
+			}
 			version += ".vNext";
 			AppTitleTextBlock.Text += " - Developing";
+
+			DeveloperTools.Visibility = Visibility.Visible;
+			GCInfo.Visibility = Visibility.Visible;
 #endif
 			versionInformationBox.Text = version;
 
@@ -305,7 +313,7 @@ namespace 抽人
 		}
 		private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
 		{
-
+			ContentDialogs.LayoutIdentityFile();
 		}
 		private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
 		{
@@ -532,11 +540,23 @@ namespace 抽人
 			titleBar.ButtonBackgroundColor = Colors.Transparent;
 			titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 		}
-		private async void IdentifyInfo_Tapped(object sender, TappedRoutedEventArgs e)
+		private void OpenGC_Click(object sender, RoutedEventArgs e)
 		{
-			if(await ContentDialogs.VerifyImportantIdentity())
+			GC.EndNoGCRegion();
+			GCInfo.Style = (Style)Application.Current.Resources["SuccessDotInfoBadgeStyle"];
+		}
+
+		private void GCNow_Click(object sender, RoutedEventArgs e)
+		{
+			GC.Collect();
+		}
+
+		private void CloseGC_Click(object sender, RoutedEventArgs e)
+		{
+			if (GC.TryStartNoGCRegion(100000000))
 			{
-				IdentifyInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
+				ContentDialogs.ThrowException("已关闭GC", false);
+				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
 			}
 		}
 	}

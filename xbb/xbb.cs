@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Email;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace xbb
 {
@@ -22,7 +25,7 @@ namespace xbb
 		public int OrderOfGoing { get; set; }
 		public int OrderInList { get; set; }
 
-		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going? OrderOfGoing.ToString() + "\n" : "\n");
+		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going ? OrderOfGoing.ToString() + "\n" : "\n");
 	}
 
 	public enum StudentStatus //状态
@@ -36,7 +39,7 @@ namespace xbb
 
 	public enum SettingKey
 	{
-		mark,joinProgram,DisplayMode,fileName,saved,LastestError
+		mark, joinProgram, DisplayMode, fileName, saved, LastestError
 	}
 
 
@@ -185,6 +188,9 @@ namespace xbb
 	{
 		public static async Task<bool> VerifyIdentity()
 		{
+#if DEBUG
+			return true;
+#else
 			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
 			foreach (var folder in Folders)
 			{
@@ -202,6 +208,7 @@ namespace xbb
 				catch {; }
 			}
 			return false;
+#endif
 		}
 		public static async Task<bool> VerifyIdentity(string password)
 		{
@@ -214,7 +221,7 @@ namespace xbb
 					IList<string> contents = await FileIO.ReadLinesAsync(file);
 					using (SHA256 sha256Hash = SHA256.Create())
 					{
-						string hash = GetHash(sha256Hash, contents[1]+".Password:" + password);
+						string hash = GetHash(sha256Hash, contents[1] + ".Password:" + password);
 						Debug.WriteLine(hash);
 						if (hash == contents[2]) return true;
 					}
@@ -224,7 +231,7 @@ namespace xbb
 			return false;
 		}
 
-		private static string GetHash(HashAlgorithm hashAlgorithm, string input)
+		public static string GetHash(HashAlgorithm hashAlgorithm, string input)
 		{
 			byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
 
@@ -263,7 +270,7 @@ namespace xbb
 			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
 			if (result == ContentDialogResult.Primary)
 			{
-				DealWithSettings.WriteSettings(SettingKey.mark,"true");
+				DealWithSettings.WriteSettings(SettingKey.mark, "true");
 				return true;
 			}
 			else
@@ -278,7 +285,7 @@ namespace xbb
 			ContentDialog ErrorDialog = new ContentDialog
 			{
 				Title = "Oops!",
-				Content = (sendEmail? "发生了问题：" : "") + exception,
+				Content = (sendEmail ? "发生了问题：" : "") + exception,
 				CloseButtonText = "好吧",
 				DefaultButton = ContentDialogButton.Primary
 			};
@@ -332,8 +339,66 @@ namespace xbb
 			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
 		}
 
+		public static async void LayoutIdentityFile(bool checkAgain=false)
+		{
+			if (await ContentDialogs.VerifyImportantIdentity())
+			{
+				var userNameBox = new TextBox { PlaceholderText = "随便输个用户名", Margin = new Thickness(10) };
+				var passwordBox = new PasswordBox { PlaceholderText = "密码,要记住的", Margin = new Thickness(10) };
+				var filePlace = new ComboBox { Margin = new Thickness(10) };
+				var checkAgainBox = new TextBlock { Text = "刚才有值是空的！！！", Foreground = new SolidColorBrush(Colors.Red) };
+
+				var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
+				foreach (var folder in Folders) filePlace.Items.Add(string.Format("{0} ({1})", folder.Path, folder.DisplayName));
+				filePlace.SelectedIndex = 0;
+				if (Folders.Count == 0)
+				{
+					filePlace.PlaceholderText = "插个U盘再来试试吧";
+					filePlace.IsEnabled = false;
+				}
+
+				var grid = new StackPanel();
+				if(checkAgain)grid.Children.Add(checkAgainBox);
+				grid.Children.Add(userNameBox);
+				grid.Children.Add(passwordBox);
+				grid.Children.Add(filePlace);
+
+				var dialog = new ContentDialog
+				{
+					Title = "导出新的身份文件",
+					Content = grid,
+					PrimaryButtonText = "导出",
+					CloseButtonText = "取消",
+					DefaultButton = ContentDialogButton.Primary
+				};
+				var result = await dialog.ShowAsync();
+				if (result == ContentDialogResult.Primary)
+				{
+					string userName = userNameBox.Text;
+					string password = passwordBox.Password;
+					StorageFolder folder = filePlace.SelectedItem as StorageFolder;
+					if (userName == null || password == null || folder == null)
+					{
+						LayoutIdentityFile(true);
+						return;
+					}
+					SHA256 sha256 = SHA256.Create();
+					var file = await folder.CreateFileAsync ("IdentityFile",CreationCollisionOption.ReplaceExisting);
+					string hash1 = DealWithIdentity.GetHash(sha256, "User:" + userName);
+					string hash2 = DealWithIdentity.GetHash(sha256, hash1 + ".Password:" + password);
+					await FileIO.AppendTextAsync(file,userName+'\n');
+					await FileIO.AppendTextAsync(file, hash1 + '\n');
+					await FileIO.AppendTextAsync(file, hash2);
+				}
+			}
+			else ContentDialogs.ThrowException("没有所需的权限", false);
+		}
+
 		public static async Task<bool> VerifyImportantIdentity(bool checkAgain = false)
 		{
+#if DEBUG
+			return true;
+#else
 			var passwordBox = new PasswordBox { PlaceholderText = checkAgain ? "刚才好像输错了" : "请输入密码" };
 			ContentDialog contentDialog = new ContentDialog
 			{
@@ -350,6 +415,7 @@ namespace xbb
 				else await VerifyImportantIdentity(true);
 			}
 			return false;
+#endif
 		}
 	}
 }

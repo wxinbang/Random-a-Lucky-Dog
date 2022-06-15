@@ -39,7 +39,7 @@
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0" x:Name="AppTitleBar" Background="Transparent">
-            <TextBlock x:Name="AppTitleTextBlock"
+            <TextBlock Grid.Column="0" x:Name="AppTitleTextBlock"
                Text="抽人" 
                Style="{StaticResource CaptionTextBlockStyle}" 
                VerticalAlignment="Center"
@@ -197,11 +197,28 @@
 
                 </Grid>
 
-                <Button Grid.Column="1" x:Name="randomButton" Content="抽" 
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" x:Name="randomButton" Content="抽" 
 					VerticalAlignment="Center" Click="randomButton_Click" 
 					HorizontalAlignment="Center" FontSize="36" 
 					BorderThickness="14,12,14,12"/>
 
+                    <Button Grid.Row="1" Content="开发工具" x:Name="DeveloperTools" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Visibility="Collapsed">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="开启GC" Click="OpenGC_Click"/>
+                                <MenuFlyoutItem Text="立刻GC" Click="GCNow_Click"/>
+                                <MenuFlyoutItem Text="关闭GC" Click="CloseGC_Click"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                </Grid>
+                
                 <Grid Grid.Column="2" Margin="0,0,30,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -302,17 +319,20 @@
 
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <muxc:ProgressBar Grid.Column="0" x:Name="dealWithStudentDataProgressBar" 
-						 Margin="30,0,5,0" />
+                <muxc:InfoBadge Grid.Column="0" Height="10" Width="10" Margin="15,5,5,5" x:Name="GCInfo" Style="{StaticResource CriticalDotInfoBadgeStyle}" Visibility="Collapsed"/>
 
-                <muxc:InfoBadge Grid.Column="1" Height="10" Width="10" Margin="5" x:Name="IdentifyInfo" Style="{StaticResource SuccessDotInfoBadgeStyle}" Tapped="IdentifyInfo_Tapped"/>
+                <muxc:ProgressBar Grid.Column="1" x:Name="dealWithStudentDataProgressBar" 
+						 Margin="5,0,5,0" />
 
-                <TextBlock Grid.Column="2" x:Name="versionInformationBox" 
+                <muxc:InfoBadge Grid.Column="2" Height="10" Width="10" Margin="5" x:Name="IdentifyInfo" Style="{StaticResource SuccessDotInfoBadgeStyle}" />
+
+                <TextBlock Grid.Column="3" x:Name="versionInformationBox" 
 					   HorizontalAlignment="Right" TextWrapping="NoWrap" 
 					   VerticalAlignment="Center" 
                        Margin="5,0,10,0"
