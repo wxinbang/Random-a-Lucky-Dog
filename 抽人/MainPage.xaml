@@ -325,10 +325,10 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <muxc:InfoBadge Grid.Column="0" Height="10" Width="10" Margin="15,5,5,5" x:Name="GCInfo" Style="{StaticResource CriticalDotInfoBadgeStyle}" Visibility="Collapsed"/>
+                <muxc:InfoBadge Grid.Column="0" Height="10" Width="10" Margin="15,5,-5,5" x:Name="GCInfo" Style="{StaticResource CriticalDotInfoBadgeStyle}" Visibility="Collapsed"/>
 
                 <muxc:ProgressBar Grid.Column="1" x:Name="dealWithStudentDataProgressBar" 
-						 Margin="5,0,5,0" />
+						 Margin="15,0,5,0" />
 
                 <muxc:InfoBadge Grid.Column="2" Height="10" Width="10" Margin="5" x:Name="IdentifyInfo" Style="{StaticResource SuccessDotInfoBadgeStyle}" />
 

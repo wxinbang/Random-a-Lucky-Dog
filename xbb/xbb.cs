@@ -346,7 +346,7 @@ namespace xbb
 				var userNameBox = new TextBox { PlaceholderText = "随便输个用户名", Margin = new Thickness(10) };
 				var passwordBox = new PasswordBox { PlaceholderText = "密码,要记住的", Margin = new Thickness(10) };
 				var filePlace = new ComboBox { Margin = new Thickness(10) };
-				var checkAgainBox = new TextBlock { Text = "刚才有值是空的！！！", Foreground = new SolidColorBrush(Colors.Red) };
+				var checkAgainBox = new TextBlock { Text = "刚才有值是空的！！！",Margin=new Thickness(20,0,0,0), Foreground = new SolidColorBrush(Colors.IndianRed) };
 
 				var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
 				foreach (var folder in Folders) filePlace.Items.Add(string.Format("{0} ({1})", folder.Path, folder.DisplayName));
@@ -376,7 +376,7 @@ namespace xbb
 				{
 					string userName = userNameBox.Text;
 					string password = passwordBox.Password;
-					StorageFolder folder = filePlace.SelectedItem as StorageFolder;
+					StorageFolder folder = Folders[filePlace.SelectedIndex];
 					if (userName == null || password == null || folder == null)
 					{
 						LayoutIdentityFile(true);

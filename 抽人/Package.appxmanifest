@@ -5,7 +5,7 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="rescap uap mp">
+  IgnorableNamespaces="uap mp rescap">
 
   <Identity
     Name="xbb.select.the.lucky.dog"
@@ -52,6 +52,6 @@
 
   <Capabilities>
     <uap:Capability Name="removableStorage"/>
-    <!--rescap:Capability Name="confirmAppClose"/-->
-  </Capabilities>
+	<rescap:Capability Name="confirmAppClose" />
+</Capabilities>
 </Package>

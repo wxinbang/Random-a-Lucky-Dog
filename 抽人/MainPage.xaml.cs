@@ -75,7 +75,7 @@ namespace 抽人
 		{
 			this.InitializeComponent();
 #if (DEBUG)
-			if (GC.TryStartNoGCRegion(maxGCMemory))
+			if (GCSettings.LatencyMode==GCLatencyMode.NoGCRegion&& GC.TryStartNoGCRegion(maxGCMemory))
 			{
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
@@ -127,6 +127,8 @@ namespace 抽人
 		}
 		private async void Timer_Tick(object sender, object e)
 		{
+			if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion) GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
+			else GCInfo.Style = (Style)Application.Current.Resources["SuccessDotInfoBadgeStyle"];
 			if (await DealWithIdentity.VerifyIdentity()) IdentifyInfo.Visibility = Visibility.Visible;
 			else IdentifyInfo.Visibility = Visibility.Collapsed;
 		}
@@ -217,13 +219,13 @@ namespace 抽人
 				IList<string> contents = await FileIO.ReadLinesAsync(file);
 				//sumOfStudent = contents.ToArray().Length;
 				dealWithStudentDataProgressBar.Maximum = sumOfStudent;
-
+				int orderInList = 0;
 				//bool[] checkId = new bool[sumOfStudent];
 				foreach (string content in contents)
 				{
 					string[] studentData = DealWithData.DealWithStudentData(content);
 
-					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = contents.IndexOf(content) };
+					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = orderInList++ };
 
 					if (Somebody.StudentStatus == StudentStatus.unfinished) listOfUnfinishedStudent.Add(Somebody);
 					else if (Somebody.StudentStatus == StudentStatus.going) lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
@@ -283,7 +285,7 @@ namespace 抽人
 			if (await DealWithIdentity.VerifyIdentity())
 			{
 				Save_Click(sender, e, false);
-				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
+				//SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				string afterFileName = "After-" + fileName;
 
 				var savePicker = new FileSavePicker();
@@ -296,7 +298,9 @@ namespace 抽人
 				{
 					CachedFileManager.DeferUpdates(file);
 					await FileIO.WriteTextAsync(file, "");
-					DealWithData.LayoutData(file, updatedList);
+					StorageFile saved = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
+					await saved.CopyAndReplaceAsync(file);
+					//DealWithData.LayoutData(file, updatedList);
 					FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
 					if (status == FileUpdateStatus.Complete) this.resultBox.Text = "文件 " + file.Name + " 已被保存";
 					else this.resultBox.Text = "文件 " + file.Name + " 未被保存";
@@ -397,7 +401,7 @@ namespace 抽人
 				}
 			}
 		}
-		private async void Save_Click(object sender, RoutedEventArgs e)
+		public async void Save_Click(object sender, RoutedEventArgs e)
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
