@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -87,15 +89,15 @@ namespace 抽人
 					var messageDialog = new ContentDialog
 					{
 						Title = "抽人",
-						Content = "保存不?",
-						PrimaryButtonText = "保存",
+						Content = "别忘了保存",
+						PrimaryButtonText = "保存一下",
 						SecondaryButtonText = "不保存",
 						CloseButtonText = "取消"
 					};
 
 					messageDialog.DefaultButton = ContentDialogButton.Primary;
-
-					var result = await messageDialog.ShowAsync();
+					ContentDialogResult result=ContentDialogResult.Secondary;
+					if (DealWithSettings.ReadSettings(SettingKey.joinProgram) == "true") result = await messageDialog.ShowAsync();
 					switch (result)
 					{
 						case ContentDialogResult.None:
@@ -105,7 +107,15 @@ namespace 抽人
 							//await SaveDataAsync();
 							//MainPage mainPage = new MainPage();
 							//mainPage.Save_Click(sender, null);
-							
+							MainPage mainPage=(MainPage)rootFrame.Content;
+							await mainPage.Save_Click(sender, null, true);
+							//ar asyncResult =mainPage.Save_Click()
+							//Task t=mainPage.Save_Click(sender, null,true);
+							//t.RunSynchronously();
+							//while (!t.IsCompleted) Thread.Sleep(200);
+							//Task.Run(async () => { await mainPage.Save_Click(sender, null, true); }).Wait();
+							//await t;
+							//args.Handled = true;
 							break;
 						case ContentDialogResult.Secondary:
 							break;

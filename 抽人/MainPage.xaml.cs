@@ -284,7 +284,7 @@ namespace 抽人
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				Save_Click(sender, e, false);
+				await Save_Click(sender, e, false);
 				//SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				string afterFileName = "After-" + fileName;
 
@@ -408,7 +408,7 @@ namespace 抽人
 				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName), CreationCollisionOption.OpenIfExists);
 				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				await FileIO.WriteTextAsync(file, "");
-				DealWithData.LayoutData(file, updatedList);
+				await DealWithData.LayoutData(file, updatedList);
 
 				DealWithSettings.WriteSettings(SettingKey.saved, "true");
 				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
@@ -416,20 +416,21 @@ namespace 抽人
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
-		private async void Save_Click(object sender, RoutedEventArgs e, bool showResult = true)
+		public async Task Save_Click(object sender, RoutedEventArgs e, bool showResult = true)
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
 				file = await saveFolder.CreateFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName), CreationCollisionOption.OpenIfExists);
 				SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
 				await FileIO.WriteTextAsync(file, "");
-				DealWithData.LayoutData(file, updatedList);
+				await DealWithData.LayoutData(file, updatedList);
 
 				DealWithSettings.WriteSettings(SettingKey.saved, "true");
 				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
 				if (showResult) resultBox.Text = "保存成功";
 			}
 			else if (showResult) ContentDialogs.ThrowException("没有所需要的权限", false);
+			return;
 
 		}
 		private async void MarkFinished_Click(object sender, RoutedEventArgs e)
@@ -569,6 +570,12 @@ namespace 抽人
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
 			}
+		}
+
+		private void showAnimation_Click(object sender, RoutedEventArgs e)
+		{
+			if (ModalLayer.Visibility == Visibility.Visible) ModalLayer.Visibility = Visibility.Collapsed;
+			else ModalLayer.Visibility = Visibility.Visible;
 		}
 	}
 }

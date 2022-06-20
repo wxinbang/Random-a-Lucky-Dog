@@ -137,7 +137,7 @@ namespace xbb
 			}
 		}
 
-		public static async void LayoutData(StorageFile file, SortedList<int, Student> students)
+		public static async Task LayoutData(StorageFile file, SortedList<int, Student> students)
 		{
 			//StorageFolder folder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
