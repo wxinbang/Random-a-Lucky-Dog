@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
-using xbb;
+using xbb.ClassLibraries;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -55,7 +55,7 @@ namespace 抽人
 
 		string fileName;
 
-
+		
 		int unfinishedNumber;
 		StorageFile file;
 		StorageFolder dataSetFolder;
@@ -416,7 +416,7 @@ namespace 抽人
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
-		public async Task Save_Click(object sender, RoutedEventArgs e, bool showResult = true)
+		public async Task<bool> Save_Click(object sender, RoutedEventArgs e, bool showResult = true)
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
@@ -428,9 +428,10 @@ namespace 抽人
 				DealWithSettings.WriteSettings(SettingKey.saved, "true");
 				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
 				if (showResult) resultBox.Text = "保存成功";
+				return true;
 			}
 			else if (showResult) ContentDialogs.ThrowException("没有所需要的权限", false);
-			return;
+			return false;
 
 		}
 		private async void MarkFinished_Click(object sender, RoutedEventArgs e)
@@ -574,8 +575,12 @@ namespace 抽人
 
 		private void showAnimation_Click(object sender, RoutedEventArgs e)
 		{
-			if (ModalLayer.Visibility == Visibility.Visible) ModalLayer.Visibility = Visibility.Collapsed;
-			else ModalLayer.Visibility = Visibility.Visible;
+			ModalLayer.Visibility = Visibility.Visible;
+		}
+
+		private void CloseAnimationButton_Click(object sender, RoutedEventArgs e)
+		{
+			ModalLayer.Visibility = Visibility.Collapsed;
 		}
 	}
 }

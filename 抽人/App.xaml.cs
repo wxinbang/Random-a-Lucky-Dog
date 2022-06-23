@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using xbb;
+using xbb.ClassLibraries;
 
 namespace 抽人
 {
@@ -108,7 +108,8 @@ namespace 抽人
 							//MainPage mainPage = new MainPage();
 							//mainPage.Save_Click(sender, null);
 							MainPage mainPage=(MainPage)rootFrame.Content;
-							await mainPage.Save_Click(sender, null, true);
+							bool saveResult=await mainPage.Save_Click(sender, null, true);
+							if(!saveResult)args.Handled= true;
 							//ar asyncResult =mainPage.Save_Click()
 							//Task t=mainPage.Save_Click(sender, null,true);
 							//t.RunSynchronously();

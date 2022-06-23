@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
-	xmlns:data="using:xbb"
+	xmlns:data="using:xbb.ClassLibraries"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
@@ -54,11 +54,19 @@
 
         <Grid Grid.Row="1" Visibility="Collapsed" x:Name="ModalLayer" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" Canvas.ZIndex="1">
             <animations:Implicit.ShowAnimations>
+
                 <animations:OpacityAnimation Duration="0:0:1"
                                          From="0"
-                                         To="0">
-                </animations:OpacityAnimation>
+                                         To="1.0"></animations:OpacityAnimation>
             </animations:Implicit.ShowAnimations>
+
+            <animations:Implicit.HideAnimations>
+                <animations:ScalarAnimation Target="Opacity"
+                                        Duration="0:0:1"
+                                        To="0.0"></animations:ScalarAnimation>
+
+            </animations:Implicit.HideAnimations>
+            <Button x:Name="CloseAnimationButton" Content="Close Animation" Click="CloseAnimationButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1" AllowDrop="true" DragOver="Grid_DragOver" Drop="Grid_Drop">
             <Grid.RowDefinitions>
