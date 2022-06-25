@@ -52,10 +52,12 @@ namespace 抽人
 		int sumOfStudent;
 		bool mark = false;
 		string DataSetPath;
+		string suggestBoxLastString;
+		bool isChoose;
 
 		string fileName;
 
-		
+
 		int unfinishedNumber;
 		StorageFile file;
 		StorageFolder dataSetFolder;
@@ -83,6 +85,8 @@ namespace 抽人
 			version += ".vNext";
 			AppTitleTextBlock.Text += " - Developing";
 
+			DealWithSettings.WriteSettings(SettingKey.joinProgram, "true");
+
 			DeveloperTools.Visibility = Visibility.Visible;
 			GCInfo.Visibility = Visibility.Visible;
 #endif
@@ -94,7 +98,7 @@ namespace 抽人
 
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (DealWithSettings.ReadSettings(SettingKey.DisplayMode) == null|| DealWithSettings.ReadSettings(SettingKey.DisplayMode) == "true") DisplayMode.IsOn = true;
+			if (DealWithSettings.ReadSettings(SettingKey.DisplayMode) == null || DealWithSettings.ReadSettings(SettingKey.DisplayMode) == "true") DisplayMode.IsOn = true;
 			timer.Interval = new TimeSpan(0, 0, 0, 1);
 			timer.Tick += Timer_Tick;
 			timer.Start();
@@ -114,14 +118,14 @@ namespace 抽人
 			{
 				InfoBar.IsOpen = false;
 				//layOutDataSetButton.Visibility = Visibility.Collapsed;
-				layOutFlyoutButton.Visibility = Visibility.Collapsed;
-				Views.Visibility = Visibility.Collapsed;
+				//layOutFlyoutButton.Visibility = Visibility.Collapsed;
+				//Views.Visibility = Visibility.Collapsed;
 				DeleteButton.Visibility = Visibility.Collapsed;
-				OperateStudent.Visibility = Visibility.Collapsed;
-				StudentSuggestBox.Visibility = Visibility.Collapsed;
+				//OperateStudent.Visibility = Visibility.Collapsed;
+				//StudentSuggestBox.Visibility = Visibility.Collapsed;
 
 			}
-			if (DealWithSettings.ReadSettings(SettingKey. mark) == "true") whetherMark.IsOn = true;
+			if (DealWithSettings.ReadSettings(SettingKey.mark) == "true") whetherMark.IsOn = true;
 			if (DealWithSettings.ReadSettings(SettingKey.LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
 		}
@@ -343,12 +347,18 @@ namespace 抽人
 		}
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{
-			if (sender.Text != "") StudentSuggestBox.ItemsSource = studentList.Where(p => p.Name.Contains(sender.Text)).Select(p => p.Name).ToList();
-			else StudentSuggestBox.ItemsSource = null;
+			if (sender.Text == "") StudentSuggestBox.ItemsSource = null;
+			else if (sender.Text != ""&& !isChoose)
+			{
+				//sender.Text = suggestBoxLastString;
+				StudentSuggestBox.ItemsSource = studentList.Where(p => p.Name.Contains(sender.Text)).Select(p => p.Name).ToList();
+			}
+			isChoose = false;
 		}
 		private void StudentSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
 			Student student = studentList.Where(p => p.Name == args.SelectedItem.ToString()).Select(p => p).ToList()[0];
+			isChoose = true;
 			if (listOfGoingStudent.Contains(student))
 			{
 				Views.SelectedItem = Going;
@@ -453,7 +463,7 @@ namespace 抽人
 					listOfFinishedStudent.Add((Student)UnfinishedView.SelectedItem);
 					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
 				}
-				else ContentDialogs.ThrowException("暂时进行不了这样的操作",false);
+				else ContentDialogs.ThrowException("暂时进行不了这样的操作", false);
 				//else if (Views.SelectedItem == All && AllView.SelectedItem != null)
 				//{
 				//	studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.finished;
@@ -484,7 +494,7 @@ namespace 抽人
 					listOfUnfinishedStudent.Add((Student)FinishedView.SelectedItem);
 					listOfFinishedStudent.Remove((Student)FinishedView.SelectedItem);
 				}
-				else ContentDialogs.ThrowException("暂时进行不了这样的操作",false);
+				else ContentDialogs.ThrowException("暂时进行不了这样的操作", false);
 				RefreshListNumber();
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
@@ -507,7 +517,7 @@ namespace 抽人
 					listOfGoingStudent[0].OrderOfGoing = listOfGoingStudent.Count;
 					listOfUnfinishedStudent.Remove((Student)UnfinishedView.SelectedItem);
 				}
-				else ContentDialogs.ThrowException("暂时进行不了这样的操作",false);
+				else ContentDialogs.ThrowException("暂时进行不了这样的操作", false);
 				//else if (Views.SelectedItem == All && AllView.SelectedItem != null)
 				//{
 				//	studentList[studentList.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.going;
@@ -529,7 +539,7 @@ namespace 抽人
 		private void DisplayMode_Toggled(object sender, RoutedEventArgs e)
 		{
 			if (DisplayMode.IsOn)
-			{
+			{//new ResourceDictionary()
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, false);
 				BackgroundGrid.Background = (Brush)Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"];
 				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "true");

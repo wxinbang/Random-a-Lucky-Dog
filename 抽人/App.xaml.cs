@@ -97,7 +97,7 @@ namespace 抽人
 
 					messageDialog.DefaultButton = ContentDialogButton.Primary;
 					ContentDialogResult result=ContentDialogResult.Secondary;
-					if (DealWithSettings.ReadSettings(SettingKey.joinProgram) == "true") result = await messageDialog.ShowAsync();
+					/*if (DealWithSettings.ReadSettings(SettingKey.joinProgram) == "true")*/ result = await messageDialog.ShowAsync();
 					switch (result)
 					{
 						case ContentDialogResult.None:
