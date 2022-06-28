@@ -128,6 +128,7 @@ namespace 抽人
 			if (DealWithSettings.ReadSettings(SettingKey.mark) == "true") whetherMark.IsOn = true;
 			if (DealWithSettings.ReadSettings(SettingKey.LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
+			ExtendAcrylicIntoTitleBar();
 		}
 		private async void Timer_Tick(object sender, object e)
 		{
@@ -543,14 +544,14 @@ namespace 抽人
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, false);
 				BackgroundGrid.Background = (Brush)Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"];
 				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "true");
-				//ExtendAcrylicIntoTitleBar();
+				ExtendAcrylicIntoTitleBar();
 			}
 			else
 			{
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, true);
 				BackgroundGrid.Background = null;
 				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "false");
-				//ExtendAcrylicIntoTitleBar();
+				ExtendAcrylicIntoTitleBar();
 			}
 		}
 		private void ExtendAcrylicIntoTitleBar()

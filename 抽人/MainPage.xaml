@@ -44,12 +44,25 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="AppTitleBar" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            
             <TextBlock Grid.Column="0" x:Name="AppTitleTextBlock"
                Text="抽人" 
                Style="{StaticResource CaptionTextBlockStyle}" 
                VerticalAlignment="Center"
-               Margin="18,10,0,0"
-               Height="24"/>
+               Margin="18,16,0,0"
+               Height="36"/>
+
+            <AutoSuggestBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="StudentSuggestBox" 
+                            Margin="0,6,0,0" MaxWidth="500" MinWidth="500" Width="auto"
+								PlaceholderText="搜索" 
+								TextChanged="StudentSuggestBox_TextChanged"
+								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
+
         </Grid>
 
         <Grid Grid.Row="1" Visibility="Collapsed" x:Name="ModalLayer" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" Canvas.ZIndex="1">
@@ -91,15 +104,14 @@
                 </muxc:InfoBar.ActionButton>
             </muxc:InfoBar>
 
-            <TextBox Grid.Row="1" x:Name="resultBox" Margin="30,10,30,10" 
-				 BorderThickness="0"
+            <TextBox Grid.Row="1" x:Name="resultBox" Margin="30,10,30,0" 
 				 TextWrapping="Wrap" VerticalAlignment="Center" 
 				 TextAlignment="Center"
-				 IsReadOnly="true" FontSize="36" />
+				 IsReadOnly="True" FontSize="36" />
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
@@ -109,11 +121,6 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <AutoSuggestBox Grid.Row="0" x:Name="StudentSuggestBox" 
-								PlaceholderText="键入名字" Margin="30,0,10,0"
-								TextChanged="StudentSuggestBox_TextChanged"
-								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
 
                     <Pivot x:Name="Views" Grid.Row="1"  Margin="30,0,0,0" >
                         <PivotItem x:Name="All">
