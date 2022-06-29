@@ -390,7 +390,7 @@ namespace 抽人
 			e.AcceptedOperation = DataPackageOperation.Link;
 
 
-			e.DragUIOverride.Caption = "拖入以导入";
+			e.DragUIOverride.Caption = "拖放以导入";
 			e.DragUIOverride.IsCaptionVisible = true;
 			e.DragUIOverride.IsContentVisible = true;
 			e.DragUIOverride.IsGlyphVisible = true;

@@ -36,36 +36,8 @@
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </Page.Resources>
-
-    <Grid  x:Name="BackgroundGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" x:Name="AppTitleBar" Background="Transparent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" x:Name="AppTitleTextBlock"
-               Text="抽人" 
-               Style="{StaticResource CaptionTextBlockStyle}" 
-               VerticalAlignment="Center"
-               Margin="18,16,0,0"
-               Height="36"/>
-
-            <AutoSuggestBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="StudentSuggestBox" 
-                            Margin="0,6,0,0" MaxWidth="500" MinWidth="500" Width="auto"
-								PlaceholderText="搜索" 
-								TextChanged="StudentSuggestBox_TextChanged"
-								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
-
-        </Grid>
-
-        <Grid Grid.Row="1" Visibility="Collapsed" x:Name="ModalLayer" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" Canvas.ZIndex="1">
+    <Grid>
+        <Grid Visibility="Collapsed" x:Name="ModalLayer" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" Canvas.ZIndex="5">
             <animations:Implicit.ShowAnimations>
 
                 <animations:OpacityAnimation Duration="0:0:1"
@@ -77,306 +49,333 @@
                 <animations:ScalarAnimation Target="Opacity"
                                         Duration="0:0:1"
                                         To="0.0"></animations:ScalarAnimation>
-
             </animations:Implicit.HideAnimations>
             <Button x:Name="CloseAnimationButton" Content="Close Animation" Click="CloseAnimationButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="1" AllowDrop="true" DragOver="Grid_DragOver" Drop="Grid_Drop">
+
+        <Grid x:Name="BackgroundGrid" Canvas.ZIndex="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <muxc:InfoBar Grid.Row="0" x:Name="InfoBar" IsOpen="true" Severity="Error" Title="预览模式"
+            <Grid Grid.Row="0" x:Name="AppTitleBar" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" x:Name="AppTitleTextBlock"
+               Text="抽人" 
+               Style="{StaticResource CaptionTextBlockStyle}" 
+               VerticalAlignment="Center"
+               Margin="18,0,0,0"/>
+
+            </Grid>
+            <AutoSuggestBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="StudentSuggestBox" 
+                            Margin="180,0,280,0" MaxWidth="600"
+								PlaceholderText="搜索" 
+								TextChanged="StudentSuggestBox_TextChanged"
+								SuggestionChosen="StudentSuggestBox_SuggestionChosen"/>
+
+            <Grid Grid.Row="1" AllowDrop="true" DragOver="Grid_DragOver" Drop="Grid_Drop">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="36"/>
+                </Grid.RowDefinitions>
+
+                <muxc:InfoBar Grid.Row="0" x:Name="InfoBar" IsOpen="true" Severity="Error" Title="预览模式"
 					  IsClosable="False"
 					  Message="新功能仅供测试，可能无效或包含重大缺陷。">
-                <muxc:InfoBar.ActionButton>
-                    <Button x:Name="MoreButton" Content="更多选项">
-                        <Button.Flyout>
-                            <MenuFlyout Placement="Bottom">
-                                <MenuFlyoutItem Text="反馈问题" Click="SendEmailButton_Click"/>
-                                <MenuFlyoutItem Text="退出功能预览模式（需要手动重启应用）" Click="ExitProgram_Click"/>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                </muxc:InfoBar.ActionButton>
-            </muxc:InfoBar>
+                    <muxc:InfoBar.ActionButton>
+                        <Button x:Name="MoreButton" Content="更多选项">
+                            <Button.Flyout>
+                                <MenuFlyout Placement="Bottom">
+                                    <MenuFlyoutItem Text="反馈问题" Click="SendEmailButton_Click"/>
+                                    <MenuFlyoutItem Text="退出功能预览模式（需要手动重启应用）" Click="ExitProgram_Click"/>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </muxc:InfoBar.ActionButton>
+                </muxc:InfoBar>
 
-            <TextBox Grid.Row="1" x:Name="resultBox" Margin="30,10,30,0" 
+                <TextBox Grid.Row="1" x:Name="resultBox" Margin="30,10,30,0" 
 				 TextWrapping="Wrap" VerticalAlignment="Center" 
 				 TextAlignment="Center"
 				 IsReadOnly="True" FontSize="36" />
 
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <Pivot x:Name="Views" Grid.Row="1"  Margin="30,0,0,0" >
-                        <PivotItem x:Name="All">
-                            <PivotItem.Header>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="全部" FontSize="16"/>
-                                    <muxc:InfoBadge x:Name="AllNumber" Value="0" Grid.Column="1" Style="{StaticResource AttentionValueInfoBadgeStyle}"/>
-                                </Grid>
-                            </PivotItem.Header>
-                            <ListView x:Name="AllView" 
+                        <Pivot x:Name="Views" Grid.Row="1"  Margin="30,0,0,0" >
+                            <PivotItem x:Name="All">
+                                <PivotItem.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="全部" FontSize="16"/>
+                                        <muxc:InfoBadge x:Name="AllNumber" Value="0" Grid.Column="1" Style="{StaticResource AttentionValueInfoBadgeStyle}"/>
+                                    </Grid>
+                                </PivotItem.Header>
+                                <ListView x:Name="AllView" 
 						  ItemsSource="{x:Bind studentList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Student">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{x:Bind Name}"/>
-                                            <!--muxc:InfoBadge /-->
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Student">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{x:Bind Name}"/>
+                                                <!--muxc:InfoBadge /-->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
 
-                        </PivotItem>
-                        <PivotItem x:Name="Going">
-                            <PivotItem.Header>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="进行中" FontSize="16"/>
-                                    <muxc:InfoBadge x:Name="GoingNumber" Value="0" Grid.Column="1" Style="{StaticResource CriticalValueInfoBadgeStyle}"/>
-                                </Grid>
-                            </PivotItem.Header>
-                            <ListView x:Name="GoingView"
+                            </PivotItem>
+                            <PivotItem x:Name="Going">
+                                <PivotItem.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="进行中" FontSize="16"/>
+                                        <muxc:InfoBadge x:Name="GoingNumber" Value="0" Grid.Column="1" Style="{StaticResource CriticalValueInfoBadgeStyle}"/>
+                                    </Grid>
+                                </PivotItem.Header>
+                                <ListView x:Name="GoingView"
 						  ItemsSource="{x:Bind listOfGoingStudent}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Student">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{x:Bind Name}"/>
-                                            <muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </PivotItem>
-                        <PivotItem x:Name="Finished">
-                            <PivotItem.Header>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="已完成" FontSize="16"/>
-                                    <muxc:InfoBadge x:Name="FinishedNumber" Value="0" Grid.Column="1" Style="{StaticResource SuccessValueInfoBadgeStyle}"/>
-                                </Grid>
-                            </PivotItem.Header>
-                            <ListView x:Name="FinishedView" 
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Student">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{x:Bind Name}"/>
+                                                <muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </PivotItem>
+                            <PivotItem x:Name="Finished">
+                                <PivotItem.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="已完成" FontSize="16"/>
+                                        <muxc:InfoBadge x:Name="FinishedNumber" Value="0" Grid.Column="1" Style="{StaticResource SuccessValueInfoBadgeStyle}"/>
+                                    </Grid>
+                                </PivotItem.Header>
+                                <ListView x:Name="FinishedView" 
 						  ItemsSource="{x:Bind listOfFinishedStudent}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Student">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{x:Bind Name}"/>
-                                            <!--muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/-->
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Student">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{x:Bind Name}"/>
+                                                <!--muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/-->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
 
-                        </PivotItem>
-                        <PivotItem x:Name="Unfinished">
-                            <PivotItem.Header>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="未完成" FontSize="16"/>
-                                    <muxc:InfoBadge x:Name="UnfinishedNumber" Value="0" Grid.Column="1" Style="{StaticResource InformationalValueInfoBadgeStyle}"/>
-                                </Grid>
-                            </PivotItem.Header>
-                            <ListView x:Name="UnfinishedView" 
+                            </PivotItem>
+                            <PivotItem x:Name="Unfinished">
+                                <PivotItem.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="未完成" FontSize="16"/>
+                                        <muxc:InfoBadge x:Name="UnfinishedNumber" Value="0" Grid.Column="1" Style="{StaticResource InformationalValueInfoBadgeStyle}"/>
+                                    </Grid>
+                                </PivotItem.Header>
+                                <ListView x:Name="UnfinishedView" 
 						  ItemsSource="{x:Bind listOfUnfinishedStudent}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="data:Student">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{x:Bind Name}"/>
-                                            <!--muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/-->
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="data:Student">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{x:Bind Name}"/>
+                                                <!--muxc:InfoBadge Value="{x:Bind OrderOfGoing}"/-->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
 
-                        </PivotItem>
-                    </Pivot>
+                            </PivotItem>
+                        </Pivot>
 
-                    <!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                        <!--="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
 				ItemTemplate="{StaticResource ContactListViewTemplate}"-->
 
-                </Grid>
+                    </Grid>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" x:Name="randomButton" Content="抽" 
+                        <Button Grid.Row="0" x:Name="randomButton" Content="抽" 
 					VerticalAlignment="Center" Click="randomButton_Click" 
 					HorizontalAlignment="Center" FontSize="36" 
 					BorderThickness="14,12,14,12"/>
 
-                    <StackPanel Grid.Row="1">
-                        <Button Content="开发工具" x:Name="DeveloperTools" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Visibility="Collapsed">
-                            <Button.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Text="开启GC" Click="OpenGC_Click"/>
-                                    <MenuFlyoutItem Text="立刻GC" Click="GCNow_Click"/>
-                                    <MenuFlyoutItem Text="关闭GC" Click="CloseGC_Click"/>
-                                    <MenuFlyoutItem Text="StartAnimation" Click="showAnimation_Click"/>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
-                        <!--Button Content="animation" x:Name="animationButton" >
+                        <StackPanel Grid.Row="1">
+                            <Button Content="开发工具" x:Name="DeveloperTools" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Visibility="Collapsed">
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="开启GC" Click="OpenGC_Click"/>
+                                        <MenuFlyoutItem Text="立刻GC" Click="GCNow_Click"/>
+                                        <MenuFlyoutItem Text="关闭GC" Click="CloseGC_Click"/>
+                                        <MenuFlyoutItem Text="StartAnimation" Click="showAnimation_Click"/>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                            <!--Button Content="animation" x:Name="animationButton" >
                             <Interactivity:Interaction.Behaviors>
                                 <Interactions:EventTriggerBehavior EventName="Click">
                                     <behaviors:StartAnimationAction Animation="{Binding ElementName=ClipAnimation}" />
                                 </Interactions:EventTriggerBehavior>
                             </Interactivity:Interaction.Behaviors>
                         </Button-->
-                    </StackPanel>
-                </Grid>
+                        </StackPanel>
+                    </Grid>
 
-                <Grid Grid.Column="2" Margin="0,0,30,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="2" Margin="0,0,30,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Button x:Name="selectDataSetButton" Content="选择数据集" 
+                            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Button x:Name="selectDataSetButton" Content="选择数据集" 
 								VerticalAlignment="Top" Click="selectDataSetButton_Click"/>
-                        </Grid>
+                            </Grid>
 
-                        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Button x:Name="connectDataSet" Content="连接数据集" 
+                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Button x:Name="connectDataSet" Content="连接数据集" 
 								VerticalAlignment="Top" Click="connectDataSet_Click"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <ToggleSwitch Grid.Column="0" x:Name="DisplayMode" Header="显示模式" VerticalAlignment="Center" 
-								  OffContent="Mica（高性能）" OnContent="Acrylic（高耗电）" Toggled="DisplayMode_Toggled"
-								  HorizontalAlignment="Center" Margin="0,0,-100,0"/>
+                            <ToggleSwitch Grid.Column="0" x:Name="DisplayMode" Header="显示模式" VerticalAlignment="Center"
+								  OffContent="Mica" OnContent="Acrylic" Toggled="DisplayMode_Toggled"
+								  HorizontalAlignment="Center" Margin="0,0,-55,0"/>
 
 
-                        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Button x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
+                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Button x:Name="praiseButton" Content="表扬一下" VerticalAlignment="Top"
 								Click="praiseButton_Click"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <ToggleSwitch Grid.Column="0" x:Name="whetherMark" Header="标记" VerticalAlignment="Center" 
+                            <ToggleSwitch Grid.Column="0" x:Name="whetherMark" Header="标记" VerticalAlignment="Center" 
 								  OffContent="否" OnContent="是" Toggled="whetherMark_Toggled"
-								  HorizontalAlignment="Center" Margin="0,0,-100,0"/>
+								  HorizontalAlignment="Center" Margin="0,0,-55,0"/>
 
-                        <Button Grid.Column="1" x:Name="DeleteButton" HorizontalAlignment="Center"
+                            <Button Grid.Column="1" x:Name="DeleteButton" HorizontalAlignment="Center"
 							VerticalAlignment="Center" Content="清理">
-                            <Button.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Text="日志文件" Click="DeleteLogFile_Click"/>
-                                    <MenuFlyoutItem Text="已导入的数据集" Click="DeleteDataSet_Click"/>
-                                    <MenuFlyoutItem Text="用户数据" Click="DeleteUserData_Click"/>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="日志文件" Click="DeleteLogFile_Click"/>
+                                        <MenuFlyoutItem Text="已导入的数据集" Click="DeleteDataSet_Click"/>
+                                        <MenuFlyoutItem Text="用户数据" Click="DeleteUserData_Click"/>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
 
 
 
-                    </Grid>
+                        </Grid>
 
-                    <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" x:Name="OperateStudent" Content="操作" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Text="标记完成" Click="MarkFinished_Click"/>
-                                    <MenuFlyoutItem Text="标记未完成" Click="MarkUnfinished_Click"/>
-                                    <MenuFlyoutItem Text="标记进行中" Click="MarkGoing_Click"/>
-                                    <MenuFlyoutItem Text="保存" Click="Save_Click"/>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
+                            <Button Grid.Column="0" x:Name="OperateStudent" Content="操作" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="标记完成" Click="MarkFinished_Click"/>
+                                        <MenuFlyoutItem Text="标记未完成" Click="MarkUnfinished_Click"/>
+                                        <MenuFlyoutItem Text="标记进行中" Click="MarkGoing_Click"/>
+                                        <MenuFlyoutItem Text="保存" Click="Save_Click"/>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
 
-                        <Button Grid.Column="1" x:Name="layOutFlyoutButton" Content="导出" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button.Flyout >
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Text="数据集" Click="LayoutDataSet_Click"/>
-                                    <!--MenuFlyoutItem Text="用户数据" Click="LayoutUserData_Click"/-->
-                                    <!--MenuFlyoutItem Text="日志文件" Click="LayoutLogs_Click"/-->
-                                    <MenuFlyoutItem Text="身份文件" Click="LayoutIdentityFile_Click"/>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
+                            <Button Grid.Column="1" x:Name="layOutFlyoutButton" Content="导出" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button.Flyout >
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="数据集" Click="LayoutDataSet_Click"/>
+                                        <!--MenuFlyoutItem Text="用户数据" Click="LayoutUserData_Click"/-->
+                                        <!--MenuFlyoutItem Text="日志文件" Click="LayoutLogs_Click"/-->
+                                        <MenuFlyoutItem Text="身份文件" Click="LayoutIdentityFile_Click"/>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
 
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <muxc:InfoBadge Grid.Column="0" Height="10" Width="10" Margin="15,5,-5,5" x:Name="GCInfo" Style="{StaticResource CriticalDotInfoBadgeStyle}" Visibility="Collapsed"/>
+                    <muxc:InfoBadge Grid.Column="0" Height="10" Width="10" Margin="15,5,-5,5" x:Name="GCInfo" Style="{StaticResource CriticalDotInfoBadgeStyle}" Visibility="Collapsed"/>
 
-                <muxc:ProgressBar Grid.Column="1" x:Name="dealWithStudentDataProgressBar" 
+                    <muxc:ProgressBar Grid.Column="1" x:Name="dealWithStudentDataProgressBar" 
 						 Margin="15,0,5,0" />
 
-                <muxc:InfoBadge Grid.Column="2" Height="10" Width="10" Margin="5" x:Name="IdentifyInfo" Style="{StaticResource SuccessDotInfoBadgeStyle}" />
+                    <muxc:InfoBadge Grid.Column="2" Height="10" Width="10" Margin="5" x:Name="IdentifyInfo" Style="{StaticResource SuccessDotInfoBadgeStyle}" />
 
-                <TextBlock Grid.Column="3" x:Name="versionInformationBox" 
+                    <TextBlock Grid.Column="3" x:Name="versionInformationBox" 
 					   HorizontalAlignment="Right" TextWrapping="NoWrap" 
 					   VerticalAlignment="Center" 
                        Margin="5,0,10,0"
 					   FontSize="10" TextAlignment="Right" 
 					   Tapped="versionInformationBox_Tapped"
 					   />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
