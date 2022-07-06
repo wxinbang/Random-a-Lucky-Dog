@@ -16,6 +16,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PreRelease|x64'">
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <RemoteDebugMachine>DESKTOP-PRRO28Q</RemoteDebugMachine>
-    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
   </PropertyGroup>
 </Project>
