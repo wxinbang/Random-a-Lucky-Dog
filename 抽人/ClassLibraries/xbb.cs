@@ -341,7 +341,7 @@ namespace xbb.ClassLibraries
 
 		public static async void LayoutIdentityFile(bool checkAgain = false)
 		{
-			if (checkAgain||await ContentDialogs.VerifyImportantIdentity())
+			if (await DealWithIdentity.VerifyIdentity() && await ContentDialogs.VerifyImportantIdentity())
 			{
 				var userNameBox = new TextBox { PlaceholderText = "随便输个用户名", Margin = new Thickness(10) };
 				var passwordBox = new PasswordBox { PlaceholderText = "密码,要记住的", Margin = new Thickness(10) };
@@ -391,7 +391,7 @@ namespace xbb.ClassLibraries
 					await FileIO.AppendTextAsync(file, hash2);
 				}
 			}
-			//else ContentDialogs.ThrowException("没有所需的权限", false);
+			else ContentDialogs.ThrowException("没有所需的权限", false);
 		}
 
 		public static async Task<bool> VerifyImportantIdentity(bool checkAgain = false)
