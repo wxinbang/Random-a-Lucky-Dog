@@ -111,7 +111,7 @@ namespace 抽人
 			{
 				if (DealWithSettings.ReadSettings(SettingKey.saved) != "true") file = await dataSetFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
 				else file = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
-				ConnectDataSet(file);
+				ConnectDataSet(file,true);
 				fileName = DealWithSettings.ReadSettings(SettingKey.fileName);
 			}
 			if (DealWithSettings.ReadSettings(SettingKey.joinProgram) != "true")
@@ -211,45 +211,49 @@ namespace 抽人
 		{
 			ConnectDataSet(file);
 		}
-		private async void ConnectDataSet(StorageFile file)
+		private async void ConnectDataSet(StorageFile file,bool NotVerifyIdentity=false)
 		{
-			try
+			if (await DealWithIdentity.VerifyIdentity()||NotVerifyIdentity)
 			{
-				studentList.Clear();
-				listOfGoingStudent.Clear();
-				listOfUnfinishedStudent.Clear();
-				lastGoingStudent.Clear();
-				listOfFinishedStudent.Clear();
-
-				IList<string> contents = await FileIO.ReadLinesAsync(file);
-				//sumOfStudent = contents.ToArray().Length;
-				dealWithStudentDataProgressBar.Maximum = sumOfStudent;
-				int orderInList = 0;
-				//bool[] checkId = new bool[sumOfStudent];
-				foreach (string content in contents)
+				try
 				{
-					string[] studentData = DealWithData.DealWithStudentData(content);
+					studentList.Clear();
+					listOfGoingStudent.Clear();
+					listOfUnfinishedStudent.Clear();
+					lastGoingStudent.Clear();
+					listOfFinishedStudent.Clear();
 
-					Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = orderInList++ };
+					IList<string> contents = await FileIO.ReadLinesAsync(file);
+					//sumOfStudent = contents.ToArray().Length;
+					dealWithStudentDataProgressBar.Maximum = sumOfStudent;
+					int orderInList = 0;
+					//bool[] checkId = new bool[sumOfStudent];
+					foreach (string content in contents)
+					{
+						string[] studentData = DealWithData.DealWithStudentData(content);
 
-					if (Somebody.StudentStatus == StudentStatus.unfinished) listOfUnfinishedStudent.Add(Somebody);
-					else if (Somebody.StudentStatus == StudentStatus.going) lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
-					else if (Somebody.StudentStatus == StudentStatus.finished) listOfFinishedStudent.Add(Somebody);
+						Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = orderInList++ };
 
-					studentList.Add(Somebody);
-					dealWithStudentDataProgressBar.Value = contents.IndexOf(content) + 1;
+						if (Somebody.StudentStatus == StudentStatus.unfinished) listOfUnfinishedStudent.Add(Somebody);
+						else if (Somebody.StudentStatus == StudentStatus.going) lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
+						else if (Somebody.StudentStatus == StudentStatus.finished) listOfFinishedStudent.Add(Somebody);
+
+						studentList.Add(Somebody);
+						dealWithStudentDataProgressBar.Value = contents.IndexOf(content) + 1;
+					}
+
+					foreach (var someBody in lastGoingStudent) listOfGoingStudent.Insert(0, someBody.Value);
+
+					resultBox.Text = "连接完成：" + file.Name;
+					RefreshListNumber();
+					DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
 				}
-
-				foreach (var someBody in lastGoingStudent) listOfGoingStudent.Insert(0, someBody.Value);
-
-				resultBox.Text = "连接完成：" + file.Name;
-				RefreshListNumber();
-				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
+				catch (Exception ex)
+				{
+					ContentDialogs.ThrowException(ex.ToString());
+				}
 			}
-			catch (Exception ex)
-			{
-				ContentDialogs.ThrowException(ex.ToString());
-			}
+			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
 		private async void whetherMark_Toggled(object sender, RoutedEventArgs e)
 		{
