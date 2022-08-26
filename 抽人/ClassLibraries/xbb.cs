@@ -25,7 +25,7 @@ namespace xbb.ClassLibraries
 		public int OrderOfGoing { get; set; }
 		public int OrderInList { get; set; }
 
-		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going ? OrderOfGoing.ToString() + "\n" : "\n");
+		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going ? OrderOfGoing.ToString()/* + "\n" : "\n"*/);
 	}
 
 	public enum StudentStatus //状态
@@ -139,9 +139,12 @@ namespace xbb.ClassLibraries
 
 		public static async Task LayoutData(StorageFile file, SortedList<int, Student> students)
 		{
+			List<string> lines = new List<string>();
 			//StorageFolder folder = ApplicationData.Current.LocalFolder;
 			//StorageFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-			foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.ToString());
+			foreach(Student student in students.Values)lines.Add(student.ToString());
+			await FileIO.AppendLinesAsync(file,lines);
+			//foreach (Student student in students.Values) await FileIO.AppendTextAsync(file, student.ToString());
 		}
 
 		public static SortedList<int, Student> SumDataSets(ObservableCollection<Student> students, ObservableCollection<Student> unfinished, ObservableCollection<Student> going, ObservableCollection<Student> finished)
