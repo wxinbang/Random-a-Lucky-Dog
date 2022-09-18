@@ -225,7 +225,8 @@ namespace 抽人
 
 					IList<string> contents = await FileIO.ReadLinesAsync(file);
 					//sumOfStudent = contents.ToArray().Length;
-					dealWithStudentDataProgressBar.Maximum = sumOfStudent;
+					while(contents.Last()=="")contents.RemoveAt(contents.Count()-1);
+					dealWithStudentDataProgressBar.Maximum = contents.Count();
 					int orderInList = 0;
 					//bool[] checkId = new bool[sumOfStudent];
 					foreach (string content in contents)
@@ -293,26 +294,26 @@ namespace 抽人
 		{
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				await Save_Click(sender, e, false);
 				//SortedList<int, Student> updatedList = DealWithData.SumDataSets(studentList, listOfUnfinishedStudent, listOfGoingStudent, listOfFinishedStudent);
-				string afterFileName = "After-" + fileName;
+				string afterFileName = "After-" + file.Name;
 
 				var savePicker = new FileSavePicker();
 				savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
 				savePicker.FileTypeChoices.Add("文本文件", new List<string>() { ".txt" });
 				savePicker.SuggestedFileName = afterFileName;
 
-				StorageFile file = await savePicker.PickSaveFileAsync();
-				if (file != null)
+				StorageFile saveFile = await savePicker.PickSaveFileAsync();
+				if (saveFile != null)
 				{
-					CachedFileManager.DeferUpdates(file);
-					await FileIO.WriteTextAsync(file, "");
+					await Save_Click(sender, e, false);
+					CachedFileManager.DeferUpdates(saveFile);
+					await FileIO.WriteTextAsync(saveFile, "");
 					StorageFile saved = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
-					await saved.CopyAndReplaceAsync(file);
+					await saved.CopyAndReplaceAsync(saveFile);
 					//DealWithData.LayoutData(file, updatedList);
-					FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-					if (status == FileUpdateStatus.Complete) this.resultBox.Text = "文件 " + file.Name + " 已被保存";
-					else this.resultBox.Text = "文件 " + file.Name + " 未被保存";
+					FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(saveFile);
+					if (status == FileUpdateStatus.Complete) this.resultBox.Text = "文件 " + saveFile.Name + " 已被保存";
+					else this.resultBox.Text = "文件 " + saveFile.Name + " 未被保存";
 				}
 				else this.resultBox.Text = "操作已取消";
 			}
@@ -408,7 +409,7 @@ namespace 抽人
 				{
 					//if( (items[0]as StorageFile).ContentType == "text/txt")
 					{
-						StorageFile file = items[0] as StorageFile;
+						file = items[0] as StorageFile;
 						await file.CopyAsync(dataSetFolder, file.Name, NameCollisionOption.ReplaceExisting);
 
 						ConnectDataSet(items[0] as StorageFile);

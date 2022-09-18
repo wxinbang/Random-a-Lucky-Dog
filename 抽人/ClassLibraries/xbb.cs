@@ -25,7 +25,7 @@ namespace xbb.ClassLibraries
 		public int OrderOfGoing { get; set; }
 		public int OrderInList { get; set; }
 
-		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going ? OrderOfGoing.ToString()/* + "\n" : "\n"*/);
+		public override string ToString() => Name + "\t" + DealWithData.ConvertStatus(StudentStatus) + "\t" + (StudentStatus == StudentStatus.going ? OrderOfGoing.ToString():"");/* + "\n" : "\n"*/
 	}
 
 	public enum StudentStatus //状态
