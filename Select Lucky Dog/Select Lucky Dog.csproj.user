@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Source>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</Source>
+    <SmallTileSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</SmallTileSource>
+    <MediumTileSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</MediumTileSource>
+    <WideTileSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</WideTileSource>
+    <LargeTileSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</LargeTileSource>
+    <AppIconSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</AppIconSource>
+    <SplashScreenSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</SplashScreenSource>
+    <BadgeLogoSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</BadgeLogoSource>
+    <PackageLogoSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</PackageLogoSource>
+  </PropertyGroup>
+</Project>

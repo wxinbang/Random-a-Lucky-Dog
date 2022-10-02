@@ -246,6 +246,16 @@
     <None Include="Assets\README.md" />
     <None Include="抽人_TemporaryKey.pfx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Select Lucky Dog.Core\Select Lucky Dog.Core.csproj">
+      <Project>{ABFF286C-6216-41BF-A334-B8142D6EF0C3}</Project>
+      <Name>Select Lucky Dog.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Select Lucky Dog\Select Lucky Dog.csproj">
+      <Project>{AFC6F48B-A2B0-45F2-8BE3-5586A04E58FB}</Project>
+      <Name>Select Lucky Dog</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
