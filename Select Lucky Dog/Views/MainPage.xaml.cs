@@ -115,9 +115,10 @@ namespace Select_Lucky_Dog.Views
 			{
 				ResultBox.Text = ListOfUnfinishedStudent[studentNumber].Name;
 				ListOfUnfinishedStudent[studentNumber].StudentStatus = StudentStatus.going;
-				ListOfGoingStudent.Insert(0, ListOfUnfinishedStudent[studentNumber]);
+				//ListOfGoingStudent.Insert(0, ListOfUnfinishedStudent[studentNumber]);
 				ListOfGoingStudent[0].OrderOfGoing = ListOfGoingStudent.Count;
-				ListOfUnfinishedStudent.RemoveAt(studentNumber);
+				//ListOfUnfinishedStudent.RemoveAt(studentNumber);
+				MoveToTopOfCollection(ListOfUnfinishedStudent[studentNumber],ListOfUnfinishedStudent,ListOfGoingStudent)
 				dealWithStudentDataProgressBar.Value = ListOfGoingStudent.Count;
 				RefreshListNumber();
 			}
@@ -127,11 +128,11 @@ namespace Select_Lucky_Dog.Views
             ToCollection.Insert(0,T);
             FromCollection.RemoveAt(FromCollection.IndexOf(T));
         }
-		private void praiseButton_Click(object sender, RoutedEventArgs e)
+		private void PraiseButton_Click(object sender, RoutedEventArgs e)
 		{
 			ContentDialogs.DisplayInvalidPraise();
 		}
-		private async void selectDataSetButton_Click(object sender, RoutedEventArgs e)
+		private async void SelectDataSetButton_Click(object sender, RoutedEventArgs e)
 		{
 			//unfinishedNumber = 0;
 			//studentNumber = 0;
@@ -154,7 +155,7 @@ namespace Select_Lucky_Dog.Views
 			}
 			DealWithSettings.DeleteSettings(SettingKey.saved);
 		}
-		private void connectDataSet_Click(object sender, RoutedEventArgs e)
+		private void ConnectDataSet_Click(object sender, RoutedEventArgs e)
 		{
 			ConnectDataSet(file);
 		}
@@ -162,61 +163,51 @@ namespace Select_Lucky_Dog.Views
 		{
 			if (await DealWithIdentity.VerifyIdentity()||NotVerifyIdentity)
 			{
-				try
+				ListOfAllStudent.Clear();
+				ListOfGoingStudent.Clear();
+				ListOfUnfinishedStudent.Clear();
+				lastGoingStudent.Clear();
+				ListOfFinishedStudent.Clear();
+				ListOfOtherStudent.Clear();
+				IList<string> contents = await FileIO.ReadLinesAsync(file);
+				//sumOfStudent = contents.ToArray().Length;
+				while(contents.Last()=="")contents.RemoveAt(contents.Count()-1);
+				dealWithStudentDataProgressBar.Maximum = contents.Count();
+				int orderInList = 0;
+				//bool[] checkId = new bool[sumOfStudent];
+				foreach (string content in contents)
 				{
-					ListOfAllStudent.Clear();
-					ListOfGoingStudent.Clear();
-					ListOfUnfinishedStudent.Clear();
-					lastGoingStudent.Clear();
-					ListOfFinishedStudent.Clear();
-
-					IList<string> contents = await FileIO.ReadLinesAsync(file);
-					//sumOfStudent = contents.ToArray().Length;
-					while(contents.Last()=="")contents.RemoveAt(contents.Count()-1);
-					dealWithStudentDataProgressBar.Maximum = contents.Count();
-					int orderInList = 0;
-					//bool[] checkId = new bool[sumOfStudent];
-					foreach (string content in contents)
-					{
-						string[] studentData = DealWithData.DealWithStudentData(content);
-
-						Student Somebody = new Student() { Name = studentData[0], StudentStatus = DealWithData.ConvertStatus(studentData[1]), OrderOfGoing = Convert.ToInt32(studentData[2]), OrderInList = orderInList++ };
-
-						if (Somebody.StudentStatus == StudentStatus.unfinished) ListOfUnfinishedStudent.Add(Somebody);
-						else if (Somebody.StudentStatus == StudentStatus.going) lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
-						else if (Somebody.StudentStatus == StudentStatus.finished) ListOfFinishedStudent.Add(Somebody);
-
-						ListOfAllStudent.Add(Somebody);
-						dealWithStudentDataProgressBar.Value = contents.IndexOf(content) + 1;
-					}
-
-					foreach (var someBody in lastGoingStudent) ListOfGoingStudent.Insert(0, someBody.Value);
-
-					ResultBox.Text = "连接完成：" + file.Name;
-					RefreshListNumber();
-					DealWithSettings.WriteSettings(SettingKey.FileName, file.Name);
+					string[] studentData = DealWithData.DealWithStudentData(content);
+					Student Somebody = new Student()
+					{ 	studentData[0], 
+						DealWithData.ConvertStatus(studentData[1]),
+					 	Convert.ToByte(studentData[2]), 
+						orderInList++ 
+					};
+					SortStudent(Somebody);
+					ListOfAllStudent.Add(Somebody);
+					dealWithStudentDataProgressBar.Value = contents.IndexOf(content) + 1;
 				}
-				catch (Exception ex)
-				{
-					ContentDialogs.ThrowException(ex.ToString());
-				}
+				foreach (var someBody in lastGoingStudent) ListOfGoingStudent.Insert(0, someBody.Value);
+				ResultBox.Text = "连接完成：" + file.Name;
+				RefreshListNumber();
+				DealWithSettings.WriteSettings(SettingKey.FileName, file.Name);
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		}
+		private void SortStudent(Student Somebody)
+		{
+			if (Somebody.StudentStatus == StudentStatus.unfinished) ListOfUnfinishedStudent.Add(Somebody);
+			else if (Somebody.StudentStatus == StudentStatus.going) lastGoingStudent.Add(Somebody.OrderOfGoing, Somebody);
+			else if (Somebody.StudentStatus == StudentStatus.finished) ListOfFinishedStudent.Add(Somebody);
+			else ListOfOtherStudent.Add(Somebody);
+		}
 		private async void WhetherMark_Toggled(object sender, RoutedEventArgs e)
 		{
-			if (WhetherMark.IsOn == true)
-			{
-				mark = await ContentDialogs.CheckWhetherMark();
-				WhetherMark.IsOn = mark;
-			}
-			else
-			{
-				mark = WhetherMark.IsOn;
-				DealWithSettings.WriteSettings(SettingKey.mark, mark ? "true" : "False");
-			}
+			if (WhetherMark.IsOn == true)WhetherMark.IsOn = await ContentDialogs.CheckWhetherMark();
+			else DealWithSettings.WriteSettings(SettingKey.mark, WhetherMark.IsOn ? "true" : "False");
 		}
-		private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
+		private void VersionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
 		{
 			timesOfVersionTextTapped++;
 			if (timesOfVersionTextTapped == 5)
@@ -337,6 +328,7 @@ namespace Select_Lucky_Dog.Views
 				AllView.ScrollIntoView(student);
 			}
 		}
+		private void GoTOStudent(Pivot pivot,)
 		private void Grid_DragOver(object sender, DragEventArgs e)
 		{
 			e.AcceptedOperation = DataPackageOperation.Link;
