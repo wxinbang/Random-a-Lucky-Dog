@@ -258,4 +258,88 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>Search</value>
     <comment>SearchBoxText</comment>
   </data>
+  <data name="ConnectDataSet.Content" xml:space="preserve">
+    <value>Connect Data Set</value>
+    <comment>ConnectDataSetContent</comment>
+  </data>
+  <data name="DeveloperTools.Content" xml:space="preserve">
+    <value>Developer Tools</value>
+    <comment>DeveloperToolsButton</comment>
+  </data>
+  <data name="DisplayMode.Header" xml:space="preserve">
+    <value>Display Mode</value>
+    <comment>DisplayModeHeader</comment>
+  </data>
+  <data name="RandomButton.Content" xml:space="preserve">
+    <value>R</value>
+    <comment>RandomButtonText</comment>
+  </data>
+  <data name="SelectDataSetButton.Content" xml:space="preserve">
+    <value>Select Data Set</value>
+    <comment>SelectDataSetButtonContent</comment>
+  </data>
+  <data name="DeleteButton.Content" xml:space="preserve">
+    <value>Delete</value>
+    <comment>DeleteButtonContent</comment>
+  </data>
+  <data name="DeleteDataSetButton.Text" xml:space="preserve">
+    <value>Data Set</value>
+    <comment>DeleteDataSetButtonText</comment>
+  </data>
+  <data name="DeleteLogFileButton.Text" xml:space="preserve">
+    <value>Log File</value>
+    <comment>DeleteLogFileButtonText</comment>
+  </data>
+  <data name="DeleteUserDataButton.Text" xml:space="preserve">
+    <value>User Data</value>
+    <comment>DeleteUserDataButtonText</comment>
+  </data>
+  <data name="LayOutButton.Content" xml:space="preserve">
+    <value>Lay out</value>
+    <comment>LayOutButtonText</comment>
+  </data>
+  <data name="LayoutDataSetButton.Text" xml:space="preserve">
+    <value>Data Set</value>
+    <comment>LayoutDataSetButtonText</comment>
+  </data>
+  <data name="LayoutIdentityFileButton.Text" xml:space="preserve">
+    <value>Identity File</value>
+    <comment>LayoutIdentityFileButtonText</comment>
+  </data>
+  <data name="MarkFinishedButton.Text" xml:space="preserve">
+    <value>Mark Finished</value>
+    <comment>MarkFinishedButtonText</comment>
+  </data>
+  <data name="MarkGoingButton.Text" xml:space="preserve">
+    <value>Mark Going</value>
+    <comment>MarkGoingButtonText</comment>
+  </data>
+  <data name="MarkUnfinishedButton.Text" xml:space="preserve">
+    <value>Mark Unfinished</value>
+    <comment>MarkUnfinishedButtonText</comment>
+  </data>
+  <data name="OperateStudentButton.Content" xml:space="preserve">
+    <value>Operate</value>
+    <comment>OperateStudentButtonContent</comment>
+  </data>
+  <data name="PraiseButton.Content" xml:space="preserve">
+    <value>Praise</value>
+    <comment>PraiseButtonContent</comment>
+  </data>
+  <data name="SaveButton.Text" xml:space="preserve">
+    <value>Save</value>
+    <comment>SaveButtonText</comment>
+  </data>
+  <data name="WhetherMark.Header" xml:space="preserve">
+    <value>Mark</value>
+    <comment>WhetherMarkHeader</comment>
+  </data>
+  <data name="WhetherMark.OffContent" xml:space="preserve">
+    <value>Off</value>
+    <comment>WhetherMarkOffContent</comment>
+  </data>
+  <data name="WhetherMark.OnContent" xml:space="preserve">
+    <value>On</value>
+    <comment>WhetherMarkOnContent</comment>
+  </data>
 </root>
