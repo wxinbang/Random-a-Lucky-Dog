@@ -50,73 +50,67 @@ namespace xbb.ClassLibraries
 
 	public static class DealWithData
 	{
-		public static string[] DealWithStudentData(string dataLine)
-		{
-			string[] studentData = new string[3];
+		//public static string[] DealWithStudentData(string dataLine)
+		//{
+		//	string[] studentData = new string[3];
 
-			dataLine.Trim();
+		//	dataLine.Trim();
 
-			int dataLineLenth = dataLine.Length, i = 0;
-			char[] DataArray = dataLine.ToCharArray();
+		//	int dataLineLenth = dataLine.Length, i = 0;
+		//	char[] DataArray = dataLine.ToCharArray();
 
-			while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
-			while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-			{
-				studentData[0] += DataArray[i];
-				i++;
-			}
-			while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
+		//	while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
+		//	while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
+		//	{
+		//		studentData[0] += DataArray[i];
+		//		i++;
+		//	}
+		//	while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
 
-			while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-			{
-				studentData[1] += DataArray[i];
-				i++;
-			}
-			while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
+		//	while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
+		//	{
+		//		studentData[1] += DataArray[i];
+		//		i++;
+		//	}
+		//	while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
 
-			while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-			{
-				studentData[2] += DataArray[i];
-				i++;
-			}
-			while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
+		//	while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
+		//	{
+		//		studentData[2] += DataArray[i];
+		//		i++;
+		//	}
+		//	while (i < dataLineLenth && (DataArray[i] == ' ' || DataArray[i] == '\t')) i++;
 
-			/*
-			while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
-			{
-				studentData[3] += DataArray[i];
-				i++;
-			}
-			*/
-			return studentData;//记得简化
-		}
+		//	/*
+		//	while (i < dataLineLenth && DataArray[i] != ' ' && DataArray[i] != '\t')
+		//	{
+		//		studentData[3] += DataArray[i];
+		//		i++;
+		//	}
+		//	*/
+		//	return studentData;//记得简化
+		//}
 
-		public static StudentStatus ConvertStatus(string status)
-		{
-			if ((status == "unfinished") || (status == "")) return StudentStatus.unfinished;
-			else if (status == "going") return StudentStatus.going;
-			else if (status == "finished") return StudentStatus.finished;
-			else if (status == "suspended") return StudentStatus.suspended;
-			else return StudentStatus.unfinished;
-		}
+		//public static StudentStatus ConvertStatus(string status)
+		//{
+		//	if ((status == "unfinished") || (status == "")) return StudentStatus.unfinished;
+		//	else if (status == "going") return StudentStatus.going;
+		//	else if (status == "finished") return StudentStatus.finished;
+		//	else if (status == "suspended") return StudentStatus.suspended;
+		//	else return StudentStatus.unfinished;
+		//}
 
-		public static string ConvertStatus(StudentStatus status)
-		{
-			if (status == StudentStatus.unfinished) return "unfinished";
-			else if (status == StudentStatus.going) return "going";
-			else if (status == StudentStatus.finished) return "finished";
-			else if (status == StudentStatus.suspended) return "suspended";
-			else return "error";
-		}
+		//public static string ConvertStatus(StudentStatus status)
+		//{
+		//	if (status == StudentStatus.unfinished) return "unfinished";
+		//	else if (status == StudentStatus.going) return "going";
+		//	else if (status == StudentStatus.finished) return "finished";
+		//	else if (status == StudentStatus.suspended) return "suspended";
+		//	else return "error";
+		//}
 
 
-		public static void SortStudentData(ref ObservableCollection<Student> data)
-		{
-			for (int i = 0; i < data.Count; i++)
-			{
-				data[i].OrderOfGoing = data.Count - i;
-			}
-		}
+
 
 		public static async Task LayoutData(StorageFile file, SortedList<int, Student> students)
 		{

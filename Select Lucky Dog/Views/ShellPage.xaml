@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" x:Uid="AppTitleTextBlock"
+            <TextBlock Grid.Column="0" x:Uid="AppTitleTextBlock" x:Name="AppTitleTextBlock"
                Style="{StaticResource CaptionTextBlockStyle}" 
                VerticalAlignment="Center"
                Margin="18,0,0,0"/>
@@ -58,9 +58,9 @@
             Or to use an IconElement instead of a Symbol see https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-                <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Document" helpers:NavHelper.NavigateTo="views:MainPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Details" Icon="Document" helpers:NavHelper.NavigateTo="views:DetailsPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Files" Icon="Document" helpers:NavHelper.NavigateTo="views:FilesPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Details" Icon="List" helpers:NavHelper.NavigateTo="views:DetailsPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Files" Icon="ShowBcc" helpers:NavHelper.NavigateTo="views:FilesPage" />
             </winui:NavigationView.MenuItems>
             <i:Interaction.Behaviors>
                 <behaviors:NavigationViewHeaderBehavior>

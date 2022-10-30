@@ -9,13 +9,16 @@ namespace Select_Lucky_Dog.Core.Models
         public string Name { get; set; }
         public StudentStatus Status { get; set; }
         public int OrderOfGoing { get; set; }
+		public int PraiseTime { get; set; }
         public int OrderInList { get; set; }
-        public override string ToString() => Name + "\t" + Status.ToString() + "\t" + (Status == StudentStatus.going ? OrderOfGoing.ToString() : "");
-        public Student(string name,StudentStatus status,int orderOfGoing,int orderInList)
+  
+		public override string ToString() => Name + "\t" +  Status.ToString() + "\t" + (Status == StudentStatus.going ? OrderOfGoing.ToString() : "" + PraiseTime.ToString());
+        public Student(string name,StudentStatus status,int orderOfGoing, int times, int orderInList)
         {
             this.Name=name;
             this.Status=status;
             this.OrderOfGoing=orderOfGoing;
+			this.PraiseTime = times;
             this.OrderInList=orderInList;
         }
     }

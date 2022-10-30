@@ -273,12 +273,12 @@ namespace xbb.ClassLibraries
 			ContentDialogResult result = await whetherMarkDialog.ShowAsync();
 			if (result == ContentDialogResult.Primary)
 			{
-				DealWithSettings.WriteSettings(SettingKey.mark, "true");
+				SaveString(SettingKey.mark, "true");
 				return true;
 			}
 			else
 			{
-				DealWithSettings.WriteSettings(SettingKey.mark, "false");
+				SaveString(SettingKey.mark, "false");
 				return false;
 			}
 		}
@@ -313,10 +313,10 @@ namespace xbb.ClassLibraries
 			ContentDialogResult result = await invalidPraise.ShowAsync();
 			if (result == ContentDialogResult.Primary)
 			{
-				DealWithSettings.WriteSettings(SettingKey.joinProgram, "true");
+				SaveString(SettingKey.joinProgram, "true");
 				await CoreApplication.RequestRestartAsync(string.Empty);
 			}
-			else DealWithSettings.WriteSettings(SettingKey.joinProgram, "false");
+			else SaveString(SettingKey.joinProgram, "false");
 		}
 
 		public static async void ComposeEmail()

@@ -22,8 +22,7 @@ namespace Select_Lucky_Dog.Services
                     if (SystemInformation.Instance.IsFirstRun && !shown)
                     {
                         shown = true;
-                        var dialog = new FirstRunDialog();
-                        await dialog.ShowAsync();
+                        await ContentDialogs.FirstRunDialog();
                     }
                 });
         }

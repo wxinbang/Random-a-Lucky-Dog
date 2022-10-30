@@ -9,13 +9,13 @@ namespace Select_Lucky_Dog.Views
 {
     public sealed partial class DetailsDetailControl : UserControl
     {
-        public SampleOrder ListMenuItem
+        public Student ListMenuItem
         {
-            get { return GetValue(ListMenuItemProperty) as SampleOrder; }
+            get { return GetValue(ListMenuItemProperty) as Student; }
             set { SetValue(ListMenuItemProperty, value); }
         }
 
-        public static readonly DependencyProperty ListMenuItemProperty = DependencyProperty.Register("ListMenuItem", typeof(SampleOrder), typeof(DetailsDetailControl), new PropertyMetadata(null, OnListMenuItemPropertyChanged));
+        public static readonly DependencyProperty ListMenuItemProperty = DependencyProperty.Register("ListMenuItem", typeof(Student), typeof(DetailsDetailControl), new PropertyMetadata(null, OnListMenuItemPropertyChanged));
 
         public DetailsDetailControl()
         {

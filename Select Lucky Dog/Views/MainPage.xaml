@@ -203,10 +203,6 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Button x:Uid="SelectDataSetButton" 
-								VerticalAlignment="Top" Click="SelectDataSetButton_Click"/>
-                            </Grid>
 
                             <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Button x:Uid="ConnectDataSet" 
@@ -300,7 +296,8 @@
 					   VerticalAlignment="Center" 
                        Margin="5,0,10,0"
 					   FontSize="10" TextAlignment="Right" 
-					   Tapped="VersionInformationBox_Tapped"/>
+					   Tapped="VersionInformationBox_Tapped"
+                       Text="0.0.0.0"/>
                 </Grid>
             </Grid>
 

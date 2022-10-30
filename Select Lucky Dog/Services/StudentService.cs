@@ -18,10 +18,10 @@ namespace Select_Lucky_Dog.Core.Services
 {
     public static class StudentService
     {
-        private static async Task<IEnumerable<Student>> GetStudentsAsync(IStorageFile file)
+        public static async Task<Collection<Student>> GetStudentsAsync(IStorageFile file)
         {
-            var students = new List<Student>();
-            byte orderInList = 0;
+            var students = new Collection<Student>();
+            int orderInList = 0;
             IList<string> lines = await FileIO.ReadLinesAsync(file);
             while (lines.Last() == "") lines.RemoveAt(lines.Count() - 1);
 
@@ -31,7 +31,8 @@ namespace Select_Lucky_Dog.Core.Services
 
                 Student Somebody = new Student(studentData[0],
                     ConvertStatus(studentData[1]),
-                    Convert.ToByte(studentData[2] ?? "0"),
+                    Convert.ToInt32(studentData[2] ?? "0"),
+                    Convert.ToInt32(studentData[3] ?? "0"),
                     orderInList++);
 
                 students.Add(Somebody);
@@ -49,12 +50,14 @@ namespace Select_Lucky_Dog.Core.Services
         private static string[] SplitStudentLine(string line)
         {
             line.Trim();
-            string[] lines = new string[3];
-            lines = line.Split(new char[2] { ' ', '\t' });
-            
-            return lines;
+            string[] returnLines = new string[4];
+            var lines = line.Split(new char[2] { ' ', '\t' },StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < lines.Length && i < returnLines.Length; i++) returnLines[i] = lines[i];
+
+            return returnLines;
         }
-        public static ICollection<Student>[] SortStudents(ICollection<Student> students)
+        public static Collection<Student>[] SortStudent(ICollection<Student> students)
         {
             Collection<Student>[] collections = new Collection<Student>[4];
             collections[0] = new Collection<Student>();
@@ -75,6 +78,27 @@ namespace Select_Lucky_Dog.Core.Services
 
             return collections;
         }
-        
+        public static void UpgradeGoingStudentData(ref ObservableCollection<Student> data)
+        {
+            for (int i = 0; i < data.Count; i++) data[i].OrderOfGoing = data.Count - i;
+        }
+        public static void MoveStudentToTopOfCollection(Student sb,Collection<Student> FromCollection,Collection<Student> ToCollection,StudentStatus Status)
+        {
+            ToCollection.Insert(0, sb);
+            ToCollection[0].Status = Status;
+            FromCollection.RemoveAt(FromCollection.IndexOf(sb));
+            if (Status == going) ToCollection[0].OrderOfGoing = ToCollection.Count;
+        }
+        private static IList<string> GetStudentStringList(Collection<Student> collection)
+        {
+            IList<string> list = new List<string>();
+            foreach (var student in collection)list.Add(student.ToString());
+            return list;
+        }
+        public static async Task SaveStudentsAsync(StorageFile file,Collection<Student> collection)
+        {
+            IList<string> list = GetStudentStringList(collection);
+            await FileIO.WriteLinesAsync(file, list);
+        }
     }
 }

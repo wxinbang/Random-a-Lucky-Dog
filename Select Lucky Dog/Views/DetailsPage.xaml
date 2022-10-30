@@ -17,23 +17,24 @@
         </TransitionCollection>
     </Page.Transitions>
     <Page.Resources>
-        <DataTemplate x:Key="ItemTemplate" x:DataType="model:SampleOrder">
+        <DataTemplate x:Key="ItemTemplate" x:DataType="model:Student">
             <Grid Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <FontIcon
+                <!--FontIcon
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     FontSize="32"
-                    Glyph="{x:Bind Symbol}" />
+                    Glyph="{x:Bind Symbol}" /-->
                 <StackPanel
                     Grid.Column="1"
                     Margin="{StaticResource SmallLeftMargin}"
                     VerticalAlignment="Center">
-                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Company}" />
-                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Status}" />
+                    <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Name}" />
+                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Status}"
+                               />
                 </StackPanel>
             </Grid>
         </DataTemplate>

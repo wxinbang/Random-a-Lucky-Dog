@@ -8,20 +8,21 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 
 using Select_Lucky_Dog.Core.Models;
 using Select_Lucky_Dog.Core.Services;
+using Select_Lucky_Dog.Services;
 
 namespace Select_Lucky_Dog.ViewModels
 {
     public class DetailsViewModel : ObservableObject
     {
-        private SampleOrder _selected;
+        private Student _selected;
 
-        public SampleOrder Selected
+        public Student Selected
         {
             get { return _selected; }
             set { SetProperty(ref _selected, value); }
         }
 
-        public ObservableCollection<SampleOrder> SampleItems { get; private set; } = new ObservableCollection<SampleOrder>();
+        public ObservableCollection<Student> SampleItems { get; private set; } = new ObservableCollection<Student>();
 
         public DetailsViewModel()
         {
@@ -31,7 +32,9 @@ namespace Select_Lucky_Dog.ViewModels
         {
             SampleItems.Clear();
 
-            var data = await SampleDataService.GetListDetailsDataAsync();
+            var folder = await FoldersService.GetDataSetFolderAsync();
+
+            var data = await StudentService.GetStudentsAsync(await folder.GetFileAsync(SettingsStorageService.ReadString(Helpers.KeyDictionary.SettingKey.FileName)));
 
             foreach (var item in data)
             {
@@ -40,7 +43,7 @@ namespace Select_Lucky_Dog.ViewModels
 
             if (viewState == ListDetailsViewState.Both)
             {
-                Selected = SampleItems.First();
+                //Selected = SampleItems.First();
             }
         }
     }

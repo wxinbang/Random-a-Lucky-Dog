@@ -144,6 +144,7 @@
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\KeyDictionary.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />
@@ -151,7 +152,8 @@
     <Compile Include="Models\DragDropStartingData.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
-    <Compile Include="Services\ConnectDataSetService.cs" />
+    <Compile Include="Services\CollectionService.cs" />
+    <Compile Include="Services\DataSetService.cs" />
     <Compile Include="Services\DragAndDrop\DragDropService.cs" />
     <Compile Include="Services\DragAndDrop\DropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\ListViewDropConfiguration.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="Services\SuspendAndResumeService.cs" />
     <Compile Include="Services\SuspensionState.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="Services\VersionManager.cs" />
     <Compile Include="Services\WhatsNewDisplayService.cs" />
     <Compile Include="TemplateSelectors\SampleDataTemplateSelector.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\ContentDialogs.cs" />
     <Compile Include="Views\DetailsDetailControl.xaml.cs">
       <DependentUpon>DetailsDetailControl.xaml</DependentUpon>
     </Compile>
@@ -180,9 +184,6 @@
     </Compile>
     <Compile Include="Views\FilesPage.xaml.cs">
       <DependentUpon>FilesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FirstRunDialog.xaml.cs">
-      <DependentUpon>FirstRunDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -234,10 +235,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FilesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FirstRunDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -324,6 +321,7 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Compile Include="Services\LocalizeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
