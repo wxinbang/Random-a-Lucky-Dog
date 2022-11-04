@@ -25,7 +25,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" x:Name="AppTitleBar" Background="Transparent">
+        <Grid Grid.Row="0" x:Name="AppTitleBar" Height="48" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -37,10 +37,16 @@
                VerticalAlignment="Center"
                Margin="18,0,0,0"/>
 
-            <AutoSuggestBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Uid="SearchBox" 
-                            Margin="180,0,280,0" MaxWidth="600"/>
+            <AutoSuggestBox Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            x:Uid="SearchBox"
+                            x:Name="SearchBox"
+                            Margin="180,0,280,0"
+                            MaxWidth="600"/>
             <!--="SearchBox_TextChanged"
 								SuggestionChosen="SearchtBox_SuggestionChosen"-->
+            
         </Grid>
 
         <winui:NavigationView Grid.Row="1"

@@ -50,20 +50,14 @@ namespace Select_Lucky_Dog.Views
         private int timesOfVersionTextTapped;
         private bool mark;
         private int studentNumber;
-        private SortedList<int, Student> lastGoingStudent = new SortedList<int, Student>();
-        private StorageFile file;
 
+        private StorageFile file;
         private StorageFolder DataSetFolder;
         private StorageFolder SaveFolder;
 
         public MainPage()
         {
             InitializeComponent();
-            //ObservableCollection<Student> ListOfAllStudent = GetStudentsAsync(file);
-
-            //App app = (App);
-
-
         }
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {/*
@@ -72,17 +66,6 @@ namespace Select_Lucky_Dog.Views
 			Timer.Tick += Timer_Tick;
 			Timer.Start();
 
-			DataSetFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("DataSets", CreationCollisionOption.OpenIfExists);
-			SaveFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Saves", CreationCollisionOption.OpenIfExists);
-
-			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Trying);
-			if (DealWithSettings.ReadSettings(FileName) != null)
-			{
-				if (DealWithSettings.ReadSettings(saved) != "true") file = await DataSetFolder.GetFileAsync(DealWithSettings.ReadSettings(FileName));
-				else file = await SaveFolder.GetFileAsync(DealWithSettings.ReadSettings(FileName));
-				ConnectDataSet(file,true);
-				FileName = DealWithSettings.ReadSettings(FileName);
-			}
 			if (DealWithSettings.ReadSettings(joinProgram) != "true")
 			{
 				InfoBar.IsOpen = false;
@@ -94,7 +77,7 @@ namespace Select_Lucky_Dog.Views
 				//StudentSuggestBox.Visibility = Visibility.Collapsed;
 
 			}
-			if (DealWithSettings.ReadSettings(mark) == "true") WhetherMark.IsOn = true;
+
 			if (DealWithSettings.ReadSettings(LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
 			ExtendAcrylicIntoTitleBar();
@@ -104,12 +87,11 @@ namespace Select_Lucky_Dog.Views
 
             if (ReadString(FileName) != null)
             {
-                if (ReadString(Saved) != "true") file = await DataSetFolder.GetFileAsync(ReadString(FileName));
+                if (ReadString(Saved) != "True") file = await DataSetFolder.GetFileAsync(ReadString(FileName));
                 else file = await SaveFolder.GetFileAsync(ReadString(FileName));
 
                 var collctions = await ConnectDataSetAsync(file, true);
                 SetColletions(collctions);
-                //FileName = DealWithSettings.ReadSettings(FileName);
             }
 
             string version = VersionManager.GetVersion();
@@ -117,7 +99,7 @@ namespace Select_Lucky_Dog.Views
 
             version += ".vNext";
 
-            SettingsStorageService.SaveString(KeyDictionary.SettingKey.JoinProgram, "true");
+            SaveString(JoinProgram, "true");
 #endif
             VersionInformationBox.Text = version;
         }
@@ -348,36 +330,20 @@ namespace Select_Lucky_Dog.Views
         {/*
 			if (await DealWithIdentity.VerifyIdentity())
 			{
-				file = await SaveFolder.CreateFileAsync(DealWithSettings.ReadSettings(FileName), CreationCollisionOption.OpenIfExists);
 				SortedList<int, Student> updatedList = DealWithData.SumDataSets(ListOfAllStudent, ListOfUnfinishedStudent, ListOfGoingStudent, FinishedStudentList);
 				await FileIO.WriteTextAsync(file, "");
 				await DealWithData.LayoutData(file, updatedList);
 
-				SaveString(saved, "true");
-				SaveString(FileName, file.Name);
 				ResultBox.Text = "保存成功";
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 		*/
             var collection = CollectionService.MergeCollections(UnfinishedStudentList, FinishedStudentList, goingStudentList, OtherStudentList);
-        }
-        public async Task<bool> Save_Click(object sender, RoutedEventArgs e, bool showResult = true)
-        {/*
-			if (await DealWithIdentity.VerifyIdentity())
-			{
-				file = await SaveFolder.CreateFileAsync(DealWithSettings.ReadSettings(FileName), CreationCollisionOption.OpenIfExists);
-				SortedList<int, Student> updatedList = DealWithData.SumDataSets(ListOfAllStudent, ListOfUnfinishedStudent, ListOfGoingStudent, FinishedStudentList);
-				await FileIO.WriteTextAsync(file, "");
-				await DealWithData.LayoutData(file, updatedList);
+            await SaveStudentsAsync(await SaveFolder.CreateFileAsync(ReadString(FileName), CreationCollisionOption.OpenIfExists), collection);
+            SaveString(Saved, "True");
+            SaveString(FileName, file.Name);
+            ResultBox.Text = Localize(FileSaved);
 
-				SaveString(saved, "true");
-				SaveString(FileName, file.Name);
-				if (showResult) ResultBox.Text = "保存成功";
-				return true;
-			}
-			else if (showResult) ContentDialogs.ThrowException("没有所需要的权限", false);
-			*/
-            return false;
 
         }
         private async void MarkFinished_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using Microsoft.VisualBasic;
 using Select_Lucky_Dog.Core.Models;
 using Select_Lucky_Dog.Views;
 using System;
@@ -57,7 +58,7 @@ namespace Select_Lucky_Dog.Core.Services
 
             return returnLines;
         }
-        public static Collection<Student>[] SortStudent(ICollection<Student> students)
+        public static Collection<Student>[] ClassifyStudents(ICollection<Student> students)
         {
             Collection<Student>[] collections = new Collection<Student>[4];
             collections[0] = new Collection<Student>();
@@ -89,7 +90,7 @@ namespace Select_Lucky_Dog.Core.Services
             FromCollection.RemoveAt(FromCollection.IndexOf(sb));
             if (Status == going) ToCollection[0].OrderOfGoing = ToCollection.Count;
         }
-        private static IList<string> GetStudentStringList(Collection<Student> collection)
+        private static IList<string> GetStudentStringList(List<Student> collection)
         {
             IList<string> list = new List<string>();
             foreach (var student in collection)list.Add(student.ToString());
@@ -97,8 +98,14 @@ namespace Select_Lucky_Dog.Core.Services
         }
         public static async Task SaveStudentsAsync(StorageFile file,Collection<Student> collection)
         {
-            IList<string> list = GetStudentStringList(collection);
+            IList<string> list = GetStudentStringList(SortStudents(collection));
             await FileIO.WriteLinesAsync(file, list);
+        }
+        private static List<Student> SortStudents(Collection<Student> inCollection)
+        {
+            SortedDictionary<int,Student> dictionary = new SortedDictionary<int,Student>();
+            foreach (var item in inCollection) dictionary.Add(item.OrderInList, item);
+            return dictionary.Values.ToList();
         }
     }
 }

@@ -26,7 +26,8 @@ namespace Select_Lucky_Dog.Helpers
             SendEmail,
             FirstRun_BodyText,
             FirstRunDialogPrimaryButtonText,
-            FirstRunDialogTitle
+            FirstRunDialogTitle,
+            FileSaved
         }
         internal enum SettingKey : byte
         {

@@ -58,7 +58,7 @@ namespace Select_Lucky_Dog.Services
                 //[4]:other
 
                 returnCollections[0] = await GetStudentsAsync(file);
-                var collections = SortStudent(returnCollections[0]);
+                var collections = ClassifyStudents(returnCollections[0]);
 
                 Collection<Student> going = collections[0];
                 returnCollections[2] = collections[1];

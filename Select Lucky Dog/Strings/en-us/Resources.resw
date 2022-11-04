@@ -402,4 +402,8 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>Send Email</value>
     <comment>SendEmail</comment>
   </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>File has been saved.</value>
+    <comment>FileSavedText</comment>
+  </data>
 </root>
