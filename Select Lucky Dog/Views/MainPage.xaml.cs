@@ -1,35 +1,28 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Select_Lucky_Dog.Core.Models;
-using static Select_Lucky_Dog.Core.Services.StudentService;
-using static Select_Lucky_Dog.Services.FoldersService;
-using static Select_Lucky_Dog.Services.SettingsStorageService;
-using static Select_Lucky_Dog.Services.DataSetService;
-using static Select_Lucky_Dog.Services.LocalizeService;
-using Select_Lucky_Dog.ViewModels;
-using Windows.UI.Xaml.Controls;
-using System.Collections.Generic;
-using Windows.UI.Xaml;
-using System.Runtime;
-using xbb.ClassLibraries;
-using Windows.UI.ViewManagement;
-using Windows.UI;
-using Microsoft.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.Storage;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Provider;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Animation;
-using System.Linq;
-using Windows.Storage.Pickers;
+﻿using Select_Lucky_Dog.Core.Models;
 using Select_Lucky_Dog.Services;
-using Windows.ApplicationModel.Resources;
-using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
-using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
+using Select_Lucky_Dog.ViewModels;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Runtime;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
+using Windows.UI;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Select_Lucky_Dog.Views;
 using static Select_Lucky_Dog.Core.Models.StudentStatus;
-using Select_Lucky_Dog.Helpers;
+using static Select_Lucky_Dog.Core.Services.StudentService;
+using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
+using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
+using static Select_Lucky_Dog.Services.DataSetService;
+using static Select_Lucky_Dog.Services.FilesService;
+using static Select_Lucky_Dog.Services.FoldersService;
+using static Select_Lucky_Dog.Services.LocalizeService;
+using static Select_Lucky_Dog.Services.SettingsStorageService;
+using static Select_Lucky_Dog.Services.IdentityService;
 
 namespace Select_Lucky_Dog.Views
 {
@@ -55,28 +48,17 @@ namespace Select_Lucky_Dog.Views
         private StorageFolder DataSetFolder;
         private StorageFolder SaveFolder;
 
+        readonly long maxGCMemory = 255000000;
         public MainPage()
         {
             InitializeComponent();
         }
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {/*
-			if (DealWithSettings.ReadSettings(DisplayMode) == null || DealWithSettings.ReadSettings(DisplayMode) == "true") DisplayMode.IsOn = true;
+			if (DealWithSettings.ReadSettings(DisplayMode) == null || DealWithSettings.ReadSettings(DisplayMode) == "True") DisplayMode.IsOn = true;
 			Timer.Interval = new TimeSpan(0, 0, 0, 1);
 			Timer.Tick += Timer_Tick;
 			Timer.Start();
-
-			if (DealWithSettings.ReadSettings(joinProgram) != "true")
-			{
-				InfoBar.IsOpen = false;
-				//layOutDataSetButton.Visibility = Visibility.Collapsed;
-				//layOutFlyoutButton.Visibility = Visibility.Collapsed;
-				//Views.Visibility = Visibility.Collapsed;
-				DeleteButton.Visibility = Visibility.Collapsed;
-				//OperateStudent.Visibility = Visibility.Collapsed;
-				//StudentSuggestBox.Visibility = Visibility.Collapsed;
-
-			}
 
 			if (DealWithSettings.ReadSettings(LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
@@ -87,8 +69,7 @@ namespace Select_Lucky_Dog.Views
 
             if (ReadString(FileName) != null)
             {
-                if (ReadString(Saved) != "True") file = await DataSetFolder.GetFileAsync(ReadString(FileName));
-                else file = await SaveFolder.GetFileAsync(ReadString(FileName));
+                file = await GetLastDataFileAsync();
 
                 var collctions = await ConnectDataSetAsync(file, true);
                 SetColletions(collctions);
@@ -99,7 +80,10 @@ namespace Select_Lucky_Dog.Views
 
             version += ".vNext";
 
-            SaveString(JoinProgram, "true");
+            SaveString(JoinProgram, "True");
+
+            DeveloperTools.Visibility = Visibility.Visible;
+            GCInfo.Visibility = Visibility.Visible;
 #endif
             VersionInformationBox.Text = version;
         }
@@ -107,7 +91,7 @@ namespace Select_Lucky_Dog.Views
         {
             if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion) GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
             else GCInfo.Style = (Style)Application.Current.Resources["SuccessDotInfoBadgeStyle"];
-            if (await DealWithIdentity.VerifyIdentity()) IdentifyInfo.Visibility = Visibility.Visible;
+            if (await VerifyIdentityAsync()) IdentifyInfo.Visibility = Visibility.Visible;
             else IdentifyInfo.Visibility = Visibility.Collapsed;
         }
         private void RandomButton_Click(object sender, RoutedEventArgs e)
@@ -147,11 +131,6 @@ namespace Select_Lucky_Dog.Views
             {
                 ResultBox.Text = UnfinishedStudentList[studentNumber].Name;
                 MoveStudentToTopOfCollection(UnfinishedStudentList[studentNumber], UnfinishedStudentList, SortedGoingStudentList, going);
-                //UnfinishedStudentList[studentNumber].Status = StudentStatus.going;
-                ////ListOfGoingStudent.Insert(0, ListOfUnfinishedStudent[studentNumber]);
-                //SortedGoingStudentList[0].OrderOfGoing = SortedGoingStudentList.Count;
-                //ListOfUnfinishedStudent.RemoveAt(studentNumber);
-                //MoveToTopOfCollection<Student>(UnfinishedStudentList[studentNumber], UnfinishedStudentList, GoingStudentList);
                 DealWithStudentDataProgressBar.Value = SortedGoingStudentList.Count;
                 RefreshListNumber();
             }
@@ -162,12 +141,17 @@ namespace Select_Lucky_Dog.Views
         }
         private async void ConnectDataSet_Click(object sender, RoutedEventArgs e)
         {
-            await ImportDataSetAsync();
+            file = await SelectDataSetAsync();
+            if (file != null)
+            {
+                var collections = await ConnectDataSetAsync(file);
+                SetColletions(collections);
+            }
+            else ResultBox.Text = Localize(FileNotFind);
         }
         private async void WhetherMark_Toggled(object sender, RoutedEventArgs e)
         {
             if (WhetherMark.IsOn == true) WhetherMark.IsOn = await ContentDialogs.CheckMark();
-            //else SaveString(Mark, WhetherMark.IsOn ? "true" : "False");
             mark = WhetherMark.IsOn;
         }
         private async void VersionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -180,9 +164,9 @@ namespace Select_Lucky_Dog.Views
             }
 
         }
-        private void SendEmailButton_Click(object sender, RoutedEventArgs e)
+        private async void SendEmailButton_Click(object sender, RoutedEventArgs e)
         {
-            //ContentDialogs.ComposeEmail();
+            await ContentDialogs.ComposeEmail();
         }
         private void ExitProgram_Click(object sender, RoutedEventArgs e)
         {/*
@@ -194,7 +178,7 @@ namespace Select_Lucky_Dog.Views
         }
         private async void LayoutDataSet_Click(object sender, RoutedEventArgs e)
         {/*
-			if (await DealWithIdentity.VerifyIdentity())
+			if (await VerifyIdentity())
 			{
 				//SortedList<int, Student> updatedList = DealWithData.SumDataSets(ListOfAllStudent, ListOfUnfinishedStudent, ListOfGoingStudent, FinishedStudentList);
 				string afterFileName = "After-" + file.Name;
@@ -221,38 +205,6 @@ namespace Select_Lucky_Dog.Views
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
 */
-        }
-        private void LayoutUserData_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void LayoutLogs_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
-        {
-            //ContentDialogs.LayoutIdentityFile();
-        }
-        private void DeleteLogFile_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private async void DeleteDataSet_Click(object sender, RoutedEventArgs e)
-        {/*
-			var ToDeleteItems = await DataSetFolder.GetItemsAsync();
-			foreach (var item in ToDeleteItems) await item.DeleteAsync();
-			ToDeleteItems = await SaveFolder.GetItemsAsync();
-			foreach (var item in ToDeleteItems) await item.DeleteAsync();
-			DealWithSettings.DeleteSettings(FileName);
-			DealWithSettings.DeleteSettings(saved);
-			ResultBox.Text = "删除完成";
-		*/
-        }
-        private void DeleteUserData_Click(object sender, RoutedEventArgs e)
-        {
-            DealWithSettings.DeleteSettings();
-            ResultBox.Text = "删除完成";
         }
         private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {/*
@@ -294,10 +246,6 @@ namespace Select_Lucky_Dog.Views
                 AllView.ScrollIntoView(student);
             }
         }
-        private void GoTOStudent()
-        {
-            ;
-        }
         private void Grid_DragOver(object sender, DragEventArgs e)
         {
             e.AcceptedOperation = DataPackageOperation.Link;
@@ -327,45 +275,20 @@ namespace Select_Lucky_Dog.Views
 		*/
         }
         public async void Save_Click(object sender, RoutedEventArgs e)
-        {/*
-			if (await DealWithIdentity.VerifyIdentity())
-			{
-				SortedList<int, Student> updatedList = DealWithData.SumDataSets(ListOfAllStudent, ListOfUnfinishedStudent, ListOfGoingStudent, FinishedStudentList);
-				await FileIO.WriteTextAsync(file, "");
-				await DealWithData.LayoutData(file, updatedList);
-
-				ResultBox.Text = "保存成功";
-			}
-			else ContentDialogs.ThrowException("没有所需要的权限", false);
-		*/
-            var collection = CollectionService.MergeCollections(UnfinishedStudentList, FinishedStudentList, goingStudentList, OtherStudentList);
+        {
+            var collection = CollectionService.MergeCollections(UnfinishedStudentList, FinishedStudentList, SortedGoingStudentList, OtherStudentList);
             await SaveStudentsAsync(await SaveFolder.CreateFileAsync(ReadString(FileName), CreationCollisionOption.OpenIfExists), collection);
             SaveString(Saved, "True");
             SaveString(FileName, file.Name);
             ResultBox.Text = Localize(FileSaved);
-
-
         }
         private async void MarkFinished_Click(object sender, RoutedEventArgs e)
         {
-            if (await DealWithIdentity.VerifyIdentity())
+            if (await VerifyIdentityAsync())
             {
-                if (Views.SelectedItem == Going && GoingView.SelectedItem != null)
-                {
-                    SortedGoingStudentList[SortedGoingStudentList.IndexOf((Student)GoingView.SelectedItem)].Status = StudentStatus.finished;
-                    FinishedStudentList.Add((Student)GoingView.SelectedItem);
-                    SortedGoingStudentList.Remove((Student)GoingView.SelectedItem);
-                    UpgradeGoingStudentData(ref SortedGoingStudentList);
-                    GoingView.ItemsSource = null;
-                    GoingView.ItemsSource = SortedGoingStudentList;
-                }
-                else if (Views.SelectedItem == Unfinished && UnfinishedView.SelectedItem != null)
-                {
-                    UnfinishedStudentList[UnfinishedStudentList.IndexOf((Student)UnfinishedView.SelectedItem)].Status = StudentStatus.finished;
-                    FinishedStudentList.Add((Student)UnfinishedView.SelectedItem);
-                    UnfinishedStudentList.Remove((Student)UnfinishedView.SelectedItem);
-                }
-                else ContentDialogs.ThrowException("暂时进行不了这样的操作", false);
+                if (Views.SelectedItem == Going && GoingView.SelectedItem != null)MoveStudentToTopOfCollection((Student)GoingView.SelectedItem, SortedGoingStudentList, FinishedStudentList,finished);
+                else if (Views.SelectedItem == Unfinished && UnfinishedView.SelectedItem != null)MoveStudentToTopOfCollection((Student)UnfinishedView.SelectedItem,UnfinishedStudentList,FinishedStudentList,finished);
+                else ContentDialogs.ThrowException(Localize(FeatureOfferedInTheNextVersion), false);
                 //else if (Views.SelectedItem == All && AllView.SelectedItem != null)
                 //{
                 //	ListOfAllStudent[ListOfAllStudent.IndexOf((Student)AllView.SelectedItem)].StudentStatus = StudentStatus.finished;
@@ -373,52 +296,28 @@ namespace Select_Lucky_Dog.Views
                 //	ListOfUnfinishedStudent.Remove((Student)AllView.SelectedItem);//检查！！！
                 //}
                 RefreshListNumber();
+                RefreshGoingOrder();
             }
-            else if (await DealWithIdentity.VerifyIdentity() == false) ContentDialogs.ThrowException("没有所需要的权限", false);
-
+            else if (await VerifyIdentityAsync() == false) ContentDialogs.ThrowException("没有所需要的权限", false);
         }
         private async void MarkUnfinished_Click(object sender, RoutedEventArgs e)
         {
-            if (await DealWithIdentity.VerifyIdentity())
+            if (await VerifyIdentityAsync())
             {
-                if (Views.SelectedItem == Going && GoingView.SelectedItem != null)
-                {
-                    SortedGoingStudentList[SortedGoingStudentList.IndexOf((Student)GoingView.SelectedItem)].Status = StudentStatus.unfinished;
-                    UnfinishedStudentList.Add((Student)GoingView.SelectedItem);
-                    SortedGoingStudentList.Remove((Student)GoingView.SelectedItem);
-                    UpgradeGoingStudentData(ref SortedGoingStudentList);
-                    GoingView.ItemsSource = null;
-                    GoingView.ItemsSource = SortedGoingStudentList;
-                }
-                else if (Views.SelectedItem == Finished && FinishedView.SelectedItem != null)
-                {
-                    FinishedStudentList[FinishedStudentList.IndexOf((Student)FinishedView.SelectedItem)].Status = StudentStatus.unfinished;
-                    UnfinishedStudentList.Add((Student)FinishedView.SelectedItem);
-                    FinishedStudentList.Remove((Student)FinishedView.SelectedItem);
-                }
+                if (Views.SelectedItem == Going && GoingView.SelectedItem != null) MoveStudentToTopOfCollection((Student)GoingView.SelectedItem, SortedGoingStudentList, UnfinishedStudentList, unfinished);
+                else if (Views.SelectedItem == Finished && FinishedView.SelectedItem != null) MoveStudentToTopOfCollection((Student)FinishedView.SelectedItem, FinishedStudentList, UnfinishedStudentList, unfinished);
                 else ContentDialogs.ThrowException("暂时进行不了这样的操作", false);
                 RefreshListNumber();
+                RefreshGoingOrder();
             }
             else ContentDialogs.ThrowException("没有所需要的权限", false);
         }
         private async void MarkGoing_Click(object sender, RoutedEventArgs e)
         {
-            if (await DealWithIdentity.VerifyIdentity())
+            if (await VerifyIdentityAsync())
             {
-                if (Views.SelectedItem == Finished && FinishedView.SelectedItem != null)
-                {
-                    FinishedStudentList[FinishedStudentList.IndexOf((Student)FinishedView.SelectedItem)].Status = StudentStatus.going;
-                    SortedGoingStudentList.Insert(0, (Student)FinishedView.SelectedItem);
-                    SortedGoingStudentList[0].OrderOfGoing = SortedGoingStudentList.Count;
-                    FinishedStudentList.Remove((Student)FinishedView.SelectedItem);
-                }
-                else if (Views.SelectedItem == Unfinished && UnfinishedView.SelectedItem != null)
-                {
-                    UnfinishedStudentList[UnfinishedStudentList.IndexOf((Student)UnfinishedView.SelectedItem)].Status = StudentStatus.going;
-                    SortedGoingStudentList.Insert(0, (Student)UnfinishedView.SelectedItem);
-                    SortedGoingStudentList[0].OrderOfGoing = SortedGoingStudentList.Count;
-                    UnfinishedStudentList.Remove((Student)UnfinishedView.SelectedItem);
-                }
+                if (Views.SelectedItem == Finished && FinishedView.SelectedItem != null) MoveStudentToTopOfCollection((Student)FinishedView.SelectedItem, FinishedStudentList, SortedGoingStudentList, going);
+                else if (Views.SelectedItem == Unfinished && UnfinishedView.SelectedItem != null) MoveStudentToTopOfCollection((Student)UnfinishedView.SelectedItem, UnfinishedStudentList, SortedGoingStudentList, going);
                 else ContentDialogs.ThrowException("暂时进行不了这样的操作", false);
                 //else if (Views.SelectedItem == All && AllView.SelectedItem != null)
                 //{
@@ -427,9 +326,9 @@ namespace Select_Lucky_Dog.Views
                 //	ListOfGoingStudent[0].OrderOfGoing = ListOfGoingStudent.Count;
                 //}
                 RefreshListNumber();
+                RefreshGoingOrder();
             }
             else ContentDialogs.ThrowException("没有所需要的权限", false);
-
         }
         private void RefreshListNumber()
         {
@@ -444,7 +343,7 @@ namespace Select_Lucky_Dog.Views
 			{//new ResourceDictionary()
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, false);
 				BackgroundGrid.Background = (Brush)Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"];
-				SaveString(DisplayMode, "true");
+				SaveString(DisplayMode, "True");
 				ExtendAcrylicIntoTitleBar();
 			}
 			else
@@ -478,13 +377,12 @@ namespace Select_Lucky_Dog.Views
         }
 
         private void CloseGC_Click(object sender, RoutedEventArgs e)
-        {/*
+        {
 			if (GC.TryStartNoGCRegion(maxGCMemory))
 			{
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
 			}
-		*/
         }
 
         private void ShowAnimation_Click(object sender, RoutedEventArgs e)
@@ -498,11 +396,29 @@ namespace Select_Lucky_Dog.Views
         }
         private void SetColletions(Collection<Student>[] collections)
         {
+            ClearAllList();
+
             foreach (var sb in collections[0]) AllStudentList.Add(sb);
             foreach (var sb in collections[1]) SortedGoingStudentList.Add(sb);
             foreach (var sb in collections[2]) FinishedStudentList.Add(sb);
             foreach (var sb in collections[3]) UnfinishedStudentList.Add(sb);
             foreach (var sb in collections[4]) OtherStudentList.Add(sb);
+            RefreshListNumber();
+        }
+        private void RefreshGoingOrder()
+        {
+            foreach (var item in SortedGoingStudentList) item.OrderOfGoing = SortedGoingStudentList.Count() - SortedGoingStudentList.IndexOf(item);
+            GoingView.ItemsSource = null;
+            GoingView.ItemsSource = SortedGoingStudentList;
+        }
+        private void ClearAllList()
+        {
+            AllStudentList.Clear();
+            SortedGoingStudentList.Clear();
+            FinishedStudentList.Clear();
+            UnfinishedStudentList.Clear();
+            OtherStudentList.Clear();
+
             RefreshListNumber();
         }
     }

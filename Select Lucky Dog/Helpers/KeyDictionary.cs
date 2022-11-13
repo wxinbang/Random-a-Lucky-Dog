@@ -8,7 +8,7 @@ namespace Select_Lucky_Dog.Helpers
 {
     internal static class KeyDictionary
     {
-        public enum StringKey:byte
+        internal enum StringKey : byte
         {
             AllAlreadyFinished,
             Close,
@@ -27,7 +27,24 @@ namespace Select_Lucky_Dog.Helpers
             FirstRun_BodyText,
             FirstRunDialogPrimaryButtonText,
             FirstRunDialogTitle,
-            FileSaved
+            FileSaved,
+            FileNotFind,
+            FeatureOfferedInTheNextVersion,
+            DeleteFinished,
+            Feedback,
+            ExceptionAt, 
+            SoftwareCrashes,
+            UserName,
+            Password,
+            ExistNullValue,
+            InsertUSBDrive,
+            ExportIdentityFile,
+            Export,
+            Cancel,
+            NoRequiredPermissions,
+            VerifyPassword,
+            Verify,
+
         }
         internal enum SettingKey : byte
         {

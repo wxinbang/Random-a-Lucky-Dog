@@ -12,8 +12,8 @@ namespace Select_Lucky_Dog.Core.Models
 		public int PraiseTime { get; set; }
         public int OrderInList { get; set; }
   
-		public override string ToString() => Name + "\t" +  Status.ToString() + "\t" + (Status == StudentStatus.going ? OrderOfGoing.ToString() : "" + PraiseTime.ToString());
-        public Student(string name,StudentStatus status,int orderOfGoing, int times, int orderInList)
+		public override string ToString() => Name + "\t" +  Status.ToString() + "\t" + PraiseTime.ToString() + '\t' + (Status == StudentStatus.going ? OrderOfGoing.ToString() : "" );
+        public Student(string name,StudentStatus status, int times,int orderOfGoing, int orderInList)
         {
             this.Name=name;
             this.Status=status;

@@ -6,7 +6,7 @@ using Select_Lucky_Dog.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using xbb.ClassLibraries;
+using Select_Lucky_Dog.Views;
 
 namespace Select_Lucky_Dog
 {

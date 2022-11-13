@@ -8,9 +8,8 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="42B52204-D84E-480E-B6FF-B9BC1A718361"
     Publisher="CN=xbb"
-    Version="1.0.0.0" />
+    Version="1.0.0.0"  Name="xbb.RAnLuckyDog.EiHei"/>
 
   <mp:PhoneIdentity PhoneProductId="42B52204-D84E-480E-B6FF-B9BC1A718361" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -48,10 +47,6 @@
     </Application>
   </Applications>
 
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
-
   <genTemplate:Metadata>
     <genTemplate:Item Name="generator" Value="Template Studio"/>
     <genTemplate:Item Name="wizardVersion" Version="v5.0" />
@@ -59,4 +54,7 @@
     <genTemplate:Item Name="framework" Value="MVVMToolkit" />
     <genTemplate:Item Name="platform" Value="Uwp" />
   </genTemplate:Metadata>
+
+  <Capabilities>
+    <uap:Capability Name="removableStorage"/></Capabilities>
 </Package>

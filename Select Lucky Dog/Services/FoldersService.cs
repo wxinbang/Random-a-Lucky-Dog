@@ -9,17 +9,19 @@ namespace Select_Lucky_Dog.Services
 {
     internal static class FoldersService
     {
-        public static async Task<StorageFolder> GetDataSetFolderAsync()
+        internal static async Task<StorageFolder> GetDataSetFolderAsync()
         {
             StorageFolder folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("DataSets", CreationCollisionOption.OpenIfExists);
             return folder;
         }
-        public static async Task<StorageFolder> GetSavesFolderAsync()
+        internal static async Task<StorageFolder> GetSavesFolderAsync()
         {
             StorageFolder folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Saves", CreationCollisionOption.OpenIfExists);
             return folder;
         }
-        public static ApplicationDataContainer GetSettingsFolder()
+        internal static async Task DeleteDataSetFolderAsync()=>await(await GetDataSetFolderAsync()).DeleteAsync();
+        internal static async Task DeleteSavesFolderAsync() => await (await GetSavesFolderAsync()).DeleteAsync();
+        internal static ApplicationDataContainer GetSettingsFolder()
         {
             ApplicationDataContainer SettingsFolder = ApplicationData.Current.LocalSettings;
             return SettingsFolder;

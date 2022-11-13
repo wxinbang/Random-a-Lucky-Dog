@@ -20,6 +20,7 @@
     </i:Interaction.Behaviors>
 
     <Grid x:Name="BackgroundGrid" Canvas.ZIndex="0">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>

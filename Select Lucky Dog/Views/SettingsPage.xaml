@@ -12,11 +12,11 @@
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>
 
-    <Grid Margin="{StaticResource MediumLeftRightMargin}">
+    <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <StackPanel
             x:Name="ContentArea">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+            <!--StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
@@ -50,6 +50,27 @@
                             <xaml:ElementTheme>Default</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
+                </StackPanel>
+            </StackPanel-->
+
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                <TextBlock x:Uid="Settings_Data" Style="{StaticResource SubtitleTextBlockStyle}"
+                           Margin="{StaticResource SmallTopBottomMargin}"/>
+
+                <StackPanel Orientation="Horizontal">
+
+                    <Button x:Uid="DeleteButton">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Uid="DeleteDataSetButton" Click="DeleteDataSet_Click"/>
+                                <MenuFlyoutItem x:Uid="DeleteUserDataButton" Click="DeleteUserData_Click"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+
+                    <Button x:Uid="LayoutIdentityFileButton"
+                            Click="LayoutIdentityFile_Click"
+                            Margin="{StaticResource MediumLeftMargin}"/>
                 </StackPanel>
             </StackPanel>
 

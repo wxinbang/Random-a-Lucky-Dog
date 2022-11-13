@@ -295,15 +295,15 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>DeleteUserDataButtonText</comment>
   </data>
   <data name="LayOutButton.Content" xml:space="preserve">
-    <value>Lay out</value>
+    <value>Export</value>
     <comment>LayOutButtonText</comment>
   </data>
-  <data name="LayoutDataSetButton.Text" xml:space="preserve">
-    <value>Data Set</value>
+  <data name="LayoutDataSetButton.Content" xml:space="preserve">
+    <value>Export Data Set</value>
     <comment>LayoutDataSetButtonText</comment>
   </data>
-  <data name="LayoutIdentityFileButton.Text" xml:space="preserve">
-    <value>Identity File</value>
+  <data name="LayoutIdentityFileButton.Content" xml:space="preserve">
+    <value>Export Identity File</value>
     <comment>LayoutIdentityFileButtonText</comment>
   </data>
   <data name="MarkFinishedButton.Text" xml:space="preserve">
@@ -405,5 +405,72 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   <data name="FileSaved" xml:space="preserve">
     <value>File has been saved.</value>
     <comment>FileSavedText</comment>
+  </data>
+  <data name="FileNotFind" xml:space="preserve">
+    <value>File Not Find</value>
+    <comment>FileNotFindText</comment>
+  </data>
+  <data name="FeatureOfferedInTheNextVersion" xml:space="preserve">
+    <value>FeatureOfferedInTheNextVersion</value>
+  </data>
+  <data name="DeleteFinished" xml:space="preserve">
+    <value>Delete Finished</value>
+    <comment>DeleteFinishedText</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>CancelText</comment>
+  </data>
+  <data name="ExceptionAt" xml:space="preserve">
+    <value>App throwed exception at:</value>
+    <comment>ExceptionAtText</comment>
+  </data>
+  <data name="ExistNullValue" xml:space="preserve">
+    <value>Exist Null Values!</value>
+    <comment>ExistNullValueText</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+    <comment>ExportText</comment>
+  </data>
+  <data name="ExportIdentityFile" xml:space="preserve">
+    <value>Export Identity File</value>
+    <comment>ExportIdentityFileText</comment>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+    <comment>FeedbackText</comment>
+  </data>
+  <data name="InsertUSBDrive" xml:space="preserve">
+    <value>Insert a USB drive and try again.</value>
+    <comment>InsertUSBDriveText</comment>
+  </data>
+  <data name="NoRequiredPermissions" xml:space="preserve">
+    <value>No required permissions.</value>
+    <comment>NoRequiredPermissionsText</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+    <comment>PasswordText</comment>
+  </data>
+  <data name="Settings_Data.Text" xml:space="preserve">
+    <value>Data</value>
+    <comment>Settings_DataText</comment>
+  </data>
+  <data name="SoftwareCrashes" xml:space="preserve">
+    <value>Software Crashes</value>
+    <comment>SoftwareCrashesText</comment>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
+    <comment>UserNameText</comment>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verify</value>
+    <comment>VerifyText</comment>
+  </data>
+  <data name="VerifyPassword" xml:space="preserve">
+    <value>Verify Password</value>
+    <comment>VerifyPasswordText</comment>
   </data>
 </root>

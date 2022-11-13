@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <Storyboard x:Name="AnimationBoard" Completed="Storyboard_Completed">
-            <ObjectAnimationUsingKeyFrames x:Name="RandomAnimation" EnableDependentAnimation="true" Storyboard.TargetName="ResultBox" Storyboard.TargetProperty="Text">
+            <ObjectAnimationUsingKeyFrames x:Name="RandomAnimation" EnableDependentAnimation="True" Storyboard.TargetName="ResultBox" Storyboard.TargetProperty="Text">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.0"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.05"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.1"/>
@@ -178,7 +178,7 @@
 					BorderThickness="14,12,14,12"/>
 
                         <StackPanel Grid.Row="1">
-                            <Button x:Uid="DeveloperTools" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Visibility="Collapsed">
+                            <Button x:Uid="DeveloperTools" x:Name="DeveloperTools" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Visibility="Collapsed">
                                 <Button.Flyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Text="OpenGC" Click="OpenGC_Click"/>
@@ -204,10 +204,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Button x:Uid="ConnectDataSet" 
-								VerticalAlignment="Top" Click="ConnectDataSet_Click"/>
-                            </Grid>
+                            <Button x:Uid="ConnectDataSet"  Grid.Column="1"
+								VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Click="ConnectDataSet_Click"/>
                         </Grid>
 
                         <Grid Grid.Row="1">
@@ -235,16 +234,6 @@
                              Toggled="WhetherMark_Toggled"
 							    HorizontalAlignment="Center" Margin="0,0,-55,0"/>
 
-                            <Button Grid.Column="1" x:Uid="DeleteButton" HorizontalAlignment="Center"
-							VerticalAlignment="Center">
-                                <Button.Flyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem x:Uid="DeleteLogFileButton" Click="DeleteLogFile_Click"/>
-                                        <MenuFlyoutItem x:Uid="DeleteDataSetButton" Click="DeleteDataSet_Click"/>
-                                        <MenuFlyoutItem x:Uid="DeleteUserDataButton" Click="DeleteUserData_Click"/>
-                                    </MenuFlyout>
-                                </Button.Flyout>
-                            </Button>
                         </Grid>
 
                         <Grid Grid.Row="3">
@@ -264,16 +253,11 @@
                                 </Button.Flyout>
                             </Button>
 
-                            <Button Grid.Column="1" x:Uid="LayOutButton" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Button.Flyout >
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem x:Uid="LayoutDataSetButton" Click="LayoutDataSet_Click"/>
-                                        <!--MenuFlyoutItem Text="用户数据" Click="LayoutUserData_Click"/-->
-                                        <!--MenuFlyoutItem Text="日志文件" Click="LayoutLogs_Click"/-->
-                                        <MenuFlyoutItem x:Uid="LayoutIdentityFileButton" Click="LayoutIdentityFile_Click"/>
-                                    </MenuFlyout>
-                                </Button.Flyout>
-                            </Button>
+                            <Button Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    x:Uid="LayoutDataSetButton"
+                                    Click="LayoutDataSet_Click"/>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -1,37 +1,36 @@
-﻿using System;
+﻿using Select_Lucky_Dog.Core.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using xbb.ClassLibraries;
+using static Select_Lucky_Dog.Core.Services.StudentService;
+using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
 using static Select_Lucky_Dog.Services.FoldersService;
 using static Select_Lucky_Dog.Services.SettingsStorageService;
-using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
-using Select_Lucky_Dog.Core.Models;
-using System.Collections.ObjectModel;
-using static Select_Lucky_Dog.Core.Services.StudentService;
+using static Select_Lucky_Dog.Services.IdentityService;
+using Select_Lucky_Dog.Views;
+using static Select_Lucky_Dog.Services.LocalizeService;
+using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
 
 namespace Select_Lucky_Dog.Services
 {
     internal static class DataSetService
     {
-        public static async Task ImportDataSetAsync()
-        {
-            var file = await SelectDataSetAsync();
-            await ConnectDataSetAsync(file);
-
-        }
-        private static async Task<StorageFile> SelectDataSetAsync()
+        internal static async Task<StorageFile> SelectDataSetAsync()
         {
             StorageFile file;
-            var picker = new FileOpenPicker();
-            picker.ViewMode = PickerViewMode.List;
-            picker.SuggestedStartLocation = PickerLocationId.Desktop;
+            var picker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.List,
+                SuggestedStartLocation = PickerLocationId.Desktop
+            };
             picker.FileTypeFilter.Add(".txt");//记得检查
 
             file = await picker.PickSingleFileAsync();
+
+            DeleteString(Saved);
 
             if (file != null)
             {
@@ -40,15 +39,11 @@ namespace Select_Lucky_Dog.Services
                 //DealWithSettings.DeleteSettings(SettingKey.saved);
                 return file;
             }
-            else
-            {
-                DealWithSettings.DeleteSettings(SettingKey.saved);
-                return null;
-            }
+            else return null;
         }
         public static async Task<Collection<Student>[]> ConnectDataSetAsync(StorageFile file, bool NotVerifyIdentity = false)
         {
-            if (await DealWithIdentity.VerifyIdentity() || NotVerifyIdentity)
+            if (await VerifyIdentityAsync() || NotVerifyIdentity)
             {
                 Collection<Student>[] returnCollections = new Collection<Student>[5];
                 //[0]:all
@@ -77,7 +72,7 @@ namespace Select_Lucky_Dog.Services
 
                 return returnCollections;
             }
-            else ContentDialogs.ThrowException("没有所需要的权限", false);
+            else ContentDialogs.ThrowException(Localize(NoRequiredPermissions), false);
             return null;
         }
     }

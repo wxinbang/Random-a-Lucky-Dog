@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Select_Lucky_Dog.Core</RootNamespace>
+    <Configurations>Debug;Release;PreRelease</Configurations>
   </PropertyGroup>
 
    <ItemGroup>

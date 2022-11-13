@@ -9,6 +9,9 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 using Select_Lucky_Dog.Core.Models;
 using Select_Lucky_Dog.Core.Services;
 using Select_Lucky_Dog.Services;
+using static Select_Lucky_Dog.Services.FilesService;
+using static Select_Lucky_Dog.Services.SettingsStorageService;
+using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
 
 namespace Select_Lucky_Dog.ViewModels
 {
@@ -32,19 +35,21 @@ namespace Select_Lucky_Dog.ViewModels
         {
             SampleItems.Clear();
 
-            var folder = await FoldersService.GetDataSetFolderAsync();
-
-            var data = await StudentService.GetStudentsAsync(await folder.GetFileAsync(SettingsStorageService.ReadString(Helpers.KeyDictionary.SettingKey.FileName)));
-
-            foreach (var item in data)
+            if (ReadString(FileName) != null)
             {
-                SampleItems.Add(item);
+                var data = await StudentService.GetStudentsAsync(await GetLastDataFileAsync());
+
+                foreach (var item in data)
+                {
+                    SampleItems.Add(item);
+                }
+
+                if (viewState == ListDetailsViewState.Both)
+                {
+                    //Selected = SampleItems.First();
+                }
             }
 
-            if (viewState == ListDetailsViewState.Both)
-            {
-                //Selected = SampleItems.First();
-            }
         }
     }
 }
