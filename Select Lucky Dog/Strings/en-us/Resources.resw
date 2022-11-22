@@ -403,7 +403,7 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>SendEmail</comment>
   </data>
   <data name="FileSaved" xml:space="preserve">
-    <value>File has been saved.</value>
+    <value>File has been saved:</value>
     <comment>FileSavedText</comment>
   </data>
   <data name="FileNotFind" xml:space="preserve">
@@ -472,5 +472,9 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   <data name="VerifyPassword" xml:space="preserve">
     <value>Verify Password</value>
     <comment>VerifyPasswordText</comment>
+  </data>
+  <data name="FileNotSaved" xml:space="preserve">
+    <value>File has not been saved:</value>
+    <comment>FileNotSavedText</comment>
   </data>
 </root>

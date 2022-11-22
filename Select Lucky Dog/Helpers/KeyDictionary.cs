@@ -44,7 +44,7 @@ namespace Select_Lucky_Dog.Helpers
             NoRequiredPermissions,
             VerifyPassword,
             Verify,
-
+            FileNotSaved,
         }
         internal enum SettingKey : byte
         {

@@ -11,4 +11,7 @@
     <BadgeLogoSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</BadgeLogoSource>
     <PackageLogoSource>C:\Users\un\Pictures\Segoe UI Emoji Regular - U+1FAE5.png</PackageLogoSource>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
 </Project>

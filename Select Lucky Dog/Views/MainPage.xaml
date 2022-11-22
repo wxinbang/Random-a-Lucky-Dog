@@ -81,7 +81,8 @@
                                     </Grid>
                                 </PivotItem.Header>
                                 <ListView x:Name="AllView" 
-						             ItemsSource="{x:Bind AllStudentList}">
+						             ItemsSource="{x:Bind AllStudentList}"
+                                          SelectionMode="Extended">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="data:Student">
                                             <StackPanel Orientation="Horizontal">
@@ -105,7 +106,8 @@
                                     </Grid>
                                 </PivotItem.Header>
                                 <ListView x:Name="GoingView"
-						  ItemsSource="{x:Bind SortedGoingStudentList}">
+						  ItemsSource="{x:Bind SortedGoingStudentList}"
+                                          SelectionMode="Extended">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="data:Student">
                                             <StackPanel Orientation="Horizontal">
@@ -129,7 +131,8 @@
                                     </Grid>
                                 </PivotItem.Header>
                                 <ListView x:Name="FinishedView" 
-						  ItemsSource="{x:Bind FinishedStudentList}">
+						  ItemsSource="{x:Bind FinishedStudentList}"
+                                          SelectionMode="Extended">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="data:Student">
                                             <StackPanel Orientation="Horizontal">
@@ -153,7 +156,8 @@
                                     </Grid>
                                 </PivotItem.Header>
                                 <ListView x:Name="UnfinishedView" 
-						  ItemsSource="{x:Bind UnfinishedStudentList}">
+						  ItemsSource="{x:Bind UnfinishedStudentList}"
+                                          SelectionMode="Extended">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="data:Student">
                                             <StackPanel Orientation="Horizontal">
