@@ -27,28 +27,22 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="AppTitleBar" Height="48" Background="Transparent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-
             <TextBlock Grid.Column="0" x:Uid="AppTitleTextBlock" x:Name="AppTitleTextBlock"
                Style="{StaticResource CaptionTextBlockStyle}" 
                VerticalAlignment="Center"
                Margin="18,0,0,0"/>
-
-            <AutoSuggestBox Grid.Column="1"
-                            HorizontalAlignment="Stretch"
+        </Grid>
+        <AutoSuggestBox HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             x:Uid="SearchBox"
                             x:Name="SearchBox"
-                            Margin="180,0,280,0"
-                            MaxWidth="600"/>
-            <!--="SearchBox_TextChanged"
+                            Margin="280,0,280,0"
+                            MaxWidth="600"
+                            TextChanged="SearchBox_TextChanged"
+                            SuggestionChosen="SearchBox_SuggestionChosen"/>
+        <!--="SearchBox_TextChanged"
 								SuggestionChosen="SearchtBox_SuggestionChosen"-->
-            
-        </Grid>
+
 
         <winui:NavigationView Grid.Row="1"
         x:Name="navigationView"
@@ -66,7 +60,7 @@
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
                 <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Details" Icon="List" helpers:NavHelper.NavigateTo="views:DetailsPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Details" Icon="List" helpers:NavHelper.NavigateTo="views:ListDetailsPage" />
                 <winui:NavigationViewItem x:Uid="Shell_Files" Icon="ShowBcc" helpers:NavHelper.NavigateTo="views:FilesPage" />
             </winui:NavigationView.MenuItems>
             <i:Interaction.Behaviors>

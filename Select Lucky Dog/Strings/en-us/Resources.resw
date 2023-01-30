@@ -299,7 +299,7 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>LayOutButtonText</comment>
   </data>
   <data name="LayoutDataSetButton.Content" xml:space="preserve">
-    <value>Export Data Set</value>
+    <value>Save as...</value>
     <comment>LayoutDataSetButtonText</comment>
   </data>
   <data name="LayoutIdentityFileButton.Content" xml:space="preserve">
@@ -411,7 +411,7 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <comment>FileNotFindText</comment>
   </data>
   <data name="FeatureOfferedInTheNextVersion" xml:space="preserve">
-    <value>FeatureOfferedInTheNextVersion</value>
+    <value>Feature will coming soon.</value>
   </data>
   <data name="DeleteFinished" xml:space="preserve">
     <value>Delete Finished</value>
@@ -476,5 +476,73 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   <data name="FileNotSaved" xml:space="preserve">
     <value>File has not been saved:</value>
     <comment>FileNotSavedText</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>NoText</comment>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Operation canceled.</value>
+    <comment>OperationCanceledText</comment>
+  </data>
+  <data name="WhetherSaveContent" xml:space="preserve">
+    <value>Something has not been saved, do you want to save?</value>
+    <comment>WhetherSaveContent</comment>
+  </data>
+  <data name="WhetherSaveTitle" xml:space="preserve">
+    <value>Save?</value>
+    <comment>WhetherSaveTitleText</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>YesText</comment>
+  </data>
+  <data name="DisplayMode.OffContent" xml:space="preserve">
+    <value>Mica</value>
+    <comment>DisplayModeOffContent</comment>
+  </data>
+  <data name="DisplayMode.OnContent" xml:space="preserve">
+    <value>Acrylic</value>
+    <comment>DisplayModeOffContent</comment>
+  </data>
+  <data name="DoneButton.Content" xml:space="preserve">
+    <value>Done</value>
+    <comment>DoneButtonContent</comment>
+  </data>
+  <data name="InputNotValid" xml:space="preserve">
+    <value>The input is not a valid value.</value>
+    <comment>InputNotValidText</comment>
+  </data>
+  <data name="PraiseFlyout.Text" xml:space="preserve">
+    <value>Done!</value>
+    <comment>PraiseFlyoutText</comment>
+  </data>
+  <data name="RapidBuild.Content" xml:space="preserve">
+    <value>Rapid build</value>
+    <comment>RapidBuildButtonContent</comment>
+  </data>
+  <data name="RapidBuildBox.Header" xml:space="preserve">
+    <value>Enter an integer:</value>
+    <comment>RapidBuildBoxHeader</comment>
+  </data>
+  <data name="UndoPraiseButton.Content" xml:space="preserve">
+    <value>Undo</value>
+    <comment>UndoPraiseButtonContent</comment>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All:</value>
+    <comment>AllText</comment>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Finished:</value>
+    <comment>FinishedText</comment>
+  </data>
+  <data name="Going" xml:space="preserve">
+    <value>Going:</value>
+    <comment>GoingText</comment>
+  </data>
+  <data name="Unfinished" xml:space="preserve">
+    <value>Unfinished:</value>
+    <comment>UnfinishedText</comment>
   </data>
 </root>

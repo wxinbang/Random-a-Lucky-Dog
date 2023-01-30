@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.Email;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using static Select_Lucky_Dog.Helpers.KeyDictionary;
 using static Select_Lucky_Dog.Services.SettingsStorageService;
-using static Select_Lucky_Dog.Services.IdentityService;
 
 namespace xbb.ClassLibraries
 {
-    public static class DealWithIdentity
+	public static class DealWithIdentity
 	{
 		public static string GetHash(HashAlgorithm hashAlgorithm, string input)
 		{

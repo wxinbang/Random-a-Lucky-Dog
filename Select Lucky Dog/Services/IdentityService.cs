@@ -8,12 +8,12 @@ using Windows.Storage;
 
 namespace Select_Lucky_Dog.Services
 {
-    internal static class IdentityService
-    {
-        internal static async Task<bool> VerifyIdentityAsync()
-        {
+	internal static class IdentityService
+	{
+		internal static async Task<bool> VerifyIdentityAsync()
+		{
 #if DEBUG
-            return true;
+			return true;
 #else
 			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
 			foreach (var folder in Folders)
@@ -33,37 +33,37 @@ namespace Select_Lucky_Dog.Services
 			}
 			return false;
 #endif
-        }
-        internal static async Task<bool> VerifyIdentityAsync(string password)
-        {
-            var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
-            foreach (var folder in Folders)
-            {
-                try
-                {
-                    var file = await folder.GetFileAsync("IdentityFile");
-                    IList<string> contents = await FileIO.ReadLinesAsync(file);
-                    using (SHA256 sha256Hash = SHA256.Create())
-                    {
-                        string hash = GetHash(sha256Hash, contents[1] + ".Password:" + password);
-                        Debug.WriteLine(hash);
-                        if (hash == contents[2]) return true;
-                    }
-                }
-                catch {; }
-            }
-            return false;
-        }
+		}
+		internal static async Task<bool> VerifyIdentityAsync(string password)
+		{
+			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
+			foreach (var folder in Folders)
+			{
+				try
+				{
+					var file = await folder.GetFileAsync("IdentityFile");
+					IList<string> contents = await FileIO.ReadLinesAsync(file);
+					using (SHA256 sha256Hash = SHA256.Create())
+					{
+						string hash = GetHash(sha256Hash, contents[1] + ".Password:" + password);
+						Debug.WriteLine(hash);
+						if (hash == contents[2]) return true;
+					}
+				}
+				catch {; }
+			}
+			return false;
+		}
 
-        private static string GetHash(HashAlgorithm hashAlgorithm, string input)
-        {
-            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+		private static string GetHash(HashAlgorithm hashAlgorithm, string input)
+		{
+			byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
 
-            var sBuilder = new StringBuilder();
+			var sBuilder = new StringBuilder();
 
-            for (int i = 0; i < data.Length; i++) sBuilder.Append(data[i].ToString("x2"));
+			for (int i = 0; i < data.Length; i++) sBuilder.Append(data[i].ToString("x2"));
 
-            return sBuilder.ToString();
-        }
-    }
+			return sBuilder.ToString();
+		}
+	}
 }

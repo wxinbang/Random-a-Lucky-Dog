@@ -1,16 +1,13 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
@@ -77,7 +74,7 @@ namespace 抽人
 		{
 			this.InitializeComponent();
 #if (DEBUG)
-			if (GCSettings.LatencyMode==GCLatencyMode.NoGCRegion&& GC.TryStartNoGCRegion(maxGCMemory))
+			if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion && GC.TryStartNoGCRegion(maxGCMemory))
 			{
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
@@ -111,7 +108,7 @@ namespace 抽人
 			{
 				if (DealWithSettings.ReadSettings(SettingKey.saved) != "true") file = await dataSetFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
 				else file = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
-				ConnectDataSet(file,true);
+				ConnectDataSet(file, true);
 				fileName = DealWithSettings.ReadSettings(SettingKey.fileName);
 			}
 			if (DealWithSettings.ReadSettings(SettingKey.joinProgram) != "true")
@@ -211,9 +208,9 @@ namespace 抽人
 		{
 			ConnectDataSet(file);
 		}
-		private async void ConnectDataSet(StorageFile file,bool NotVerifyIdentity=false)
+		private async void ConnectDataSet(StorageFile file, bool NotVerifyIdentity = false)
 		{
-			if (await DealWithIdentity.VerifyIdentity()||NotVerifyIdentity)
+			if (await DealWithIdentity.VerifyIdentity() || NotVerifyIdentity)
 			{
 				try
 				{
@@ -225,7 +222,7 @@ namespace 抽人
 
 					IList<string> contents = await FileIO.ReadLinesAsync(file);
 					//sumOfStudent = contents.ToArray().Length;
-					while(contents.Last()=="")contents.RemoveAt(contents.Count()-1);
+					while (contents.Last() == "") contents.RemoveAt(contents.Count() - 1);
 					dealWithStudentDataProgressBar.Maximum = contents.Count();
 					int orderInList = 0;
 					//bool[] checkId = new bool[sumOfStudent];
@@ -354,7 +351,7 @@ namespace 抽人
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{
 			if (sender.Text == "") StudentSuggestBox.ItemsSource = null;
-			else if (sender.Text != ""&& !isChoose)
+			else if (sender.Text != "" && !isChoose)
 			{
 				//sender.Text = suggestBoxLastString;
 				StudentSuggestBox.ItemsSource = studentList.Where(p => p.Name.Contains(sender.Text)).Select(p => p.Name).ToList();

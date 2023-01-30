@@ -16,8 +16,11 @@
         <StackPanel
             x:Name="ContentArea">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <!--StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+				<ToggleSwitch x:Uid="DisplayMode" x:Name="DisplayMode" VerticalAlignment="Center"
+								  Toggled="DisplayMode_Toggled"
+								  />
+				<!--TextBlock x:Uid="Settings_Theme" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
@@ -50,8 +53,8 @@
                             <xaml:ElementTheme>Default</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
-                </StackPanel>
-            </StackPanel-->
+                </StackPanel-->
+            </StackPanel>
 
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Data" Style="{StaticResource SubtitleTextBlockStyle}"

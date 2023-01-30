@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Select_Lucky_Dog.Views.DetailsPage"
+    x:Class="Select_Lucky_Dog.Views.ListDetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -33,22 +33,21 @@
                     Margin="{StaticResource SmallLeftMargin}"
                     VerticalAlignment="Center">
                     <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind Name}" />
-                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Status}"
-                               />
+                    <TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind Status}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="DetailsTemplate">
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <views:DetailsDetailControl ListMenuItem="{Binding}" />
+                <views:ListDetailsDetailControl ListMenuItem="{Binding}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="NoSelectionContentTemplate">
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <TextBlock
-                    x:Uid="Details_NoSelection"
+                    x:Uid="ListDetails_NoSelection"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Style="{StaticResource SubtitleTextBlockStyle}"
@@ -93,7 +92,7 @@
             </VisualStateManager.VisualStateGroups>
         <controls:ListDetailsView
             x:Name="ListDetailsViewControl"
-            x:Uid="Details"
+            x:Uid="ListDetails"
             BackButtonBehavior="Automatic"
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
             BorderBrush="Transparent"

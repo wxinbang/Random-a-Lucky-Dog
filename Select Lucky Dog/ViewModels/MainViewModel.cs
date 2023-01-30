@@ -1,13 +1,11 @@
-﻿using System;
-
-using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Select_Lucky_Dog.ViewModels
 {
-    public class MainViewModel : ObservableObject
-    {
-        public MainViewModel()
-        {
-        }
-    }
+	public class MainViewModel : ObservableObject
+	{
+		public MainViewModel()
+		{
+		}
+	}
 }
