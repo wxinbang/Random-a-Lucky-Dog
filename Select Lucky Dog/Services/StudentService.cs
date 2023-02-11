@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using static Select_Lucky_Dog.Core.Models.StudentStatus;
 using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
+using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
 using static Select_Lucky_Dog.Services.FoldersService;
 using static Select_Lucky_Dog.Services.SettingsStorageService;
+using static Select_Lucky_Dog.Services.LocalizeService;
 
-namespace Select_Lucky_Dog.Core.Services
+namespace Select_Lucky_Dog.Services
 {
 	public static class StudentService
 	{
@@ -37,12 +39,12 @@ namespace Select_Lucky_Dog.Core.Services
 			}
 			return students;
 		}
-		private static StudentStatus ConvertStatus(string status)
+		internal static StudentStatus ConvertStatus(string status)
 		{
-			if (status == "unfinished") return StudentStatus.unfinished;
-			else if (status == "going") return StudentStatus.going;
-			else if (status == "finished") return StudentStatus.finished;
-			else if (status == "suspended") return StudentStatus.suspended;
+			if (status == "unfinished"||status==Localize(Unfinished)) return unfinished;
+			else if (status == "going" || status == Localize(Going)) return going;
+			else if (status == "finished" || status == Localize(Finished)) return finished;
+			else if (status == "suspended" || status == Localize(Suspended)) return suspended;
 			else return StudentStatus.unfinished;
 		}
 		private static string[] SplitStudentLine(string line)

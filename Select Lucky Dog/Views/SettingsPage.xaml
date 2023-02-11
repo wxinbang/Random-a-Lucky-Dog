@@ -12,15 +12,15 @@
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     </Page.Resources>
 
-    <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+    <Grid Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel
             x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <!--TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
 				<ToggleSwitch x:Uid="DisplayMode" x:Name="DisplayMode" VerticalAlignment="Center"
 								  Toggled="DisplayMode_Toggled"
 								  />
-				<!--TextBlock x:Uid="Settings_Theme" />
+				<TextBlock x:Uid="Settings_Theme" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
@@ -53,10 +53,10 @@
                             <xaml:ElementTheme>Default</xaml:ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
-                </StackPanel-->
-            </StackPanel>
+                </StackPanel>
+            </StackPanel-->
 
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+			<StackPanel Margin="0,0,0,0">
                 <TextBlock x:Uid="Settings_Data" Style="{StaticResource SubtitleTextBlockStyle}"
                            Margin="{StaticResource SmallTopBottomMargin}"/>
 
@@ -75,9 +75,10 @@
                             Click="LayoutIdentityFile_Click"
                             Margin="{StaticResource MediumLeftMargin}"/>
                 </StackPanel>
+
             </StackPanel>
 
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock x:Uid="Settings_About" Margin="{StaticResource SmallTopMargin}" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
             <StackPanel Margin="{StaticResource XSmallTopMargin}">
                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" />
@@ -86,7 +87,7 @@
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
 
-                <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
+                <!--HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" /-->
             </StackPanel>
         </StackPanel>
     </Grid>    

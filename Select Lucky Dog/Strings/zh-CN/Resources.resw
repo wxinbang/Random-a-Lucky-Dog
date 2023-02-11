@@ -1,110 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -118,482 +13,470 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Select Lucky Dog</value>
+    <value>抽人</value>
     <comment>Application display name</comment>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Select Lucky Dog</value>
+    <value>抽人</value>
     <comment>Application description</comment>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>主页</value>
     <comment>Navigation view item name for Main</comment>
   </data>
   <data name="Details_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
+    <value>从列表中选取一项。</value>
     <comment>No selection text for Details</comment>
   </data>
   <data name="Details.ListHeader" xml:space="preserve">
-    <value>Details</value>
+    <value>详情页</value>
     <comment>Title for DetailsPage</comment>
   </data>
   <data name="Shell_Details.Content" xml:space="preserve">
-    <value>Details</value>
+    <value>详情页</value>
     <comment>Navigation view item name for Details</comment>
   </data>
   <data name="FilesTitle.Text" xml:space="preserve">
-    <value>Files</value>
+    <value>文件页</value>
     <comment>Title for FilesPage</comment>
   </data>
   <data name="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Collapse all</value>
+    <value>全部折叠</value>
     <comment>Tooltip for Collapse all button in TreeViewPages</comment>
   </data>
   <data name="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Collapse all</value>
+    <value>全部折叠</value>
     <comment>Automation Name for Collapse all button in TreeViewPages</comment>
   </data>
   <data name="Shell_Files.Content" xml:space="preserve">
-    <value>Files</value>
+    <value>文件</value>
     <comment>Navigation view item name for Files</comment>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Choose Theme</value>
+    <value>选择主题</value>
     <comment>Choose theme text for Settings</comment>
   </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>深色</value>
     <comment>Dark theme text for Settings</comment>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Windows default</value>
+    <value>Windows 默认</value>
     <comment>Windows default theme text for Settings</comment>
   </data>
   <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>浅色</value>
     <comment>Light theme text for Settings</comment>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+    <value>关于此应用</value>
     <comment>About this application title for Settings</comment>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>An app to random something for fairness. More features to be explorered.</value>
+    <value>一个抽人的小工具。</value>
     <comment>About this application description for Settings</comment>
   </data>
   <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>隐私声明</value>
     <comment>Privacy Statement link content for Settings</comment>
   </data>
-  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>https://YourPrivacyUrlGoesHere/</value>
-    <comment>Here is your Privacy Statement url for Settings</comment>
-  </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+    <value>个性化</value>
     <comment>Personalization text for Settings</comment>
   </data>
-  <data name="FirstRun_BodyText" xml:space="preserve">
-    <value>Todo:Write something later.</value>
-    <comment>First use prompt message body</comment>
-  </data>
   <data name="FirstRunDialogTitle" xml:space="preserve">
-    <value>Welcome</value>
+    <value>欢迎</value>
     <comment>First use prompt message title</comment>
   </data>
   <data name="FirstRunDialogPrimaryButtonText" xml:space="preserve">
-    <value>Ok</value>
+    <value>确定</value>
     <comment>First use prompt message primary button text</comment>
   </data>
-  <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value>TODO: Write something later.</value>
-    <comment>What's new prompt message body</comment>
-  </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">
-    <value>What's new in this version</value>
+    <value>此版本中的新增功能</value>
     <comment>What's new prompt message title</comment>
   </data>
   <data name="WhatsNewDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Ok</value>
+    <value>确定</value>
     <comment>What's new prompt message primary button text</comment>
   </data>
   <data name="AppTitleTextBlock.Text" xml:space="preserve">
-    <value>Select Lucky Dog</value>
+    <value>抽人</value>
     <comment>AppTitleText</comment>
   </data>
   <data name="PivotAll.Text" xml:space="preserve">
-    <value>All</value>
+    <value>全部</value>
     <comment>PivotAllText</comment>
   </data>
   <data name="PivotFinished.Text" xml:space="preserve">
-    <value>Finished</value>
+    <value>已完成</value>
     <comment>PivotFinishedText</comment>
   </data>
   <data name="PivotGoing.Text" xml:space="preserve">
-    <value>Going</value>
+    <value>进行中</value>
     <comment>PivotGoingText</comment>
   </data>
   <data name="PivotUnfinished.Text" xml:space="preserve">
-    <value>Unfinished</value>
+    <value>未完成</value>
     <comment>PivotUnfinishedText</comment>
   </data>
   <data name="SearchBox.PlaceholderText" xml:space="preserve">
-    <value>Search</value>
+    <value>搜索</value>
     <comment>SearchBoxText</comment>
   </data>
   <data name="ConnectDataSet.Content" xml:space="preserve">
-    <value>Import Data Set</value>
+    <value>导入数据集</value>
     <comment>ConnectDataSetContent</comment>
   </data>
   <data name="DeveloperTools.Content" xml:space="preserve">
-    <value>Developer Tools</value>
+    <value>开发者工具</value>
     <comment>DeveloperToolsButton</comment>
   </data>
   <data name="DisplayMode.Header" xml:space="preserve">
-    <value>Display Mode</value>
+    <value>显示模式</value>
     <comment>DisplayModeHeader</comment>
   </data>
   <data name="RandomButton.Content" xml:space="preserve">
-    <value>R</value>
+    <value>抽</value>
     <comment>RandomButtonText</comment>
   </data>
   <data name="SelectDataSetButton.Content" xml:space="preserve">
-    <value>Select Data Set</value>
+    <value>选择数据集</value>
     <comment>SelectDataSetButtonContent</comment>
   </data>
   <data name="DeleteButton.Content" xml:space="preserve">
-    <value>Delete</value>
+    <value>删除…</value>
     <comment>DeleteButtonContent</comment>
   </data>
   <data name="DeleteDataSetButton.Text" xml:space="preserve">
-    <value>Data Set</value>
+    <value>数据集</value>
     <comment>DeleteDataSetButtonText</comment>
   </data>
   <data name="DeleteLogFileButton.Text" xml:space="preserve">
-    <value>Log File</value>
+    <value>日志文件</value>
     <comment>DeleteLogFileButtonText</comment>
   </data>
   <data name="DeleteUserDataButton.Text" xml:space="preserve">
-    <value>User Data</value>
+    <value>用户数据</value>
     <comment>DeleteUserDataButtonText</comment>
   </data>
   <data name="LayOutButton.Content" xml:space="preserve">
-    <value>Export</value>
+    <value>导出…</value>
     <comment>LayOutButtonText</comment>
   </data>
   <data name="LayoutDataSetButton.Content" xml:space="preserve">
-    <value>Save as...</value>
+    <value>另存为..…</value>
     <comment>LayoutDataSetButtonText</comment>
   </data>
   <data name="LayoutIdentityFileButton.Content" xml:space="preserve">
-    <value>Export Identity File</value>
+    <value>身份文件</value>
     <comment>LayoutIdentityFileButtonText</comment>
   </data>
   <data name="MarkFinishedButton.Text" xml:space="preserve">
-    <value>Mark Finished</value>
+    <value>标记完成</value>
     <comment>MarkFinishedButtonText</comment>
   </data>
   <data name="MarkGoingButton.Text" xml:space="preserve">
-    <value>Mark Going</value>
+    <value>标记进行中</value>
     <comment>MarkGoingButtonText</comment>
   </data>
   <data name="MarkUnfinishedButton.Text" xml:space="preserve">
-    <value>Mark Unfinished</value>
+    <value>标记未完成</value>
     <comment>MarkUnfinishedButtonText</comment>
   </data>
   <data name="OperateStudentButton.Content" xml:space="preserve">
-    <value>Operate</value>
+    <value>操作</value>
     <comment>OperateStudentButtonContent</comment>
   </data>
   <data name="PraiseButton.Content" xml:space="preserve">
-    <value>Praise</value>
+    <value>表扬一下</value>
     <comment>PraiseButtonContent</comment>
   </data>
   <data name="SaveButton.Text" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
     <comment>SaveButtonText</comment>
   </data>
   <data name="WhetherMark.Header" xml:space="preserve">
-    <value>Mark</value>
+    <value>标记</value>
     <comment>WhetherMarkHeader</comment>
   </data>
   <data name="WhetherMark.OffContent" xml:space="preserve">
-    <value>Off</value>
+    <value>关</value>
     <comment>WhetherMarkOffContent</comment>
   </data>
   <data name="WhetherMark.OnContent" xml:space="preserve">
-    <value>On</value>
+    <value>开</value>
     <comment>WhetherMarkOnContent</comment>
   </data>
   <data name="AllAlreadyFinished" xml:space="preserve">
-    <value>All already finished</value>
+    <value>所有人已完成</value>
     <comment>AllAlreadyFinishedText</comment>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
     <comment>CheckMarkDialogCancelText</comment>
   </data>
   <data name="CheckMarkConfirmText" xml:space="preserve">
-    <value>Yes</value>
+    <value>是</value>
     <comment>CheckMarkDialogYesButton</comment>
   </data>
   <data name="CheckMarkTitle" xml:space="preserve">
-    <value>Mark?</value>
+    <value>标记？</value>
     <comment>CheckMarkDialogTitle</comment>
   </data>
   <data name="CheckMarkContent" xml:space="preserve">
-    <value>Are you sure the following randomed people will be marked "going"?</value>
+    <value>确定接下来的人标记为“进行中”？</value>
     <comment>CheckMarkContent</comment>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>关闭</value>
     <comment>CloseText</comment>
   </data>
   <data name="ExceptionTitle" xml:space="preserve">
-    <value>Oops!</value>
+    <value>阿哲</value>
     <comment>ExceptionTitle</comment>
   </data>
   <data name="JoinProgramClose" xml:space="preserve">
-    <value>No</value>
+    <value>否</value>
     <comment>JoinProgramClose</comment>
   </data>
   <data name="JoinProgramContent" xml:space="preserve">
-    <value>Your app will be restarted.</value>
+    <value>应用将重启。</value>
     <comment>JoinProgramContent</comment>
   </data>
   <data name="JoinProgramPrimary" xml:space="preserve">
-    <value>Yes (restart now)</value>
+    <value>是（立刻重启）</value>
     <comment>JoinProgramPrimary</comment>
   </data>
   <data name="JoinProgramTitle" xml:space="preserve">
-    <value>Join test program?</value>
+    <value>加入测试计划？</value>
     <comment>JoinProgramTitle</comment>
   </data>
   <data name="PraiseClose" xml:space="preserve">
-    <value>OK</value>
+    <value>好</value>
     <comment>PraiseClose</comment>
   </data>
   <data name="PraiseContent" xml:space="preserve">
-    <value>Feature wil be soonly completed</value>
+    <value>功能将在后续版本中加入</value>
     <comment>PraiseContent</comment>
   </data>
   <data name="PraiseTitle" xml:space="preserve">
-    <value>Praise</value>
+    <value>表扬一下</value>
     <comment>PraiseTitle</comment>
   </data>
   <data name="SendEmail" xml:space="preserve">
-    <value>Send Email</value>
+    <value>发送邮件</value>
     <comment>SendEmail</comment>
   </data>
   <data name="FileSaved" xml:space="preserve">
-    <value>File has been saved:</value>
+    <value>文件已被保存：</value>
     <comment>FileSavedText</comment>
   </data>
   <data name="FileNotFind" xml:space="preserve">
-    <value>File Not Find</value>
+    <value>文件未找到</value>
     <comment>FileNotFindText</comment>
   </data>
   <data name="FeatureOfferedInTheNextVersion" xml:space="preserve">
-    <value>Feature will coming soon.</value>
+    <value>功能即将到来。</value>
   </data>
   <data name="DeleteFinished" xml:space="preserve">
-    <value>Delete Finished</value>
+    <value>删除已完成</value>
     <comment>DeleteFinishedText</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
     <comment>CancelText</comment>
   </data>
   <data name="ExceptionAt" xml:space="preserve">
-    <value>App throwed exception at:</value>
+    <value>应用抛出了异常，位于：</value>
     <comment>ExceptionAtText</comment>
   </data>
   <data name="ExistNullValue" xml:space="preserve">
-    <value>Exist Null Values!</value>
+    <value>存在空值</value>
     <comment>ExistNullValueText</comment>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>Export</value>
+    <value>导出</value>
     <comment>ExportText</comment>
   </data>
   <data name="ExportIdentityFile" xml:space="preserve">
-    <value>Export Identity File</value>
+    <value>导出身份文件</value>
     <comment>ExportIdentityFileText</comment>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>反馈</value>
     <comment>FeedbackText</comment>
   </data>
   <data name="InsertUSBDrive" xml:space="preserve">
-    <value>Insert a USB drive and try again.</value>
+    <value>插入一个可移动驱动器并且重试。</value>
     <comment>InsertUSBDriveText</comment>
   </data>
   <data name="NoRequiredPermissions" xml:space="preserve">
-    <value>No required permissions.</value>
+    <value>没有所需要的权限</value>
     <comment>NoRequiredPermissionsText</comment>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>密码</value>
     <comment>PasswordText</comment>
   </data>
   <data name="Settings_Data.Text" xml:space="preserve">
-    <value>Data</value>
+    <value>数据</value>
     <comment>Settings_DataText</comment>
   </data>
   <data name="SoftwareCrashes" xml:space="preserve">
-    <value>Software Crashes</value>
+    <value>软件崩溃</value>
     <comment>SoftwareCrashesText</comment>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>User Name</value>
+    <value>用户名</value>
     <comment>UserNameText</comment>
   </data>
   <data name="Verify" xml:space="preserve">
-    <value>Verify</value>
+    <value>验证</value>
     <comment>VerifyText</comment>
   </data>
   <data name="VerifyPassword" xml:space="preserve">
-    <value>Verify Password</value>
+    <value>验证密码</value>
     <comment>VerifyPasswordText</comment>
   </data>
   <data name="FileNotSaved" xml:space="preserve">
-    <value>File has not been saved:</value>
+    <value>文件未被保存：</value>
     <comment>FileNotSavedText</comment>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>否</value>
     <comment>NoText</comment>
   </data>
   <data name="OperationCanceled" xml:space="preserve">
-    <value>Operation canceled.</value>
+    <value>已取消操作。</value>
     <comment>OperationCanceledText</comment>
   </data>
   <data name="WhetherSaveContent" xml:space="preserve">
-    <value>Something has not been saved, do you want to save?</value>
+    <value>数据可能未保存，要保存吗？</value>
     <comment>WhetherSaveContent</comment>
   </data>
   <data name="WhetherSaveTitle" xml:space="preserve">
-    <value>Save?</value>
+    <value>保存？</value>
     <comment>WhetherSaveTitleText</comment>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>是</value>
     <comment>YesText</comment>
   </data>
   <data name="DisplayMode.OffContent" xml:space="preserve">
-    <value>Mica</value>
+    <value>云母</value>
     <comment>DisplayModeOffContent</comment>
   </data>
   <data name="DisplayMode.OnContent" xml:space="preserve">
-    <value>Acrylic</value>
+    <value>亚克力</value>
     <comment>DisplayModeOffContent</comment>
   </data>
   <data name="DoneButton.Content" xml:space="preserve">
-    <value>Done</value>
+    <value>完成</value>
     <comment>DoneButtonContent</comment>
   </data>
   <data name="InputNotValid" xml:space="preserve">
-    <value>The input is not a valid value.</value>
+    <value>输入的不是有效值。</value>
     <comment>InputNotValidText</comment>
   </data>
   <data name="PraiseFlyout.Text" xml:space="preserve">
-    <value>Done!</value>
+    <value>完成</value>
     <comment>PraiseFlyoutText</comment>
   </data>
   <data name="RapidBuild.Content" xml:space="preserve">
-    <value>Rapid build</value>
+    <value>快速构建</value>
     <comment>RapidBuildButtonContent</comment>
   </data>
   <data name="RapidBuildBox.Header" xml:space="preserve">
-    <value>Enter an integer:</value>
+    <value>请输入一个整数：</value>
     <comment>RapidBuildBoxHeader</comment>
   </data>
   <data name="UndoPraiseButton.Content" xml:space="preserve">
-    <value>Undo</value>
+    <value>撤消</value>
     <comment>UndoPraiseButtonContent</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>All:</value>
+    <value>全部：</value>
     <comment>AllText</comment>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Finished:</value>
+    <value>已完成：</value>
     <comment>FinishedText</comment>
   </data>
   <data name="Going" xml:space="preserve">
-    <value>Going:</value>
+    <value>进行中：</value>
     <comment>GoingText</comment>
   </data>
   <data name="Unfinished" xml:space="preserve">
-    <value>Unfinished:</value>
+    <value>未完成：</value>
     <comment>UnfinishedText</comment>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done</value>
+    <value>完成</value>
     <comment>DoneText</comment>
   </data>
   <data name="EditStudentTitle" xml:space="preserve">
-    <value>Create/Modify</value>
+    <value>创建/修改</value>
     <comment>EditStudentTitleText</comment>
   </data>
   <data name="EnterName" xml:space="preserve">
-    <value>Enter the name:</value>
+    <value>输入名字：</value>
     <comment>EnterNameText</comment>
   </data>
   <data name="PraiseTime" xml:space="preserve">
-    <value>Number of praises:</value>
+    <value>表扬次数：</value>
     <comment>PraiseTimeText</comment>
   </data>
   <data name="Suspended" xml:space="preserve">
-    <value>Suspended</value>
+    <value>已挂起</value>
     <comment>SuspendedText</comment>
   </data>
   <data name="DateCreatedBlock.Text" xml:space="preserve">
-    <value>Date created</value>
+    <value>创建时间</value>
     <comment>DateCreatedBlockText</comment>
   </data>
   <data name="DateModifiedBlock.Text" xml:space="preserve">
-    <value>Date modified</value>
+    <value>修改时间</value>
     <comment>DateModifiedBlockText</comment>
   </data>
   <data name="FileBlock.Text" xml:space="preserve">
-    <value>File</value>
+    <value>文件</value>
     <comment>FileBlockText</comment>
   </data>
   <data name="FolderBlock.Text" xml:space="preserve">
-    <value>Folder</value>
+    <value>文件夹</value>
     <comment>FolderBlockText</comment>
   </data>
   <data name="MainContentBlock.Text" xml:space="preserve">
-    <value>Main content</value>
+    <value>主要内容</value>
     <comment>MainContentBlockText</comment>
   </data>
   <data name="NotSave" xml:space="preserve">
-    <value>Do not save</value>
+    <value>不保存</value>
     <comment>NotSaveText</comment>
   </data>
   <data name="OrderOfGoingBlock.Text" xml:space="preserve">
-    <value>Sequence of going</value>
+    <value>进行顺序</value>
     <comment>OrderOfGoingBlockText</comment>
   </data>
   <data name="PathBlock.Text" xml:space="preserve">
-    <value>Path</value>
+    <value>路径</value>
     <comment>PathBlockText</comment>
   </data>
   <data name="PraiseTimeBlock.Text" xml:space="preserve">
-    <value>Number of praises</value>
+    <value>表扬次数</value>
     <comment>PraiseTimeBlockText</comment>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
     <comment>SaveText</comment>
   </data>
   <data name="SizeBlock.Text" xml:space="preserve">
-    <value>Size</value>
+    <value>大小</value>
     <comment>SizeBlockText</comment>
   </data>
   <data name="StatusBlock.Text" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
     <comment>StatusBlockText</comment>
   </data>
 </root>

@@ -35,6 +35,9 @@ namespace Select_Lucky_Dog.Views
 		private async void DeleteUserData_Click(object sender, RoutedEventArgs e)
 		{
 			DeleteAllString();
+			await DeleteDataSetFolderAsync();
+			await DeleteSaveFolderAsync();
+			await DeleteAutoSaveFolderAsync();
 			await ContentDialogs.ThrowException(Localize(DeleteFinished), false);
 		}
 		private async void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)

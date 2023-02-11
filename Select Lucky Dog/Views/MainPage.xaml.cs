@@ -16,7 +16,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using static Select_Lucky_Dog.Core.Models.StudentStatus;
-using static Select_Lucky_Dog.Core.Services.StudentService;
+using static Select_Lucky_Dog.Services.StudentService;
 using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
 using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
 using static Select_Lucky_Dog.Services.DataSetService;
@@ -40,7 +40,6 @@ namespace Select_Lucky_Dog.Views
 
 		Random RandomStudent = new Random();
 		DispatcherTimer Timer = new DispatcherTimer();
-		private bool isChoose;
 		private int timesOfVersionTextTapped;
 		private bool mark;
 		private int studentNumber;
@@ -56,21 +55,21 @@ namespace Select_Lucky_Dog.Views
 			InitializeComponent();
 		}
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
-		{/*
-			if (DealWithSettings.ReadSettings(DisplayMode) == null || DealWithSettings.ReadSettings(DisplayMode) == "True") DisplayMode.IsOn = true;
+		{
+			//if (DealWithSettings.ReadSettings(DisplayMode) == null || DealWithSettings.ReadSettings(DisplayMode) == "True") DisplayMode.IsOn = true;
 			Timer.Interval = new TimeSpan(0, 0, 0, 1);
 			Timer.Tick += Timer_Tick;
 			Timer.Start();
-
+			/*
 			if (DealWithSettings.ReadSettings(LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
 			ExtendAcrylicIntoTitleBar();
 			*/
 			SaveFolder = await GetSaveFolderAsync();
-			file = await GetLastDataFileAsync();
 
 			if (app.IsDataPrepared)
 			{
+				file = await GetLastDataFileAsync();
 				var collections = ClassifyStudents(app.AllStudentList);
 				var list = collections.ToList();
 				list.Insert(0, app.AllStudentList);
@@ -78,12 +77,14 @@ namespace Select_Lucky_Dog.Views
 			}
 			else if (ReadString(FileName) != null)
 			{
+				file = await GetLastDataFileAsync();
 				var collctions = await ConnectDataSetAsync(file, true);
 				SetColletions(collctions);
 				app.IsDataPrepared = true;
 			}
 
 			string version = VersionManager.GetVersion();
+			SaveString(JoinProgram, "False");
 #if (DEBUG)
 			version += ".vNext";
 			SaveString(JoinProgram, "True");
@@ -159,14 +160,15 @@ namespace Select_Lucky_Dog.Views
 		private async void ConnectDataSet_Click(object sender, RoutedEventArgs e)
 		{
 			file = await SelectDataSetAsync();
-			if (file != null)
+			if (file != null && await VerifyIdentityAsync())
 			{
 				app.IsDataPrepared = false;
 				var collections = await ConnectDataSetAsync(file);
 				SetColletions(collections);
 				app.IsDataPrepared = true;
 			}
-			else { ResultBox.Text = Localize(OperationCanceled); file = await GetLastDataFileAsync(); }
+			else if (file == null) { ResultBox.Text = Localize(OperationCanceled); file = await GetLastDataFileAsync(); }
+			else await ContentDialogs.ThrowException(Localize(NoRequiredPermissions));
 		}
 		private async void RapidBuild_Click(object sender, RoutedEventArgs e)
 		{
@@ -267,11 +269,12 @@ namespace Select_Lucky_Dog.Views
 		}
 		public async void Save_Click(object sender, RoutedEventArgs e)
 		{
-			if (ReadString(FileName) != null)
+			if (ReadString(FileName) != null && await VerifyIdentityAsync())
 			{
 				await SaveStudentsAsync(file.Name, AllStudentList);
-				ResultBox.Text = Localize(FileSaved);
+				ResultBox.Text = Localize(FileSaved) + file.Name;
 			}
+			else if (!await VerifyIdentityAsync()) await ContentDialogs.ThrowException(Localize(NoRequiredPermissions));
 		}
 		private async void Mark_Click(object sender, RoutedEventArgs e)
 		{
@@ -317,12 +320,6 @@ namespace Select_Lucky_Dog.Views
 			GoingNumber.Value = SortedGoingStudentList.Count;
 			FinishedNumber.Value = FinishedStudentList.Count;
 			UnfinishedNumber.Value = UnfinishedStudentList.Count;
-		}
-		private void ExtendAcrylicIntoTitleBar()
-		{
-			ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-			titleBar.ButtonBackgroundColor = Colors.Transparent;
-			titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 		}
 		private async void OpenGC_Click(object sender, RoutedEventArgs e)
 		{
@@ -378,7 +375,7 @@ namespace Select_Lucky_Dog.Views
 			else if (UnfinishedStudentList.Contains(student)) { Views.SelectedItem = Unfinished; listView = UnfinishedView; }
 			else { Views.SelectedItem = All; listView = AllView; }
 			listView.SelectedItem = student;
-			listView.ScrollIntoView(student);
+			listView.ScrollIntoView(listView.SelectedItem);
 		}
 	}
 }

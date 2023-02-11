@@ -114,7 +114,7 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
-                        Text="Folder"
+                        x:Uid="FolderBlock"
                         VerticalAlignment="Center"
                         Style="{StaticResource TitleTextBlockStyle}" />
                     <TextBlock
@@ -126,28 +126,28 @@
                 <TextBlock
                     Margin="{StaticResource MediumTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Path" />
+                    x:Uid="PathBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind path}" />
                 <TextBlock
                     Margin="{StaticResource MediumTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Date created" />
+                    x:Uid="DateCreatedBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind dateCreated}" />
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Date modified" />
+                    x:Uid="DateModifiedBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind dateModified}" />
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Size" />
+                    x:Uid="SizeBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind size}" />
@@ -193,7 +193,7 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
-                        Text="File"
+                        x:Uid="FileBlock"
                         Style="{StaticResource TitleTextBlockStyle}" />
                     <TextBlock
                         Text="{x:Bind name}"
@@ -203,35 +203,35 @@
                 <TextBlock
                     Margin="{StaticResource MediumTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Path" />
+                    x:Uid="PathBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind path}" />
                 <TextBlock
                     Margin="{StaticResource MediumTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Date created" />
+                    x:Uid="DateCreatedBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind dateCreated}" />
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Data modified" />
+                    x:Uid="DateModifiedBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind dateModified}" />
                 <TextBlock
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Size" />
+                    x:Uid="SizeBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind size}" />
                 <TextBlock
                     Margin="{StaticResource MediumTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"
-                    Text="Main content" />
+                    x:Uid="MainContentBlock" />
                 <TextBlock
                     Style="{StaticResource DetailBodyBaseMediumStyle}"
                     Text="{x:Bind mainContent}" />

@@ -1,5 +1,8 @@
-﻿using Select_Lucky_Dog.Services;
+﻿using Microsoft.UI.Xaml.Controls;
+using Select_Lucky_Dog.Core.Models;
+using Select_Lucky_Dog.Services;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
@@ -13,6 +16,7 @@ using static Select_Lucky_Dog.Helpers.KeyDictionary;
 using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
 using static Select_Lucky_Dog.Services.IdentityService;
 using static Select_Lucky_Dog.Services.LocalizeService;
+using static Select_Lucky_Dog.Services.StudentService;
 
 namespace Select_Lucky_Dog.Views
 {
@@ -91,7 +95,7 @@ namespace Select_Lucky_Dog.Views
 
 			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
 		}
-		internal static async Task ThrowException(string message, bool sendEmail = true)
+		internal static async Task ThrowException(string message, bool sendEmail = false)
 		{
 			var dialog = new ContentDialog
 			{
@@ -146,7 +150,7 @@ namespace Select_Lucky_Dog.Views
 					StorageFolder folder = Folders[filePlace.SelectedIndex];
 					if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password) || folder == null)
 					{
-						ExportIdentityFile(true);
+						await ExportIdentityFile(true);
 						return;
 					}
 					SHA256 sha256 = SHA256.Create();
@@ -156,13 +160,15 @@ namespace Select_Lucky_Dog.Views
 					await FileIO.AppendTextAsync(file, userName + '\n');
 					await FileIO.AppendTextAsync(file, hash1 + '\n');
 					await FileIO.AppendTextAsync(file, hash2);
+					await ThrowException(Localize(Done));
 				}
 			}
-			else await ThrowException(Localize(NoRequiredPermissions), false);
+			else if(!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions), false);
 		}
 		internal static async Task<bool> VerifyPassword(bool checkAgain = false)
 		{
 #if DEBUG
+			await Task.CompletedTask;
 			return true;
 #else
 			var passwordBox = new PasswordBox { PlaceholderText = checkAgain ? "刚才好像输错了" : "请输入密码" };
@@ -202,6 +208,78 @@ namespace Select_Lucky_Dog.Views
 				case ContentDialogResult.Secondary: return false;
 			}
 			return null;
+		}
+		internal static async Task EditStudent(Student student, bool checkAgain = false)
+		{
+			if (await VerifyIdentityAsync() && await VerifyPassword())
+			{
+
+				var nameBox = new TextBox { PlaceholderText = Localize(EnterName), Margin = new Thickness(10) };
+				var status = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Going), Localize(Finished), Localize(Unfinished), Localize(Suspended) } };
+				var praiseTimeBox = new NumberBox { Value = 0, Header = (Localize(PraiseTime)), Margin = new Thickness(10), SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Compact, SmallChange = 1, LargeChange = 5 };
+				var checkAgainBox = new TextBlock { Text = Localize(ExistNullValue), Margin = new Thickness(20, 0, 0, 0), Foreground = new SolidColorBrush(Colors.IndianRed) };
+
+				var grid = new StackPanel();
+				if (checkAgain) grid.Children.Add(checkAgainBox);
+				grid.Children.Add(nameBox);
+				grid.Children.Add(status);
+				grid.Children.Add(praiseTimeBox);
+
+				var app = Application.Current as App;
+
+				var dialog = new ContentDialog
+				{
+					Title = Localize(EditStudentTitle),
+					Content = grid,
+					PrimaryButtonText = Localize(Done),
+					CloseButtonText = Localize(Cancel),
+					DefaultButton = ContentDialogButton.Primary
+				};
+				var result = await dialog.ShowAsync();
+				if (result == ContentDialogResult.Primary)
+				{
+					string name = nameBox.Text;
+					int praiseTime = (int)praiseTimeBox.Value;
+					if (String.IsNullOrEmpty(name))
+					{
+						await EditStudent(student, true);
+						return;
+					}
+					if (student == null)
+					{
+						student = new Student("", StudentStatus.unfinished, 0, 0, 0);
+						app.AllStudentList.Add(student);
+					}
+					int nowOrderOfGoing = 0;
+					if(ConvertStatus((string)status.SelectedItem) == StudentStatus.going)
+					{
+						if (student.Status != StudentStatus.going) nowOrderOfGoing = ClassifyStudents(app.AllStudentList)[0].Count + 1;
+						else nowOrderOfGoing = student.OrderOfGoing;
+					}
+					student = new Student(name,
+						ConvertStatus((string)status.SelectedItem),
+						praiseTime,
+						nowOrderOfGoing,
+						app.AllStudentList.Count);
+				}
+			}
+		}
+		internal async static Task<bool?> CheckWhetherSave()
+		{
+			var messageDialog = new ContentDialog
+			{
+				Title = Localize(StringKey.WhetherSaveTitle),
+				Content = Localize(WhetherSaveContent),
+				PrimaryButtonText = Localize(Save),
+				SecondaryButtonText = Localize(NotSave),
+				CloseButtonText = Localize(Cancel)
+			};
+
+			messageDialog.DefaultButton = ContentDialogButton.Primary;
+			var result = await messageDialog.ShowAsync();
+			if (result == ContentDialogResult.Primary) return true;
+			else if (result == ContentDialogResult.Secondary) return false;
+			else return null;
 		}
 	}
 }

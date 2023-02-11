@@ -13,7 +13,8 @@ namespace Select_Lucky_Dog.Services
 		internal static async Task<StorageFile> GetLastDataFileAsync()
 		{
 			if (ReadString(Saved) == "True") return await (await GetSaveFolderAsync()).GetFileAsync(ReadString(FileName));
-			else return await (await GetDataSetFolderAsync()).GetFileAsync(ReadString(FileName));
+			else if (ReadString(FileName) != null) return await (await GetDataSetFolderAsync()).GetFileAsync(ReadString(FileName));
+			else return null;
 		}
 		internal static async Task<IReadOnlyList<StorageFile>> GetAllFilesAsync(this StorageFolder folder) => await folder.GetFilesAsync();
 	}

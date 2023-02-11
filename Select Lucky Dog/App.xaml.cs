@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
 
 namespace Select_Lucky_Dog
@@ -33,11 +34,37 @@ namespace Select_Lucky_Dog
 			_activationService = new Lazy<ActivationService>(CreateActivationService);
 		}
 
-		protected override async void OnLaunched(LaunchActivatedEventArgs args)
+		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			if (!args.PrelaunchActivated)
+			if (!e.PrelaunchActivated)
 			{
-				await ActivationService.ActivateAsync(args);
+				await ActivationService.ActivateAsync(e);
+				Window.Current.Activate();
+				SystemNavigationManagerPreview.GetForCurrentView().CloseRequested += async (sender, args) =>
+				{
+					var deferral = args.GetDeferral();
+
+					var result = await ContentDialogs.CheckWhetherSave();
+					switch (result)
+					{
+						case null:
+							args.Handled = true;
+							break;
+						case true:
+							if (!await IdentityService.VerifyIdentityAsync()) { args.Handled = true; await ContentDialogs.ThrowException(LocalizeService.Localize(Helpers.KeyDictionary.StringKey.NoRequiredPermissions)); }
+							else
+							{
+								if (SettingsStorageService.ReadString(Helpers.KeyDictionary.SettingKey.FileName) != null)
+								{
+									await StudentService.SaveStudentsAsync(SettingsStorageService.ReadString(Helpers.KeyDictionary.SettingKey.FileName), AllStudentList);
+								}
+							}
+							break;
+						default:
+							break;
+					}
+					deferral.Complete();
+				};
 			}
 			IsDataPrepared = false;
 		}
@@ -50,7 +77,7 @@ namespace Select_Lucky_Dog
 		private async void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
 		{
 			e.Handled = true;
-			await ContentDialogs.ThrowException(e.Message);
+			await ContentDialogs.ThrowException(e.Message,true);
 			// TODO: Please log and handle the exception as appropriate to your scenario
 			// For more info see https://docs.microsoft.com/uwp/api/windows.ui.xaml.application.unhandledexception
 		}

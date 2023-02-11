@@ -49,6 +49,14 @@
 			Going,
 			Finished,
 			Unfinished,
+			Suspended,
+			EnterName,
+			PraiseTime,
+			EditStudentTitle,
+			Done,
+			Save,
+			NotSave,
+
 		}
 		internal enum SettingKey : byte
 		{

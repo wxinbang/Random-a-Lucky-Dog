@@ -4,6 +4,8 @@ using Select_Lucky_Dog.ViewModels;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,6 +27,10 @@ namespace Select_Lucky_Dog.Views
 			CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 			Window.Current.SetTitleBar(AppTitleBar);
 
+			ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+			titleBar.ButtonBackgroundColor = Colors.Transparent;
+			titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
 			AllStudentList = (Application.Current as App).AllStudentList;
 
 #if (DEBUG)
@@ -45,18 +51,26 @@ namespace Select_Lucky_Dog.Views
 
 		private void SearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
-			Student student = AllStudentList.Where(p => p.Name == args.SelectedItem.ToString()).Select(p => p).ToList()[0];
 			isChoose = true;
-			var page = this.FindChildren().ToList()[0].FindChildren().ToList()[3].FindChildren().ToList()[1].FindChildren().ToList()[0];
-			if (page is MainPage)
+		}
+
+		private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+		{
+			if (args.ChosenSuggestion != null)
 			{
-				var mainPage = page as MainPage;
-				mainPage.TurnToStudent(student);
-			}
-			else if (page is ListDetailsPage)
-			{
-				var detailsPage = page as ListDetailsPage;
-				//detailsPage.TurnToStudent(student);
+				Student student = AllStudentList.Where(p => p.Name == args.ChosenSuggestion.ToString()).Select(p => p).ToList()[0];
+				var page = this.FindChildren().ToList()[0].FindChildren().ToList()[3].FindChildren().ToList()[1].FindChildren().ToList()[0];
+				if (page is MainPage)
+				{
+					var mainPage = page as MainPage;
+					mainPage.TurnToStudent(student);
+				}
+				else if (page is ListDetailsPage)
+				{
+					var detailsPage = page as ListDetailsPage;
+					detailsPage.TurnToStudent(student);
+				}
+
 			}
 		}
 	}

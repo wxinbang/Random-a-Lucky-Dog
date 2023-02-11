@@ -40,6 +40,7 @@ namespace Select_Lucky_Dog.ViewModels
 			{
 				//Selected = SampleItems.First();
 			}
+			await Task.CompletedTask;
 		}
 	}
 }

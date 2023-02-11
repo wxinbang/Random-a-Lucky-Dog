@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using static Select_Lucky_Dog.Core.Services.StudentService;
+using static Select_Lucky_Dog.Services.StudentService;
 using static Select_Lucky_Dog.Helpers.KeyDictionary.SettingKey;
 using static Select_Lucky_Dog.Helpers.KeyDictionary.StringKey;
 using static Select_Lucky_Dog.Services.FoldersService;
@@ -34,8 +34,6 @@ namespace Select_Lucky_Dog.Services
 			if (file != null)
 			{
 				await file.CopyAsync(await GetDataSetFolderAsync(), file.Name, NameCollisionOption.ReplaceExisting);
-				SaveString(FileName, file.Name);
-				//DealWithSettings.DeleteSettings(SettingKey.saved);
 				return file;
 			}
 			else return null;
@@ -59,7 +57,7 @@ namespace Select_Lucky_Dog.Services
 				returnCollections[3] = collections[2];
 				returnCollections[4] = collections[3];
 
-				if (saveSetting) SaveString(FileName, file.Name);
+				if (saveSetting) { SaveString(FileName, file.Name); DeleteString(Saved); }
 
 				return returnCollections;
 			}

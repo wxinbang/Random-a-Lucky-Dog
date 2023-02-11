@@ -20,8 +20,8 @@ namespace Select_Lucky_Dog.Services
 					if (SystemInformation.Instance.IsAppUpdated && !shown)
 					{
 						shown = true;
-						var dialog = new WhatsNewDialog();
-						await dialog.ShowAsync();
+						//var dialog = new WhatsNewDialog();
+						//await dialog.ShowAsync();
 					}
 				});
 		}

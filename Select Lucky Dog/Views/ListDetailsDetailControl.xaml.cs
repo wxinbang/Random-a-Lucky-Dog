@@ -25,5 +25,10 @@ namespace Select_Lucky_Dog.Views
 			var control = d as ListDetailsDetailControl;
 			control.ForegroundElement.ChangeView(0, 0, 1);
 		}
+		private async void EditStudent_Click(object sender, RoutedEventArgs e)
+		{
+			var button = sender as Button;
+			await ContentDialogs.EditStudent(button.Content as string == "Edit" ? ListMenuItem : ListMenuItem);
+		}
 	}
 }
