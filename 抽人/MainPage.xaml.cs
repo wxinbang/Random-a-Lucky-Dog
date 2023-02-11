@@ -1,16 +1,13 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
@@ -77,7 +74,7 @@ namespace 抽人
 		{
 			this.InitializeComponent();
 #if (DEBUG)
-			if (GCSettings.LatencyMode==GCLatencyMode.NoGCRegion&& GC.TryStartNoGCRegion(maxGCMemory))
+			if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion && GC.TryStartNoGCRegion(maxGCMemory))
 			{
 				ContentDialogs.ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
@@ -85,7 +82,7 @@ namespace 抽人
 			version += ".vNext";
 			AppTitleTextBlock.Text += " - Developing";
 
-			DealWithSettings.WriteSettings(SettingKey.joinProgram, "true");
+			SaveString(SettingKey.joinProgram, "true");
 
 			DeveloperTools.Visibility = Visibility.Visible;
 			GCInfo.Visibility = Visibility.Visible;
@@ -111,7 +108,7 @@ namespace 抽人
 			{
 				if (DealWithSettings.ReadSettings(SettingKey.saved) != "true") file = await dataSetFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
 				else file = await saveFolder.GetFileAsync(DealWithSettings.ReadSettings(SettingKey.fileName));
-				ConnectDataSet(file,true);
+				ConnectDataSet(file, true);
 				fileName = DealWithSettings.ReadSettings(SettingKey.fileName);
 			}
 			if (DealWithSettings.ReadSettings(SettingKey.joinProgram) != "true")
@@ -211,9 +208,9 @@ namespace 抽人
 		{
 			ConnectDataSet(file);
 		}
-		private async void ConnectDataSet(StorageFile file,bool NotVerifyIdentity=false)
+		private async void ConnectDataSet(StorageFile file, bool NotVerifyIdentity = false)
 		{
-			if (await DealWithIdentity.VerifyIdentity()||NotVerifyIdentity)
+			if (await DealWithIdentity.VerifyIdentity() || NotVerifyIdentity)
 			{
 				try
 				{
@@ -225,7 +222,7 @@ namespace 抽人
 
 					IList<string> contents = await FileIO.ReadLinesAsync(file);
 					//sumOfStudent = contents.ToArray().Length;
-					while(contents.Last()=="")contents.RemoveAt(contents.Count()-1);
+					while (contents.Last() == "") contents.RemoveAt(contents.Count() - 1);
 					dealWithStudentDataProgressBar.Maximum = contents.Count();
 					int orderInList = 0;
 					//bool[] checkId = new bool[sumOfStudent];
@@ -247,7 +244,7 @@ namespace 抽人
 
 					resultBox.Text = "连接完成：" + file.Name;
 					RefreshListNumber();
-					DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
+					SaveString(SettingKey.fileName, file.Name);
 				}
 				catch (Exception ex)
 				{
@@ -266,7 +263,7 @@ namespace 抽人
 			else
 			{
 				mark = whetherMark.IsOn;
-				DealWithSettings.WriteSettings(SettingKey.mark, mark ? "true" : "False");
+				SaveString(SettingKey.mark, mark ? "true" : "False");
 			}
 		}
 		private void versionInformationBox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -285,7 +282,7 @@ namespace 抽人
 		}
 		private void ExitProgram_Click(object sender, RoutedEventArgs e)
 		{
-			DealWithSettings.WriteSettings(SettingKey.joinProgram, "False");
+			SaveString(SettingKey.joinProgram, "False");
 			InfoBar.Severity = InfoBarSeverity.Success;
 			InfoBar.Message = "已退出预览模式，请尽快重启";
 			MoreButton.Visibility = Visibility.Collapsed;
@@ -354,7 +351,7 @@ namespace 抽人
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{
 			if (sender.Text == "") StudentSuggestBox.ItemsSource = null;
-			else if (sender.Text != ""&& !isChoose)
+			else if (sender.Text != "" && !isChoose)
 			{
 				//sender.Text = suggestBoxLastString;
 				StudentSuggestBox.ItemsSource = studentList.Where(p => p.Name.Contains(sender.Text)).Select(p => p.Name).ToList();
@@ -426,8 +423,8 @@ namespace 抽人
 				await FileIO.WriteTextAsync(file, "");
 				await DealWithData.LayoutData(file, updatedList);
 
-				DealWithSettings.WriteSettings(SettingKey.saved, "true");
-				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
+				SaveString(SettingKey.saved, "true");
+				SaveString(SettingKey.fileName, file.Name);
 				resultBox.Text = "保存成功";
 			}
 			else ContentDialogs.ThrowException("没有所需要的权限", false);
@@ -441,8 +438,8 @@ namespace 抽人
 				await FileIO.WriteTextAsync(file, "");
 				await DealWithData.LayoutData(file, updatedList);
 
-				DealWithSettings.WriteSettings(SettingKey.saved, "true");
-				DealWithSettings.WriteSettings(SettingKey.fileName, file.Name);
+				SaveString(SettingKey.saved, "true");
+				SaveString(SettingKey.fileName, file.Name);
 				if (showResult) resultBox.Text = "保存成功";
 				return true;
 			}
@@ -548,14 +545,14 @@ namespace 抽人
 			{//new ResourceDictionary()
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, false);
 				BackgroundGrid.Background = (Brush)Application.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"];
-				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "true");
+				SaveString(SettingKey.DisplayMode, "true");
 				ExtendAcrylicIntoTitleBar();
 			}
 			else
 			{
 				BackdropMaterial.SetApplyToRootOrPageBackground(mainPage, true);
 				BackgroundGrid.Background = null;
-				DealWithSettings.WriteSettings(SettingKey.DisplayMode, "false");
+				SaveString(SettingKey.DisplayMode, "false");
 				ExtendAcrylicIntoTitleBar();
 			}
 		}

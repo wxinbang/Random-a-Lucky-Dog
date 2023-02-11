@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="zh-CN" target-language="qps-ploc" original="SELECT LUCKY DOG/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="1.0.0.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="SELECT LUCKY DOG/STRINGS/ZH-CN/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="AppDisplayName" translate="yes" xml:space="preserve">
+          <source>抽人</source>
+          <target state="new">抽人</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Application display name</note>
+        </trans-unit>
+        <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
+          <source>抽人</source>
+          <target state="new">抽人</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Application description</note>
+        </trans-unit>
+        <trans-unit id="Shell_Main.Content" translate="yes" xml:space="preserve">
+          <source>主页</source>
+          <target state="new">主页</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Navigation view item name for Main</note>
+        </trans-unit>
+        <trans-unit id="Details_NoSelection.Text" translate="yes" xml:space="preserve">
+          <source>从列表中选取一项。</source>
+          <target state="new">从列表中选取一项。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">No selection text for Details</note>
+        </trans-unit>
+        <trans-unit id="Details.ListHeader" translate="yes" xml:space="preserve">
+          <source>详情页</source>
+          <target state="new">详情页</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title for DetailsPage</note>
+        </trans-unit>
+        <trans-unit id="Shell_Details.Content" translate="yes" xml:space="preserve">
+          <source>详情页</source>
+          <target state="new">详情页</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Navigation view item name for Details</note>
+        </trans-unit>
+        <trans-unit id="FilesTitle.Text" translate="yes" xml:space="preserve">
+          <source>文件页</source>
+          <target state="new">文件页</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title for FilesPage</note>
+        </trans-unit>
+        <trans-unit id="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>全部折叠</source>
+          <target state="new">全部折叠</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Tooltip for Collapse all button in TreeViewPages</note>
+        </trans-unit>
+        <trans-unit id="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" translate="yes" xml:space="preserve">
+          <source>全部折叠</source>
+          <target state="new">全部折叠</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Automation Name for Collapse all button in TreeViewPages</note>
+        </trans-unit>
+        <trans-unit id="Shell_Files.Content" translate="yes" xml:space="preserve">
+          <source>文件</source>
+          <target state="new">文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Navigation view item name for Files</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme.Text" translate="yes" xml:space="preserve">
+          <source>选择主题</source>
+          <target state="new">选择主题</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Choose theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme_Dark.Content" translate="yes" xml:space="preserve">
+          <source>深色</source>
+          <target state="new">深色</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Dark theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme_Default.Content" translate="yes" xml:space="preserve">
+          <source>Windows 默认</source>
+          <target state="new">Windows 默认</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Windows default theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme_Light.Content" translate="yes" xml:space="preserve">
+          <source>浅色</source>
+          <target state="new">浅色</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Light theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_About.Text" translate="yes" xml:space="preserve">
+          <source>关于此应用</source>
+          <target state="new">关于此应用</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">About this application title for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_AboutDescription.Text" translate="yes" xml:space="preserve">
+          <source>一个抽人的小工具。</source>
+          <target state="new">一个抽人的小工具。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">About this application description for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_PrivacyTermsLink.Content" translate="yes" xml:space="preserve">
+          <source>隐私声明</source>
+          <target state="new">隐私声明</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Privacy Statement link content for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Personalization.Text" translate="yes" xml:space="preserve">
+          <source>个性化</source>
+          <target state="new">个性化</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Personalization text for Settings</note>
+        </trans-unit>
+        <trans-unit id="FirstRunDialogTitle" translate="yes" xml:space="preserve">
+          <source>欢迎</source>
+          <target state="new">欢迎</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">First use prompt message title</note>
+        </trans-unit>
+        <trans-unit id="FirstRunDialogPrimaryButtonText" translate="yes" xml:space="preserve">
+          <source>确定</source>
+          <target state="new">确定</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">First use prompt message primary button text</note>
+        </trans-unit>
+        <trans-unit id="WhatsNewDialog.Title" translate="yes" xml:space="preserve">
+          <source>此版本中的新增功能</source>
+          <target state="new">此版本中的新增功能</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">What's new prompt message title</note>
+        </trans-unit>
+        <trans-unit id="WhatsNewDialog.PrimaryButtonText" translate="yes" xml:space="preserve">
+          <source>确定</source>
+          <target state="new">确定</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">What's new prompt message primary button text</note>
+        </trans-unit>
+        <trans-unit id="AppTitleTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>抽人</source>
+          <target state="new">抽人</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AppTitleText</note>
+        </trans-unit>
+        <trans-unit id="PivotAll.Text" translate="yes" xml:space="preserve">
+          <source>全部</source>
+          <target state="new">全部</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotAllText</note>
+        </trans-unit>
+        <trans-unit id="PivotFinished.Text" translate="yes" xml:space="preserve">
+          <source>已完成</source>
+          <target state="new">已完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotFinishedText</note>
+        </trans-unit>
+        <trans-unit id="PivotGoing.Text" translate="yes" xml:space="preserve">
+          <source>进行中</source>
+          <target state="new">进行中</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotGoingText</note>
+        </trans-unit>
+        <trans-unit id="PivotUnfinished.Text" translate="yes" xml:space="preserve">
+          <source>未完成</source>
+          <target state="new">未完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotUnfinishedText</note>
+        </trans-unit>
+        <trans-unit id="SearchBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>搜索</source>
+          <target state="new">搜索</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SearchBoxText</note>
+        </trans-unit>
+        <trans-unit id="ConnectDataSet.Content" translate="yes" xml:space="preserve">
+          <source>导入数据集</source>
+          <target state="new">导入数据集</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ConnectDataSetContent</note>
+        </trans-unit>
+        <trans-unit id="DeveloperTools.Content" translate="yes" xml:space="preserve">
+          <source>开发者工具</source>
+          <target state="new">开发者工具</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeveloperToolsButton</note>
+        </trans-unit>
+        <trans-unit id="DisplayMode.Header" translate="yes" xml:space="preserve">
+          <source>显示模式</source>
+          <target state="new">显示模式</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DisplayModeHeader</note>
+        </trans-unit>
+        <trans-unit id="RandomButton.Content" translate="yes" xml:space="preserve">
+          <source>抽</source>
+          <target state="new">抽</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">RandomButtonText</note>
+        </trans-unit>
+        <trans-unit id="SelectDataSetButton.Content" translate="yes" xml:space="preserve">
+          <source>选择数据集</source>
+          <target state="new">选择数据集</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SelectDataSetButtonContent</note>
+        </trans-unit>
+        <trans-unit id="DeleteButton.Content" translate="yes" xml:space="preserve">
+          <source>删除…</source>
+          <target state="new">删除…</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteButtonContent</note>
+        </trans-unit>
+        <trans-unit id="DeleteDataSetButton.Text" translate="yes" xml:space="preserve">
+          <source>数据集</source>
+          <target state="new">数据集</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteDataSetButtonText</note>
+        </trans-unit>
+        <trans-unit id="DeleteLogFileButton.Text" translate="yes" xml:space="preserve">
+          <source>日志文件</source>
+          <target state="new">日志文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteLogFileButtonText</note>
+        </trans-unit>
+        <trans-unit id="DeleteUserDataButton.Text" translate="yes" xml:space="preserve">
+          <source>用户数据</source>
+          <target state="new">用户数据</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteUserDataButtonText</note>
+        </trans-unit>
+        <trans-unit id="LayOutButton.Content" translate="yes" xml:space="preserve">
+          <source>导出…</source>
+          <target state="new">导出…</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LayOutButtonText</note>
+        </trans-unit>
+        <trans-unit id="LayoutDataSetButton.Content" translate="yes" xml:space="preserve">
+          <source>另存为..…</source>
+          <target state="new">另存为..…</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LayoutDataSetButtonText</note>
+        </trans-unit>
+        <trans-unit id="LayoutIdentityFileButton.Content" translate="yes" xml:space="preserve">
+          <source>身份文件</source>
+          <target state="new">身份文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LayoutIdentityFileButtonText</note>
+        </trans-unit>
+        <trans-unit id="MarkFinishedButton.Text" translate="yes" xml:space="preserve">
+          <source>标记完成</source>
+          <target state="new">标记完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MarkFinishedButtonText</note>
+        </trans-unit>
+        <trans-unit id="MarkGoingButton.Text" translate="yes" xml:space="preserve">
+          <source>标记进行中</source>
+          <target state="new">标记进行中</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MarkGoingButtonText</note>
+        </trans-unit>
+        <trans-unit id="MarkUnfinishedButton.Text" translate="yes" xml:space="preserve">
+          <source>标记未完成</source>
+          <target state="new">标记未完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MarkUnfinishedButtonText</note>
+        </trans-unit>
+        <trans-unit id="OperateStudentButton.Content" translate="yes" xml:space="preserve">
+          <source>操作</source>
+          <target state="new">操作</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">OperateStudentButtonContent</note>
+        </trans-unit>
+        <trans-unit id="PraiseButton.Content" translate="yes" xml:space="preserve">
+          <source>表扬一下</source>
+          <target state="new">表扬一下</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseButtonContent</note>
+        </trans-unit>
+        <trans-unit id="SaveButton.Text" translate="yes" xml:space="preserve">
+          <source>保存</source>
+          <target state="new">保存</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SaveButtonText</note>
+        </trans-unit>
+        <trans-unit id="WhetherMark.Header" translate="yes" xml:space="preserve">
+          <source>标记</source>
+          <target state="new">标记</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherMarkHeader</note>
+        </trans-unit>
+        <trans-unit id="WhetherMark.OffContent" translate="yes" xml:space="preserve">
+          <source>关</source>
+          <target state="new">关</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherMarkOffContent</note>
+        </trans-unit>
+        <trans-unit id="WhetherMark.OnContent" translate="yes" xml:space="preserve">
+          <source>开</source>
+          <target state="new">开</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherMarkOnContent</note>
+        </trans-unit>
+        <trans-unit id="AllAlreadyFinished" translate="yes" xml:space="preserve">
+          <source>所有人已完成</source>
+          <target state="new">所有人已完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AllAlreadyFinishedText</note>
+        </trans-unit>
+        <trans-unit id="CloseButtonText" translate="yes" xml:space="preserve">
+          <source>取消</source>
+          <target state="new">取消</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkDialogCancelText</note>
+        </trans-unit>
+        <trans-unit id="CheckMarkConfirmText" translate="yes" xml:space="preserve">
+          <source>是</source>
+          <target state="new">是</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkDialogYesButton</note>
+        </trans-unit>
+        <trans-unit id="CheckMarkTitle" translate="yes" xml:space="preserve">
+          <source>标记？</source>
+          <target state="new">标记？</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkDialogTitle</note>
+        </trans-unit>
+        <trans-unit id="CheckMarkContent" translate="yes" xml:space="preserve">
+          <source>确定接下来的人标记为“进行中”？</source>
+          <target state="new">确定接下来的人标记为“进行中”？</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkContent</note>
+        </trans-unit>
+        <trans-unit id="Close" translate="yes" xml:space="preserve">
+          <source>关闭</source>
+          <target state="new">关闭</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CloseText</note>
+        </trans-unit>
+        <trans-unit id="ExceptionTitle" translate="yes" xml:space="preserve">
+          <source>阿哲</source>
+          <target state="new">阿哲</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExceptionTitle</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramClose" translate="yes" xml:space="preserve">
+          <source>否</source>
+          <target state="new">否</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramClose</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramContent" translate="yes" xml:space="preserve">
+          <source>应用将重启。</source>
+          <target state="new">应用将重启。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramContent</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramPrimary" translate="yes" xml:space="preserve">
+          <source>是（立刻重启）</source>
+          <target state="new">是（立刻重启）</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramPrimary</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramTitle" translate="yes" xml:space="preserve">
+          <source>加入测试计划？</source>
+          <target state="new">加入测试计划？</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramTitle</note>
+        </trans-unit>
+        <trans-unit id="PraiseClose" translate="yes" xml:space="preserve">
+          <source>好</source>
+          <target state="new">好</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseClose</note>
+        </trans-unit>
+        <trans-unit id="PraiseContent" translate="yes" xml:space="preserve">
+          <source>功能将在后续版本中加入</source>
+          <target state="new">功能将在后续版本中加入</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseContent</note>
+        </trans-unit>
+        <trans-unit id="PraiseTitle" translate="yes" xml:space="preserve">
+          <source>表扬一下</source>
+          <target state="new">表扬一下</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseTitle</note>
+        </trans-unit>
+        <trans-unit id="SendEmail" translate="yes" xml:space="preserve">
+          <source>发送邮件</source>
+          <target state="new">发送邮件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SendEmail</note>
+        </trans-unit>
+        <trans-unit id="FileSaved" translate="yes" xml:space="preserve">
+          <source>文件已被保存：</source>
+          <target state="new">文件已被保存：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileSavedText</note>
+        </trans-unit>
+        <trans-unit id="FileNotFind" translate="yes" xml:space="preserve">
+          <source>文件未找到</source>
+          <target state="new">文件未找到</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileNotFindText</note>
+        </trans-unit>
+        <trans-unit id="FeatureOfferedInTheNextVersion" translate="yes" xml:space="preserve">
+          <source>功能即将到来。</source>
+          <target state="new">功能即将到来。</target>
+        </trans-unit>
+        <trans-unit id="DeleteFinished" translate="yes" xml:space="preserve">
+          <source>删除已完成</source>
+          <target state="new">删除已完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteFinishedText</note>
+        </trans-unit>
+        <trans-unit id="Cancel" translate="yes" xml:space="preserve">
+          <source>取消</source>
+          <target state="new">取消</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CancelText</note>
+        </trans-unit>
+        <trans-unit id="ExceptionAt" translate="yes" xml:space="preserve">
+          <source>应用抛出了异常，位于：</source>
+          <target state="new">应用抛出了异常，位于：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExceptionAtText</note>
+        </trans-unit>
+        <trans-unit id="ExistNullValue" translate="yes" xml:space="preserve">
+          <source>存在空值</source>
+          <target state="new">存在空值</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExistNullValueText</note>
+        </trans-unit>
+        <trans-unit id="Export" translate="yes" xml:space="preserve">
+          <source>导出</source>
+          <target state="new">导出</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExportText</note>
+        </trans-unit>
+        <trans-unit id="ExportIdentityFile" translate="yes" xml:space="preserve">
+          <source>导出身份文件</source>
+          <target state="new">导出身份文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExportIdentityFileText</note>
+        </trans-unit>
+        <trans-unit id="Feedback" translate="yes" xml:space="preserve">
+          <source>反馈</source>
+          <target state="new">反馈</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FeedbackText</note>
+        </trans-unit>
+        <trans-unit id="InsertUSBDrive" translate="yes" xml:space="preserve">
+          <source>插入一个可移动驱动器并且重试。</source>
+          <target state="new">插入一个可移动驱动器并且重试。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InsertUSBDriveText</note>
+        </trans-unit>
+        <trans-unit id="NoRequiredPermissions" translate="yes" xml:space="preserve">
+          <source>没有所需要的权限</source>
+          <target state="new">没有所需要的权限</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">NoRequiredPermissionsText</note>
+        </trans-unit>
+        <trans-unit id="Password" translate="yes" xml:space="preserve">
+          <source>密码</source>
+          <target state="new">密码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PasswordText</note>
+        </trans-unit>
+        <trans-unit id="Settings_Data.Text" translate="yes" xml:space="preserve">
+          <source>数据</source>
+          <target state="new">数据</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Settings_DataText</note>
+        </trans-unit>
+        <trans-unit id="SoftwareCrashes" translate="yes" xml:space="preserve">
+          <source>软件崩溃</source>
+          <target state="new">软件崩溃</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SoftwareCrashesText</note>
+        </trans-unit>
+        <trans-unit id="UserName" translate="yes" xml:space="preserve">
+          <source>用户名</source>
+          <target state="new">用户名</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UserNameText</note>
+        </trans-unit>
+        <trans-unit id="Verify" translate="yes" xml:space="preserve">
+          <source>验证</source>
+          <target state="new">验证</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">VerifyText</note>
+        </trans-unit>
+        <trans-unit id="VerifyPassword" translate="yes" xml:space="preserve">
+          <source>验证密码</source>
+          <target state="new">验证密码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">VerifyPasswordText</note>
+        </trans-unit>
+        <trans-unit id="FileNotSaved" translate="yes" xml:space="preserve">
+          <source>文件未被保存：</source>
+          <target state="new">文件未被保存：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileNotSavedText</note>
+        </trans-unit>
+        <trans-unit id="No" translate="yes" xml:space="preserve">
+          <source>否</source>
+          <target state="new">否</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">NoText</note>
+        </trans-unit>
+        <trans-unit id="OperationCanceled" translate="yes" xml:space="preserve">
+          <source>已取消操作。</source>
+          <target state="new">已取消操作。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">OperationCanceledText</note>
+        </trans-unit>
+        <trans-unit id="WhetherSaveContent" translate="yes" xml:space="preserve">
+          <source>数据可能未保存，要保存吗？</source>
+          <target state="new">数据可能未保存，要保存吗？</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherSaveContent</note>
+        </trans-unit>
+        <trans-unit id="WhetherSaveTitle" translate="yes" xml:space="preserve">
+          <source>保存？</source>
+          <target state="new">保存？</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherSaveTitleText</note>
+        </trans-unit>
+        <trans-unit id="Yes" translate="yes" xml:space="preserve">
+          <source>是</source>
+          <target state="new">是</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">YesText</note>
+        </trans-unit>
+        <trans-unit id="DisplayMode.OffContent" translate="yes" xml:space="preserve">
+          <source>云母</source>
+          <target state="new">云母</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DisplayModeOffContent</note>
+        </trans-unit>
+        <trans-unit id="DisplayMode.OnContent" translate="yes" xml:space="preserve">
+          <source>亚克力</source>
+          <target state="new">亚克力</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DisplayModeOffContent</note>
+        </trans-unit>
+        <trans-unit id="DoneButton.Content" translate="yes" xml:space="preserve">
+          <source>完成</source>
+          <target state="new">完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DoneButtonContent</note>
+        </trans-unit>
+        <trans-unit id="InputNotValid" translate="yes" xml:space="preserve">
+          <source>输入的不是有效值。</source>
+          <target state="new">输入的不是有效值。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InputNotValidText</note>
+        </trans-unit>
+        <trans-unit id="PraiseFlyout.Text" translate="yes" xml:space="preserve">
+          <source>完成</source>
+          <target state="new">完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseFlyoutText</note>
+        </trans-unit>
+        <trans-unit id="RapidBuild.Content" translate="yes" xml:space="preserve">
+          <source>快速构建</source>
+          <target state="new">快速构建</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">RapidBuildButtonContent</note>
+        </trans-unit>
+        <trans-unit id="RapidBuildBox.Header" translate="yes" xml:space="preserve">
+          <source>请输入一个整数：</source>
+          <target state="new">请输入一个整数：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">RapidBuildBoxHeader</note>
+        </trans-unit>
+        <trans-unit id="UndoPraiseButton.Content" translate="yes" xml:space="preserve">
+          <source>撤消</source>
+          <target state="new">撤消</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UndoPraiseButtonContent</note>
+        </trans-unit>
+        <trans-unit id="All" translate="yes" xml:space="preserve">
+          <source>全部：</source>
+          <target state="new">全部：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AllText</note>
+        </trans-unit>
+        <trans-unit id="Finished" translate="yes" xml:space="preserve">
+          <source>已完成：</source>
+          <target state="new">已完成：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FinishedText</note>
+        </trans-unit>
+        <trans-unit id="Going" translate="yes" xml:space="preserve">
+          <source>进行中：</source>
+          <target state="new">进行中：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">GoingText</note>
+        </trans-unit>
+        <trans-unit id="Unfinished" translate="yes" xml:space="preserve">
+          <source>未完成：</source>
+          <target state="new">未完成：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UnfinishedText</note>
+        </trans-unit>
+        <trans-unit id="Done" translate="yes" xml:space="preserve">
+          <source>完成</source>
+          <target state="new">完成</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DoneText</note>
+        </trans-unit>
+        <trans-unit id="EditStudentTitle" translate="yes" xml:space="preserve">
+          <source>创建/修改</source>
+          <target state="new">创建/修改</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">EditStudentTitleText</note>
+        </trans-unit>
+        <trans-unit id="EnterName" translate="yes" xml:space="preserve">
+          <source>输入名字：</source>
+          <target state="new">输入名字：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">EnterNameText</note>
+        </trans-unit>
+        <trans-unit id="PraiseTime" translate="yes" xml:space="preserve">
+          <source>表扬次数：</source>
+          <target state="new">表扬次数：</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseTimeText</note>
+        </trans-unit>
+        <trans-unit id="Suspended" translate="yes" xml:space="preserve">
+          <source>已挂起</source>
+          <target state="new">已挂起</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SuspendedText</note>
+        </trans-unit>
+        <trans-unit id="DateCreatedBlock.Text" translate="yes" xml:space="preserve">
+          <source>创建时间</source>
+          <target state="new">创建时间</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DateCreatedBlockText</note>
+        </trans-unit>
+        <trans-unit id="DateModifiedBlock.Text" translate="yes" xml:space="preserve">
+          <source>修改时间</source>
+          <target state="new">修改时间</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DateModifiedBlockText</note>
+        </trans-unit>
+        <trans-unit id="FileBlock.Text" translate="yes" xml:space="preserve">
+          <source>文件</source>
+          <target state="new">文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileBlockText</note>
+        </trans-unit>
+        <trans-unit id="FolderBlock.Text" translate="yes" xml:space="preserve">
+          <source>文件夹</source>
+          <target state="new">文件夹</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FolderBlockText</note>
+        </trans-unit>
+        <trans-unit id="MainContentBlock.Text" translate="yes" xml:space="preserve">
+          <source>主要内容</source>
+          <target state="new">主要内容</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MainContentBlockText</note>
+        </trans-unit>
+        <trans-unit id="NotSave" translate="yes" xml:space="preserve">
+          <source>不保存</source>
+          <target state="new">不保存</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">NotSaveText</note>
+        </trans-unit>
+        <trans-unit id="OrderOfGoingBlock.Text" translate="yes" xml:space="preserve">
+          <source>进行顺序</source>
+          <target state="new">进行顺序</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">OrderOfGoingBlockText</note>
+        </trans-unit>
+        <trans-unit id="PathBlock.Text" translate="yes" xml:space="preserve">
+          <source>路径</source>
+          <target state="new">路径</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PathBlockText</note>
+        </trans-unit>
+        <trans-unit id="PraiseTimeBlock.Text" translate="yes" xml:space="preserve">
+          <source>表扬次数</source>
+          <target state="new">表扬次数</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseTimeBlockText</note>
+        </trans-unit>
+        <trans-unit id="Save" translate="yes" xml:space="preserve">
+          <source>保存</source>
+          <target state="new">保存</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SaveText</note>
+        </trans-unit>
+        <trans-unit id="SizeBlock.Text" translate="yes" xml:space="preserve">
+          <source>大小</source>
+          <target state="new">大小</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SizeBlockText</note>
+        </trans-unit>
+        <trans-unit id="StatusBlock.Text" translate="yes" xml:space="preserve">
+          <source>状态</source>
+          <target state="new">状态</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">StatusBlockText</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

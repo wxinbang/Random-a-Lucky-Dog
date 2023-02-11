@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using xbb.ClassLibraries;
 
@@ -96,8 +84,8 @@ namespace 抽人
 					};
 
 					messageDialog.DefaultButton = ContentDialogButton.Primary;
-					ContentDialogResult result=ContentDialogResult.Secondary;
-					/*if (DealWithSettings.ReadSettings(SettingKey.joinProgram) == "true")*/ result = await messageDialog.ShowAsync();
+					ContentDialogResult result = ContentDialogResult.Secondary;
+					result = await messageDialog.ShowAsync();
 					switch (result)
 					{
 						case ContentDialogResult.None:
@@ -107,9 +95,9 @@ namespace 抽人
 							//await SaveDataAsync();
 							//MainPage mainPage = new MainPage();
 							//mainPage.Save_Click(sender, null);
-							MainPage mainPage=(MainPage)rootFrame.Content;
-							bool saveResult=await mainPage.Save_Click(sender, null, true);
-							if(!saveResult)args.Handled= true;
+							MainPage mainPage = (MainPage)rootFrame.Content;
+							bool saveResult = await mainPage.Save_Click(sender, null, true);
+							if (!saveResult) args.Handled = true;
 							//ar asyncResult =mainPage.Save_Click()
 							//Task t=mainPage.Save_Click(sender, null,true);
 							//t.RunSynchronously();
@@ -126,7 +114,7 @@ namespace 抽人
 
 					deferral.Complete();
 				};
-				
+
 			}
 		}
 

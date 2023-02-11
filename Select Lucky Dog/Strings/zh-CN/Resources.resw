@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>抽人</value>
+    <comment>Application display name</comment>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>抽人</value>
+    <comment>Application description</comment>
+  </data>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>主页</value>
+    <comment>Navigation view item name for Main</comment>
+  </data>
+  <data name="Details_NoSelection.Text" xml:space="preserve">
+    <value>从列表中选取一项。</value>
+    <comment>No selection text for Details</comment>
+  </data>
+  <data name="Details.ListHeader" xml:space="preserve">
+    <value>详情页</value>
+    <comment>Title for DetailsPage</comment>
+  </data>
+  <data name="Shell_Details.Content" xml:space="preserve">
+    <value>详情页</value>
+    <comment>Navigation view item name for Details</comment>
+  </data>
+  <data name="FilesTitle.Text" xml:space="preserve">
+    <value>文件页</value>
+    <comment>Title for FilesPage</comment>
+  </data>
+  <data name="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>全部折叠</value>
+    <comment>Tooltip for Collapse all button in TreeViewPages</comment>
+  </data>
+  <data name="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>全部折叠</value>
+    <comment>Automation Name for Collapse all button in TreeViewPages</comment>
+  </data>
+  <data name="Shell_Files.Content" xml:space="preserve">
+    <value>文件</value>
+    <comment>Navigation view item name for Files</comment>
+  </data>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>选择主题</value>
+    <comment>Choose theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+    <value>深色</value>
+    <comment>Dark theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+    <value>Windows 默认</value>
+    <comment>Windows default theme text for Settings</comment>
+  </data>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>浅色</value>
+    <comment>Light theme text for Settings</comment>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>关于此应用</value>
+    <comment>About this application title for Settings</comment>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>一个抽人的小工具。</value>
+    <comment>About this application description for Settings</comment>
+  </data>
+  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>隐私声明</value>
+    <comment>Privacy Statement link content for Settings</comment>
+  </data>
+  <data name="Settings_Personalization.Text" xml:space="preserve">
+    <value>个性化</value>
+    <comment>Personalization text for Settings</comment>
+  </data>
+  <data name="FirstRunDialogTitle" xml:space="preserve">
+    <value>欢迎</value>
+    <comment>First use prompt message title</comment>
+  </data>
+  <data name="FirstRunDialogPrimaryButtonText" xml:space="preserve">
+    <value>确定</value>
+    <comment>First use prompt message primary button text</comment>
+  </data>
+  <data name="WhatsNewDialog.Title" xml:space="preserve">
+    <value>此版本中的新增功能</value>
+    <comment>What's new prompt message title</comment>
+  </data>
+  <data name="WhatsNewDialog.PrimaryButtonText" xml:space="preserve">
+    <value>确定</value>
+    <comment>What's new prompt message primary button text</comment>
+  </data>
+  <data name="AppTitleTextBlock.Text" xml:space="preserve">
+    <value>抽人</value>
+    <comment>AppTitleText</comment>
+  </data>
+  <data name="PivotAll.Text" xml:space="preserve">
+    <value>全部</value>
+    <comment>PivotAllText</comment>
+  </data>
+  <data name="PivotFinished.Text" xml:space="preserve">
+    <value>已完成</value>
+    <comment>PivotFinishedText</comment>
+  </data>
+  <data name="PivotGoing.Text" xml:space="preserve">
+    <value>进行中</value>
+    <comment>PivotGoingText</comment>
+  </data>
+  <data name="PivotUnfinished.Text" xml:space="preserve">
+    <value>未完成</value>
+    <comment>PivotUnfinishedText</comment>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索</value>
+    <comment>SearchBoxText</comment>
+  </data>
+  <data name="ConnectDataSet.Content" xml:space="preserve">
+    <value>导入数据集</value>
+    <comment>ConnectDataSetContent</comment>
+  </data>
+  <data name="DeveloperTools.Content" xml:space="preserve">
+    <value>开发者工具</value>
+    <comment>DeveloperToolsButton</comment>
+  </data>
+  <data name="DisplayMode.Header" xml:space="preserve">
+    <value>显示模式</value>
+    <comment>DisplayModeHeader</comment>
+  </data>
+  <data name="RandomButton.Content" xml:space="preserve">
+    <value>抽</value>
+    <comment>RandomButtonText</comment>
+  </data>
+  <data name="SelectDataSetButton.Content" xml:space="preserve">
+    <value>选择数据集</value>
+    <comment>SelectDataSetButtonContent</comment>
+  </data>
+  <data name="DeleteButton.Content" xml:space="preserve">
+    <value>删除…</value>
+    <comment>DeleteButtonContent</comment>
+  </data>
+  <data name="DeleteDataSetButton.Text" xml:space="preserve">
+    <value>数据集</value>
+    <comment>DeleteDataSetButtonText</comment>
+  </data>
+  <data name="DeleteLogFileButton.Text" xml:space="preserve">
+    <value>日志文件</value>
+    <comment>DeleteLogFileButtonText</comment>
+  </data>
+  <data name="DeleteUserDataButton.Text" xml:space="preserve">
+    <value>用户数据</value>
+    <comment>DeleteUserDataButtonText</comment>
+  </data>
+  <data name="LayOutButton.Content" xml:space="preserve">
+    <value>导出…</value>
+    <comment>LayOutButtonText</comment>
+  </data>
+  <data name="LayoutDataSetButton.Content" xml:space="preserve">
+    <value>另存为..…</value>
+    <comment>LayoutDataSetButtonText</comment>
+  </data>
+  <data name="LayoutIdentityFileButton.Content" xml:space="preserve">
+    <value>身份文件</value>
+    <comment>LayoutIdentityFileButtonText</comment>
+  </data>
+  <data name="MarkFinishedButton.Text" xml:space="preserve">
+    <value>标记完成</value>
+    <comment>MarkFinishedButtonText</comment>
+  </data>
+  <data name="MarkGoingButton.Text" xml:space="preserve">
+    <value>标记进行中</value>
+    <comment>MarkGoingButtonText</comment>
+  </data>
+  <data name="MarkUnfinishedButton.Text" xml:space="preserve">
+    <value>标记未完成</value>
+    <comment>MarkUnfinishedButtonText</comment>
+  </data>
+  <data name="OperateStudentButton.Content" xml:space="preserve">
+    <value>操作</value>
+    <comment>OperateStudentButtonContent</comment>
+  </data>
+  <data name="PraiseButton.Content" xml:space="preserve">
+    <value>表扬一下</value>
+    <comment>PraiseButtonContent</comment>
+  </data>
+  <data name="SaveButton.Text" xml:space="preserve">
+    <value>保存</value>
+    <comment>SaveButtonText</comment>
+  </data>
+  <data name="WhetherMark.Header" xml:space="preserve">
+    <value>标记</value>
+    <comment>WhetherMarkHeader</comment>
+  </data>
+  <data name="WhetherMark.OffContent" xml:space="preserve">
+    <value>关</value>
+    <comment>WhetherMarkOffContent</comment>
+  </data>
+  <data name="WhetherMark.OnContent" xml:space="preserve">
+    <value>开</value>
+    <comment>WhetherMarkOnContent</comment>
+  </data>
+  <data name="AllAlreadyFinished" xml:space="preserve">
+    <value>所有人已完成</value>
+    <comment>AllAlreadyFinishedText</comment>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>取消</value>
+    <comment>CheckMarkDialogCancelText</comment>
+  </data>
+  <data name="CheckMarkConfirmText" xml:space="preserve">
+    <value>是</value>
+    <comment>CheckMarkDialogYesButton</comment>
+  </data>
+  <data name="CheckMarkTitle" xml:space="preserve">
+    <value>标记？</value>
+    <comment>CheckMarkDialogTitle</comment>
+  </data>
+  <data name="CheckMarkContent" xml:space="preserve">
+    <value>确定接下来的人标记为“进行中”？</value>
+    <comment>CheckMarkContent</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+    <comment>CloseText</comment>
+  </data>
+  <data name="ExceptionTitle" xml:space="preserve">
+    <value>阿哲</value>
+    <comment>ExceptionTitle</comment>
+  </data>
+  <data name="JoinProgramClose" xml:space="preserve">
+    <value>否</value>
+    <comment>JoinProgramClose</comment>
+  </data>
+  <data name="JoinProgramContent" xml:space="preserve">
+    <value>应用将重启。</value>
+    <comment>JoinProgramContent</comment>
+  </data>
+  <data name="JoinProgramPrimary" xml:space="preserve">
+    <value>是（立刻重启）</value>
+    <comment>JoinProgramPrimary</comment>
+  </data>
+  <data name="JoinProgramTitle" xml:space="preserve">
+    <value>加入测试计划？</value>
+    <comment>JoinProgramTitle</comment>
+  </data>
+  <data name="PraiseClose" xml:space="preserve">
+    <value>好</value>
+    <comment>PraiseClose</comment>
+  </data>
+  <data name="PraiseContent" xml:space="preserve">
+    <value>功能将在后续版本中加入</value>
+    <comment>PraiseContent</comment>
+  </data>
+  <data name="PraiseTitle" xml:space="preserve">
+    <value>表扬一下</value>
+    <comment>PraiseTitle</comment>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>发送邮件</value>
+    <comment>SendEmail</comment>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>文件已被保存：</value>
+    <comment>FileSavedText</comment>
+  </data>
+  <data name="FileNotFind" xml:space="preserve">
+    <value>文件未找到</value>
+    <comment>FileNotFindText</comment>
+  </data>
+  <data name="FeatureOfferedInTheNextVersion" xml:space="preserve">
+    <value>功能即将到来。</value>
+  </data>
+  <data name="DeleteFinished" xml:space="preserve">
+    <value>删除已完成</value>
+    <comment>DeleteFinishedText</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>CancelText</comment>
+  </data>
+  <data name="ExceptionAt" xml:space="preserve">
+    <value>应用抛出了异常，位于：</value>
+    <comment>ExceptionAtText</comment>
+  </data>
+  <data name="ExistNullValue" xml:space="preserve">
+    <value>存在空值</value>
+    <comment>ExistNullValueText</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>导出</value>
+    <comment>ExportText</comment>
+  </data>
+  <data name="ExportIdentityFile" xml:space="preserve">
+    <value>导出身份文件</value>
+    <comment>ExportIdentityFileText</comment>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>反馈</value>
+    <comment>FeedbackText</comment>
+  </data>
+  <data name="InsertUSBDrive" xml:space="preserve">
+    <value>插入一个可移动驱动器并且重试。</value>
+    <comment>InsertUSBDriveText</comment>
+  </data>
+  <data name="NoRequiredPermissions" xml:space="preserve">
+    <value>没有所需要的权限</value>
+    <comment>NoRequiredPermissionsText</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+    <comment>PasswordText</comment>
+  </data>
+  <data name="Settings_Data.Text" xml:space="preserve">
+    <value>数据</value>
+    <comment>Settings_DataText</comment>
+  </data>
+  <data name="SoftwareCrashes" xml:space="preserve">
+    <value>软件崩溃</value>
+    <comment>SoftwareCrashesText</comment>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>用户名</value>
+    <comment>UserNameText</comment>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>验证</value>
+    <comment>VerifyText</comment>
+  </data>
+  <data name="VerifyPassword" xml:space="preserve">
+    <value>验证密码</value>
+    <comment>VerifyPasswordText</comment>
+  </data>
+  <data name="FileNotSaved" xml:space="preserve">
+    <value>文件未被保存：</value>
+    <comment>FileNotSavedText</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>否</value>
+    <comment>NoText</comment>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>已取消操作。</value>
+    <comment>OperationCanceledText</comment>
+  </data>
+  <data name="WhetherSaveContent" xml:space="preserve">
+    <value>数据可能未保存，要保存吗？</value>
+    <comment>WhetherSaveContent</comment>
+  </data>
+  <data name="WhetherSaveTitle" xml:space="preserve">
+    <value>保存？</value>
+    <comment>WhetherSaveTitleText</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+    <comment>YesText</comment>
+  </data>
+  <data name="DisplayMode.OffContent" xml:space="preserve">
+    <value>云母</value>
+    <comment>DisplayModeOffContent</comment>
+  </data>
+  <data name="DisplayMode.OnContent" xml:space="preserve">
+    <value>亚克力</value>
+    <comment>DisplayModeOffContent</comment>
+  </data>
+  <data name="DoneButton.Content" xml:space="preserve">
+    <value>完成</value>
+    <comment>DoneButtonContent</comment>
+  </data>
+  <data name="InputNotValid" xml:space="preserve">
+    <value>输入的不是有效值。</value>
+    <comment>InputNotValidText</comment>
+  </data>
+  <data name="PraiseFlyout.Text" xml:space="preserve">
+    <value>完成</value>
+    <comment>PraiseFlyoutText</comment>
+  </data>
+  <data name="RapidBuild.Content" xml:space="preserve">
+    <value>快速构建</value>
+    <comment>RapidBuildButtonContent</comment>
+  </data>
+  <data name="RapidBuildBox.Header" xml:space="preserve">
+    <value>请输入一个整数：</value>
+    <comment>RapidBuildBoxHeader</comment>
+  </data>
+  <data name="UndoPraiseButton.Content" xml:space="preserve">
+    <value>撤消</value>
+    <comment>UndoPraiseButtonContent</comment>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部：</value>
+    <comment>AllText</comment>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>已完成：</value>
+    <comment>FinishedText</comment>
+  </data>
+  <data name="Going" xml:space="preserve">
+    <value>进行中：</value>
+    <comment>GoingText</comment>
+  </data>
+  <data name="Unfinished" xml:space="preserve">
+    <value>未完成：</value>
+    <comment>UnfinishedText</comment>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>完成</value>
+    <comment>DoneText</comment>
+  </data>
+  <data name="EditStudentTitle" xml:space="preserve">
+    <value>创建/修改</value>
+    <comment>EditStudentTitleText</comment>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>输入名字：</value>
+    <comment>EnterNameText</comment>
+  </data>
+  <data name="PraiseTime" xml:space="preserve">
+    <value>表扬次数：</value>
+    <comment>PraiseTimeText</comment>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>已挂起</value>
+    <comment>SuspendedText</comment>
+  </data>
+  <data name="DateCreatedBlock.Text" xml:space="preserve">
+    <value>创建时间</value>
+    <comment>DateCreatedBlockText</comment>
+  </data>
+  <data name="DateModifiedBlock.Text" xml:space="preserve">
+    <value>修改时间</value>
+    <comment>DateModifiedBlockText</comment>
+  </data>
+  <data name="FileBlock.Text" xml:space="preserve">
+    <value>文件</value>
+    <comment>FileBlockText</comment>
+  </data>
+  <data name="FolderBlock.Text" xml:space="preserve">
+    <value>文件夹</value>
+    <comment>FolderBlockText</comment>
+  </data>
+  <data name="MainContentBlock.Text" xml:space="preserve">
+    <value>主要内容</value>
+    <comment>MainContentBlockText</comment>
+  </data>
+  <data name="NotSave" xml:space="preserve">
+    <value>不保存</value>
+    <comment>NotSaveText</comment>
+  </data>
+  <data name="OrderOfGoingBlock.Text" xml:space="preserve">
+    <value>进行顺序</value>
+    <comment>OrderOfGoingBlockText</comment>
+  </data>
+  <data name="PathBlock.Text" xml:space="preserve">
+    <value>路径</value>
+    <comment>PathBlockText</comment>
+  </data>
+  <data name="PraiseTimeBlock.Text" xml:space="preserve">
+    <value>表扬次数</value>
+    <comment>PraiseTimeBlockText</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+    <comment>SaveText</comment>
+  </data>
+  <data name="SizeBlock.Text" xml:space="preserve">
+    <value>大小</value>
+    <comment>SizeBlockText</comment>
+  </data>
+  <data name="StatusBlock.Text" xml:space="preserve">
+    <value>状态</value>
+    <comment>StatusBlockText</comment>
+  </data>
+</root>
