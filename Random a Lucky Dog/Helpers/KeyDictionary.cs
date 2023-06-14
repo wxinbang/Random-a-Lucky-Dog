@@ -1,0 +1,69 @@
+﻿namespace RLD.Helpers
+{
+	internal static class KeyDictionary
+	{
+		internal enum StringKey : byte
+		{
+			AllAlreadyFinished,
+			Close,
+			CheckMarkConfirmText,
+			CheckMarkTitle,
+			CheckMarkContent,
+			PraiseTitle,
+			PraiseContent,
+			PraiseClose,
+			JoinProgramTitle,
+			JoinProgramContent,
+			JoinProgramClose,
+			JoinProgramPrimary,
+			ExceptionTitle,
+			SendEmail,
+			FirstRun_BodyText,
+			FirstRunDialogPrimaryButtonText,
+			FirstRunDialogTitle,
+			FileSaved,
+			FileNotFind,
+			FeatureOfferedInTheNextVersion,
+			DeleteFinished,
+			Feedback,
+			ExceptionAt,
+			SoftwareCrashes,
+			UserName,
+			Password,
+			ExistNullValue,
+			InsertUSBDrive,
+			ExportIdentityFile,
+			Export,
+			Cancel,
+			NoRequiredPermissions,
+			VerifyPassword,
+			Verify,
+			FileNotSaved,
+			OperationCanceled,
+			WhetherSaveTitle,
+			WhetherSaveContent,
+			Yes,
+			No,
+			InputNotValid,
+			All,
+			Going,
+			Finished,
+			Unfinished,
+			Suspended,
+			EnterName,
+			PraiseTime,
+			EditStudentTitle,
+			Done,
+			Save,
+			NotSave,
+
+		}
+		internal enum SettingKey : byte
+		{
+			FileName,
+			Mark,
+			Saved,
+			JoinProgram,
+		}
+	}
+}
