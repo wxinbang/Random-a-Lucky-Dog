@@ -2,11 +2,12 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using static RLD.Helpers.KeyDictionary.SettingKey;
-using static RLD.Helpers.KeyDictionary.StringKey;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.FoldersService;
-using static RLD.Services.LocalizeService;
+using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.SettingsStorageService;
+using static RLD.UWPCore.ExpectionProxy;
 
 namespace RLD.Views
 {
@@ -30,7 +31,7 @@ namespace RLD.Views
 			await DeleteDataSetFolderAsync();
 			DeleteString(FileName);
 			DeleteString(Saved);
-			await ContentDialogs.ThrowException(Localize(DeleteFinished), false);
+			await ThrowException(Localize(DeleteFinished), false);
 		}
 		private async void DeleteUserData_Click(object sender, RoutedEventArgs e)
 		{
@@ -38,7 +39,7 @@ namespace RLD.Views
 			await DeleteDataSetFolderAsync();
 			await DeleteSaveFolderAsync();
 			await DeleteAutoSaveFolderAsync();
-			await ContentDialogs.ThrowException(Localize(DeleteFinished), false);
+			await ThrowException(Localize(DeleteFinished), false);
 		}
 		private async void LayoutIdentityFile_Click(object sender, RoutedEventArgs e)
 		{

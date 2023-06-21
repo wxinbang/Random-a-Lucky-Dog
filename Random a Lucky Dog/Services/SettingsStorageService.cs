@@ -1,6 +1,6 @@
 ﻿using RLD.Helpers;
 using System.Threading.Tasks;
-using static RLD.Helpers.KeyDictionary;
+using static RLD.UWPCore.KeyDictionary;
 using static RLD.Services.FoldersService;
 
 namespace RLD.Services

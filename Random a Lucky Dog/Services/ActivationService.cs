@@ -1,5 +1,5 @@
 ﻿using RLD.Activation;
-using RLD.Core.Helpers;
+using RLD.CPCore.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

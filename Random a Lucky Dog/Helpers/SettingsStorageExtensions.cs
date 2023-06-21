@@ -1,4 +1,4 @@
-﻿using RLD.Core.Helpers;
+﻿using RLD.CPCore.Helpers;
 using System;
 using System.IO;
 using System.Threading.Tasks;

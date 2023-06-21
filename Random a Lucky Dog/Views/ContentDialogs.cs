@@ -1,5 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using RLD.Core.Models;
+using RLD.CPCore.Models;
 using RLD.Services;
 using System;
 using System.Collections.Generic;
@@ -11,12 +11,13 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using xbb.ClassLibraries;
-using static RLD.Helpers.KeyDictionary;
-using static RLD.Helpers.KeyDictionary.StringKey;
+using static RLD.CPCore.Helpers.Security;
+using static RLD.UWPCore.KeyDictionary;
+using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.IdentityService;
-using static RLD.Services.LocalizeService;
+using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.StudentService;
+using static RLD.UWPCore.ExpectionProxy;
 
 namespace RLD.Views
 {
@@ -73,43 +74,6 @@ namespace RLD.Views
 			await dialog.ShowAsync();
 			return;
 		}
-		internal static async Task ComposeEmail()
-		{
-			var emailMessage = new EmailMessage();
-			emailMessage.Body = "";
-
-			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
-			emailMessage.To.Add(emailRecipient);
-			emailMessage.Subject = Localize(Feedback);
-
-			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-		}
-		internal static async Task ComposeEmail(string exception)
-		{
-			var emailMessage = new EmailMessage();
-			emailMessage.Body = DateTime.Now.ToString() + Localize(ExceptionAt) + exception;
-
-			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
-			emailMessage.To.Add(emailRecipient);
-			emailMessage.Subject = Localize(SoftwareCrashes);
-
-			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-		}
-		internal static async Task ThrowException(string message, bool sendEmail = false)
-		{
-			var dialog = new ContentDialog
-			{
-				Title = Localize(ExceptionTitle),
-				Content = message,
-				CloseButtonText = Localize(Close),
-				DefaultButton = ContentDialogButton.Close
-			};
-			if (sendEmail) dialog.PrimaryButtonText = Localize(SendEmail);
-			var result = await dialog.ShowAsync();
-
-			if (sendEmail && result == ContentDialogResult.Primary) await ComposeEmail(message);
-			return;
-		}
 		internal static async Task ExportIdentityFile(bool checkAgain = false)
 		{
 			if (await VerifyIdentityAsync() && await VerifyPassword())
@@ -153,17 +117,16 @@ namespace RLD.Views
 						await ExportIdentityFile(true);
 						return;
 					}
-					SHA256 sha256 = SHA256.Create();
 					var file = await folder.CreateFileAsync("IdentityFile", CreationCollisionOption.ReplaceExisting);
-					string hash1 = DealWithIdentity.GetHash(sha256, "User:" + userName);
-					string hash2 = DealWithIdentity.GetHash(sha256, hash1 + ".Password:" + password);
+					string hash1 = GetSHA256("User:" + userName);
+					string hash2 = GetSHA256(hash1 + ".Password:" + password);
 					await FileIO.AppendTextAsync(file, userName + '\n');
 					await FileIO.AppendTextAsync(file, hash1 + '\n');
 					await FileIO.AppendTextAsync(file, hash2);
 					await ThrowException(Localize(Done));
 				}
 			}
-			else if(!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions), false);
+			else if (!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions), false);
 		}
 		internal static async Task<bool> VerifyPassword(bool checkAgain = false)
 		{
@@ -251,7 +214,7 @@ namespace RLD.Views
 						app.AllStudentList.Add(student);
 					}
 					int nowOrderOfGoing = 0;
-					if(ConvertStatus((string)status.SelectedItem) == StudentStatus.going)
+					if (ConvertStatus((string)status.SelectedItem) == StudentStatus.going)
 					{
 						if (student.Status != StudentStatus.going) nowOrderOfGoing = ClassifyStudents(app.AllStudentList)[0].Count + 1;
 						else nowOrderOfGoing = student.OrderOfGoing;

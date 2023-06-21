@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using RLD.Core.Models;
+using RLD.CPCore.Models;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;

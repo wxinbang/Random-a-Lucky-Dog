@@ -162,7 +162,6 @@
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
-    <Compile Include="Helpers\KeyDictionary.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />
@@ -220,7 +219,6 @@
     <Compile Include="Views\WhatsNewDialog.xaml.cs">
       <DependentUpon>WhatsNewDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xbb.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -344,7 +342,6 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Compile Include="Services\LocalizeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -363,9 +360,13 @@
     <XliffResource Include="MultilingualResources\Select Lucky Dog.zh-CN.xlf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Random a Lucky Dog.Core\Random a Lucky Dog.Core.csproj">
-      <Project>{caefa44c-bb7d-48fc-a51f-03f23d6770ba}</Project>
-      <Name>Random a Lucky Dog.Core</Name>
+    <ProjectReference Include="..\Random a Lucky Dog.CPCore\Random a Lucky Dog.CPCore.csproj">
+      <Project>{3a3999a8-6200-4de9-bd00-6d3606183977}</Project>
+      <Name>Random a Lucky Dog.CPCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Random a Lucky Dog.UWPCore\Random a Lucky Dog.UWPCore.csproj">
+      <Project>{f25bfb2f-adfa-43a8-aa64-bc55aea4451d}</Project>
+      <Name>Random a Lucky Dog.UWPCore</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

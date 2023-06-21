@@ -1,16 +1,16 @@
-﻿using RLD.Core.Models;
+﻿using RLD.CPCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using static RLD.Core.Models.StudentStatus;
-using static RLD.Helpers.KeyDictionary.SettingKey;
-using static RLD.Helpers.KeyDictionary.StringKey;
+using static RLD.CPCore.Models.StudentStatus;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.FoldersService;
+using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.SettingsStorageService;
-using static RLD.Services.LocalizeService;
 
 namespace RLD.Services
 {
@@ -41,7 +41,7 @@ namespace RLD.Services
 		}
 		internal static StudentStatus ConvertStatus(string status)
 		{
-			if (status == "unfinished"||status==Localize(Unfinished)) return unfinished;
+			if (status == "unfinished" || status == Localize(Unfinished)) return unfinished;
 			else if (status == "going" || status == Localize(Going)) return going;
 			else if (status == "finished" || status == Localize(Finished)) return finished;
 			else if (status == "suspended" || status == Localize(Suspended)) return suspended;

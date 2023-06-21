@@ -1,5 +1,5 @@
-﻿using RLD.Core.Helpers;
-using RLD.Core.Models;
+﻿using RLD.CPCore.Helpers;
+using RLD.CPCore.Models;
 using RLD.Services;
 using RLD.Views;
 using System;
@@ -8,6 +8,10 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
+using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.ExpectionProxy;
 
 namespace RLD
 {
@@ -51,12 +55,12 @@ namespace RLD
 							args.Handled = true;
 							break;
 						case true:
-							if (!await IdentityService.VerifyIdentityAsync()) { args.Handled = true; await ContentDialogs.ThrowException(LocalizeService.Localize(Helpers.KeyDictionary.StringKey.NoRequiredPermissions)); }
+							if (!await IdentityService.VerifyIdentityAsync()) { args.Handled = true; await ThrowException(Localize(NoRequiredPermissions)); }
 							else
 							{
-								if (SettingsStorageService.ReadString(Helpers.KeyDictionary.SettingKey.FileName) != null)
+								if (SettingsStorageService.ReadString(FileName) != null)
 								{
-									await StudentService.SaveStudentsAsync(SettingsStorageService.ReadString(Helpers.KeyDictionary.SettingKey.FileName), AllStudentList);
+									await StudentService.SaveStudentsAsync(SettingsStorageService.ReadString(FileName), AllStudentList);
 								}
 							}
 							break;
@@ -77,7 +81,7 @@ namespace RLD
 		private async void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
 		{
 			e.Handled = true;
-			await ContentDialogs.ThrowException(e.Message,true);
+			await ThrowException(e.Message, true);
 			// TODO: Please log and handle the exception as appropriate to your scenario
 			// For more info see https://docs.microsoft.com/uwp/api/windows.ui.xaml.application.unhandledexception
 		}

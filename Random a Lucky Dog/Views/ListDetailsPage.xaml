@@ -6,7 +6,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
-    xmlns:model="using:RLD.Core.Models"
+    xmlns:model="using:RLD.CPCore.Models"
     xmlns:views="using:RLD.Views"
     xmlns:behaviors="using:RLD.Behaviors"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"

@@ -4,8 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using static RLD.Helpers.KeyDictionary.StringKey;
-using static RLD.Services.LocalizeService;
+using static RLD.UWPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.LocalizeService;
 
 namespace RLD.Models
 {

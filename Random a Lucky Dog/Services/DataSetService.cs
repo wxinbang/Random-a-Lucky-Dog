@@ -1,17 +1,18 @@
-﻿using RLD.Core.Models;
+﻿using RLD.CPCore.Models;
 using RLD.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using static RLD.Services.StudentService;
-using static RLD.Helpers.KeyDictionary.SettingKey;
-using static RLD.Helpers.KeyDictionary.StringKey;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.FoldersService;
 using static RLD.Services.IdentityService;
-using static RLD.Services.LocalizeService;
+using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.SettingsStorageService;
+using static RLD.Services.StudentService;
+using static RLD.UWPCore.ExpectionProxy;
 
 namespace RLD.Services
 {
@@ -61,7 +62,7 @@ namespace RLD.Services
 
 				return returnCollections;
 			}
-			else await ContentDialogs.ThrowException(Localize(NoRequiredPermissions), false);
+			else await ThrowException(Localize(NoRequiredPermissions), false);
 			return null;
 		}
 	}

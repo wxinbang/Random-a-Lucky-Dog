@@ -1,4 +1,4 @@
-﻿using RLD.Core.Models;
+﻿using RLD.CPCore.Models;
 using RLD.Services;
 using RLD.ViewModels;
 using System;
@@ -10,21 +10,21 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using static RLD.Core.Models.StudentStatus;
-using static RLD.Services.StudentService;
-using static RLD.Helpers.KeyDictionary.SettingKey;
-using static RLD.Helpers.KeyDictionary.StringKey;
+using static RLD.CPCore.Models.StudentStatus;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.DataSetService;
 using static RLD.Services.FilesService;
 using static RLD.Services.FoldersService;
 using static RLD.Services.IdentityService;
-using static RLD.Services.LocalizeService;
+using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.SettingsStorageService;
+using static RLD.Services.StudentService;
+using static RLD.UWPCore.ExpectionProxy;
+using static RLD.UWPCore.EmailProxy;
 
 namespace RLD.Views
 {
@@ -168,12 +168,12 @@ namespace RLD.Views
 				app.IsDataPrepared = true;
 			}
 			else if (file == null) { ResultBox.Text = Localize(OperationCanceled); file = await GetLastDataFileAsync(); }
-			else await ContentDialogs.ThrowException(Localize(NoRequiredPermissions));
+			else await ThrowException(Localize(NoRequiredPermissions));
 		}
 		private async void RapidBuild_Click(object sender, RoutedEventArgs e)
 		{
 			var number = ((int)RapidBuildBox.Value);
-			if (number <= 0) await ContentDialogs.ThrowException(Localize(InputNotValid));
+			if (number <= 0) await ThrowException(Localize(InputNotValid));
 			else
 			{
 				app.IsDataPrepared = false;
@@ -194,7 +194,7 @@ namespace RLD.Views
 		}
 		private async void SendEmailButton_Click(object sender, RoutedEventArgs e)
 		{
-			await ContentDialogs.ComposeEmail();
+			await ComposeEmail();
 		}
 		private void ExitProgram_Click(object sender, RoutedEventArgs e)
 		{/*
@@ -226,7 +226,7 @@ namespace RLD.Views
 				}
 				else this.ResultBox.Text = Localize(OperationCanceled);
 			}
-			else await ContentDialogs.ThrowException(Localize(NoRequiredPermissions), false);
+			else await ThrowException(Localize(NoRequiredPermissions), false);
 		}
 		private void StudentSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
 		{/*
@@ -274,7 +274,7 @@ namespace RLD.Views
 				await SaveStudentsAsync(file.Name, AllStudentList);
 				ResultBox.Text = Localize(FileSaved) + file.Name;
 			}
-			else if (!await VerifyIdentityAsync()) await ContentDialogs.ThrowException(Localize(NoRequiredPermissions));
+			else if (!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions));
 		}
 		private async void Mark_Click(object sender, RoutedEventArgs e)
 		{
@@ -312,7 +312,7 @@ namespace RLD.Views
 					((Views.SelectedItem as PivotItem).Content as ListView).ScrollIntoView(toCollection[0]);
 				}
 			}
-			else await ContentDialogs.ThrowException(Localize(NoRequiredPermissions));
+			else await ThrowException(Localize(NoRequiredPermissions));
 		}
 		private void RefreshListNumber()
 		{
@@ -327,7 +327,7 @@ namespace RLD.Views
 			{
 				GC.EndNoGCRegion();
 				GCInfo.Style = (Style)Application.Current.Resources["SuccessDotInfoBadgeStyle"];
-				await ContentDialogs.ThrowException("已开启GC", false);
+				await ThrowException("已开启GC", false);
 			}
 		}
 		private void GCNow_Click(object sender, RoutedEventArgs e)
@@ -338,7 +338,7 @@ namespace RLD.Views
 		{
 			if (GC.TryStartNoGCRegion(maxGCMemory))
 			{
-				await ContentDialogs.ThrowException("已关闭GC", false);
+				await ThrowException("已关闭GC", false);
 				GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
 			}
 		}
@@ -377,5 +377,10 @@ namespace RLD.Views
 			listView.SelectedItem = student;
 			listView.ScrollIntoView(listView.SelectedItem);
 		}
-	}
+
+		private async void Lab_Click(object sender, RoutedEventArgs e)
+		{
+			await UWPCore.Service.SecurityService.PickDeviceAsync();
+        }
+    }
 }
