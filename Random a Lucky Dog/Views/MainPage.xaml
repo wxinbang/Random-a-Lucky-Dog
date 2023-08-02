@@ -211,14 +211,14 @@
 
 							<Button x:Uid="ConnectDataSet" VerticalAlignment="Center" HorizontalAlignment="Center"
                             Click="ConnectDataSet_Click"/>
-							<Button x:Uid="RapidBuild"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<Button x:Uid="QuickCreate"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
 								<Button.Flyout>
 									<Flyout LightDismissOverlayMode="On">
 										<StackPanel Orientation="Horizontal">
-											<muxc:NumberBox x:Uid="RapidBuildBox" x:Name="RapidBuildBox"
-															Value="1" SpinButtonPlacementMode="Compact"
+											<muxc:NumberBox x:Uid="QuickCreateBox" x:Name="QuickCreateBox"
+															Value="1" SpinButtonPlacementMode="Inline"
 															SmallChange="1" LargeChange="10" />
-											<Button x:Uid="DoneButton" Click="RapidBuild_Click" Margin="{StaticResource SmallLeftMargin}"/>
+											<Button x:Uid="DoneButton" Click="QuickCreate_Click" Margin="{StaticResource SmallLeftMargin}"/>
 										</StackPanel>
 									</Flyout>
 								</Button.Flyout>

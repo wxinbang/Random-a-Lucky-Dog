@@ -20,6 +20,7 @@ namespace RLD
 		private Lazy<ActivationService> _activationService;
 		public ObservableCollection<Student> AllStudentList = new ObservableCollection<Student>();
 		public bool IsDataPrepared;
+		public bool NeedSave;
 
 		private ActivationService ActivationService
 		{
@@ -48,7 +49,7 @@ namespace RLD
 				{
 					var deferral = args.GetDeferral();
 
-					var result = await ContentDialogs.CheckWhetherSave();
+					var result = await ContentDialogs.CheckWhetherSave() ;
 					switch (result)
 					{
 						case null:

@@ -500,13 +500,13 @@
     <value>Done!</value>
     <comment>PraiseFlyoutText</comment>
   </data>
-  <data name="RapidBuild.Content" xml:space="preserve">
+  <data name="QuickCreate.Content" xml:space="preserve">
     <value>Rapid build</value>
-    <comment>RapidBuildButtonContent</comment>
+    <comment>QuickCreateButtonContent</comment>
   </data>
-  <data name="RapidBuildBox.Header" xml:space="preserve">
+  <data name="QuickCreateBox.Header" xml:space="preserve">
     <value>Enter an integer:</value>
-    <comment>RapidBuildBoxHeader</comment>
+    <comment>QuickCreateBoxHeader</comment>
   </data>
   <data name="UndoPraiseButton.Content" xml:space="preserve">
     <value>Undo</value>

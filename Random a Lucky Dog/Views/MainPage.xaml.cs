@@ -81,6 +81,7 @@ namespace RLD.Views
 				var collctions = await ConnectDataSetAsync(file, true);
 				SetColletions(collctions);
 				app.IsDataPrepared = true;
+				app.NeedSave = false;
 			}
 
 			string version = VersionManager.GetVersion();
@@ -92,7 +93,14 @@ namespace RLD.Views
 			GCInfo.Visibility = Visibility.Visible;
 #endif
 			VersionInformationBox.Text = version;
+			AllStudentList.CollectionChanged += AllStudentList_CollectionChanged;
 		}
+
+		private void AllStudentList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			app.NeedSave = true;
+		}
+
 		private async void Timer_Tick(object sender, object e)
 		{
 			if (GCSettings.LatencyMode == GCLatencyMode.NoGCRegion) GCInfo.Style = (Style)Application.Current.Resources["CriticalDotInfoBadgeStyle"];
@@ -169,16 +177,23 @@ namespace RLD.Views
 			}
 			else if (file == null) { ResultBox.Text = Localize(OperationCanceled); file = await GetLastDataFileAsync(); }
 			else await ThrowException(Localize(NoRequiredPermissions));
+			app.NeedSave = false;
 		}
-		private async void RapidBuild_Click(object sender, RoutedEventArgs e)
+		private async void QuickCreate_Click(object sender, RoutedEventArgs e)
 		{
-			var number = ((int)RapidBuildBox.Value);
+			var number = ((int)QuickCreateBox.Value);
 			if (number <= 0) await ThrowException(Localize(InputNotValid));
 			else
 			{
 				app.IsDataPrepared = false;
 				ClearAllList();
-				for (int i = 1; i <= number; i++) AllStudentList.Add(new Student(i.ToString(), unfinished, 0, 0, i - 1));
+				for (int i = 1; i <= number; i++)
+				{
+					Student newStu = new Student(i.ToString(), unfinished, 0, 0, i - 1);
+					AllStudentList.Add(newStu);
+					UnfinishedStudentList.Add(newStu);
+				}
+				RefreshListNumber();
 				app.IsDataPrepared = true;
 			}
 		}

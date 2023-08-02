@@ -383,13 +383,13 @@
     <value>完成</value>
     <comment>PraiseFlyoutText</comment>
   </data>
-  <data name="RapidBuild.Content" xml:space="preserve">
+  <data name="QuickCreate.Content" xml:space="preserve">
     <value>快速构建</value>
-    <comment>RapidBuildButtonContent</comment>
+    <comment>QuickCreateButtonContent</comment>
   </data>
-  <data name="RapidBuildBox.Header" xml:space="preserve">
+  <data name="QuickCreateBox.Header" xml:space="preserve">
     <value>请输入一个整数：</value>
-    <comment>RapidBuildBoxHeader</comment>
+    <comment>QuickCreateBoxHeader</comment>
   </data>
   <data name="UndoPraiseButton.Content" xml:space="preserve">
     <value>撤消</value>

@@ -470,15 +470,15 @@
           <target state="new">完成</target>
           <note from="MultilingualBuild" annotates="source" priority="2">PraiseFlyoutText</note>
         </trans-unit>
-        <trans-unit id="RapidBuild.Content" translate="yes" xml:space="preserve">
+        <trans-unit id="QuickCreate.Content" translate="yes" xml:space="preserve">
           <source>快速构建</source>
           <target state="new">快速构建</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">RapidBuildButtonContent</note>
+          <note from="MultilingualBuild" annotates="source" priority="2">QuickCreateButtonContent</note>
         </trans-unit>
-        <trans-unit id="RapidBuildBox.Header" translate="yes" xml:space="preserve">
+        <trans-unit id="QuickCreateBox.Header" translate="yes" xml:space="preserve">
           <source>请输入一个整数：</source>
           <target state="new">请输入一个整数：</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">RapidBuildBoxHeader</note>
+          <note from="MultilingualBuild" annotates="source" priority="2">QuickCreateBoxHeader</note>
         </trans-unit>
         <trans-unit id="UndoPraiseButton.Content" translate="yes" xml:space="preserve">
           <source>撤消</source>
