@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/.vs/ProjectEvaluation/random a lucky dog.metadata.v7.bin
+/.vs/ProjectEvaluation/random a lucky dog.projects.v7.bin
+/.vs/Random a Lucky Dog/DesignTimeBuild/.dtbcache.v2
+/.vs/Random a Lucky Dog/v17/.suo
+/.vs/Random a Lucky Dog/v17/.futdcache.v2
