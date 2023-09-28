@@ -11,6 +11,7 @@ using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.FoldersService;
 using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.SettingsStorageService;
+using RLD.CPCore.Helpers;
 
 namespace RLD.Services
 {
@@ -18,11 +19,25 @@ namespace RLD.Services
 	{
 		public static async Task<Collection<Student>> GetStudentsAsync(IStorageFile file)
 		{
+			IList<string> lines = new List<string>();
+			if (file.FileType.ToLower() == ".txt") lines = await FileIO.ReadLinesAsync(file);
+			else if (file.FileType.ToLower() == ".xlsx") lines = xlsx.GetAllLines(file.Path);
+			for (int i = 0; i < lines.Count; i++)
+			{
+				if (String.IsNullOrWhiteSpace(lines[i]))
+				{
+					lines.Remove(lines[i]);
+					i--;
+				}
+			}
+			//while (lines.Last() == "") lines.RemoveAt(lines.Count() - 1);
+
+			return GetStudents(lines);
+		}
+		public static Collection<Student> GetStudents(IList<string> lines)
+		{
 			var students = new Collection<Student>();
 			int orderInList = 0;
-			IList<string> lines = await FileIO.ReadLinesAsync(file);
-			while (lines.Last() == "") lines.RemoveAt(lines.Count() - 1);
-
 			foreach (string line in lines)
 			{
 				string[] studentData = SplitStudentLine(line);
@@ -102,15 +117,26 @@ namespace RLD.Services
 		public static async Task SaveStudentsAsync(string fileName, Collection<Student> collection)
 		{
 			var file = await (await GetSaveFolderAsync()).CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-			IList<string> list = GetStudentStringList(collection.ToList());
-			await FileIO.WriteLinesAsync(file, list);
-			SaveString(Saved, "True");
-			SaveString(FileName, file.Name);
+			await SaveToFile(collection, file);
 		}
+
+
 		public static async Task SaveStudentsAsync(StorageFile file, Collection<Student> collection)
 		{
+			await SaveToFile(collection, file);
+		}
+		private static async Task SaveToFile(Collection<Student> collection, StorageFile file)
+		{
 			IList<string> list = GetStudentStringList(collection.ToList());
-			await FileIO.WriteLinesAsync(file, list);
+			if (file.FileType.ToLower() == ".txt") await FileIO.WriteLinesAsync(file, list);
+			else if (file.FileType.ToLower() == ".xlsx")
+			{
+				xlsx.WriteLines((await GetExcelTempFolderAsync()).Path +"\\"+ file.Name, list);
+				await (await (await GetExcelTempFolderAsync()).GetFileAsync(file.Name)).CopyAndReplaceAsync(file);
+			}
+			SaveString(Saved, "True");
+			SaveString(FileName, file.Name);
+
 		}
 		internal static List<StudentStatus> GetStudentStatuses() => Enum.GetValues(typeof(StudentStatus)).Cast<StudentStatus>().ToList();
 	}

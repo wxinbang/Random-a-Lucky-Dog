@@ -28,7 +28,15 @@ namespace RLD.Views
 		private async void EditStudent_Click(object sender, RoutedEventArgs e)
 		{
 			var button = sender as Button;
-			await ContentDialogs.EditStudent(button.Content as string == "Edit" ? ListMenuItem : ListMenuItem);
+			if (button.Name == "EditButton")
+			{
+				await ContentDialogs.EditStudent(ListMenuItem);
+			}
+			else
+			{
+				await ContentDialogs.EditStudent(null);
+			}
+
 		}
 	}
 }

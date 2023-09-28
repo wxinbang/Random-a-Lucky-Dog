@@ -58,7 +58,10 @@ namespace RLD.Services
 				returnCollections[3] = collections[2];
 				returnCollections[4] = collections[3];
 
-				if (saveSetting) { SaveString(FileName, file.Name); DeleteString(Saved); }
+				if (saveSetting) { SaveString(FileName, file.Name);
+					SaveString(Saved, "True");
+					//DeleteString(Saved);
+					}
 
 				return returnCollections;
 			}

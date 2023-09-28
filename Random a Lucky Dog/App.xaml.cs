@@ -12,6 +12,8 @@ using static RLD.UWPCore.LocalizeService;
 using static RLD.UWPCore.KeyDictionary.SettingKey;
 using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.ExpectionProxy;
+using static RLD.Services.FoldersService;
+using Windows.Storage;
 
 namespace RLD
 {
@@ -21,6 +23,8 @@ namespace RLD
 		public ObservableCollection<Student> AllStudentList = new ObservableCollection<Student>();
 		public bool IsDataPrepared;
 		public bool NeedSave;
+		public StorageFile file;
+		public Student stu;
 
 		private ActivationService ActivationService
 		{
@@ -61,7 +65,8 @@ namespace RLD
 							{
 								if (SettingsStorageService.ReadString(FileName) != null)
 								{
-									await StudentService.SaveStudentsAsync(SettingsStorageService.ReadString(FileName), AllStudentList);
+									StorageFile saveFile = await(await GetSaveFolderAsync()).CreateFileAsync(SettingsStorageService.ReadString(FileName), CreationCollisionOption.ReplaceExisting);
+									await StudentService.SaveStudentsAsync(saveFile, AllStudentList);
 								}
 							}
 							break;

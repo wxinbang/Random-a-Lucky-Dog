@@ -40,15 +40,17 @@
                     Style="{StaticResource DetailSubTitleStyle}"
                     x:Uid="PraiseTimeBlock" />
                 <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ListMenuItem.PraiseTime, Mode=OneWay}" />
-                <!--Button
+                <Button
                     Margin="{StaticResource SmallTopMargin}"
+					Name="EditButton"
                     Content="Edit"
 					Click="EditStudent_Click"/>
 				<Button
                     Margin="{StaticResource SmallTopMargin}"
+					Name="AddButton"
                     Content="Add new"
 					Click="EditStudent_Click"/>
-                <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ListMenuItem., Mode=OneWay}" />
+                <!--TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ListMenuItem., Mode=OneWay}" />
                 <TextBlock
                     Margin="{StaticResource SmallTopMargin}"
                     Style="{StaticResource DetailSubTitleStyle}"

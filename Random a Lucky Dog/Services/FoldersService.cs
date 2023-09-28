@@ -10,9 +10,11 @@ namespace RLD.Services
 		internal static async Task<StorageFolder> GetDataSetFolderAsync() => await ApplicationData.Current.LocalFolder.CreateFolderAsync("DataSets", CreationCollisionOption.OpenIfExists);
 		internal static async Task<StorageFolder> GetSaveFolderAsync() => await ApplicationData.Current.LocalFolder.CreateFolderAsync("Saves", CreationCollisionOption.OpenIfExists);
 		internal static async Task<StorageFolder> GetAutoSaveFolderAsync() => await ApplicationData.Current.LocalFolder.CreateFolderAsync("AutoSave", CreationCollisionOption.OpenIfExists);
+		internal static async Task<StorageFolder> GetExcelTempFolderAsync() => await ApplicationData.Current.LocalFolder.CreateFolderAsync("ExcelTemp", CreationCollisionOption.OpenIfExists);
 		internal static async Task DeleteDataSetFolderAsync() => await (await GetDataSetFolderAsync()).DeleteAsync();
 		internal static async Task DeleteSaveFolderAsync() => await (await GetSaveFolderAsync()).DeleteAsync();
 		internal static async Task DeleteAutoSaveFolderAsync() => await (await GetAutoSaveFolderAsync()).DeleteAsync();
+		internal static async Task DeleteExcelTempFolderAsync() => await (await GetExcelTempFolderAsync()).DeleteAsync();
 		internal static ApplicationDataContainer GetSettingsFolder() => ApplicationData.Current.LocalSettings;
 		internal static async Task<IReadOnlyList<StorageFolder>> GetAllFoldersAsync() => await ApplicationData.Current.LocalFolder.GetFoldersAsync();
 	}

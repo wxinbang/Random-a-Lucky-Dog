@@ -33,10 +33,10 @@ namespace RLD.Models
 			BasicProperties bp = await file.GetBasicPropertiesAsync();
 			var collections = await DataSetService.ConnectDataSetAsync(file, saveSetting: false);
 			var sb = new StringBuilder();
-			sb.AppendLine(Localize(All) + collections[0].Count);
-			sb.AppendLine(Localize(Going) + collections[1].Count);
-			sb.AppendLine(Localize(Finished) + collections[2].Count);
-			sb.AppendLine(Localize(Unfinished) + collections[3].Count);
+			sb.AppendLine(Localize(All) + ":" + collections[0].Count);
+			sb.AppendLine(Localize(Going) + ":" + collections[1].Count);
+			sb.AppendLine(Localize(Finished) + ":" + collections[2].Count);
+			sb.AppendLine(Localize(Unfinished) + ":" + collections[3].Count);
 			string mainContent = sb.ToString();
 			return new File(file, bp, mainContent);
 		}

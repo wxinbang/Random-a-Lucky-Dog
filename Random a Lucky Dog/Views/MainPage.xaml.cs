@@ -25,6 +25,7 @@ using static RLD.Services.SettingsStorageService;
 using static RLD.Services.StudentService;
 using static RLD.UWPCore.ExpectionProxy;
 using static RLD.UWPCore.EmailProxy;
+using Windows.UI.Xaml.Navigation;
 
 namespace RLD.Views
 {
@@ -44,15 +45,18 @@ namespace RLD.Views
 		private bool mark;
 		private int studentNumber;
 
-		private StorageFile file;
+		private StorageFile file = (Application.Current as App).file;
 		private StorageFolder SaveFolder;
 
 		App app = (Application.Current as App);
+
+		private Student stu = (Application.Current as App).stu;
 
 		readonly long maxGCMemory = 255000000;
 		public MainPage()
 		{
 			InitializeComponent();
+			
 		}
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -60,6 +64,7 @@ namespace RLD.Views
 			Timer.Interval = new TimeSpan(0, 0, 0, 1);
 			Timer.Tick += Timer_Tick;
 			Timer.Start();
+			Timer_Tick(this, new EventArgs());
 			/*
 			if (DealWithSettings.ReadSettings(LastestError) != null) ;
 			//DealWithLogs.CreateLog("ReadSettings", xbb.TaskStatus.Completed);
@@ -74,14 +79,19 @@ namespace RLD.Views
 				var list = collections.ToList();
 				list.Insert(0, app.AllStudentList);
 				SetColletions(list.ToArray());
+				AllView.SelectedItem = (Application.Current as App).stu;
+				AllView.ScrollIntoView((Application.Current as App).stu);
 			}
 			else if (ReadString(FileName) != null)
 			{
 				file = await GetLastDataFileAsync();
-				var collctions = await ConnectDataSetAsync(file, true);
-				SetColletions(collctions);
-				app.IsDataPrepared = true;
-				app.NeedSave = false;
+				if(file!=null)
+				{
+					var collctions = await ConnectDataSetAsync(file, true,false);
+					SetColletions(collctions);
+					app.IsDataPrepared = true;
+					app.NeedSave = false;
+				}
 			}
 
 			string version = VersionManager.GetVersion();
@@ -111,7 +121,7 @@ namespace RLD.Views
 		private void RandomButton_Click(object sender, RoutedEventArgs e)
 		{
 			GoingView.ItemsSource = SortedGoingStudentList;
-			DealWithStudentDataProgressBar.Maximum = AllStudentList.Count();
+			DataProgressBar.Maximum = AllStudentList.Count();
 
 			UnfinishedView.SelectedItem = null;
 			GoingView.SelectedItem = null;
@@ -142,7 +152,7 @@ namespace RLD.Views
 			{
 				ResultBox.Text = UnfinishedStudentList[studentNumber].Name;
 				MoveStudentToTopOfCollection(UnfinishedStudentList[studentNumber], UnfinishedStudentList, SortedGoingStudentList, going);
-				DealWithStudentDataProgressBar.Value = SortedGoingStudentList.Count;
+				DataProgressBar.Value = SortedGoingStudentList.Count;
 				RefreshListNumber();
 
 				Views.SelectedItem = Going;
@@ -223,12 +233,14 @@ namespace RLD.Views
 		{
 			if (await VerifyIdentityAsync())
 			{
-				var savePicker = new FileSavePicker
+					var savePicker = new FileSavePicker
 				{
 					SuggestedStartLocation = PickerLocationId.ComputerFolder,
 					SuggestedFileName = "After-" + file.Name
 				};
 				savePicker.FileTypeChoices.Add("文本文件", new List<string>() { ".txt" });
+				savePicker.FileTypeChoices.Add("Excel文件", new List<string>() { ".xlsx" });
+
 				StorageFile saveFile = await savePicker.PickSaveFileAsync();
 
 				if (saveFile != null)
@@ -258,35 +270,60 @@ namespace RLD.Views
 		{
 			e.AcceptedOperation = DataPackageOperation.Link;
 
-
-			e.DragUIOverride.Caption = "拖放以导入";
+			e.DragUIOverride.Caption = Localize(DropToImport);
 			e.DragUIOverride.IsCaptionVisible = true;
 			e.DragUIOverride.IsContentVisible = true;
 			e.DragUIOverride.IsGlyphVisible = true;
 		}
-		private void Grid_Drop(object sender, DragEventArgs e)
-		{/*
+		private async void Grid_Drop(object sender, DragEventArgs e)
+		{
 			if (e.DataView.Contains(StandardDataFormats.StorageItems))
 			{
 				var items = await e.DataView.GetStorageItemsAsync();
 				if (items.Any())
 				{
-					//if( (items[0]as StorageFile).ContentType == "text/txt")
+					if( (items[0]as StorageFile).ContentType == "text/plain")
 					{
 						file = items[0] as StorageFile;
-						await file.CopyAsync(DataSetFolder, file.Name, NameCollisionOption.ReplaceExisting);
+						await file.CopyAsync(SaveFolder, file.Name, NameCollisionOption.ReplaceExisting);
+						file = await SaveFolder.GetFileAsync(file.Name);
 
-						ConnectDataSet(items[0] as StorageFile);
+						if (file != null && await VerifyIdentityAsync())
+						{
+							app.IsDataPrepared = false;
+							var collections = await ConnectDataSetAsync(file);
+							SetColletions(collections);
+							app.IsDataPrepared = true;
+						}
+						else if (file == null) { ResultBox.Text = Localize(OperationCanceled); file = await GetLastDataFileAsync(); }
+						else await ThrowException(Localize(NoRequiredPermissions));
+						app.NeedSave = false;
+					}
+					else if((items[0] as StorageFile).ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+					{
+						file = items[0] as StorageFile;
+						await file.CopyAsync(SaveFolder, file.Name, NameCollisionOption.ReplaceExisting);
+						file = await SaveFolder.GetFileAsync(file.Name);
+
+						if (file != null && await VerifyIdentityAsync())
+						{
+							app.IsDataPrepared = false;
+							var collections = await ConnectDataSetAsync(file);
+							SetColletions(collections);
+							app.IsDataPrepared = true;
+						}
+						else if (file == null) { ResultBox.Text = Localize(OperationCanceled); file = await GetLastDataFileAsync(); }
+						else await ThrowException(Localize(NoRequiredPermissions));
+						app.NeedSave = false;
 					}
 				}
 			}
-		*/
 		}
 		public async void Save_Click(object sender, RoutedEventArgs e)
 		{
 			if (ReadString(FileName) != null && await VerifyIdentityAsync())
 			{
-				await SaveStudentsAsync(file.Name, AllStudentList);
+				await SaveStudentsAsync(file, AllStudentList);
 				ResultBox.Text = Localize(FileSaved) + file.Name;
 			}
 			else if (!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions));
@@ -397,5 +434,16 @@ namespace RLD.Views
 		{
 			await UWPCore.Service.SecurityService.PickDeviceAsync();
         }
-    }
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			var students = ((ListView)((PivotItem)Views.SelectedItem).Content).SelectedItems;
+
+			Student[] items = ((Views.SelectedItem as PivotItem).Content as ListView).SelectedItems as Student[];
+			Student item = ((Views.SelectedItem as PivotItem).Content as ListView).SelectedItem as Student;
+			if (items!=null) { (Application.Current as App).stu = items[0];}
+			else if(item!=null) { (Application.Current as App).stu = item;}
+			else { (Application.Current as App).stu = null;}
+		}
+	}
 }

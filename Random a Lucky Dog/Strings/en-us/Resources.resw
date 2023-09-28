@@ -513,19 +513,19 @@
     <comment>UndoPraiseButtonContent</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>All:</value>
+    <value>All</value>
     <comment>AllText</comment>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Finished:</value>
+    <value>Finished</value>
     <comment>FinishedText</comment>
   </data>
   <data name="Going" xml:space="preserve">
-    <value>Going:</value>
+    <value>Going</value>
     <comment>GoingText</comment>
   </data>
   <data name="Unfinished" xml:space="preserve">
-    <value>Unfinished:</value>
+    <value>Unfinished</value>
     <comment>UnfinishedText</comment>
   </data>
   <data name="Done" xml:space="preserve">
@@ -595,5 +595,9 @@
   <data name="StatusBlock.Text" xml:space="preserve">
     <value>Status</value>
     <comment>StatusBlockText</comment>
+  </data>
+  <data name="DropToImport" xml:space="preserve">
+    <value>Drop to import</value>
+    <comment>DropToImportText</comment>
   </data>
 </root>

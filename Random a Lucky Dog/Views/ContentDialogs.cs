@@ -18,6 +18,7 @@ using static RLD.Services.IdentityService;
 using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.StudentService;
 using static RLD.UWPCore.ExpectionProxy;
+using System.Collections.ObjectModel;
 
 namespace RLD.Views
 {
@@ -178,14 +179,14 @@ namespace RLD.Views
 			{
 
 				var nameBox = new TextBox { PlaceholderText = Localize(EnterName), Margin = new Thickness(10) };
-				var status = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Going), Localize(Finished), Localize(Unfinished), Localize(Suspended) } };
+				var statusBox = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Going), Localize(Finished), Localize(Unfinished), Localize(Suspended) } };
 				var praiseTimeBox = new NumberBox { Value = 0, Header = (Localize(PraiseTime)), Margin = new Thickness(10), SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Compact, SmallChange = 1, LargeChange = 5 };
 				var checkAgainBox = new TextBlock { Text = Localize(ExistNullValue), Margin = new Thickness(20, 0, 0, 0), Foreground = new SolidColorBrush(Colors.IndianRed) };
 
 				var grid = new StackPanel();
 				if (checkAgain) grid.Children.Add(checkAgainBox);
 				grid.Children.Add(nameBox);
-				grid.Children.Add(status);
+				grid.Children.Add(statusBox);
 				grid.Children.Add(praiseTimeBox);
 
 				var app = Application.Current as App;
@@ -203,27 +204,34 @@ namespace RLD.Views
 				{
 					string name = nameBox.Text;
 					int praiseTime = (int)praiseTimeBox.Value;
+					StudentStatus status = ConvertStatus(statusBox.SelectedItem.ToString());
 					if (String.IsNullOrEmpty(name))
 					{
 						await EditStudent(student, true);
 						return;
 					}
+					//int nowOrderOfGoing = 0;
+					Student newStudent = new Student(name, status, praiseTime, status == StudentStatus.going ? (ClassifyStudents(app.AllStudentList)[0].Count + 1) : 0, student == null ? app.AllStudentList.Count : student.OrderInList);//检查
 					if (student == null)
 					{
-						student = new Student("", StudentStatus.unfinished, 0, 0, 0);
-						app.AllStudentList.Add(student);
+						app.AllStudentList.Add(newStudent);
 					}
-					int nowOrderOfGoing = 0;
-					if (ConvertStatus((string)status.SelectedItem) == StudentStatus.going)
+					else
 					{
-						if (student.Status != StudentStatus.going) nowOrderOfGoing = ClassifyStudents(app.AllStudentList)[0].Count + 1;
-						else nowOrderOfGoing = student.OrderOfGoing;
+						app.AllStudentList.Insert(student.OrderInList, newStudent);
+						app.AllStudentList.Remove(student);
 					}
-					student = new Student(name,
-						ConvertStatus((string)status.SelectedItem),
-						praiseTime,
-						nowOrderOfGoing,
-						app.AllStudentList.Count);
+					if (status == StudentStatus.going)//原来的状态
+					{
+						//if (student.Status != StudentStatus.going) nowOrderOfGoing =
+						//nowOrderOfGoing = student.OrderOfGoing;
+					}
+
+					//student = new Student(name,
+					//	ConvertStatus((string)statusBox.SelectedItem),
+					//	praiseTime,
+					//	nowOrderOfGoing,
+					//	app.AllStudentList.Count);
 				}
 			}
 		}

@@ -56,6 +56,7 @@
 			Done,
 			Save,
 			NotSave,
+			DropToImport,
 
 		}
 		public enum SettingKey : byte

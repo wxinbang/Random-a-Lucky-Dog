@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RLD</RootNamespace>
     <AssemblyName>Random a Lucky Dog</AssemblyName>
-    <DefaultLanguage>zh-cn</DefaultLanguage>
+    <DefaultLanguage>en-us</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.22000.0</TargetPlatformMinVersion>
@@ -347,17 +347,12 @@
     <None Include=".editorconfig" />
     <None Include="Random a Lucky Dog_TemporaryKey.pfx" />
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
-    <PRIResource Include="Strings\qps-ploc\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <XliffResource Include="MultilingualResources\Select Lucky Dog.qps-ploc.xlf" />
-    <XliffResource Include="MultilingualResources\Select Lucky Dog.zh-CN.xlf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Random a Lucky Dog.CPCore\Random a Lucky Dog.CPCore.csproj">
@@ -368,6 +363,9 @@
       <Project>{f25bfb2f-adfa-43a8-aa64-bc55aea4451d}</Project>
       <Name>Random a Lucky Dog.UWPCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="MultilingualResources\Random a Lucky Dog.zh-CN.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

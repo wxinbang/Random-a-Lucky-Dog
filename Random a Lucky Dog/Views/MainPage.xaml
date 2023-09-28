@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:data="using:RLD.CPCore.Models"
+	xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+	xmlns:data="using:RLD.CPCore.Models"
     Style="{StaticResource PageStyle}"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
@@ -37,7 +38,7 @@
 		</Storyboard>
 	</Page.Resources>
 
-	<Grid x:Name="ContentArea">
+	<Grid x:Name="ContentArea" AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop">
 		<Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
 			<!--
@@ -297,7 +298,7 @@
 					</Grid.ColumnDefinitions>
 					<muxc:InfoBadge Grid.Column="0" Height="10" Width="10" Margin="15,5,-5,5" x:Name="GCInfo" Style="{StaticResource CriticalDotInfoBadgeStyle}" Visibility="Collapsed"/>
 
-					<muxc:ProgressBar Grid.Column="1" x:Name="DealWithStudentDataProgressBar" Margin="15,0,5,0" />
+					<muxc:ProgressBar Grid.Column="1" x:Name="DataProgressBar" Margin="15,0,5,0" />
 
 					<muxc:InfoBadge Grid.Column="2" Height="10" Width="10" Margin="5" x:Name="IdentifyInfo" Style="{StaticResource SuccessDotInfoBadgeStyle}" />
 
