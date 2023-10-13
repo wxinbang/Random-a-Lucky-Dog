@@ -180,10 +180,8 @@
     <Compile Include="Services\DragAndDrop\VisualDropConfiguration.cs" />
     <Compile Include="Services\FilesService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
-    <Compile Include="Services\FoldersService.cs" />
     <Compile Include="Services\IdentityService.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\SettingsStorageService.cs" />
     <Compile Include="Services\StudentService.cs" />
     <Compile Include="Services\SuspendAndResumeArgs.cs" />
     <Compile Include="Services\SuspendAndResumeService.cs" />

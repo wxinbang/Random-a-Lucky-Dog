@@ -600,4 +600,8 @@
     <value>Drop to import</value>
     <comment>DropToImportText</comment>
   </data>
+  <data name="PickADevice" xml:space="preserve">
+    <value>Pick a device</value>
+    <comment>PickADeviceText</comment>
+  </data>
 </root>

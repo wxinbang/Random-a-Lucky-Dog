@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using static RLD.UWPCore.LocalizeService;
-using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.EmailProxy;
+using static RLD.UWPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.LocalizeService;
 
 namespace RLD.UWPCore
 {

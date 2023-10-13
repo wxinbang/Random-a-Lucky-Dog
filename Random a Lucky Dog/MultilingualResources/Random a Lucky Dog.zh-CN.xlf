@@ -610,6 +610,11 @@
           <target state="new">Drop to import</target>
           <note from="MultilingualBuild" annotates="source" priority="2">DropToImportText</note>
         </trans-unit>
+        <trans-unit id="PickADevice" translate="yes" xml:space="preserve">
+          <source>Pick a device</source>
+          <target state="new">Pick a device</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PickADeviceText</note>
+        </trans-unit>
       </group>
     </body>
   </file>

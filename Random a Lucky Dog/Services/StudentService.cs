@@ -1,4 +1,5 @@
-﻿using RLD.CPCore.Models;
+﻿using RLD.CPCore.Helpers;
+using RLD.CPCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,10 +9,9 @@ using Windows.Storage;
 using static RLD.CPCore.Models.StudentStatus;
 using static RLD.UWPCore.KeyDictionary.SettingKey;
 using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.Services.FoldersService;
 using static RLD.UWPCore.LocalizeService;
-using static RLD.Services.SettingsStorageService;
-using RLD.CPCore.Helpers;
+using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.SettingsStorageService;
 
 namespace RLD.Services
 {
@@ -131,7 +131,7 @@ namespace RLD.Services
 			if (file.FileType.ToLower() == ".txt") await FileIO.WriteLinesAsync(file, list);
 			else if (file.FileType.ToLower() == ".xlsx")
 			{
-				xlsx.WriteLines((await GetExcelTempFolderAsync()).Path +"\\"+ file.Name, list);
+				xlsx.WriteLines((await GetExcelTempFolderAsync()).Path + "\\" + file.Name, list);
 				await (await (await GetExcelTempFolderAsync()).GetFileAsync(file.Name)).CopyAndReplaceAsync(file);
 			}
 			SaveString(Saved, "True");

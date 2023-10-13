@@ -1,4 +1,5 @@
-﻿using RLD.CPCore.Models;
+﻿using Microsoft.UI.Xaml.Controls;
+using RLD.CPCore.Models;
 using RLD.Services;
 using RLD.ViewModels;
 using System;
@@ -13,19 +14,19 @@ using Windows.Storage.Provider;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using static RLD.CPCore.Models.StudentStatus;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.DataSetService;
 using static RLD.Services.FilesService;
-using static RLD.Services.FoldersService;
 using static RLD.Services.IdentityService;
-using static RLD.UWPCore.LocalizeService;
-using static RLD.Services.SettingsStorageService;
 using static RLD.Services.StudentService;
-using static RLD.UWPCore.ExpectionProxy;
 using static RLD.UWPCore.EmailProxy;
-using Windows.UI.Xaml.Navigation;
+using static RLD.UWPCore.ExpectionProxy;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.SettingsStorageService;
 
 namespace RLD.Views
 {
@@ -56,7 +57,7 @@ namespace RLD.Views
 		public MainPage()
 		{
 			InitializeComponent();
-			
+
 		}
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -85,9 +86,9 @@ namespace RLD.Views
 			else if (ReadString(FileName) != null)
 			{
 				file = await GetLastDataFileAsync();
-				if(file!=null)
+				if (file != null)
 				{
-					var collctions = await ConnectDataSetAsync(file, true,false);
+					var collctions = await ConnectDataSetAsync(file, true, false);
 					SetColletions(collctions);
 					app.IsDataPrepared = true;
 					app.NeedSave = false;
@@ -233,7 +234,7 @@ namespace RLD.Views
 		{
 			if (await VerifyIdentityAsync())
 			{
-					var savePicker = new FileSavePicker
+				var savePicker = new FileSavePicker
 				{
 					SuggestedStartLocation = PickerLocationId.ComputerFolder,
 					SuggestedFileName = "After-" + file.Name
@@ -282,7 +283,7 @@ namespace RLD.Views
 				var items = await e.DataView.GetStorageItemsAsync();
 				if (items.Any())
 				{
-					if( (items[0]as StorageFile).ContentType == "text/plain")
+					if ((items[0] as StorageFile).ContentType == "text/plain")
 					{
 						file = items[0] as StorageFile;
 						await file.CopyAsync(SaveFolder, file.Name, NameCollisionOption.ReplaceExisting);
@@ -299,7 +300,7 @@ namespace RLD.Views
 						else await ThrowException(Localize(NoRequiredPermissions));
 						app.NeedSave = false;
 					}
-					else if((items[0] as StorageFile).ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+					else if ((items[0] as StorageFile).ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 					{
 						file = items[0] as StorageFile;
 						await file.CopyAsync(SaveFolder, file.Name, NameCollisionOption.ReplaceExisting);
@@ -433,7 +434,7 @@ namespace RLD.Views
 		private async void Lab_Click(object sender, RoutedEventArgs e)
 		{
 			await UWPCore.Service.SecurityService.PickDeviceAsync();
-        }
+		}
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{
 			base.OnNavigatedFrom(e);
@@ -441,9 +442,9 @@ namespace RLD.Views
 
 			Student[] items = ((Views.SelectedItem as PivotItem).Content as ListView).SelectedItems as Student[];
 			Student item = ((Views.SelectedItem as PivotItem).Content as ListView).SelectedItem as Student;
-			if (items!=null) { (Application.Current as App).stu = items[0];}
-			else if(item!=null) { (Application.Current as App).stu = item;}
-			else { (Application.Current as App).stu = null;}
+			if (items != null) { (Application.Current as App).stu = items[0]; }
+			else if (item != null) { (Application.Current as App).stu = item; }
+			else { (Application.Current as App).stu = null; }
 		}
 	}
 }

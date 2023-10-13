@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.Services.FoldersService;
-using static RLD.Services.SettingsStorageService;
+using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.SettingsStorageService;
 
 namespace RLD.Services
 {

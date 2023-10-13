@@ -57,6 +57,7 @@
 			Save,
 			NotSave,
 			DropToImport,
+			PickADevice,
 
 		}
 		public enum SettingKey : byte
@@ -65,6 +66,9 @@
 			Mark,
 			Saved,
 			JoinProgram,
+			SecurityOption,
+			Devices,
+
 		}
 	}
 }

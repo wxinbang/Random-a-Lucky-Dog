@@ -1,17 +1,16 @@
-﻿using System;
+﻿using RLD.UWPCore.Helper;
+using RLD.UWPCore.Services;
+using System;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Storage;
-using Windows.Storage.Pickers.Provider;
-using Windows.UI.Xaml;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using static RLD.UWPCore.ExpectionProxy;
 using static RLD.UWPCore.KeyDictionary;
 using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.LocalizeService;
-using static RLD.CPCore.Helpers.Security;
-using static RLD.UWPCore.ExpectionProxy;
 
 
 namespace RLD.UWPCore.Service
@@ -27,23 +26,14 @@ namespace RLD.UWPCore.Service
 			var devices = new ComboBox { Margin = new Thickness(10) };
 
 			foreach (var device in collection) devices.Items.Add(string.Format("{0}", device.Name));
-			devices.PlaceholderText = "eihei";
+			devices.PlaceholderText = Localize(PickADevice);
 
-			var grid = new StackPanel();
-			grid.Children.Add(devices);
-
-			ContentDialog cd = new ContentDialog();
-			cd.Title = "title";
-			cd.Content = grid;
-			cd.PrimaryButtonText = "p";
-			cd.CloseButtonText = "c";
-			await cd.ShowAsync();
-
-			var information = collection[devices.SelectedIndex];
-			var id = information.Id;
-
-
-
+			//ContentDialog cd = new ContentDialog();
+			//cd.Title = Localize(ExportIdentityFile);
+			//cd.Content = grid;
+			//cd.PrimaryButtonText = Localize(Done);
+			//cd.CloseButtonText = Localize(Cancel);
+			//await cd.ShowAsync();
 
 			if (await VerifyIdentityAsync() && await VerifyPasswordAsync())
 			{
@@ -62,10 +52,12 @@ namespace RLD.UWPCore.Service
 				}
 
 				//var grid = new StackPanel();
+				var grid = new StackPanel();
 				if (checkAgain) grid.Children.Add(checkAgainBox);
+				grid.Children.Add(devices);
 				grid.Children.Add(userNameBox);
 				grid.Children.Add(passwordBox);
-				grid.Children.Add(filePlace);
+				//grid.Children.Add(filePlace);
 
 				var dialog = new ContentDialog
 				{
@@ -80,19 +72,25 @@ namespace RLD.UWPCore.Service
 				{
 					string userName = userNameBox.Text;
 					string password = passwordBox.Password;
-					StorageFolder folder = Folders[filePlace.SelectedIndex];
-					if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password) || folder == null)
+					if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password) || filePlace.SelectedIndex == -1)
 					{
-						//await ExportIdentityFile(true);
+						await PickDeviceAsync(true);
 						return;
 					}
-					var file = await folder.CreateFileAsync("IdentityFile", CreationCollisionOption.ReplaceExisting);
-					string hash1 = GetSHA256("User:" + userName);
-					string hash2 = GetSHA256(hash1 + ".Password:" + password);
-					await FileIO.AppendTextAsync(file, userName + '\n');
-					await FileIO.AppendTextAsync(file, hash1 + '\n');
-					await FileIO.AppendTextAsync(file, hash2);
-					await ThrowException(Localize(Done));
+
+					StorageFolder folder = Folders[filePlace.SelectedIndex];
+					var information = collection[devices.SelectedIndex];
+					var id = information.Id;
+
+					await SettingsStorageService.SaveAsync(SettingKey.Devices, new Device(id, password));
+
+					//var file = await folder.CreateFileAsync("IdentityFile", CreationCollisionOption.ReplaceExisting);
+					//string hash1 = GetSHA256("User:" + userName);
+					//string hash2 = GetSHA256(hash1 + ".Password:" + password);
+					//await FileIO.AppendTextAsync(file, userName + '\n');
+					//await FileIO.AppendTextAsync(file, hash1 + '\n');
+					//await FileIO.AppendTextAsync(file, hash2);
+					//await ThrowException(Localize(Done));
 				}
 			}
 			else if (!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions), false);

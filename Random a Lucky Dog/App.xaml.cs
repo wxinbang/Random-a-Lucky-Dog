@@ -1,19 +1,20 @@
 ﻿using RLD.CPCore.Helpers;
 using RLD.CPCore.Models;
 using RLD.Services;
+using RLD.UWPCore.Services;
 using RLD.Views;
 using System;
 using System.Collections.ObjectModel;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
-using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.ExpectionProxy;
 using static RLD.UWPCore.KeyDictionary.SettingKey;
 using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.ExpectionProxy;
-using static RLD.Services.FoldersService;
-using Windows.Storage;
+using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.Services.FoldersService;
 
 namespace RLD
 {
@@ -25,6 +26,8 @@ namespace RLD
 		public bool NeedSave;
 		public StorageFile file;
 		public Student stu;
+		public Security.SecurityOption SecurityOption = Security.SecurityOption.Strict;
+		public bool IsEditing;
 
 		private ActivationService ActivationService
 		{
@@ -45,6 +48,7 @@ namespace RLD
 
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
+			SecurityOption = await SettingsStorageService.ReadAsync<Security.SecurityOption>(UWPCore.KeyDictionary.SettingKey.SecurityOption);
 			if (!e.PrelaunchActivated)
 			{
 				await ActivationService.ActivateAsync(e);
@@ -53,7 +57,7 @@ namespace RLD
 				{
 					var deferral = args.GetDeferral();
 
-					var result = await ContentDialogs.CheckWhetherSave() ;
+					var result = await ContentDialogs.CheckWhetherSave();
 					switch (result)
 					{
 						case null:
@@ -65,7 +69,7 @@ namespace RLD
 							{
 								if (SettingsStorageService.ReadString(FileName) != null)
 								{
-									StorageFile saveFile = await(await GetSaveFolderAsync()).CreateFileAsync(SettingsStorageService.ReadString(FileName), CreationCollisionOption.ReplaceExisting);
+									StorageFile saveFile = await (await GetSaveFolderAsync()).CreateFileAsync(SettingsStorageService.ReadString(FileName), CreationCollisionOption.ReplaceExisting);
 									await StudentService.SaveStudentsAsync(saveFile, AllStudentList);
 								}
 							}
@@ -77,6 +81,7 @@ namespace RLD
 				};
 			}
 			IsDataPrepared = false;
+			IsEditing = false;
 		}
 
 		protected override async void OnActivated(IActivatedEventArgs args)

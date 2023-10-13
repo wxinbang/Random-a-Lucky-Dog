@@ -1,24 +1,21 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using RLD.CPCore.Models;
-using RLD.Services;
+using RLD.UWPCore.Services;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using static RLD.CPCore.Helpers.Security;
-using static RLD.UWPCore.KeyDictionary;
-using static RLD.UWPCore.KeyDictionary.StringKey;
 using static RLD.Services.IdentityService;
-using static RLD.UWPCore.LocalizeService;
 using static RLD.Services.StudentService;
 using static RLD.UWPCore.ExpectionProxy;
-using System.Collections.ObjectModel;
+using static RLD.UWPCore.KeyDictionary;
+using static RLD.UWPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.LocalizeService;
 
 namespace RLD.Views
 {
@@ -179,9 +176,16 @@ namespace RLD.Views
 			{
 
 				var nameBox = new TextBox { PlaceholderText = Localize(EnterName), Margin = new Thickness(10) };
-				var statusBox = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Going), Localize(Finished), Localize(Unfinished), Localize(Suspended) } };
+				var statusBox = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Unfinished), Localize(Going), Localize(Finished), Localize(Suspended) } };
 				var praiseTimeBox = new NumberBox { Value = 0, Header = (Localize(PraiseTime)), Margin = new Thickness(10), SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Compact, SmallChange = 1, LargeChange = 5 };
 				var checkAgainBox = new TextBlock { Text = Localize(ExistNullValue), Margin = new Thickness(20, 0, 0, 0), Foreground = new SolidColorBrush(Colors.IndianRed) };
+
+				if (student != null)
+				{
+					nameBox.Text = student.Name;
+					praiseTimeBox.Text = student.PraiseTime.ToString();
+					statusBox.SelectedIndex = (int)student.Status;
+				}
 
 				var grid = new StackPanel();
 				if (checkAgain) grid.Children.Add(checkAgainBox);

@@ -1,39 +1,39 @@
-﻿using RLD.Helpers;
+﻿using RLD.UWPCore.Helpers;
 using System.Threading.Tasks;
 using static RLD.UWPCore.KeyDictionary;
-using static RLD.Services.FoldersService;
+using static RLD.UWPCore.Services.FoldersService;
 
-namespace RLD.Services
+namespace RLD.UWPCore.Services
 {
-	internal static class SettingsStorageService
+	public static class SettingsStorageService
 	{
-		internal static void SaveString(SettingKey key, string value)
+		public static void SaveString(SettingKey key, string value)
 		{
 			var settingsFolder = GetSettingsFolder();
 			settingsFolder.SaveString(key.ToString(), value);
 		}
-		internal static async Task SaveAsync<T>(SettingKey key, T value)
+		public static async Task SaveAsync<T>(SettingKey key, T value)
 		{
 			var settingsFolder = GetSettingsFolder();
 			await settingsFolder.SaveAsync(key.ToString(), value);
 		}
-		internal static void DeleteString(SettingKey settingKey)
+		public static void DeleteString(SettingKey settingKey)
 		{
 			var settingsFolder = GetSettingsFolder();
 			settingsFolder.Values.Remove(settingKey.ToString());
 		}
-		internal static void DeleteAllString()
+		public static void DeleteAllString()
 		{
 			var settingsFolder = GetSettingsFolder();
 			settingsFolder.Values.Clear();
 		}
-		internal static string ReadString(SettingKey key)
+		public static string ReadString(SettingKey key)
 		{
 			var settingsFolder = GetSettingsFolder();
 			string settingValue = settingsFolder.Values[key.ToString()] as string;
 			return settingValue;
 		}
-		internal static async Task<T> ReadAsync<T>(SettingKey key)
+		public static async Task<T> ReadAsync<T>(SettingKey key)
 		{
 			var settingsFolder = GetSettingsFolder();
 			return await settingsFolder.ReadAsync<T>(key.ToString());

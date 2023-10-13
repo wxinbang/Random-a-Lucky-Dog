@@ -4,7 +4,7 @@ using RLD.Models;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static RLD.Services.FoldersService;
+using static RLD.UWPCore.Services.FoldersService;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace RLD.ViewModels

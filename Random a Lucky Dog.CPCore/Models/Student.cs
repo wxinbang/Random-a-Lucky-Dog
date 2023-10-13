@@ -1,5 +1,7 @@
 ﻿using RLD.CPCore.Helpers;
-using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace RLD.CPCore.Models
@@ -12,6 +14,7 @@ namespace RLD.CPCore.Models
 		public int PraiseTime { get; set; }
 		public int OrderInList { get; set; }
 		public string InfoForSearch { get; set; }
+		//public static int SumOfGoing = 0;
 		public override string ToString() => Name + "\t" + Status.ToString() + "\t" + PraiseTime.ToString() + '\t' + (Status == StudentStatus.going ? OrderOfGoing.ToString() : "");
 		public Student(string name, StudentStatus status, int times, int orderOfGoing, int orderInList)
 		{
@@ -27,6 +30,24 @@ namespace RLD.CPCore.Models
 			this.PraiseTime = times;
 			this.OrderInList = orderInList;
 			this.InfoForSearch = info.ToString();
+			//if (OrderOfGoing > SumOfGoing) SumOfGoing = OrderOfGoing;
+		}
+		public static Collection<Student> SortGoing(Collection<Student> all)
+		{
+			Dictionary<int,Student> going = new Dictionary<int, Student>();
+			foreach (Student student in all)
+			{
+				if(student.Status == StudentStatus.going)going.Add(student.OrderOfGoing,student);
+			}
+			var result = going.OrderBy(student => student.Key);
+			int i = 1;
+			Collection<Student> returnValue = new Collection<Student>();
+			foreach (KeyValuePair<int, Student> student in result)
+			{
+				student.Value.OrderOfGoing = i++;
+				returnValue.Add(student.Value);
+			}
+			return returnValue;
 		}
 	}
 	public enum StudentStatus : byte

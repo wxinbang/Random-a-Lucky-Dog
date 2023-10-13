@@ -1,18 +1,17 @@
 ﻿using RLD.CPCore.Models;
-using RLD.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.Services.FoldersService;
 using static RLD.Services.IdentityService;
-using static RLD.UWPCore.LocalizeService;
-using static RLD.Services.SettingsStorageService;
 using static RLD.Services.StudentService;
 using static RLD.UWPCore.ExpectionProxy;
+using static RLD.UWPCore.KeyDictionary.SettingKey;
+using static RLD.UWPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.SettingsStorageService;
 
 namespace RLD.Services
 {
@@ -58,10 +57,12 @@ namespace RLD.Services
 				returnCollections[3] = collections[2];
 				returnCollections[4] = collections[3];
 
-				if (saveSetting) { SaveString(FileName, file.Name);
+				if (saveSetting)
+				{
+					SaveString(FileName, file.Name);
 					SaveString(Saved, "True");
 					//DeleteString(Saved);
-					}
+				}
 
 				return returnCollections;
 			}

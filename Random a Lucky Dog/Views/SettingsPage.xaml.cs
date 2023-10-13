@@ -2,12 +2,12 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using static RLD.UWPCore.ExpectionProxy;
 using static RLD.UWPCore.KeyDictionary.SettingKey;
 using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.Services.FoldersService;
 using static RLD.UWPCore.LocalizeService;
-using static RLD.Services.SettingsStorageService;
-using static RLD.UWPCore.ExpectionProxy;
+using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.SettingsStorageService;
 
 namespace RLD.Views
 {
