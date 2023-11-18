@@ -10,12 +10,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using static RLD.CPCore.Helpers.Security;
-using static RLD.Services.IdentityService;
-using static RLD.Services.StudentService;
+using static RLD.CPCore.KeyDictionary;
+using static RLD.CPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.ExpectionProxy;
-using static RLD.UWPCore.KeyDictionary;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.Services.IdentityService;
+using static RLD.UWPCore.Services.LocalizeService;
+using static RLD.UWPCore.Services.StudentService;
 
 namespace RLD.Views
 {

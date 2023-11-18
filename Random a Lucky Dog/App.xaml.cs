@@ -10,11 +10,12 @@ using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
+using static RLD.CPCore.KeyDictionary.SettingKey;
+using static RLD.CPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.ExpectionProxy;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
 using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.LocalizeService;
+using static RLD.UWPCore.Services.SecurityService;
 
 namespace RLD
 {
@@ -26,7 +27,7 @@ namespace RLD
 		public bool NeedSave;
 		public StorageFile file;
 		public Student stu;
-		public Security.SecurityOption SecurityOption = Security.SecurityOption.Strict;
+		public SecurityOption SecurityOption = SecurityOption.None;
 		public bool IsEditing;
 
 		private ActivationService ActivationService
@@ -48,7 +49,7 @@ namespace RLD
 
 		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			SecurityOption = await SettingsStorageService.ReadAsync<Security.SecurityOption>(UWPCore.KeyDictionary.SettingKey.SecurityOption);
+			SecurityOption = ConvertToSecurityOption(SettingsStorageService.ReadString(CPCore.KeyDictionary.SettingKey.SecurityOption));
 			if (!e.PrelaunchActivated)
 			{
 				await ActivationService.ActivateAsync(e);

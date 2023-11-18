@@ -140,6 +140,9 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.3</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>7.1.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.3</Version>
     </PackageReference>
@@ -167,22 +170,14 @@
     <Compile Include="Models\DragDropCompletedData.cs" />
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\RuntimeException.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
-    <Compile Include="Services\CollectionService.cs" />
-    <Compile Include="Services\DataSetService.cs" />
     <Compile Include="Services\DragAndDrop\DragDropService.cs" />
     <Compile Include="Services\DragAndDrop\DropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\ListViewDropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\VisualDropConfiguration.cs" />
-    <Compile Include="Services\FilesService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
-    <Compile Include="Services\IdentityService.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\StudentService.cs" />
     <Compile Include="Services\SuspendAndResumeArgs.cs" />
     <Compile Include="Services\SuspendAndResumeService.cs" />
     <Compile Include="Services\SuspensionState.cs" />

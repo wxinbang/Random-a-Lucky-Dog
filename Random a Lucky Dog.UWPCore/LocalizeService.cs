@@ -1,7 +1,7 @@
 ﻿using Windows.ApplicationModel.Resources;
-using static RLD.UWPCore.KeyDictionary;
+using static RLD.CPCore.KeyDictionary;
 
-namespace RLD.UWPCore
+namespace RLD.UWPCore.Services
 {
 	public static class LocalizeService
 	{

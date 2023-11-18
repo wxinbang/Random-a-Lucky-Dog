@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace RLD.Services
+namespace RLD.UWPCore.Services
 {
-	internal static class IdentityService
+	public static class IdentityService
 	{
-		internal static async Task<bool> VerifyIdentityAsync()
+		public static async Task<bool> VerifyIdentityAsync()
 		{
 #if DEBUG
 			return true;
@@ -34,7 +34,7 @@ namespace RLD.Services
 			return false;
 #endif
 		}
-		internal static async Task<bool> VerifyIdentityAsync(string password)
+		public static async Task<bool> VerifyIdentityAsync(string password)
 		{
 			var Folders = await KnownFolders.RemovableDevices.GetFoldersAsync();
 			foreach (var folder in Folders)

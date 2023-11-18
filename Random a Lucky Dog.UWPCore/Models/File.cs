@@ -1,13 +1,13 @@
-﻿using RLD.Services;
+﻿using RLD.UWPCore.Services;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
+using static RLD.CPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.Services.LocalizeService;
 
-namespace RLD.Models
+namespace RLD.UWPCore.Models
 {
 	public class File
 	{

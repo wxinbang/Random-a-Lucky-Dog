@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
-    xmlns:model="using:RLD.Models"
+    xmlns:model="using:RLD.UWPCore.Models"
 	xmlns:model2="using:Windows.Storage" 
     xmlns:behaviors="using:RLD.Behaviors"
     xmlns:templateSelectors="using:RLD.TemplateSelectors"

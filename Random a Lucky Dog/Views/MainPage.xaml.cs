@@ -1,6 +1,6 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using RLD.CPCore.Models;
+﻿using RLD.CPCore.Models;
 using RLD.Services;
+using RLD.UWPCore.Services;
 using RLD.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Security.Credentials;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
@@ -15,18 +16,18 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using static RLD.CPCore.KeyDictionary.SettingKey;
+using static RLD.CPCore.KeyDictionary.StringKey;
 using static RLD.CPCore.Models.StudentStatus;
-using static RLD.Services.DataSetService;
-using static RLD.Services.FilesService;
-using static RLD.Services.IdentityService;
-using static RLD.Services.StudentService;
 using static RLD.UWPCore.EmailProxy;
 using static RLD.UWPCore.ExpectionProxy;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
+using static RLD.UWPCore.Services.DataSetService;
+using static RLD.UWPCore.Services.FilesService;
 using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.IdentityService;
+using static RLD.UWPCore.Services.LocalizeService;
 using static RLD.UWPCore.Services.SettingsStorageService;
+using static RLD.UWPCore.Services.StudentService;
 
 namespace RLD.Views
 {
@@ -57,10 +58,10 @@ namespace RLD.Views
 		public MainPage()
 		{
 			InitializeComponent();
-
 		}
 		private async void Page_Loaded(object sender, RoutedEventArgs e)
 		{
+
 			//if (DealWithSettings.ReadSettings(DisplayMode) == null || DealWithSettings.ReadSettings(DisplayMode) == "True") DisplayMode.IsOn = true;
 			Timer.Interval = new TimeSpan(0, 0, 0, 1);
 			Timer.Tick += Timer_Tick;
@@ -433,7 +434,8 @@ namespace RLD.Views
 
 		private async void Lab_Click(object sender, RoutedEventArgs e)
 		{
-			await UWPCore.Service.SecurityService.PickDeviceAsync();
+			SaveString(CPCore.KeyDictionary.SettingKey.SecurityOption, SecurityService.SecurityOption.WindowsHello.ToString());
+			bool b = await SecurityService.VerifyIdentityAsync();
 		}
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{

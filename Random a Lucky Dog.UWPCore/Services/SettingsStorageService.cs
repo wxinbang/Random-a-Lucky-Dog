@@ -1,6 +1,6 @@
 ﻿using RLD.UWPCore.Helpers;
 using System.Threading.Tasks;
-using static RLD.UWPCore.KeyDictionary;
+using static RLD.CPCore.KeyDictionary;
 using static RLD.UWPCore.Services.FoldersService;
 
 namespace RLD.UWPCore.Services
@@ -16,6 +16,11 @@ namespace RLD.UWPCore.Services
 		{
 			var settingsFolder = GetSettingsFolder();
 			await settingsFolder.SaveAsync(key.ToString(), value);
+		}
+		public static async Task SaveAsync<T>(string key, T value)
+		{
+			var settingsFolder = GetSettingsFolder();
+			await settingsFolder.SaveAsync(key, value);
 		}
 		public static void DeleteString(SettingKey settingKey)
 		{
@@ -37,6 +42,11 @@ namespace RLD.UWPCore.Services
 		{
 			var settingsFolder = GetSettingsFolder();
 			return await settingsFolder.ReadAsync<T>(key.ToString());
+		}
+		public static async Task<T> ReadAsync<T>(string key)
+		{
+			var settingsFolder = GetSettingsFolder();
+			return await settingsFolder.ReadAsync<T>(key);
 		}
 
 	}

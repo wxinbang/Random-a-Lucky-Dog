@@ -34,10 +34,10 @@ namespace RLD.CPCore.Models
 		}
 		public static Collection<Student> SortGoing(Collection<Student> all)
 		{
-			Dictionary<int,Student> going = new Dictionary<int, Student>();
+			Dictionary<int, Student> going = new Dictionary<int, Student>();
 			foreach (Student student in all)
 			{
-				if(student.Status == StudentStatus.going)going.Add(student.OrderOfGoing,student);
+				if (student.Status == StudentStatus.going) going.Add(student.OrderOfGoing, student);
 			}
 			var result = going.OrderBy(student => student.Key);
 			int i = 1;
@@ -49,6 +49,8 @@ namespace RLD.CPCore.Models
 			}
 			return returnValue;
 		}
+		public static bool operator >(Student stu1, Student stu2) => (stu1.OrderInList > stu2.OrderInList);
+		public static bool operator <(Student stu1, Student stu2) => (stu1.OrderInList < stu2.OrderInList);
 	}
 	public enum StudentStatus : byte
 	{

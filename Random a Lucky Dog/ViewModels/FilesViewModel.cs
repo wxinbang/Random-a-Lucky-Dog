@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RLD.Models;
+using RLD.UWPCore.Models;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;

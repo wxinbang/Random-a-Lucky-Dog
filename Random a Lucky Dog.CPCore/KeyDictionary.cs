@@ -1,4 +1,4 @@
-﻿namespace RLD.UWPCore
+﻿namespace RLD.CPCore
 {
 	public static class KeyDictionary
 	{
@@ -58,6 +58,7 @@
 			NotSave,
 			DropToImport,
 			PickADevice,
+			SecurityOption,
 
 		}
 		public enum SettingKey : byte

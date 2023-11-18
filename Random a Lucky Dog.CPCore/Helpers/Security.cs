@@ -17,11 +17,5 @@ namespace RLD.CPCore.Helpers
 
 			return sBuilder.ToString();
 		}
-		public enum SecurityOption
-		{
-			None,
-			Normal,
-			Strict,
-		}
 	}
 }

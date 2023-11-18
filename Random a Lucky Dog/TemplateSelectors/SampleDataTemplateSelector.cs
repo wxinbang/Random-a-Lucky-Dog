@@ -1,4 +1,4 @@
-﻿using RLD.Models;
+﻿using RLD.UWPCore.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RLD.Models
+namespace RLD.UWPCore.Models
 {
 	internal class RuntimeException : Exception
 	{

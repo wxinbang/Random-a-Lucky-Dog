@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using static RLD.Services.FilesService;
+using static RLD.UWPCore.Services.FilesService;
 
-namespace RLD.Models
+namespace RLD.UWPCore.Models
 {
 	public class Folder
 	{

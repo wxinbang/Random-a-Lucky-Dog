@@ -1,12 +1,17 @@
-﻿using RLD.ViewModels;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using RLD.UWPCore.Services;
+using RLD.ViewModels;
+using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using static RLD.CPCore.KeyDictionary;
+using static RLD.CPCore.KeyDictionary.SettingKey;
+using static RLD.CPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.ExpectionProxy;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
 using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.LocalizeService;
+using static RLD.UWPCore.Services.SecurityService;
 using static RLD.UWPCore.Services.SettingsStorageService;
 
 namespace RLD.Views
@@ -24,6 +29,8 @@ namespace RLD.Views
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			await ViewModel.InitializeAsync();
+
+			SecurityOptionBox.SelectedIndex = (int)ConvertToSecurityOption(ReadString(SettingKey.SecurityOption));
 		}
 		private async void DeleteDataSet_Click(object sender, RoutedEventArgs e)
 		{
@@ -62,6 +69,34 @@ namespace RLD.Views
 				ExtendAcrylicIntoTitleBar();
 			}
 		*/
+		}
+
+		private async void SecurityOptionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var key = SettingKey.SecurityOption;
+			var value = SecurityService.SecurityOption.None;
+			var lastSetting = ConvertToSecurityOption(ReadString(key));
+			switch (SecurityOptionBox.SelectedIndex)
+			{
+				case 0:
+					value = SecurityService.SecurityOption.None;
+					break;
+				case 1:
+					value = SecurityService.SecurityOption.Normal;
+					break;
+				case 2:
+					value = SecurityService.SecurityOption.Strict;
+					break;
+				case 3:
+					value = SecurityService.SecurityOption.WindowsHello;
+					break;
+			}
+			if(await VerifyIdentityAsync())SaveString(key, value.ToString());
+			else
+			{
+				await ThrowException(Localize(NoRequiredPermissions), false);
+				SecurityOptionBox.SelectedIndex = (int)lastSetting;
+			}
 		}
 	}
 }

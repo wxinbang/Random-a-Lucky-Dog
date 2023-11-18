@@ -604,4 +604,27 @@
     <value>Pick a device</value>
     <comment>PickADeviceText</comment>
   </data>
+  <data name="Box_None.Content" xml:space="preserve">
+    <value>None</value>
+    <comment>Box_NoneContent</comment>
+  </data>
+  <data name="Box_Normal.Content" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Box_NormalContent</comment>
+  </data>
+  <data name="Box_Strict.Content" xml:space="preserve">
+    <value>Strict</value>
+    <comment>Box_Strict.Content</comment>
+  </data>
+  <data name="Box_WindowsHello.Content" xml:space="preserve">
+    <value>Windows Hello</value>
+    <comment>Box_WindowsHello.Content</comment>
+  </data>
+  <data name="SecurityOptionBox.PlaceholderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Settings_Security.Text" xml:space="preserve">
+    <value>Security</value>
+    <comment>Settings_SecurityText</comment>
+  </data>
 </root>

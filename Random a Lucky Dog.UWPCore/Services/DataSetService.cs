@@ -4,20 +4,20 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using static RLD.Services.IdentityService;
-using static RLD.Services.StudentService;
+using static RLD.CPCore.KeyDictionary.SettingKey;
+using static RLD.CPCore.KeyDictionary.StringKey;
 using static RLD.UWPCore.ExpectionProxy;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
 using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.IdentityService;
+using static RLD.UWPCore.Services.LocalizeService;
 using static RLD.UWPCore.Services.SettingsStorageService;
+using static RLD.UWPCore.Services.StudentService;
 
-namespace RLD.Services
+namespace RLD.UWPCore.Services
 {
-	internal static class DataSetService
+	public static class DataSetService
 	{
-		internal static async Task<StorageFile> SelectDataSetAsync()
+		public static async Task<StorageFile> SelectDataSetAsync()
 		{
 			StorageFile file;
 			var picker = new FileOpenPicker

@@ -615,6 +615,35 @@
           <target state="new">Pick a device</target>
           <note from="MultilingualBuild" annotates="source" priority="2">PickADeviceText</note>
         </trans-unit>
+        <trans-unit id="Box_None.Content" translate="yes" xml:space="preserve">
+          <source>None</source>
+          <target state="new">None</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_NoneContent</note>
+        </trans-unit>
+        <trans-unit id="Box_Normal.Content" translate="yes" xml:space="preserve">
+          <source>Normal</source>
+          <target state="new">Normal</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_NormalContent</note>
+        </trans-unit>
+        <trans-unit id="Box_Strict.Content" translate="yes" xml:space="preserve">
+          <source>Strict</source>
+          <target state="new">Strict</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_Strict.Content</note>
+        </trans-unit>
+        <trans-unit id="Box_WindowsHello.Content" translate="yes" xml:space="preserve">
+          <source>Windows Hello</source>
+          <target state="new">Windows Hello</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_WindowsHello.Content</note>
+        </trans-unit>
+        <trans-unit id="Settings_Security.Text" translate="yes" xml:space="preserve">
+          <source>Security</source>
+          <target state="new">Security</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Settings_SecurityText</note>
+        </trans-unit>
+        <trans-unit id="SecurityOptionBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source></source>
+          <target state="new"></target>
+        </trans-unit>
       </group>
     </body>
   </file>

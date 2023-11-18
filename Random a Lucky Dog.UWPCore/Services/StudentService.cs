@@ -6,14 +6,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
+using static RLD.CPCore.KeyDictionary.SettingKey;
+using static RLD.CPCore.KeyDictionary.StringKey;
 using static RLD.CPCore.Models.StudentStatus;
-using static RLD.UWPCore.KeyDictionary.SettingKey;
-using static RLD.UWPCore.KeyDictionary.StringKey;
-using static RLD.UWPCore.LocalizeService;
 using static RLD.UWPCore.Services.FoldersService;
+using static RLD.UWPCore.Services.LocalizeService;
 using static RLD.UWPCore.Services.SettingsStorageService;
 
-namespace RLD.Services
+namespace RLD.UWPCore.Services
 {
 	public static class StudentService
 	{
@@ -54,7 +54,7 @@ namespace RLD.Services
 			}
 			return students;
 		}
-		internal static StudentStatus ConvertStatus(string status)
+		public static StudentStatus ConvertStatus(string status)
 		{
 			if (status == "unfinished" || status == Localize(Unfinished)) return unfinished;
 			else if (status == "going" || status == Localize(Going)) return going;
