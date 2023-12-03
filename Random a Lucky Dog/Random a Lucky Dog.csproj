@@ -349,7 +349,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Random a Lucky Dog.CPCore\Random a Lucky Dog.CPCore.csproj">
-      <Project>{3a3999a8-6200-4de9-bd00-6d3606183977}</Project>
+      <Project>{a0c80195-36a4-4afe-98a2-217b46ff73b1}</Project>
       <Name>Random a Lucky Dog.CPCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Random a Lucky Dog.UWPCore\Random a Lucky Dog.UWPCore.csproj">

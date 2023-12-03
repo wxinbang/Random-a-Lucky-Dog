@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Select_Lucky_Dog.Core</RootNamespace>
+    <RootNamespace>SLD.CPCore</RootNamespace>
     <Configurations>Debug;Release;PreRelease</Configurations>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
    <ItemGroup>
-     <PackageReference Include="EPPlus" Version="6.2.9" />
+     <PackageReference Include="EPPlus" Version="7.0.2" />
      <PackageReference Include="Microsoft.PinYinConverter" Version="1.0.0" />
-     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
    </ItemGroup>
 </Project>
