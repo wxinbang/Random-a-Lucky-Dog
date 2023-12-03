@@ -1,0 +1,650 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="zh-CN" original="RANDOM A LUCKY DOG/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="1.0.0.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="RANDOM A LUCKY DOG/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="AppDisplayName" translate="yes" xml:space="preserve">
+          <source>Random a Lucky Dog</source>
+          <target state="new">Random a Lucky Dog</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Application display name</note>
+        </trans-unit>
+        <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
+          <source>Random a Lucky Dog</source>
+          <target state="new">Random a Lucky Dog</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Application description</note>
+        </trans-unit>
+        <trans-unit id="Shell_Main.Content" translate="yes" xml:space="preserve">
+          <source>Main</source>
+          <target state="new">Main</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Navigation view item name for Main</note>
+        </trans-unit>
+        <trans-unit id="Details_NoSelection.Text" translate="yes" xml:space="preserve">
+          <source>Select an item from the list.</source>
+          <target state="new">Select an item from the list.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">No selection text for Details</note>
+        </trans-unit>
+        <trans-unit id="Details.ListHeader" translate="yes" xml:space="preserve">
+          <source>Details</source>
+          <target state="new">Details</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title for DetailsPage</note>
+        </trans-unit>
+        <trans-unit id="Shell_Details.Content" translate="yes" xml:space="preserve">
+          <source>Details</source>
+          <target state="new">Details</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Navigation view item name for Details</note>
+        </trans-unit>
+        <trans-unit id="FilesTitle.Text" translate="yes" xml:space="preserve">
+          <source>Files</source>
+          <target state="new">Files</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title for FilesPage</note>
+        </trans-unit>
+        <trans-unit id="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Collapse all</source>
+          <target state="new">Collapse all</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Tooltip for Collapse all button in TreeViewPages</note>
+        </trans-unit>
+        <trans-unit id="TreeView_CollapseAllButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" translate="yes" xml:space="preserve">
+          <source>Collapse all</source>
+          <target state="new">Collapse all</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Automation Name for Collapse all button in TreeViewPages</note>
+        </trans-unit>
+        <trans-unit id="Shell_Files.Content" translate="yes" xml:space="preserve">
+          <source>Files</source>
+          <target state="new">Files</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Navigation view item name for Files</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme.Text" translate="yes" xml:space="preserve">
+          <source>Choose Theme</source>
+          <target state="new">Choose Theme</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Choose theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme_Dark.Content" translate="yes" xml:space="preserve">
+          <source>Dark</source>
+          <target state="new">Dark</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Dark theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme_Default.Content" translate="yes" xml:space="preserve">
+          <source>Windows default</source>
+          <target state="new">Windows default</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Windows default theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Theme_Light.Content" translate="yes" xml:space="preserve">
+          <source>Light</source>
+          <target state="new">Light</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Light theme text for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_About.Text" translate="yes" xml:space="preserve">
+          <source>About this application</source>
+          <target state="new">About this application</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">About this application title for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_AboutDescription.Text" translate="yes" xml:space="preserve">
+          <source>An app to random something for fairness. More features to be explorered.</source>
+          <target state="new">An app to random something for fairness. More features to be explorered.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">About this application description for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_PrivacyTermsLink.Content" translate="yes" xml:space="preserve">
+          <source>Privacy Statement</source>
+          <target state="new">Privacy Statement</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Privacy Statement link content for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_PrivacyTermsLink.NavigateUri" translate="yes" xml:space="preserve">
+          <source>https://YourPrivacyUrlGoesHere/</source>
+          <target state="new">https://YourPrivacyUrlGoesHere/</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Here is your Privacy Statement url for Settings</note>
+        </trans-unit>
+        <trans-unit id="Settings_Personalization.Text" translate="yes" xml:space="preserve">
+          <source>Personalization</source>
+          <target state="new">Personalization</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Personalization text for Settings</note>
+        </trans-unit>
+        <trans-unit id="FirstRun_BodyText" translate="yes" xml:space="preserve">
+          <source>Todo:Write something later.</source>
+          <target state="new">Todo:Write something later.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">First use prompt message body</note>
+        </trans-unit>
+        <trans-unit id="FirstRunDialogTitle" translate="yes" xml:space="preserve">
+          <source>Welcome</source>
+          <target state="new">Welcome</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">First use prompt message title</note>
+        </trans-unit>
+        <trans-unit id="FirstRunDialogPrimaryButtonText" translate="yes" xml:space="preserve">
+          <source>Ok</source>
+          <target state="new">Ok</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">First use prompt message primary button text</note>
+        </trans-unit>
+        <trans-unit id="WhatsNew_Body.Text" translate="yes" xml:space="preserve">
+          <source>TODO: Write something later.</source>
+          <target state="new">TODO: Write something later.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">What's new prompt message body</note>
+        </trans-unit>
+        <trans-unit id="WhatsNewDialog.Title" translate="yes" xml:space="preserve">
+          <source>What's new in this version</source>
+          <target state="new">What's new in this version</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">What's new prompt message title</note>
+        </trans-unit>
+        <trans-unit id="WhatsNewDialog.PrimaryButtonText" translate="yes" xml:space="preserve">
+          <source>Ok</source>
+          <target state="new">Ok</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">What's new prompt message primary button text</note>
+        </trans-unit>
+        <trans-unit id="AppTitleTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Random a Lucky Dog</source>
+          <target state="new">Random a Lucky Dog</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AppTitleText</note>
+        </trans-unit>
+        <trans-unit id="PivotAll.Text" translate="yes" xml:space="preserve">
+          <source>All</source>
+          <target state="new">All</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotAllText</note>
+        </trans-unit>
+        <trans-unit id="PivotFinished.Text" translate="yes" xml:space="preserve">
+          <source>Finished</source>
+          <target state="new">Finished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotFinishedText</note>
+        </trans-unit>
+        <trans-unit id="PivotGoing.Text" translate="yes" xml:space="preserve">
+          <source>Going</source>
+          <target state="new">Going</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotGoingText</note>
+        </trans-unit>
+        <trans-unit id="PivotUnfinished.Text" translate="yes" xml:space="preserve">
+          <source>Unfinished</source>
+          <target state="new">Unfinished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PivotUnfinishedText</note>
+        </trans-unit>
+        <trans-unit id="SearchBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Search</source>
+          <target state="new">Search</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SearchBoxText</note>
+        </trans-unit>
+        <trans-unit id="ConnectDataSet.Content" translate="yes" xml:space="preserve">
+          <source>Import Data Set</source>
+          <target state="new">Import Data Set</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ConnectDataSetContent</note>
+        </trans-unit>
+        <trans-unit id="DeveloperTools.Content" translate="yes" xml:space="preserve">
+          <source>Developer Tools</source>
+          <target state="new">Developer Tools</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeveloperToolsButton</note>
+        </trans-unit>
+        <trans-unit id="DisplayMode.Header" translate="yes" xml:space="preserve">
+          <source>Display Mode</source>
+          <target state="new">Display Mode</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DisplayModeHeader</note>
+        </trans-unit>
+        <trans-unit id="RandomButton.Content" translate="yes" xml:space="preserve">
+          <source>R</source>
+          <target state="new">R</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">RandomButtonText</note>
+        </trans-unit>
+        <trans-unit id="SelectDataSetButton.Content" translate="yes" xml:space="preserve">
+          <source>Select Data Set</source>
+          <target state="new">Select Data Set</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SelectDataSetButtonContent</note>
+        </trans-unit>
+        <trans-unit id="DeleteButton.Content" translate="yes" xml:space="preserve">
+          <source>Delete</source>
+          <target state="new">Delete</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteButtonContent</note>
+        </trans-unit>
+        <trans-unit id="DeleteDataSetButton.Text" translate="yes" xml:space="preserve">
+          <source>Data Set</source>
+          <target state="new">Data Set</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteDataSetButtonText</note>
+        </trans-unit>
+        <trans-unit id="DeleteLogFileButton.Text" translate="yes" xml:space="preserve">
+          <source>Log File</source>
+          <target state="new">Log File</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteLogFileButtonText</note>
+        </trans-unit>
+        <trans-unit id="DeleteUserDataButton.Text" translate="yes" xml:space="preserve">
+          <source>User Data</source>
+          <target state="new">User Data</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteUserDataButtonText</note>
+        </trans-unit>
+        <trans-unit id="LayOutButton.Content" translate="yes" xml:space="preserve">
+          <source>Export</source>
+          <target state="new">Export</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LayOutButtonText</note>
+        </trans-unit>
+        <trans-unit id="LayoutDataSetButton.Content" translate="yes" xml:space="preserve">
+          <source>Save as...</source>
+          <target state="new">Save as...</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LayoutDataSetButtonText</note>
+        </trans-unit>
+        <trans-unit id="LayoutIdentityFileButton.Content" translate="yes" xml:space="preserve">
+          <source>Export Identity File</source>
+          <target state="new">Export Identity File</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LayoutIdentityFileButtonText</note>
+        </trans-unit>
+        <trans-unit id="MarkFinishedButton.Text" translate="yes" xml:space="preserve">
+          <source>Mark Finished</source>
+          <target state="new">Mark Finished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MarkFinishedButtonText</note>
+        </trans-unit>
+        <trans-unit id="MarkGoingButton.Text" translate="yes" xml:space="preserve">
+          <source>Mark Going</source>
+          <target state="new">Mark Going</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MarkGoingButtonText</note>
+        </trans-unit>
+        <trans-unit id="MarkUnfinishedButton.Text" translate="yes" xml:space="preserve">
+          <source>Mark Unfinished</source>
+          <target state="new">Mark Unfinished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MarkUnfinishedButtonText</note>
+        </trans-unit>
+        <trans-unit id="OperateStudentButton.Content" translate="yes" xml:space="preserve">
+          <source>Operate</source>
+          <target state="new">Operate</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">OperateStudentButtonContent</note>
+        </trans-unit>
+        <trans-unit id="PraiseButton.Content" translate="yes" xml:space="preserve">
+          <source>Praise</source>
+          <target state="new">Praise</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseButtonContent</note>
+        </trans-unit>
+        <trans-unit id="SaveButton.Text" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="new">Save</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SaveButtonText</note>
+        </trans-unit>
+        <trans-unit id="WhetherMark.Header" translate="yes" xml:space="preserve">
+          <source>Mark</source>
+          <target state="new">Mark</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherMarkHeader</note>
+        </trans-unit>
+        <trans-unit id="WhetherMark.OffContent" translate="yes" xml:space="preserve">
+          <source>Off</source>
+          <target state="new">Off</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherMarkOffContent</note>
+        </trans-unit>
+        <trans-unit id="WhetherMark.OnContent" translate="yes" xml:space="preserve">
+          <source>On</source>
+          <target state="new">On</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherMarkOnContent</note>
+        </trans-unit>
+        <trans-unit id="AllAlreadyFinished" translate="yes" xml:space="preserve">
+          <source>All already finished</source>
+          <target state="new">All already finished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AllAlreadyFinishedText</note>
+        </trans-unit>
+        <trans-unit id="CloseButtonText" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="new">Cancel</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkDialogCancelText</note>
+        </trans-unit>
+        <trans-unit id="CheckMarkConfirmText" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="new">Yes</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkDialogYesButton</note>
+        </trans-unit>
+        <trans-unit id="CheckMarkTitle" translate="yes" xml:space="preserve">
+          <source>Mark?</source>
+          <target state="new">Mark?</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkDialogTitle</note>
+        </trans-unit>
+        <trans-unit id="CheckMarkContent" translate="yes" xml:space="preserve">
+          <source>Are you sure the following randomed people will be marked "going"?</source>
+          <target state="new">Are you sure the following randomed people will be marked "going"?</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CheckMarkContent</note>
+        </trans-unit>
+        <trans-unit id="Close" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="new">Close</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CloseText</note>
+        </trans-unit>
+        <trans-unit id="ExceptionTitle" translate="yes" xml:space="preserve">
+          <source>Oops!</source>
+          <target state="new">Oops!</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExceptionTitle</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramClose" translate="yes" xml:space="preserve">
+          <source>No</source>
+          <target state="new">No</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramClose</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramContent" translate="yes" xml:space="preserve">
+          <source>Your app will be restarted.</source>
+          <target state="new">Your app will be restarted.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramContent</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramPrimary" translate="yes" xml:space="preserve">
+          <source>Yes (restart now)</source>
+          <target state="new">Yes (restart now)</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramPrimary</note>
+        </trans-unit>
+        <trans-unit id="JoinProgramTitle" translate="yes" xml:space="preserve">
+          <source>Join test program?</source>
+          <target state="new">Join test program?</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">JoinProgramTitle</note>
+        </trans-unit>
+        <trans-unit id="PraiseClose" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="new">OK</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseClose</note>
+        </trans-unit>
+        <trans-unit id="PraiseContent" translate="yes" xml:space="preserve">
+          <source>Feature wil be soonly completed</source>
+          <target state="new">Feature wil be soonly completed</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseContent</note>
+        </trans-unit>
+        <trans-unit id="PraiseTitle" translate="yes" xml:space="preserve">
+          <source>Praise</source>
+          <target state="new">Praise</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseTitle</note>
+        </trans-unit>
+        <trans-unit id="SendEmail" translate="yes" xml:space="preserve">
+          <source>Send Email</source>
+          <target state="new">Send Email</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SendEmail</note>
+        </trans-unit>
+        <trans-unit id="FileSaved" translate="yes" xml:space="preserve">
+          <source>File has been saved:</source>
+          <target state="new">File has been saved:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileSavedText</note>
+        </trans-unit>
+        <trans-unit id="FileNotFind" translate="yes" xml:space="preserve">
+          <source>File Not Find</source>
+          <target state="new">File Not Find</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileNotFindText</note>
+        </trans-unit>
+        <trans-unit id="FeatureOfferedInTheNextVersion" translate="yes" xml:space="preserve">
+          <source>Feature will coming soon.</source>
+          <target state="new">Feature will coming soon.</target>
+        </trans-unit>
+        <trans-unit id="DeleteFinished" translate="yes" xml:space="preserve">
+          <source>Delete Finished</source>
+          <target state="new">Delete Finished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DeleteFinishedText</note>
+        </trans-unit>
+        <trans-unit id="Cancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="new">Cancel</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">CancelText</note>
+        </trans-unit>
+        <trans-unit id="ExceptionAt" translate="yes" xml:space="preserve">
+          <source>App throwed exception at:</source>
+          <target state="new">App throwed exception at:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExceptionAtText</note>
+        </trans-unit>
+        <trans-unit id="ExistNullValue" translate="yes" xml:space="preserve">
+          <source>Exist Null Values!</source>
+          <target state="new">Exist Null Values!</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExistNullValueText</note>
+        </trans-unit>
+        <trans-unit id="Export" translate="yes" xml:space="preserve">
+          <source>Export</source>
+          <target state="new">Export</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExportText</note>
+        </trans-unit>
+        <trans-unit id="ExportIdentityFile" translate="yes" xml:space="preserve">
+          <source>Export Identity File</source>
+          <target state="new">Export Identity File</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ExportIdentityFileText</note>
+        </trans-unit>
+        <trans-unit id="Feedback" translate="yes" xml:space="preserve">
+          <source>Feedback</source>
+          <target state="new">Feedback</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FeedbackText</note>
+        </trans-unit>
+        <trans-unit id="InsertUSBDrive" translate="yes" xml:space="preserve">
+          <source>Insert a USB drive and try again.</source>
+          <target state="new">Insert a USB drive and try again.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InsertUSBDriveText</note>
+        </trans-unit>
+        <trans-unit id="NoRequiredPermissions" translate="yes" xml:space="preserve">
+          <source>No required permissions.</source>
+          <target state="new">No required permissions.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">NoRequiredPermissionsText</note>
+        </trans-unit>
+        <trans-unit id="Password" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <target state="new">Password</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PasswordText</note>
+        </trans-unit>
+        <trans-unit id="Settings_Data.Text" translate="yes" xml:space="preserve">
+          <source>Data</source>
+          <target state="new">Data</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Settings_DataText</note>
+        </trans-unit>
+        <trans-unit id="SoftwareCrashes" translate="yes" xml:space="preserve">
+          <source>Software Crashes</source>
+          <target state="new">Software Crashes</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SoftwareCrashesText</note>
+        </trans-unit>
+        <trans-unit id="UserName" translate="yes" xml:space="preserve">
+          <source>User Name</source>
+          <target state="new">User Name</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UserNameText</note>
+        </trans-unit>
+        <trans-unit id="Verify" translate="yes" xml:space="preserve">
+          <source>Verify</source>
+          <target state="new">Verify</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">VerifyText</note>
+        </trans-unit>
+        <trans-unit id="VerifyPassword" translate="yes" xml:space="preserve">
+          <source>Verify Password</source>
+          <target state="new">Verify Password</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">VerifyPasswordText</note>
+        </trans-unit>
+        <trans-unit id="FileNotSaved" translate="yes" xml:space="preserve">
+          <source>File has not been saved:</source>
+          <target state="new">File has not been saved:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileNotSavedText</note>
+        </trans-unit>
+        <trans-unit id="No" translate="yes" xml:space="preserve">
+          <source>No</source>
+          <target state="new">No</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">NoText</note>
+        </trans-unit>
+        <trans-unit id="OperationCanceled" translate="yes" xml:space="preserve">
+          <source>Operation canceled.</source>
+          <target state="new">Operation canceled.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">OperationCanceledText</note>
+        </trans-unit>
+        <trans-unit id="WhetherSaveContent" translate="yes" xml:space="preserve">
+          <source>Something has not been saved, do you want to save?</source>
+          <target state="new">Something has not been saved, do you want to save?</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherSaveContent</note>
+        </trans-unit>
+        <trans-unit id="WhetherSaveTitle" translate="yes" xml:space="preserve">
+          <source>Save?</source>
+          <target state="new">Save?</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WhetherSaveTitleText</note>
+        </trans-unit>
+        <trans-unit id="Yes" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="new">Yes</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">YesText</note>
+        </trans-unit>
+        <trans-unit id="DisplayMode.OffContent" translate="yes" xml:space="preserve">
+          <source>Mica</source>
+          <target state="new">Mica</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DisplayModeOffContent</note>
+        </trans-unit>
+        <trans-unit id="DisplayMode.OnContent" translate="yes" xml:space="preserve">
+          <source>Acrylic</source>
+          <target state="new">Acrylic</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DisplayModeOffContent</note>
+        </trans-unit>
+        <trans-unit id="DoneButton.Content" translate="yes" xml:space="preserve">
+          <source>Done</source>
+          <target state="new">Done</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DoneButtonContent</note>
+        </trans-unit>
+        <trans-unit id="InputNotValid" translate="yes" xml:space="preserve">
+          <source>The input is not a valid value.</source>
+          <target state="new">The input is not a valid value.</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InputNotValidText</note>
+        </trans-unit>
+        <trans-unit id="PraiseFlyout.Text" translate="yes" xml:space="preserve">
+          <source>Done!</source>
+          <target state="new">Done!</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseFlyoutText</note>
+        </trans-unit>
+        <trans-unit id="QuickCreate.Content" translate="yes" xml:space="preserve">
+          <source>Rapid build</source>
+          <target state="new">Rapid build</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">QuickCreateButtonContent</note>
+        </trans-unit>
+        <trans-unit id="QuickCreateBox.Header" translate="yes" xml:space="preserve">
+          <source>Enter an integer:</source>
+          <target state="new">Enter an integer:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">QuickCreateBoxHeader</note>
+        </trans-unit>
+        <trans-unit id="UndoPraiseButton.Content" translate="yes" xml:space="preserve">
+          <source>Undo</source>
+          <target state="new">Undo</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UndoPraiseButtonContent</note>
+        </trans-unit>
+        <trans-unit id="All" translate="yes" xml:space="preserve">
+          <source>All</source>
+          <target state="new">All</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AllText</note>
+        </trans-unit>
+        <trans-unit id="Finished" translate="yes" xml:space="preserve">
+          <source>Finished</source>
+          <target state="new">Finished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FinishedText</note>
+        </trans-unit>
+        <trans-unit id="Going" translate="yes" xml:space="preserve">
+          <source>Going</source>
+          <target state="new">Going</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">GoingText</note>
+        </trans-unit>
+        <trans-unit id="Unfinished" translate="yes" xml:space="preserve">
+          <source>Unfinished</source>
+          <target state="new">Unfinished</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UnfinishedText</note>
+        </trans-unit>
+        <trans-unit id="Done" translate="yes" xml:space="preserve">
+          <source>Done</source>
+          <target state="new">Done</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DoneText</note>
+        </trans-unit>
+        <trans-unit id="EditStudentTitle" translate="yes" xml:space="preserve">
+          <source>Create/Modify</source>
+          <target state="new">Create/Modify</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">EditStudentTitleText</note>
+        </trans-unit>
+        <trans-unit id="EnterName" translate="yes" xml:space="preserve">
+          <source>Enter the name:</source>
+          <target state="new">Enter the name:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">EnterNameText</note>
+        </trans-unit>
+        <trans-unit id="PraiseTime" translate="yes" xml:space="preserve">
+          <source>Number of praises:</source>
+          <target state="new">Number of praises:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseTimeText</note>
+        </trans-unit>
+        <trans-unit id="Suspended" translate="yes" xml:space="preserve">
+          <source>Suspended</source>
+          <target state="new">Suspended</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SuspendedText</note>
+        </trans-unit>
+        <trans-unit id="DateCreatedBlock.Text" translate="yes" xml:space="preserve">
+          <source>Date created</source>
+          <target state="new">Date created</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DateCreatedBlockText</note>
+        </trans-unit>
+        <trans-unit id="DateModifiedBlock.Text" translate="yes" xml:space="preserve">
+          <source>Date modified</source>
+          <target state="new">Date modified</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DateModifiedBlockText</note>
+        </trans-unit>
+        <trans-unit id="FileBlock.Text" translate="yes" xml:space="preserve">
+          <source>File</source>
+          <target state="new">File</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FileBlockText</note>
+        </trans-unit>
+        <trans-unit id="FolderBlock.Text" translate="yes" xml:space="preserve">
+          <source>Folder</source>
+          <target state="new">Folder</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FolderBlockText</note>
+        </trans-unit>
+        <trans-unit id="MainContentBlock.Text" translate="yes" xml:space="preserve">
+          <source>Main content</source>
+          <target state="new">Main content</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MainContentBlockText</note>
+        </trans-unit>
+        <trans-unit id="NotSave" translate="yes" xml:space="preserve">
+          <source>Do not save</source>
+          <target state="new">Do not save</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">NotSaveText</note>
+        </trans-unit>
+        <trans-unit id="OrderOfGoingBlock.Text" translate="yes" xml:space="preserve">
+          <source>Sequence of going</source>
+          <target state="new">Sequence of going</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">OrderOfGoingBlockText</note>
+        </trans-unit>
+        <trans-unit id="PathBlock.Text" translate="yes" xml:space="preserve">
+          <source>Path</source>
+          <target state="new">Path</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PathBlockText</note>
+        </trans-unit>
+        <trans-unit id="PraiseTimeBlock.Text" translate="yes" xml:space="preserve">
+          <source>Number of praises</source>
+          <target state="new">Number of praises</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PraiseTimeBlockText</note>
+        </trans-unit>
+        <trans-unit id="Save" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="new">Save</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SaveText</note>
+        </trans-unit>
+        <trans-unit id="SizeBlock.Text" translate="yes" xml:space="preserve">
+          <source>Size</source>
+          <target state="new">Size</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SizeBlockText</note>
+        </trans-unit>
+        <trans-unit id="StatusBlock.Text" translate="yes" xml:space="preserve">
+          <source>Status</source>
+          <target state="new">Status</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">StatusBlockText</note>
+        </trans-unit>
+        <trans-unit id="DropToImport" translate="yes" xml:space="preserve">
+          <source>Drop to import</source>
+          <target state="new">Drop to import</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">DropToImportText</note>
+        </trans-unit>
+        <trans-unit id="PickADevice" translate="yes" xml:space="preserve">
+          <source>Pick a device</source>
+          <target state="new">Pick a device</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">PickADeviceText</note>
+        </trans-unit>
+        <trans-unit id="Box_None.Content" translate="yes" xml:space="preserve">
+          <source>None</source>
+          <target state="new">None</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_NoneContent</note>
+        </trans-unit>
+        <trans-unit id="Box_Normal.Content" translate="yes" xml:space="preserve">
+          <source>Normal</source>
+          <target state="new">Normal</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_NormalContent</note>
+        </trans-unit>
+        <trans-unit id="Box_Strict.Content" translate="yes" xml:space="preserve">
+          <source>Strict</source>
+          <target state="new">Strict</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_Strict.Content</note>
+        </trans-unit>
+        <trans-unit id="Box_WindowsHello.Content" translate="yes" xml:space="preserve">
+          <source>Windows Hello</source>
+          <target state="new">Windows Hello</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Box_WindowsHello.Content</note>
+        </trans-unit>
+        <trans-unit id="Settings_Security.Text" translate="yes" xml:space="preserve">
+          <source>Security</source>
+          <target state="new">Security</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Settings_SecurityText</note>
+        </trans-unit>
+        <trans-unit id="SecurityOptionBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source></source>
+          <target state="new"></target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

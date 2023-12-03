@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RLD</RootNamespace>
     <AssemblyName>Random a Lucky Dog</AssemblyName>
-    <DefaultLanguage>zh-cn</DefaultLanguage>
+    <DefaultLanguage>en-us</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.22000.0</TargetPlatformMinVersion>
@@ -140,6 +140,9 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.3</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>7.1.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.3</Version>
     </PackageReference>
@@ -162,30 +165,19 @@
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Behaviors\TreeViewCollapseBehavior.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
-    <Compile Include="Helpers\KeyDictionary.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Models\DragDropCompletedData.cs" />
     <Compile Include="Models\DragDropData.cs" />
     <Compile Include="Models\DragDropStartingData.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\RuntimeException.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
-    <Compile Include="Services\CollectionService.cs" />
-    <Compile Include="Services\DataSetService.cs" />
     <Compile Include="Services\DragAndDrop\DragDropService.cs" />
     <Compile Include="Services\DragAndDrop\DropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\ListViewDropConfiguration.cs" />
     <Compile Include="Services\DragAndDrop\VisualDropConfiguration.cs" />
-    <Compile Include="Services\FilesService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
-    <Compile Include="Services\FoldersService.cs" />
-    <Compile Include="Services\IdentityService.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\SettingsStorageService.cs" />
-    <Compile Include="Services\StudentService.cs" />
     <Compile Include="Services\SuspendAndResumeArgs.cs" />
     <Compile Include="Services\SuspendAndResumeService.cs" />
     <Compile Include="Services\SuspensionState.cs" />
@@ -220,7 +212,6 @@
     <Compile Include="Views\WhatsNewDialog.xaml.cs">
       <DependentUpon>WhatsNewDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xbb.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -344,13 +335,11 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Compile Include="Services\LocalizeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="Random a Lucky Dog_TemporaryKey.pfx" />
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
-    <PRIResource Include="Strings\qps-ploc\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -359,14 +348,17 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <XliffResource Include="MultilingualResources\Select Lucky Dog.qps-ploc.xlf" />
-    <XliffResource Include="MultilingualResources\Select Lucky Dog.zh-CN.xlf" />
+    <ProjectReference Include="..\Random a Lucky Dog.CPCore\Random a Lucky Dog.CPCore.csproj">
+      <Project>{a0c80195-36a4-4afe-98a2-217b46ff73b1}</Project>
+      <Name>Random a Lucky Dog.CPCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Random a Lucky Dog.UWPCore\Random a Lucky Dog.UWPCore.csproj">
+      <Project>{f25bfb2f-adfa-43a8-aa64-bc55aea4451d}</Project>
+      <Name>Random a Lucky Dog.UWPCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Random a Lucky Dog.Core\Random a Lucky Dog.Core.csproj">
-      <Project>{caefa44c-bb7d-48fc-a51f-03f23d6770ba}</Project>
-      <Name>Random a Lucky Dog.Core</Name>
-    </ProjectReference>
+    <XliffResource Include="MultilingualResources\Random a Lucky Dog.zh-CN.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

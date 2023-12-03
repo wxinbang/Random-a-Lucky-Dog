@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using RLD.Core.Models;
+using RLD.CPCore.Models;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace RLD.ViewModels
@@ -10,7 +9,7 @@ namespace RLD.ViewModels
 	public class ListDetailsViewModel : ObservableObject
 	{
 		private Student _selected;
-		App app = (Application.Current as App);
+		public App app = (Application.Current as App);
 
 		public Student Selected
 		{
@@ -24,7 +23,7 @@ namespace RLD.ViewModels
 		{
 		}
 
-		public async Task LoadDataAsync(ListDetailsViewState viewState)
+		public void LoadDataAsync(ListDetailsViewState viewState)
 		{
 			SampleItems.Clear();
 
@@ -40,7 +39,6 @@ namespace RLD.ViewModels
 			{
 				//Selected = SampleItems.First();
 			}
-			await Task.CompletedTask;
 		}
 	}
 }

@@ -1,22 +1,21 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using RLD.Core.Models;
-using RLD.Services;
+using RLD.CPCore.Models;
+using RLD.UWPCore.Services;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using xbb.ClassLibraries;
-using static RLD.Helpers.KeyDictionary;
-using static RLD.Helpers.KeyDictionary.StringKey;
-using static RLD.Services.IdentityService;
-using static RLD.Services.LocalizeService;
-using static RLD.Services.StudentService;
+using static RLD.CPCore.Helpers.Security;
+using static RLD.CPCore.KeyDictionary;
+using static RLD.CPCore.KeyDictionary.StringKey;
+using static RLD.UWPCore.ExpectionProxy;
+using static RLD.UWPCore.Services.IdentityService;
+using static RLD.UWPCore.Services.LocalizeService;
+using static RLD.UWPCore.Services.StudentService;
 
 namespace RLD.Views
 {
@@ -73,43 +72,6 @@ namespace RLD.Views
 			await dialog.ShowAsync();
 			return;
 		}
-		internal static async Task ComposeEmail()
-		{
-			var emailMessage = new EmailMessage();
-			emailMessage.Body = "";
-
-			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
-			emailMessage.To.Add(emailRecipient);
-			emailMessage.Subject = Localize(Feedback);
-
-			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-		}
-		internal static async Task ComposeEmail(string exception)
-		{
-			var emailMessage = new EmailMessage();
-			emailMessage.Body = DateTime.Now.ToString() + Localize(ExceptionAt) + exception;
-
-			var emailRecipient = new EmailRecipient("wxinbang@outlook.com");
-			emailMessage.To.Add(emailRecipient);
-			emailMessage.Subject = Localize(SoftwareCrashes);
-
-			await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-		}
-		internal static async Task ThrowException(string message, bool sendEmail = false)
-		{
-			var dialog = new ContentDialog
-			{
-				Title = Localize(ExceptionTitle),
-				Content = message,
-				CloseButtonText = Localize(Close),
-				DefaultButton = ContentDialogButton.Close
-			};
-			if (sendEmail) dialog.PrimaryButtonText = Localize(SendEmail);
-			var result = await dialog.ShowAsync();
-
-			if (sendEmail && result == ContentDialogResult.Primary) await ComposeEmail(message);
-			return;
-		}
 		internal static async Task ExportIdentityFile(bool checkAgain = false)
 		{
 			if (await VerifyIdentityAsync() && await VerifyPassword())
@@ -153,17 +115,16 @@ namespace RLD.Views
 						await ExportIdentityFile(true);
 						return;
 					}
-					SHA256 sha256 = SHA256.Create();
 					var file = await folder.CreateFileAsync("IdentityFile", CreationCollisionOption.ReplaceExisting);
-					string hash1 = DealWithIdentity.GetHash(sha256, "User:" + userName);
-					string hash2 = DealWithIdentity.GetHash(sha256, hash1 + ".Password:" + password);
+					string hash1 = GetSHA256("User:" + userName);
+					string hash2 = GetSHA256(hash1 + ".Password:" + password);
 					await FileIO.AppendTextAsync(file, userName + '\n');
 					await FileIO.AppendTextAsync(file, hash1 + '\n');
 					await FileIO.AppendTextAsync(file, hash2);
 					await ThrowException(Localize(Done));
 				}
 			}
-			else if(!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions), false);
+			else if (!await VerifyIdentityAsync()) await ThrowException(Localize(NoRequiredPermissions), false);
 		}
 		internal static async Task<bool> VerifyPassword(bool checkAgain = false)
 		{
@@ -215,14 +176,21 @@ namespace RLD.Views
 			{
 
 				var nameBox = new TextBox { PlaceholderText = Localize(EnterName), Margin = new Thickness(10) };
-				var status = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Going), Localize(Finished), Localize(Unfinished), Localize(Suspended) } };
+				var statusBox = new ComboBox { Margin = new Thickness(10), ItemsSource = new List<string> { Localize(Unfinished), Localize(Going), Localize(Finished), Localize(Suspended) } };
 				var praiseTimeBox = new NumberBox { Value = 0, Header = (Localize(PraiseTime)), Margin = new Thickness(10), SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Compact, SmallChange = 1, LargeChange = 5 };
 				var checkAgainBox = new TextBlock { Text = Localize(ExistNullValue), Margin = new Thickness(20, 0, 0, 0), Foreground = new SolidColorBrush(Colors.IndianRed) };
+
+				if (student != null)
+				{
+					nameBox.Text = student.Name;
+					praiseTimeBox.Text = student.PraiseTime.ToString();
+					statusBox.SelectedIndex = (int)student.Status;
+				}
 
 				var grid = new StackPanel();
 				if (checkAgain) grid.Children.Add(checkAgainBox);
 				grid.Children.Add(nameBox);
-				grid.Children.Add(status);
+				grid.Children.Add(statusBox);
 				grid.Children.Add(praiseTimeBox);
 
 				var app = Application.Current as App;
@@ -240,27 +208,34 @@ namespace RLD.Views
 				{
 					string name = nameBox.Text;
 					int praiseTime = (int)praiseTimeBox.Value;
+					StudentStatus status = ConvertStatus(statusBox.SelectedItem.ToString());
 					if (String.IsNullOrEmpty(name))
 					{
 						await EditStudent(student, true);
 						return;
 					}
+					//int nowOrderOfGoing = 0;
+					Student newStudent = new Student(name, status, praiseTime, status == StudentStatus.going ? (ClassifyStudents(app.AllStudentList)[0].Count + 1) : 0, student == null ? app.AllStudentList.Count : student.OrderInList);//检查
 					if (student == null)
 					{
-						student = new Student("", StudentStatus.unfinished, 0, 0, 0);
-						app.AllStudentList.Add(student);
+						app.AllStudentList.Add(newStudent);
 					}
-					int nowOrderOfGoing = 0;
-					if(ConvertStatus((string)status.SelectedItem) == StudentStatus.going)
+					else
 					{
-						if (student.Status != StudentStatus.going) nowOrderOfGoing = ClassifyStudents(app.AllStudentList)[0].Count + 1;
-						else nowOrderOfGoing = student.OrderOfGoing;
+						app.AllStudentList.Insert(student.OrderInList, newStudent);
+						app.AllStudentList.Remove(student);
 					}
-					student = new Student(name,
-						ConvertStatus((string)status.SelectedItem),
-						praiseTime,
-						nowOrderOfGoing,
-						app.AllStudentList.Count);
+					if (status == StudentStatus.going)//原来的状态
+					{
+						//if (student.Status != StudentStatus.going) nowOrderOfGoing =
+						//nowOrderOfGoing = student.OrderOfGoing;
+					}
+
+					//student = new Student(name,
+					//	ConvertStatus((string)statusBox.SelectedItem),
+					//	praiseTime,
+					//	nowOrderOfGoing,
+					//	app.AllStudentList.Count);
 				}
 			}
 		}

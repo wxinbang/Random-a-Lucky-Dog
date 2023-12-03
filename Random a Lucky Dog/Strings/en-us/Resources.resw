@@ -500,32 +500,32 @@
     <value>Done!</value>
     <comment>PraiseFlyoutText</comment>
   </data>
-  <data name="RapidBuild.Content" xml:space="preserve">
+  <data name="QuickCreate.Content" xml:space="preserve">
     <value>Rapid build</value>
-    <comment>RapidBuildButtonContent</comment>
+    <comment>QuickCreateButtonContent</comment>
   </data>
-  <data name="RapidBuildBox.Header" xml:space="preserve">
+  <data name="QuickCreateBox.Header" xml:space="preserve">
     <value>Enter an integer:</value>
-    <comment>RapidBuildBoxHeader</comment>
+    <comment>QuickCreateBoxHeader</comment>
   </data>
   <data name="UndoPraiseButton.Content" xml:space="preserve">
     <value>Undo</value>
     <comment>UndoPraiseButtonContent</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>All:</value>
+    <value>All</value>
     <comment>AllText</comment>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Finished:</value>
+    <value>Finished</value>
     <comment>FinishedText</comment>
   </data>
   <data name="Going" xml:space="preserve">
-    <value>Going:</value>
+    <value>Going</value>
     <comment>GoingText</comment>
   </data>
   <data name="Unfinished" xml:space="preserve">
-    <value>Unfinished:</value>
+    <value>Unfinished</value>
     <comment>UnfinishedText</comment>
   </data>
   <data name="Done" xml:space="preserve">
@@ -595,5 +595,36 @@
   <data name="StatusBlock.Text" xml:space="preserve">
     <value>Status</value>
     <comment>StatusBlockText</comment>
+  </data>
+  <data name="DropToImport" xml:space="preserve">
+    <value>Drop to import</value>
+    <comment>DropToImportText</comment>
+  </data>
+  <data name="PickADevice" xml:space="preserve">
+    <value>Pick a device</value>
+    <comment>PickADeviceText</comment>
+  </data>
+  <data name="Box_None.Content" xml:space="preserve">
+    <value>None</value>
+    <comment>Box_NoneContent</comment>
+  </data>
+  <data name="Box_Normal.Content" xml:space="preserve">
+    <value>Normal</value>
+    <comment>Box_NormalContent</comment>
+  </data>
+  <data name="Box_Strict.Content" xml:space="preserve">
+    <value>Strict</value>
+    <comment>Box_Strict.Content</comment>
+  </data>
+  <data name="Box_WindowsHello.Content" xml:space="preserve">
+    <value>Windows Hello</value>
+    <comment>Box_WindowsHello.Content</comment>
+  </data>
+  <data name="SecurityOptionBox.PlaceholderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Settings_Security.Text" xml:space="preserve">
+    <value>Security</value>
+    <comment>Settings_SecurityText</comment>
   </data>
 </root>
